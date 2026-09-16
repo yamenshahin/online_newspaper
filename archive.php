@@ -98,7 +98,7 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
                     'mid_size' => 2
                 ]);
                 ?>
-            </div>
+            </div> 
 
         <?php else: ?>
             <!-- NO POSTS FOUND STATE -->
