@@ -2,7 +2,7 @@
 /**
  * Flexible Content: Private Entities Section
  * Department → entities linked to that department
- * Homepage  → all private entities with content
+ * Homepage   → all private entities with content
  */
 
 $department = $args['department'] ?? null;
@@ -49,7 +49,7 @@ if (empty($active_terms)) {
     class="w-full px-margin-mobile lg:px-margin py-space-lg bg-surface-container-low border-b border-surface-container-highest/30 last:border-0">
     <div class="flex flex-col gap-space-md">
 
-        <div class="flex flex-col items-start gap-space-xs">
+        <div class="flex flex-col items-start gap-space-xs text-start">
             <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
                 <?php echo esc_html($section_title); ?>
             </span>

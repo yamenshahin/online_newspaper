@@ -15,7 +15,7 @@ $back_label = $args['back_label'] ?? __('العودة', 'hello-elementor-child')
 // ACF requires "taxonomy_termID" for taxonomy meta
 $acf_term_id = $term->taxonomy . '_' . $term->term_id;
 
-// 1. Fetch Image (Using your exact logic)
+// 1. Fetch Image
 $image_data = get_field('taxonomy_image', $acf_term_id) ?: get_field('taxonomy_image', $term) ?: get_field('image', $acf_term_id);
 $image_id = 0;
 if (is_array($image_data) && !empty($image_data['ID'])) {
@@ -45,7 +45,7 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
         <!-- Back Button -->
         <div class="mb-10 text-start">
             <a href="<?php echo esc_url($back_url); ?>"
-                class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-blue-600 transition-colors group">
+                class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
                 <span class="ml-2 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
                 <?php echo esc_html($back_label); ?>
             </a>
@@ -53,10 +53,10 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
 
         <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
 
-            <!-- Content Column (First in DOM so it sits on the RIGHT in RTL) -->
+            <!-- Content Column -->
             <div class="flex-1 text-start">
 
-                <p class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">
+                <p class="text-sm font-bold text-primary uppercase tracking-widest mb-3">
                     <?php echo esc_html($tax_label); ?>
                 </p>
 
@@ -90,9 +90,8 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
                     </div>
                 <?php endif; ?>
 
-                <!-- Social Links Mini-Row (Using your exact Repeater logic) -->
+                <!-- Social Links Mini-Row -->
                 <?php
-                // Determine correct ACF context for the repeater
                 $target_term = have_rows('social_links', $acf_term_id) ? $acf_term_id : (have_rows('social_links', $term) ? $term : false);
 
                 if ($target_term && have_rows('social_links', $target_term)):
@@ -105,7 +104,7 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
                             $platform_val = get_sub_field('platform') ?: 'fas fa-globe';
                             ?>
                             <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer"
-                                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-primary hover:text-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
                                 <i class="<?php echo esc_attr($platform_val); ?>"></i>
                             </a>
                         <?php endwhile; ?>
@@ -114,14 +113,13 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
 
             </div>
 
-            <!-- Image Column (Second in DOM so it sits on the LEFT in RTL) -->
+            <!-- Image Column -->
             <?php if ($image_id): ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
                     <?php echo wp_get_attachment_image($image_id, 'large', false, ['class' => 'w-full h-auto object-cover']); ?>
                 </div>
             <?php else: ?>
-                <!-- Fallback if no image is set -->
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center aspect-[3/4]">
                     <span class="material-symbols-outlined text-6xl text-gray-300">person</span>

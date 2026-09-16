@@ -34,14 +34,12 @@ $post_types_config = [
 $post_type = get_post_type();
 
 if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
-    // It's one of our custom post types
     $config = $post_types_config[$post_type];
 } else {
-    // Fallback for native Categories, Tags, Date archives, or unmapped CPTs
     $config = [
         'title' => wp_strip_all_tags(get_the_archive_title()),
         'subtitle' => wp_strip_all_tags(get_the_archive_description()),
-        'card' => 'post' // Default card fallback
+        'card' => 'post'
     ];
 }
 ?>
@@ -98,7 +96,7 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
                     'mid_size' => 2
                 ]);
                 ?>
-            </div> 
+            </div>
 
         <?php else: ?>
             <!-- NO POSTS FOUND STATE -->

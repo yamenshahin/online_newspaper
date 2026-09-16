@@ -52,7 +52,7 @@ $build_geo_url = static function ($term_slug) use ($department, $query_var) {
     return ($term && !is_wp_error($term)) ? get_term_link($term) : home_url('/');
 };
 
-// Group parents / children (unchanged logic)
+// Group parents / children
 $parents = [];
 $children_by_parent = [];
 

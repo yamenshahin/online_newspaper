@@ -69,14 +69,14 @@ if ($department instanceof WP_Term) {
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-surface-container-low">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
-        <div class="flex flex-col gap-space-xs">
+        <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
                 <span class="font-headline-lg text-headline-lg text-primary font-bold">03 /</span>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
                     <?php echo esc_html($section_title ?: 'حوارات ملهمة • INTERVIEWS & PODCASTS'); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary font-label-caps text-label-caps font-bold">جلسات
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">جلسات
                     مطولة</span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">

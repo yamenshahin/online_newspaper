@@ -2,7 +2,7 @@
 /**
  * Flexible Content: Program Series Section (Filter)
  * Department → series linked to that department
- * Homepage  → all series with content
+ * Homepage   → all series with content
  */
 
 $department = $args['department'] ?? null;
@@ -48,7 +48,7 @@ if (empty($active_terms)) {
         class="p-space-lg md:p-space-xl rounded-3xl bg-inverse-surface text-inverse-on-surface shadow-xl flex flex-col gap-space-xl relative overflow-hidden">
 
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
-            <div class="flex flex-col gap-space-xs">
+            <div class="flex flex-col gap-space-xs text-start">
                 <span class="font-label-caps text-label-caps text-primary-fixed uppercase tracking-widest">
                     <?php echo esc_html($section_title); ?>
                 </span>
@@ -86,8 +86,6 @@ if (empty($active_terms)) {
                 }
 
                 $image = get_field('taxonomy_image', $term);
-
-                // Alternate colors dynamically to match your HTML design
                 $theme_color_text = ($index % 2 === 0) ? 'text-secondary-fixed' : 'text-primary-fixed';
 
                 $is_active = (isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug);
@@ -95,7 +93,7 @@ if (empty($active_terms)) {
                 ?>
 
                 <a href="<?php echo esc_url($url); ?>"
-                    class="rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group <?php echo esc_attr($active_bg); ?>">
+                    class="rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group text-start <?php echo esc_attr($active_bg); ?>">
 
                     <!-- Wide (16:9) Image -->
                     <div class="w-full aspect-video bg-surface-container-highest/10 relative overflow-hidden">

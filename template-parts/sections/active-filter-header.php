@@ -58,17 +58,17 @@ $extra_info = get_field('extra_info', $active_term);
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Back / Clear Filter Button -->
-        <div class="mb-10">
+        <div class="mb-10 text-start">
             <a href="<?php echo esc_url(get_term_link($department)); ?>"
-                class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-blue-600 transition-colors group">
-                <span class="mr-2 transition-transform duration-300 group-hover:-translate-x-1">&larr;</span>
+                class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
+                <span class="ml-2 transition-transform duration-300 group-hover:-translate-x-1">&larr;</span>
                 <?php echo esc_html(sprintf(__('Back to %s', 'hello-elementor-child'), $department->name)); ?>
             </a>
         </div>
 
         <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
 
-            <!-- Image Column (Adapts to 1:1 or 9:16 automatically) -->
+            <!-- Image Column -->
             <?php if ($image_id): ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
@@ -77,9 +77,9 @@ $extra_info = get_field('extra_info', $active_term);
             <?php endif; ?>
 
             <!-- Content Column -->
-            <div class="flex-1">
+            <div class="flex-1 text-start">
 
-                <p class="text-sm font-bold text-blue-600 uppercase tracking-widest mb-3">
+                <p class="text-sm font-bold text-primary uppercase tracking-widest mb-3">
                     <?php echo esc_html($filterable[$active_tax]); ?>
                 </p>
 
@@ -113,7 +113,7 @@ $extra_info = get_field('extra_info', $active_term);
                     </div>
                 <?php endif; ?>
 
-                <!-- Social Links Mini-Row (100% Dynamic FontAwesome) -->
+                <!-- Social Links Mini-Row -->
                 <?php if (have_rows('social_links', $active_term)): ?>
                     <div class="flex flex-wrap gap-3 pt-4 border-t border-gray-100">
                         <?php
@@ -123,7 +123,7 @@ $extra_info = get_field('extra_info', $active_term);
                             $platform_val = get_sub_field('platform') ?: 'fas fa-globe';
                             ?>
                             <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer"
-                                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-blue-600 hover:text-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
+                                class="w-10 h-10 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 hover:bg-primary hover:text-white hover:shadow-lg hover:-translate-y-1 transition-all duration-300 text-lg">
                                 <i class="<?php echo esc_attr($platform_val); ?>"></i>
                             </a>
                         <?php endwhile; ?>

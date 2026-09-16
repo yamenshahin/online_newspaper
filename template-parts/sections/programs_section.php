@@ -70,7 +70,7 @@ if ($department instanceof WP_Term) {
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-background">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
-        <div class="flex flex-col gap-space-xs">
+        <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
                 <span class="font-headline-lg text-headline-lg text-primary font-bold">06 /</span>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">

@@ -17,9 +17,6 @@ if (!empty($section)) {
     $posts_limit = get_sub_field('posts_limit') ?: 4;
 }
 
-// -------------------------------------------------
-// Build tax_query
-// -------------------------------------------------
 $tax_query = ['relation' => 'AND'];
 
 if ($department instanceof WP_Term) {
@@ -53,9 +50,6 @@ foreach ($filterable_taxonomies as $tax) {
     }
 }
 
-// -------------------------------------------------
-// Query
-// -------------------------------------------------
 $query = new WP_Query([
     'post_type' => 'post',
     'posts_per_page' => absint($posts_limit),
@@ -68,9 +62,6 @@ if (!$query->have_posts()) {
     return;
 }
 
-// -------------------------------------------------
-// Build "View All" link
-// -------------------------------------------------
 if ($department instanceof WP_Term) {
     $more_link = add_query_arg(
         array_merge(['view' => 'post'], $more_link_args),
@@ -84,7 +75,7 @@ if ($department instanceof WP_Term) {
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-background">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
-        <div class="flex flex-col gap-space-xs">
+        <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
                 <span class="font-headline-lg text-headline-lg text-primary font-bold">04 /</span>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">

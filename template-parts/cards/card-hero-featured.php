@@ -48,8 +48,7 @@ $permalink = get_permalink($featured_post->ID);
             <div
                 class="flex items-center gap-space-xs bg-surface-container-lowest/10 px-space-md py-1 rounded-full text-surface-variant font-label-pill text-label-pill">
                 <span class="material-symbols-outlined text-[16px] text-primary-fixed">timer</span>
-                <span
-                    class=""><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time_diff); ?></span>
+                <span class=""><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time_diff); ?></span>
             </div>
         </div>
 

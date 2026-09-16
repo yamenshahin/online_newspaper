@@ -9,7 +9,7 @@ $section = $args['section'] ?? [];
 // 1. Read and Normalize Data
 $featured = $section['hero_featured'] ?? null;
 $trending = $section['hero_trending'] ?? [];
-$section_title = $section['section_title'] ?: 'نبض أمة<span> • صوت الجيل الجديد</span>'; // Fallback if empty
+$section_title = $section['section_title'] ?: 'نبض أمة<span> • صوت الجيل الجديد</span>';
 
 if ($featured && !is_array($featured)) {
     $featured = [$featured];
@@ -40,7 +40,7 @@ if (!$featured_post) {
         </h1>
     </div>
 
-    <!-- Asymmetric Hero Composition (8/4 Split restored) -->
+    <!-- Asymmetric Hero Composition -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
 
         <!-- RIGHT SIDE: Featured Lead Story (Col-span 8) -->

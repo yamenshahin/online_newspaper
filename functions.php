@@ -293,3 +293,36 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 	return $field;
 });
 
+/**
+ * Dynamically inject the Department Color to override the default Tailwind Blue
+ */
+add_action('wp_head', 'dynamic_department_theme_color');
+function dynamic_department_theme_color()
+{
+	// Do not interfere with the WordPress admin backend
+	if (is_admin()) {
+		return;
+	}
+
+	$current_department = null;
+
+	// ONLY apply the dynamic department color if we are on a Department archive/page
+	if (is_tax('department')) {
+		$current_department = get_queried_object();
+	}
+
+	// Fetch and inject the ACF Color only if it's strictly a department page
+	if ($current_department) {
+		$color = get_field('department_color', $current_department);
+
+		if (!empty($color)) {
+			echo "<!-- Dynamic Department Accent Color -->\n";
+			echo "<style>\n";
+			echo ":root {\n";
+			echo "    --color-primary: " . esc_attr($color) . " !important;\n";
+			echo "    --color-primary-container: " . esc_attr($color) . " !important;\n";
+			echo "}\n";
+			echo "</style>\n";
+		}
+	}
+}

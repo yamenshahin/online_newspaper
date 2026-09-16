@@ -28,7 +28,7 @@
             <div class="flex flex-wrap items-center justify-between gap-space-xs">
                 <div class="flex items-center gap-space-xs">
                     <span
-                        class="px-space-md py-0.5 rounded-full bg-secondary-container text-on-secondary font-label-pill text-label-pill">حوار
+                        class="px-space-md py-0.5 rounded-full bg-primary-container text-on-primary font-label-pill text-label-pill">حوار
                         خاص</span>
                     <!-- Note: Static placeholder for Episode number -->
                     <span
@@ -57,7 +57,7 @@
         <div
             class="flex flex-wrap items-center justify-between gap-space-md pt-space-xs border-t border-surface-container">
             <a href="<?php the_permalink(); ?>"
-                class="px-space-lg py-space-sm rounded-full bg-secondary-container hover:bg-secondary text-on-secondary font-label-pill text-label-pill flex items-center gap-space-xs transition-colors shadow-md inline-flex">
+                class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-secondary text-on-primary font-label-pill text-label-pill flex items-center gap-space-xs transition-colors shadow-md inline-flex">
                 <span class="material-symbols-outlined text-[20px]">play_arrow</span>
                 <span class="">مشاهدة اللقاء</span>
             </a>

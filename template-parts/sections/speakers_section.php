@@ -2,7 +2,7 @@
 /**
  * Flexible Content: Speakers & Influencers Section (Filter)
  * Department → speakers linked to that department
- * Homepage  → all speakers with content
+ * Homepage   → all speakers with content
  */
 
 $department = $args['department'] ?? null;
@@ -57,7 +57,7 @@ if (empty($active_terms)) {
                     <?php echo esc_html($section_title); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps">
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps">
                     <?php esc_html_e('قائمة الخبراء', 'hello-elementor-child'); ?>
                 </span>
             </div>
