@@ -10,8 +10,10 @@ $section = $args['section'] ?? [];
 
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
+    $subtitle = $section['subtitle'] ?? '';
 } else {
     $section_title = get_sub_field('section_title');
+    $subtitle = get_sub_field('subtitle');
 }
 
 $section_title = $section_title ?: __('الجهات الحكومية', 'hello-elementor-child');
@@ -49,11 +51,13 @@ if (empty($active_terms)) {
 
         <div class="flex flex-col items-start gap-space-xs">
             <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
-                GOVERNMENT ENTITIES
-            </span>
-            <h3 class="font-headline-sm text-headline-sm text-on-background">
                 <?php echo esc_html($section_title); ?>
-            </h3>
+            </span>
+            <?php if (!empty($subtitle)): ?>
+                <h3 class="font-headline-sm text-headline-sm text-on-background mt-1">
+                    <?php echo esc_html($subtitle); ?>
+                </h3>
+            <?php endif; ?>
         </div>
 
         <div
@@ -81,7 +85,6 @@ if (empty($active_terms)) {
 
                 $is_active = (isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug);
 
-                // Active vs Inactive styling logic
                 $pill_classes = $is_active
                     ? 'bg-primary text-on-primary border-primary'
                     : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container-high border-transparent hover:border-surface-container-highest';
@@ -94,8 +97,7 @@ if (empty($active_terms)) {
                 <a href="<?php echo esc_url($url); ?>"
                     class="px-space-md py-space-xs rounded-full font-label-pill text-label-pill whitespace-nowrap flex items-center justify-center gap-space-sm shadow-sm transition-all border <?php echo esc_attr($pill_classes); ?>">
                     <span class=""><?php echo esc_html($term->name); ?></span>
-                    <span
-                        class="px-1.5 py-0.5 rounded-full text-[11px] font-bold <?php echo esc_attr($badge_classes); ?>">
+                    <span class="px-1.5 py-0.5 rounded-full text-[11px] font-bold <?php echo esc_attr($badge_classes); ?>">
                         <?php echo esc_html($count); ?>     <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
                     </span>
                 </a>
