@@ -71,21 +71,21 @@
     --spacing-gutter: 1.5rem;
 
     /* Global Default Font */
-    --default-font-family: "Plus Jakarta Sans", sans-serif;
+    --default-font-family: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
 
     /* Font Families */
-    --font-headline-lg: "Syne", sans-serif;
-    --font-body-lg: "Plus Jakarta Sans", sans-serif;
-    --font-display-hero: "Syne", sans-serif;
-    --font-body-sm: "Plus Jakarta Sans", sans-serif;
-    --font-label-caps: "Plus Jakarta Sans", sans-serif;
-    --font-title-editorial: "Plus Jakarta Sans", sans-serif;
-    --font-body-base: "Plus Jakarta Sans", sans-serif;
-    --font-headline-sm: "Syne", sans-serif;
-    --font-display-hero-mobile: "Syne", sans-serif;
-    --font-headline-xl-mobile: "Syne", sans-serif;
-    --font-headline-xl: "Syne", sans-serif;
-    --font-label-pill: "Plus Jakarta Sans", sans-serif;
+    --font-headline-lg: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-body-lg: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-display-hero: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-body-sm: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-label-caps: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-title-editorial: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-body-base: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-sm: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-display-hero-mobile: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-xl-mobile: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-xl: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    --font-label-pill: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
 
     /* Typography / Font Sizes (includes line-height, letter-spacing, and weight) */
     --text-headline-lg: 2.25rem;

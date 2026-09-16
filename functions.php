@@ -19,10 +19,10 @@ function hello_elementor_child_scripts_styles()
 		'6.5.1'
 	);
 
-	// 2. Enqueue Google Fonts cleanly
+	// 2. Enqueue Google Fonts cleanly (Now including Noto Naskh Arabic)
 	wp_enqueue_style(
 		'hello-elementor-child-fonts',
-		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
+		'https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
 		[],
 		null
 	);
