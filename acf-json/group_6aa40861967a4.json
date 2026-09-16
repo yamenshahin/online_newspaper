@@ -150,6 +150,27 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6aaa165acc549",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "تغطية فورية للقرارات الاستراتيجية، إطلاقات المشاريع، والتحولات الاقتصادية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
                             "key": "field_6aa415f23b57e",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -197,6 +218,27 @@
                                 "id": ""
                             },
                             "default_value": "مختبر البيانات والإنفوجرافيك • DATA LAB",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa163ecc548",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "تحليلات بصرية ميكروية ورسوم بيانية ترصد تسارع منظومة التكنولوجيا والتحول الرقمي",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -258,6 +300,27 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6aaa16d3cc54f",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "لقاءات معمقة مع قادة التحول التكنولوجي وصناع القرار في المنظومة السعودية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
                             "key": "field_6aa415f83b581",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -312,6 +375,27 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6aaa1619cc547",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
                             "key": "field_6aa40974a6f5e",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -358,6 +442,27 @@
                                 "class": "",
                                 "id": ""
                             },
+                            "default_value": "الجهات الحكومية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa168dcc54a",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
                             "default_value": "فرز المحتوى بحسب الجهة الحكومية",
                             "maxlength": "",
                             "allow_in_bindings": 0,
@@ -379,6 +484,27 @@
                             "key": "field_6aa42cc7ba60b",
                             "label": "Section Title",
                             "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "القطاع الخاص",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa1696cc54b",
+                            "label": "Subtitle",
+                            "name": "subtitle",
                             "aria-label": "",
                             "type": "text",
                             "instructions": "",
@@ -426,6 +552,27 @@
                             "placeholder": "",
                             "prepend": "",
                             "append": ""
+                        },
+                        {
+                            "key": "field_6aaa169fcc54c",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "شخصيات قيادية وصناع محتوى يشاركون رؤاهم وتحليلاتهم الحصرية عبر منصة عن السعودية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
                         }
                     ],
                     "min": "",
@@ -452,6 +599,27 @@
                                 "id": ""
                             },
                             "default_value": "فرز المحتوى حسب المواقع الجغرافية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa16a6cc54d",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -514,6 +682,27 @@
                                 "id": ""
                             },
                             "default_value": "البرامج والعروض • PROGRAMS (SHOWS)",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa16b4cc54e",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -643,5 +832,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789524174
+    "modified": 1789532375
 }

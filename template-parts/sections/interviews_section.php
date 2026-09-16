@@ -9,9 +9,11 @@ $section = $args['section'] ?? [];
 
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
+    $subtitle = $section['subtitle'] ?? '';
     $posts_limit = $section['posts_limit'] ?? 4;
 } else {
     $section_title = get_sub_field('section_title');
+    $subtitle = get_sub_field('subtitle');
     $posts_limit = get_sub_field('posts_limit') ?: 4;
 }
 
@@ -77,8 +79,9 @@ if ($department instanceof WP_Term) {
                     class="px-space-sm py-0.5 rounded-full bg-secondary-container text-on-secondary font-label-caps text-label-caps font-bold">جلسات
                     مطولة</span>
             </div>
-            <p class="font-body-sm text-body-sm text-on-surface-variant">لقاءات معمقة مع قادة التحول التكنولوجي وصناع
-                القرار في المنظومة السعودية</p>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">
+                <?php echo esc_html($subtitle ?: 'لقاءات معمقة مع قادة التحول التكنولوجي وصناع القرار في المنظومة السعودية'); ?>
+            </p>
         </div>
 
         <a class="px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container-high text-secondary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
