@@ -73,7 +73,7 @@ if (empty($detailed_description)) {
                 <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer"
                     class="group w-44 flex flex-col items-center justify-between p-6 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out">
                     <div
-                        class="w-14 h-14 flex items-center justify-center rounded-full bg-gray-50 text-gray-400 group-hover:bg-primary-container group-hover:text-primary transition-colors duration-300 mb-4 text-2xl">
+                        class="w-14 h-14 flex items-center justify-center rounded-full bg-primary/10 text-primary group-hover:bg-primary group-hover:text-on-primary transition-colors duration-300 mb-4 text-2xl">
                         <i class="<?php echo esc_attr($platform_val); ?>"></i>
                     </div>
                     <h3 class="text-sm font-bold text-gray-900 mb-2"><?php echo esc_html($label); ?></h3>

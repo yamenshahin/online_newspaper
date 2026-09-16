@@ -777,6 +777,12 @@
       background-color: color-mix(in oklab, var(--color-primary-container) 90%, transparent);
     }
   }
+  .bg-primary\/10 {
+    background-color: color-mix(in srgb, #057338 10%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-primary) 10%, transparent);
+    }
+  }
   .bg-surface-bright {
     background-color: var(--color-surface-bright);
   }
