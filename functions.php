@@ -11,7 +11,7 @@ define('HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0');
 
 function hello_elementor_child_scripts_styles()
 {
-	// 1. Enqueue FontAwesome (Load this first so it's ready for your UI)
+	// 1. Enqueue FontAwesome
 	wp_enqueue_style(
 		'font-awesome-cdn',
 		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
@@ -19,7 +19,7 @@ function hello_elementor_child_scripts_styles()
 		'6.5.1'
 	);
 
-	// 2. Enqueue Google Fonts (Syne & Plus Jakarta Sans)
+	// 2. Enqueue Google Fonts cleanly
 	wp_enqueue_style(
 		'hello-elementor-child-fonts',
 		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
@@ -27,7 +27,7 @@ function hello_elementor_child_scripts_styles()
 		null
 	);
 
-	// 3. Enqueue Google Material Symbols Outlined
+	// 3. Enqueue Google Material Symbols
 	wp_enqueue_style(
 		'hello-elementor-child-icons',
 		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
@@ -35,15 +35,15 @@ function hello_elementor_child_scripts_styles()
 		null
 	);
 
-	// 4. Enqueue the root style.css (Theme identity & base custom styles)
+	// 4. Enqueue Root Style (Dependency Removed!)
 	wp_enqueue_style(
 		'hello-elementor-child-style',
 		get_stylesheet_uri(),
-		['hello-elementor-theme-style', 'font-awesome-cdn', 'hello-elementor-child-fonts', 'hello-elementor-child-icons'],
+		['font-awesome-cdn', 'hello-elementor-child-fonts'],
 		filemtime(get_stylesheet_directory() . '/style.css')
 	);
 
-	// 5. Enqueue the compiled Tailwind utilities
+	// 5. Enqueue Tailwind CSS
 	wp_enqueue_style(
 		'hello-elementor-child-tailwind',
 		get_stylesheet_directory_uri() . '/assets/css/tailwind.css',
@@ -225,42 +225,70 @@ add_action('admin_menu', function () {
 });
 
 /**
- * Hide Social Media layout from Flexible Content when editing Pages (e.g. Home).
- * Keep it available when editing Department terms.
+ * Contextual Layout Engine: Hide specific Flexible Content layouts 
+ * based on where the editor is currently working.
  */
 add_filter('acf/load_field/name=department_sections', function ($field) {
 	if (!is_admin()) {
 		return $field;
 	}
 
-	// Only when editing a Page (Home uses a Page)
-	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
-
 	$is_page_screen = false;
+	$is_term_screen = false;
+	$term_slug = '';
 
+	// 1. Detect if editing a Page (e.g., Homepage)
+	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
 	if ($post_id && get_post_type($post_id) === 'page') {
 		$is_page_screen = true;
 	} elseif (isset($_GET['post_type']) && $_GET['post_type'] === 'page') {
-		// post-new.php?post_type=page
-		$is_page_screen = true;
+		$is_page_screen = true; // post-new.php?post_type=page
 	}
 
-	if (!$is_page_screen) {
-		return $field; // Department term screens keep Social layout
-	}
-
-	if (empty($field['layouts']) || !is_array($field['layouts'])) {
-		return $field;
-	}
-
-	foreach ($field['layouts'] as $key => $layout) {
-		if (isset($layout['name']) && $layout['name'] === 'social_section') {
-			unset($field['layouts'][$key]);
+	// 2. Detect if editing a Department Taxonomy Term
+	if (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'department') {
+		$is_term_screen = true;
+		if (isset($_GET['tag_ID'])) {
+			$term = get_term((int) $_GET['tag_ID'], 'department');
+			if ($term && !is_wp_error($term)) {
+				$term_slug = $term->slug;
+			}
 		}
 	}
 
-	// Re-index so ACF stays happy
-	$field['layouts'] = array_values($field['layouts']);
+	// 3. Build a list of layout names to hide based on the context
+	$layouts_to_hide = [];
+
+	if ($is_page_screen) {
+		// On Pages (Home): Hide Social and Geographic
+		$layouts_to_hide[] = 'social_section';
+		$layouts_to_hide[] = 'geographic_section';
+	} elseif ($is_term_screen) {
+		// On Departments: Hide Hero Lead
+		$layouts_to_hide[] = 'hero_lead_section';
+
+		// Hide Geographic on all departments EXCEPT 'tourism'
+		if ($term_slug !== 'tourism') {
+			$layouts_to_hide[] = 'geographic_section';
+		}
+	} else {
+		// If neither a page nor a department, do not modify layouts
+		return $field;
+	}
+
+	// 4. Remove the layouts
+	if (!empty($field['layouts']) && is_array($field['layouts'])) {
+		foreach ($field['layouts'] as $key => $layout) {
+			$layout_name = $layout['name'] ?? '';
+
+			if (in_array($layout_name, $layouts_to_hide, true)) {
+				unset($field['layouts'][$key]);
+			}
+		}
+
+		// Re-index array so ACF stays happy
+		$field['layouts'] = array_values($field['layouts']);
+	}
 
 	return $field;
 });

@@ -3,7 +3,6 @@
 @source "../**/*.php";
 @source "../template-parts/**/*.php";
 
-
 @theme {
     /* Colors */
     --color-on-primary: #ffffff;
@@ -71,6 +70,9 @@
     --spacing-space-xl: 2.5rem;
     --spacing-gutter: 1.5rem;
 
+    /* Global Default Font */
+    --default-font-family: "Plus Jakarta Sans", sans-serif;
+
     /* Font Families */
     --font-headline-lg: "Syne", sans-serif;
     --font-body-lg: "Plus Jakarta Sans", sans-serif;
@@ -84,6 +86,67 @@
     --font-headline-xl-mobile: "Syne", sans-serif;
     --font-headline-xl: "Syne", sans-serif;
     --font-label-pill: "Plus Jakarta Sans", sans-serif;
+
+    /* Typography / Font Sizes (includes line-height, letter-spacing, and weight) */
+    --text-headline-lg: 2.25rem;
+    --text-headline-lg--line-height: 2.75rem;
+    --text-headline-lg--letter-spacing: -0.02em;
+    --text-headline-lg--font-weight: 700;
+
+    --text-body-lg: 1.125rem;
+    --text-body-lg--line-height: 1.875rem;
+    --text-body-lg--letter-spacing: 0em;
+    --text-body-lg--font-weight: 400;
+
+    --text-display-hero: 5rem;
+    --text-display-hero--line-height: 5.25rem;
+    --text-display-hero--letter-spacing: -0.04em;
+    --text-display-hero--font-weight: 800;
+
+    --text-body-sm: 0.875rem;
+    --text-body-sm--line-height: 1.375rem;
+    --text-body-sm--letter-spacing: 0.005em;
+    --text-body-sm--font-weight: 400;
+
+    --text-label-caps: 0.6875rem;
+    --text-label-caps--line-height: 1rem;
+    --text-label-caps--letter-spacing: 0.12em;
+    --text-label-caps--font-weight: 700;
+
+    --text-title-editorial: 1.25rem;
+    --text-title-editorial--line-height: 1.75rem;
+    --text-title-editorial--letter-spacing: -0.01em;
+    --text-title-editorial--font-weight: 600;
+
+    --text-body-base: 1rem;
+    --text-body-base--line-height: 1.625rem;
+    --text-body-base--letter-spacing: 0em;
+    --text-body-base--font-weight: 400;
+
+    --text-headline-sm: 1.5rem;
+    --text-headline-sm--line-height: 1.875rem;
+    --text-headline-sm--letter-spacing: -0.015em;
+    --text-headline-sm--font-weight: 600;
+
+    --text-display-hero-mobile: 2.75rem;
+    --text-display-hero-mobile--line-height: 3rem;
+    --text-display-hero-mobile--letter-spacing: -0.03em;
+    --text-display-hero-mobile--font-weight: 800;
+
+    --text-headline-xl-mobile: 2.25rem;
+    --text-headline-xl-mobile--line-height: 2.5rem;
+    --text-headline-xl-mobile--letter-spacing: -0.02em;
+    --text-headline-xl-mobile--font-weight: 700;
+
+    --text-headline-xl: 3.5rem;
+    --text-headline-xl--line-height: 3.75rem;
+    --text-headline-xl--letter-spacing: -0.03em;
+    --text-headline-xl--font-weight: 700;
+
+    --text-label-pill: 0.75rem;
+    --text-label-pill--line-height: 1rem;
+    --text-label-pill--letter-spacing: 0.02em;
+    --text-label-pill--font-weight: 600;
 }
 
 /* Base layer adjustments matching your layout design */

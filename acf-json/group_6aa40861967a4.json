@@ -17,6 +17,111 @@
                 "id": ""
             },
             "layouts": {
+                "layout_6aa9f2c01e3e8": {
+                    "key": "layout_6aa9f2c01e3e8",
+                    "name": "hero_lead_section",
+                    "label": "Hero Lead Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aa9f2f81e3ea",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "نبض أمة • صوت الجيل الجديد",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aa9f30f1e3eb",
+                            "label": "Hero Featured",
+                            "name": "hero_featured",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post",
+                                "program",
+                                "interview",
+                                "infographic"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": "",
+                            "max": 1,
+                            "allow_in_bindings": 0,
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
+                        },
+                        {
+                            "key": "field_6aa9f31c1e3ec",
+                            "label": "Hero Trending",
+                            "name": "hero_trending",
+                            "aria-label": "",
+                            "type": "relationship",
+                            "instructions": "",
+                            "required": 1,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "post_type": [
+                                "post",
+                                "infographic",
+                                "program",
+                                "interview"
+                            ],
+                            "post_status": [
+                                "publish"
+                            ],
+                            "taxonomy": "",
+                            "filters": [
+                                "search",
+                                "post_type",
+                                "taxonomy"
+                            ],
+                            "return_format": "object",
+                            "min": 4,
+                            "max": 4,
+                            "allow_in_bindings": 0,
+                            "elements": "",
+                            "bidirectional": 0,
+                            "bidirectional_target": []
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa415f23b57c": {
                     "key": "layout_6aa415f23b57c",
                     "name": "posts_section",
@@ -37,7 +142,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "آخر الأخبار والتحليلات • LATEST NEWS",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -91,7 +196,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "مختبر البيانات والإنفوجرافيك • DATA LAB",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -145,7 +250,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "حوارات ملهمة • INTERVIEWS & PODCASTS",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -199,7 +304,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "مرئيات • VIDEOS STREAM",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -253,7 +358,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "فرز المحتوى بحسب الجهة الحكومية",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -284,7 +389,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "فرز المحتوى بحسب الشريك",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -315,7 +420,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "صناع الأثر • VOICES & SPEAKERS",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -346,7 +451,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "فرز المحتوى حسب المواقع الجغرافية",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -377,7 +482,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "انضم إلى مجتمع",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -408,7 +513,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "البرامج والعروض • PROGRAMS (SHOWS)",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -538,5 +643,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789416552
+    "modified": 1789524174
 }
