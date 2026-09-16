@@ -17,6 +17,16 @@ while (have_posts()):
     the_post();
 
     $current_post_type = get_post_type();
+
+    // Fetch first term from the 'post_editor' custom taxonomy with fallback
+    $editor_terms = get_the_terms(get_the_ID(), 'post_editor');
+    $display_author = 'تفاعل السعودية';
+    if (!empty($editor_terms) && !is_wp_error($editor_terms)) {
+        $first_term = reset($editor_terms);
+        if ($first_term && !empty($first_term->name)) {
+            $display_author = $first_term->name;
+        }
+    }
     ?>
     <main id="primary" class="site-main bg-white pb-24">
 
@@ -42,11 +52,11 @@ while (have_posts()):
                     <?php the_title(); ?>
                 </h1>
 
-                <!-- Meta Data (Date & Author) -->
+                <!-- Meta Data (Date & Editor Taxonomy) -->
                 <div class="flex items-center justify-center gap-4 text-sm font-medium text-gray-500">
                     <time datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date(); ?></time>
                     <span>&bull;</span>
-                    <span><?php echo get_the_author(); ?></span>
+                    <span><?php echo esc_html($display_author); ?></span>
                 </div>
 
             </div>
