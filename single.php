@@ -5,6 +5,14 @@
 
 get_header();
 
+// 1. Custom Arabic Post Type Mapping
+$type_map = [
+    'post' => 'أخبار',
+    'interview' => 'مقابلات',
+    'program' => 'برامج',
+    'infographic' => 'انفوجرافيك'
+];
+
 while (have_posts()):
     the_post();
 
@@ -17,10 +25,11 @@ while (have_posts()):
             <div class="max-w-4xl mx-auto px-6 text-center">
 
                 <!-- Dynamic Post Type Badge -->
-                <span class="text-xs font-bold text-primary uppercase tracking-widest mb-4 block">
+                <span class="text-sm font-bold text-primary uppercase tracking-widest mb-4 block">
                     <?php
-                    if ('post' === $current_post_type) {
-                        echo esc_html__('Latest News', 'hello-elementor-child');
+                    if ('post' === $current_post_type || 'infographic' === $current_post_type || 'interview' === $current_post_type || 'program' === $current_post_type) {
+                        $type_name = $type_map[$current_post_type];
+                        echo esc_html__($type_name, 'hello-elementor-child');
                     } else {
                         $post_type_obj = get_post_type_object($current_post_type);
                         echo esc_html($post_type_obj->labels->singular_name);
