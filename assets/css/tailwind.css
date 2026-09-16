@@ -720,6 +720,12 @@
   .border-primary {
     border-color: var(--color-primary);
   }
+  .border-primary\/20 {
+    border-color: color-mix(in srgb, #004ac6 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      border-color: color-mix(in oklab, var(--color-primary) 20%, transparent);
+    }
+  }
   .border-surface-container {
     border-color: var(--color-surface-container);
   }
@@ -1197,6 +1203,12 @@
   .text-on-surface-variant {
     color: var(--color-on-surface-variant);
   }
+  .text-on-surface-variant\/40 {
+    color: color-mix(in srgb, #434655 40%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-on-surface-variant) 40%, transparent);
+    }
+  }
   .text-primary {
     color: var(--color-primary);
   }
@@ -1384,6 +1396,15 @@
     .group-hover\:bg-blue-600:is(:where(.group):hover *) {
       background-color: var(--color-blue-600);
     }
+    .group-hover\:bg-primary:is(:where(.group):hover *) {
+      background-color: var(--color-primary);
+    }
+    .group-hover\:bg-primary-container:is(:where(.group):hover *) {
+      background-color: var(--color-primary-container);
+    }
+    .group-hover\:bg-surface-container-lowest:is(:where(.group):hover *) {
+      background-color: var(--color-surface-container-lowest);
+    }
     .group-hover\:bg-transparent:is(:where(.group):hover *) {
       background-color: transparent;
     }
@@ -1398,6 +1419,12 @@
     }
     .group-hover\:text-blue-800:is(:where(.group):hover *) {
       color: var(--color-blue-800);
+    }
+    .group-hover\:text-on-primary:is(:where(.group):hover *) {
+      color: var(--color-on-primary);
+    }
+    .group-hover\:text-on-primary-container:is(:where(.group):hover *) {
+      color: var(--color-on-primary-container);
     }
     .group-hover\:text-primary:is(:where(.group):hover *) {
       color: var(--color-primary);

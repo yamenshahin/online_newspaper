@@ -619,7 +619,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "",
+                            "default_value": "الدول والمدن",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -832,5 +832,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789532375
+    "modified": 1789533670
 }

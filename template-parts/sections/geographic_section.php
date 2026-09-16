@@ -9,8 +9,10 @@ $section = $args['section'] ?? [];
 
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
+    $subtitle = $section['subtitle'] ?? '';
 } else {
     $section_title = get_sub_field('section_title');
+    $subtitle = get_sub_field('subtitle');
 }
 
 $section_title = $section_title ?: __('Geographic Locations', 'hello-elementor-child');
@@ -88,13 +90,21 @@ if (!empty($_GET[$query_var])) {
 }
 ?>
 
-<section class="py-12 border-b border-gray-100 last:border-0" id="geographic-filter-section">
-    <div class="max-w-7xl mx-auto px-6">
-        <header class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">
+<section
+    class="w-full px-margin-mobile lg:px-margin py-space-lg bg-surface-container-low border-b border-surface-container-highest/30 last:border-0"
+    id="geographic-filter-section">
+    <div class="flex flex-col gap-space-md">
+
+        <div class="flex flex-col items-start gap-space-xs">
+            <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
                 <?php echo esc_html($section_title); ?>
-            </h2>
-        </header>
+            </span>
+            <?php if (!empty($subtitle)): ?>
+                <h3 class="font-headline-sm text-headline-sm text-on-background mt-1">
+                    <?php echo esc_html($subtitle); ?>
+                </h3>
+            <?php endif; ?>
+        </div>
 
         <div class="relative">
             <div id="geo-parents-view"
@@ -112,30 +122,31 @@ if (!empty($_GET[$query_var])) {
                         : 'href="' . esc_url($url) . '"';
                     ?>
                     <<?php echo $tag; ?>     <?php echo $attr; ?>
-                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-white border
-                        border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50
-                        hover:-translate-y-1 transition-all duration-300 ease-out text-left focus:outline-none">
+                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-surface-container-lowest
+                        border
+                        border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl
+                        hover:-translate-y-1 transition-all duration-300 ease-out text-center focus:outline-none">
                         <div
-                            class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-blue-100 group-hover:bg-white transition-colors duration-300 shadow-sm relative">
+                            class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-surface-container flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:bg-surface-container-lowest transition-colors duration-300 shadow-sm relative">
                             <?php if (!empty($image) && is_array($image)): ?>
                                 <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
                                 ]); ?>
                             <?php else: ?>
-                                <span class="text-3xl font-bold text-gray-300 uppercase">
+                                <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
                                     <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
                         <h3
-                            class="text-sm font-bold text-gray-900 text-center mb-4 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
+                            class="text-sm font-bold text-on-background text-center mb-4 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
                             <?php echo esc_html($term->name); ?>
                         </h3>
                         <div class="mt-auto">
                             <span
-                                class="text-xs font-bold tracking-wide text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
+                                class="text-xs font-bold tracking-wide text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                 <?php echo esc_html($count); ?>
-                                <?php esc_html_e('Items', 'hello-elementor-child'); ?>
+                                <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
                             </span>
                         </div>
                     </<?php echo $tag; ?>>
@@ -153,39 +164,39 @@ if (!empty($_GET[$query_var])) {
                     class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
 
                     <button type="button" onclick="showCountries()"
-                        class="group flex-none w-32 snap-start flex flex-col items-center justify-center p-4 bg-gray-50 border border-gray-100 rounded-2xl hover:border-gray-200 hover:bg-white hover:shadow-lg transition-all duration-300 focus:outline-none">
+                        class="group flex-none w-32 snap-start flex flex-col items-center justify-center p-4 bg-surface-container-lowest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:bg-surface-container-low transition-all duration-300 focus:outline-none">
                         <div
-                            class="w-12 h-12 rounded-full bg-white flex items-center justify-center text-gray-400 group-hover:text-blue-600 group-hover:bg-blue-50 mb-3 shadow-sm transition-colors border border-gray-100">
-                            <span class="text-xl">&larr;</span>
+                            class="w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-3 shadow-sm transition-colors border border-surface-container-high">
+                            <span class="text-xl">&rarr;</span>
                         </div>
-                        <span class="text-xs font-bold text-gray-500 group-hover:text-blue-600">
-                            <?php esc_html_e('Regions', 'hello-elementor-child'); ?>
+                        <span class="text-xs font-bold text-on-surface-variant group-hover:text-primary">
+                            <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
                         </span>
                     </button>
 
                     <a href="<?php echo esc_url($parent_url); ?>"
-                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden">
+                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-surface-container-lowest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
                         <div
-                            class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-200 group-hover:border-blue-200 group-hover:bg-white transition-colors duration-300 shadow-sm relative z-10">
+                            class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-surface-container flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:bg-surface-container-lowest transition-colors duration-300 shadow-sm relative z-10">
                             <?php if (!empty($parent_image) && is_array($parent_image)): ?>
                                 <?php echo wp_get_attachment_image($parent_image['ID'], 'medium', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
                                 ]); ?>
                             <?php else: ?>
-                                <span class="text-3xl font-bold text-gray-300 uppercase">
+                                <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
                                     <?php echo esc_html(mb_substr($parent_term->name, 0, 1)); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
                         <h3
-                            class="text-sm font-bold text-gray-900 text-center mb-1 line-clamp-2 leading-snug group-hover:text-blue-800 transition-colors relative z-10">
-                            <?php echo esc_html(sprintf(__('All %s', 'hello-elementor-child'), $parent_term->name)); ?>
+                            class="text-sm font-bold text-on-background text-center mb-1 line-clamp-2 leading-snug group-hover:text-primary transition-colors relative z-10">
+                            <?php echo esc_html(sprintf(__('كل %s', 'hello-elementor-child'), $parent_term->name)); ?>
                         </h3>
                         <div class="mt-auto relative z-10 pt-3">
                             <span
-                                class="text-xs font-bold tracking-wide text-blue-600 bg-blue-50 border border-blue-100 px-3 py-1.5 rounded-full group-hover:bg-blue-600 group-hover:text-white transition-colors">
+                                class="text-xs font-bold tracking-wide text-primary bg-primary-container border border-primary/20 px-3 py-1.5 rounded-full group-hover:bg-primary group-hover:text-on-primary transition-colors">
                                 <?php echo esc_html($parent_data['count']); ?>
-                                <?php esc_html_e('Total', 'hello-elementor-child'); ?>
+                                <?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?>
                             </span>
                         </div>
                     </a>
@@ -197,28 +208,28 @@ if (!empty($_GET[$query_var])) {
                         $image = get_field('taxonomy_image', $term);
                         ?>
                         <a href="<?php echo esc_url($url); ?>"
-                            class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out">
+                            class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-surface-container-lowest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
                             <div
-                                class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-blue-100 group-hover:bg-white transition-colors duration-300 shadow-sm">
+                                class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-surface-container flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:bg-surface-container-lowest transition-colors duration-300 shadow-sm">
                                 <?php if (!empty($image) && is_array($image)): ?>
                                     <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
                                         'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
                                     ]); ?>
                                 <?php else: ?>
-                                    <span class="text-3xl font-bold text-gray-300 uppercase">
+                                    <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
                                         <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
                             <h3
-                                class="text-sm font-bold text-gray-900 text-center mb-4 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
+                                class="text-sm font-bold text-on-background text-center mb-4 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
                                 <?php echo esc_html($term->name); ?>
                             </h3>
                             <div class="mt-auto">
                                 <span
-                                    class="text-xs font-bold tracking-wide text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
+                                    class="text-xs font-bold tracking-wide text-on-surface-variant bg-surface-container px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                     <?php echo esc_html($count); ?>
-                                    <?php esc_html_e('Items', 'hello-elementor-child'); ?>
+                                    <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
                                 </span>
                             </div>
                         </a>
