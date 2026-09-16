@@ -9,6 +9,7 @@ $section = $args['section'] ?? [];
 // 1. Read and Normalize Data
 $featured = $section['hero_featured'] ?? null;
 $trending = $section['hero_trending'] ?? [];
+$section_title = $section['section_title'] ?: 'نبض أمة<span> • صوت الجيل الجديد</span>'; // Fallback if empty
 
 if ($featured && !is_array($featured)) {
     $featured = [$featured];
@@ -27,27 +28,20 @@ if (!$featured_post) {
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl">
 
-    <!-- Top Header & Marquee -->
+    <!-- Dynamic Oversized Editorial Title -->
     <div class="flex flex-col gap-space-md mb-space-lg">
-        <div class="flex flex-wrap items-center justify-between gap-space-md">
-            <div class="flex items-center gap-space-sm">
-                <span
-                    class="font-label-caps text-label-caps px-space-md py-1 rounded-full bg-primary-container text-on-primary font-bold">EDITION
-                    2025 // 04</span>
-                <span class="font-label-caps text-label-caps text-tertiary tracking-widest">KSA YOUTH DISRUPTION</span>
-            </div>
-            <div class="flex items-center gap-space-xs font-label-pill text-label-pill text-on-surface-variant">
-                <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
-                <span class=""><?php esc_html_e('تحديث مباشر كل 15 دقيقة', 'hello-elementor-child'); ?></span>
-            </div>
-        </div>
-
-        <!-- Oversized Editorial Kinetic Title (Fixed Scaling) -->
         <h1
             class="font-headline-xl text-headline-xl-mobile md:text-headline-xl font-bold text-on-background leading-tight text-right">
-            <span class="">نبض أمة</span>
-            <span class="text-primary-container px-2">•</span>
-            <span class="text-primary">صوت الجيل الجديد</span>
+            <?php
+            // 1. Automatically inject the blue color class if the editor types an empty <span>
+            $formatted_title = str_replace('<span>', '<span class="text-primary">', $section_title);
+
+            // 2. Automatically wrap the bullet point to give it the light-blue accent and spacing
+            $formatted_title = str_replace('•', '<span class="text-primary-container px-2 inline-block">•</span>', $formatted_title);
+
+            // 3. Output the title while safely allowing HTML tags (like span) to render
+            echo wp_kses_post($formatted_title);
+            ?>
         </h1>
     </div>
 
