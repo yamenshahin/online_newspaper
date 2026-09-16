@@ -6,6 +6,7 @@
 
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];
+$section_index = $args['section_index'] ?? null; // Retrieve the dynamic index
 
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
@@ -77,7 +78,11 @@ if ($department instanceof WP_Term) {
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
-                <span class="font-headline-lg text-headline-lg text-primary font-bold">04 /</span>
+                <?php if ($section_index !== null): ?>
+                    <span class="font-headline-lg text-headline-lg text-primary font-bold">
+                        <?php echo esc_html(sprintf('%02d', $section_index)); ?> /
+                    </span>
+                <?php endif; ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
                     <?php echo esc_html($section_title ?: 'أحدث الأخبار • LATEST NEWS'); ?>
                 </h2>

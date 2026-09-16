@@ -45,6 +45,10 @@ $allowed_views = ['program', 'infographic', 'interview', 'post'];
             $sections = get_field('department_sections', $department);
 
             if (!empty($sections)):
+                $counter = 1;
+                // Only sections listed in this array will be numbered and increment the counter
+                $included_layouts = ['posts_section', 'infographics_section', 'interviews_section', 'programs_section', 'speakers_section'];
+
                 foreach ($sections as $section):
                     $layout = $section['acf_fc_layout'] ?? '';
 
@@ -52,14 +56,22 @@ $allowed_views = ['program', 'infographic', 'interview', 'post'];
                         continue;
                     }
 
+                    $should_count = in_array($layout, $included_layouts, true);
+                    $section_index = $should_count ? $counter : null;
+
                     get_template_part(
                         'template-parts/sections/' . $layout,
                         null,
                         [
                             'department' => $department,
                             'section' => $section,
+                            'section_index' => $section_index,
                         ]
                     );
+
+                    if ($should_count) {
+                        $counter++;
+                    }
                 endforeach;
             else:
                 ?>
