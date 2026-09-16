@@ -68,9 +68,9 @@ $heading_text = trim($section_title . ' ' . $title_name);
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4">
             <?php echo esc_html($heading_text); ?>
         </h2>
-        <p class="text-lg text-gray-500 max-w-2xl mx-auto mb-16">
+        <div class="text-lg text-gray-500 max-w-2xl mx-auto mb-10 [&>p]:mb-4">
             <?php echo wp_kses_post($detailed_description); ?>
-        </p>
+        </div>
         <div class="flex flex-wrap justify-center gap-6">
             <?php
             while (have_rows('social_links', $context)):
