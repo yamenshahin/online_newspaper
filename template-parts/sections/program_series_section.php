@@ -14,7 +14,7 @@ if (!empty($section)) {
     $section_title = get_sub_field('section_title');
 }
 
-$section_title = $section_title ?: __('Program Series', 'hello-elementor-child');
+$section_title = $section_title ?: __('ORIGINAL SERIES / برامجنا الحصرية', 'hello-elementor-child');
 $target_taxonomy = 'program_series';
 $query_var = 'program_series';
 
@@ -43,17 +43,39 @@ if (empty($active_terms)) {
 }
 ?>
 
-<section class="py-12 border-b border-gray-100 last:border-0">
-    <div class="max-w-7xl mx-auto px-6">
-        <header class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">
-                <?php echo esc_html($section_title); ?>
-            </h2>
-        </header>
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-surface-container-lowest">
+    <div
+        class="p-space-lg md:p-space-xl rounded-3xl bg-inverse-surface text-inverse-on-surface shadow-xl flex flex-col gap-space-xl relative overflow-hidden">
 
-        <div
-            class="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <?php foreach ($active_terms as $data):
+        <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
+            <div class="flex flex-col gap-space-xs">
+                <span class="font-label-caps text-label-caps text-primary-fixed uppercase tracking-widest">
+                    <?php echo esc_html($section_title); ?>
+                </span>
+                <h2 class="font-headline-lg text-headline-lg text-surface-bright">
+                    <?php esc_html_e('سلاسل وثائقية معمقة تؤرخ التحول التاريخي', 'hello-elementor-child'); ?>
+                </h2>
+            </div>
+
+            <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
+                <a href="<?php echo esc_url(get_term_link($department)); ?>"
+                    class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill self-start md:self-auto transition-colors flex items-center gap-1">
+                    <span class=""><?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?></span>
+                    <span class="material-symbols-outlined text-[16px]">close</span>
+                </a>
+            <?php else: ?>
+                <button
+                    class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill self-start md:self-auto transition-colors">
+                    <?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?>
+                </button>
+            <?php endif; ?>
+        </div>
+
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+
+            <?php
+            $index = 1;
+            foreach ($active_terms as $data):
                 $term = $data['term'];
                 $count = $data['count'];
 
@@ -64,34 +86,74 @@ if (empty($active_terms)) {
                 }
 
                 $image = get_field('taxonomy_image', $term);
+
+                // Alternate colors dynamically to match your HTML design
+                $theme_color_text = ($index % 2 === 0) ? 'text-secondary-fixed' : 'text-primary-fixed';
+
+                $is_active = (isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug);
+                $active_bg = $is_active ? 'bg-inverse-surface border border-surface-variant' : 'bg-inverse-surface/80 hover:bg-inverse-surface border border-transparent';
                 ?>
+
                 <a href="<?php echo esc_url($url); ?>"
-                    class="group flex-none w-48 snap-start flex flex-col items-center p-4 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out">
-                    <div
-                        class="w-full aspect-[9/16] mb-4 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-blue-100 transition-colors duration-300 shadow-sm relative">
+                    class="rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group <?php echo esc_attr($active_bg); ?>">
+
+                    <!-- Wide (16:9) Image -->
+                    <div class="w-full aspect-video bg-surface-container-highest/10 relative overflow-hidden">
                         <?php if (!empty($image) && is_array($image)): ?>
-                            <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
-                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out',
+                            <?php echo wp_get_attachment_image($image['ID'], 'large', false, [
+                                'class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
                             ]); ?>
                         <?php else: ?>
-                            <span class="text-4xl font-bold text-gray-300 uppercase">
-                                <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
-                            </span>
+                            <div class="w-full h-full flex items-center justify-center">
+                                <span class="text-4xl font-bold text-surface-variant/30 uppercase">
+                                    <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
+                                </span>
+                            </div>
                         <?php endif; ?>
                     </div>
-                    <h3
-                        class="text-sm font-bold text-gray-900 text-center mb-3 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
-                        <?php echo esc_html($term->name); ?>
-                    </h3>
-                    <div class="mt-auto pb-1">
-                        <span
-                            class="text-xs font-bold tracking-wide text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
-                            <?php echo esc_html($count); ?>
-                            <?php esc_html_e('Items', 'hello-elementor-child'); ?>
-                        </span>
+
+                    <!-- Text Content -->
+                    <div class="p-space-lg flex flex-col justify-between flex-grow gap-space-md">
+                        <div class="flex flex-col gap-space-xs">
+                            <div class="flex items-center justify-between">
+                                <span class="font-label-caps text-label-caps <?php echo esc_attr($theme_color_text); ?>">
+                                    SERIES // <?php echo esc_html(str_pad($index, 2, '0', STR_PAD_LEFT)); ?>
+                                </span>
+                                <span
+                                    class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full bg-surface-container-lowest/10 text-surface-bright">
+                                    <?php echo esc_html($count); ?>
+                                    <?php esc_html_e('حلقة معتمدة', 'hello-elementor-child'); ?>
+                                </span>
+                            </div>
+
+                            <h3
+                                class="font-headline-sm text-headline-sm text-surface-bright group-hover:<?php echo esc_attr($theme_color_text); ?> transition-colors mt-1">
+                                <?php echo esc_html($term->name); ?>
+                            </h3>
+
+                            <?php if (!empty($term->description)): ?>
+                                <p class="font-body-sm text-body-sm text-surface-variant line-clamp-2 mt-1">
+                                    <?php echo esc_html(wp_strip_all_tags($term->description)); ?>
+                                </p>
+                            <?php endif; ?>
+                        </div>
+
+                        <div
+                            class="flex items-center justify-between <?php echo esc_attr($theme_color_text); ?> font-label-pill text-label-pill pt-space-sm mt-2 border-t border-surface-container-lowest/10">
+                            <span class=""><?php esc_html_e('تصفح كل الحلقات', 'hello-elementor-child'); ?></span>
+                            <span
+                                class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                        </div>
                     </div>
+
                 </a>
-            <?php endforeach; ?>
+
+                <?php
+                $index++;
+            endforeach;
+            ?>
+
         </div>
+
     </div>
 </section>

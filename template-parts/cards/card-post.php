@@ -3,38 +3,43 @@
  * Template Part: Minimalist Standard Post Card (News)
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('group flex flex-col bg-white border border-gray-100 rounded-2xl overflow-hidden hover:shadow-2xl hover:shadow-gray-200/50 transition-all duration-500'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all'); ?>>
 
     <?php if (has_post_thumbnail()): ?>
-        <div class="relative aspect-[4/3] overflow-hidden bg-gray-100">
+        <div class="relative w-full aspect-[4/3] overflow-hidden bg-inverse-surface">
             <a href="<?php the_permalink(); ?>" class="block w-full h-full">
-                <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out']); ?>
+                <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
             </a>
         </div>
     <?php endif; ?>
 
-    <div class="p-6 flex-1 flex flex-col">
-        <span class="text-xs font-semibold text-green-600 tracking-wider uppercase mb-3">
-            <?php esc_html_e('News', 'hello-elementor-child'); ?>
-        </span>
+    <div class="p-space-md flex flex-col justify-between flex-grow gap-space-sm">
+        <div class="flex flex-col gap-1">
+            <span class="font-label-caps text-label-caps text-primary font-semibold uppercase tracking-wider">
+                <?php esc_html_e('أخبار • NEWS', 'hello-elementor-child'); ?>
+            </span>
 
-        <h3
-            class="text-xl font-bold text-gray-900 mb-3 leading-snug group-hover:text-green-600 transition-colors duration-300">
             <a href="<?php the_permalink(); ?>">
-                <?php the_title(); ?>
+                <h3
+                    class="font-title-editorial text-title-editorial text-on-background leading-snug group-hover:text-primary transition-colors">
+                    <?php the_title(); ?>
+                </h3>
             </a>
-        </h3>
 
-        <div class="text-sm text-gray-500 line-clamp-3 mb-6">
-            <?php the_excerpt(); ?>
+            <div class="text-on-surface-variant font-body-sm text-xs line-clamp-3 mt-1">
+                <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
+            </div>
         </div>
 
-        <div class="mt-auto pt-4 border-t border-gray-50">
+        <div
+            class="flex items-center justify-between text-on-surface-variant font-body-sm text-xs pt-space-xs border-t border-surface-container mt-auto">
+            <span class=""><?php echo get_the_date(); ?></span>
             <a href="<?php the_permalink(); ?>"
-                class="text-sm font-medium text-gray-900 flex items-center group-hover:text-green-600 transition-colors">
-                <?php esc_html_e('View Details', 'hello-elementor-child'); ?>
-                <span class="mx-2 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                class="text-primary font-medium hover:text-primary-container transition-colors flex items-center gap-1 group-hover:translate-x-[-4px] duration-300">
+                <?php esc_html_e('اقرأ المزيد', 'hello-elementor-child'); ?>
+                <span class="material-symbols-outlined text-[14px]">arrow_back</span>
             </a>
         </div>
     </div>
+
 </article>

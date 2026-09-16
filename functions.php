@@ -19,15 +19,31 @@ function hello_elementor_child_scripts_styles()
 		'6.5.1'
 	);
 
-	// 2. Enqueue the root style.css (Theme identity & base custom styles)
+	// 2. Enqueue Google Fonts (Syne & Plus Jakarta Sans)
+	wp_enqueue_style(
+		'hello-elementor-child-fonts',
+		'https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
+		[],
+		null
+	);
+
+	// 3. Enqueue Google Material Symbols Outlined
+	wp_enqueue_style(
+		'hello-elementor-child-icons',
+		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
+		[],
+		null
+	);
+
+	// 4. Enqueue the root style.css (Theme identity & base custom styles)
 	wp_enqueue_style(
 		'hello-elementor-child-style',
 		get_stylesheet_uri(),
-		['hello-elementor-theme-style'],
+		['hello-elementor-theme-style', 'font-awesome-cdn', 'hello-elementor-child-fonts', 'hello-elementor-child-icons'],
 		filemtime(get_stylesheet_directory() . '/style.css')
 	);
 
-	// 3. Enqueue the compiled Tailwind utilities
+	// 5. Enqueue the compiled Tailwind utilities
 	wp_enqueue_style(
 		'hello-elementor-child-tailwind',
 		get_stylesheet_directory_uri() . '/assets/css/tailwind.css',
@@ -248,3 +264,4 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 
 	return $field;
 });
+

@@ -3,18 +3,16 @@
  * Template Part: Image-Only Infographic Card (9:16)
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('group relative bg-gray-100 rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl hover:shadow-gray-300/50 hover:-translate-y-1 transition-all duration-500'); ?>>
-
-    <a href="<?php the_permalink(); ?>" class="block w-full aspect-[9/16] bg-gray-100">
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all relative'); ?>>
+    <a href="<?php the_permalink(); ?>" class="block w-full aspect-[9/16] bg-inverse-surface relative overflow-hidden">
         <?php if (has_post_thumbnail()): ?>
-            <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out']); ?>
+            <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
         <?php else: ?>
-            <div class="w-full h-full flex items-center justify-center">
-                <span class="text-gray-400 text-sm font-medium tracking-wide uppercase">
+            <div class="w-full h-full flex items-center justify-center bg-surface-container">
+                <span class="text-on-surface-variant font-label-caps text-label-caps tracking-widest uppercase">
                     <?php esc_html_e('No Image', 'hello-elementor-child'); ?>
                 </span>
             </div>
         <?php endif; ?>
     </a>
-
 </article>

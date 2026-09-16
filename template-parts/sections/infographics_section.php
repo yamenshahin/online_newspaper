@@ -5,7 +5,6 @@
  */
 
 $department = $args['department'] ?? null;
-
 $section = $args['section'] ?? [];
 
 if (!empty($section)) {
@@ -66,24 +65,35 @@ if ($department instanceof WP_Term) {
 }
 ?>
 
-<section class="department-section infographics-section py-12 border-b border-gray-100 last:border-0">
-    <div class="max-w-7xl mx-auto px-6">
-        <header class="flex justify-between items-end mb-8">
-            <?php if ($section_title): ?>
-                <h2 class="text-2xl font-bold text-gray-900 tracking-tight"><?php echo esc_html($section_title); ?></h2>
-            <?php endif; ?>
-            <a href="<?php echo esc_url($more_link); ?>"
-                class="text-sm font-medium text-red-600 hover:text-red-800 transition-colors">
-                <?php echo esc_html(sprintf(__('View All %s', 'hello-elementor-child'), $section_title)); ?> &rarr;
-            </a>
-        </header>
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8">
-            <?php while ($query->have_posts()):
-                $query->the_post(); ?>
-                <?php get_template_part('template-parts/cards/card', 'infographic'); ?>
-            <?php endwhile; ?>
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-surface-container-low">
+    <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
+        <div class="flex flex-col gap-space-xs">
+            <div class="flex items-center gap-space-xs">
+                <span class="font-headline-lg text-headline-lg text-primary font-bold">02 /</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-background">
+                    <?php echo esc_html($section_title ?: 'مختبر البيانات والإنفوجرافيك'); ?>
+                </h2>
+                <span
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">أرقام
+                    تفاعلية</span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">تحليلات بصرية ميكروية ورسوم بيانية ترصد تسارع
+                منظومة التكنولوجيا والتحول الرقمي</p>
         </div>
+
+        <a class="px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
+            href="<?php echo esc_url($more_link); ?>">
+            <span
+                class=""><?php echo esc_html(sprintf(__('عرض كل %s', 'hello-elementor-child'), $section_title ?: 'الإنفوجرافيك')); ?></span>
+            <span class="material-symbols-outlined text-[14px]">arrow_back</span>
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
+        <?php while ($query->have_posts()):
+            $query->the_post(); ?>
+            <?php get_template_part('template-parts/cards/card', 'infographic'); ?>
+        <?php endwhile; ?>
     </div>
 </section>
 

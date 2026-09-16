@@ -14,7 +14,7 @@ if (!empty($section)) {
     $section_title = get_sub_field('section_title');
 }
 
-$section_title = $section_title ?: __('Speakers & Influencers', 'hello-elementor-child');
+$section_title = $section_title ?: __('صناع الأثر • VOICES & SPEAKERS', 'hello-elementor-child');
 $target_taxonomy = 'speaker_influencer';
 $query_var = 'speaker_influencer';
 
@@ -48,67 +48,120 @@ if (empty($active_terms)) {
 }
 ?>
 
-<section class="py-12 border-b border-gray-100 last:border-0">
-    <div class="max-w-7xl mx-auto px-6">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
+    <div class="flex items-end justify-between mb-space-lg">
+        <div class="flex flex-col gap-space-xs">
+            <div class="flex items-center gap-space-xs">
+                <span class="font-headline-lg text-headline-lg text-primary font-bold">05 /</span>
+                <h2 class="font-headline-lg text-headline-lg text-on-background">
+                    <?php echo esc_html($section_title); ?>
+                </h2>
+                <span
+                    class="px-space-sm py-0.5 rounded-full bg-primary-fixed text-on-primary-fixed font-label-caps text-label-caps">
+                    <?php esc_html_e('قائمة الخبراء', 'hello-elementor-child'); ?>
+                </span>
+            </div>
+            <p class="font-body-sm text-body-sm text-on-surface-variant">شخصيات قيادية وصناع محتوى يشاركون رؤاهم
+                وتحليلاتهم الحصرية عبر المنصة</p>
+        </div>
 
-        <header class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">
-                <?php echo esc_html($section_title); ?>
-            </h2>
-        </header>
+        <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
+            <!-- Reset/Clear Filter Button -->
+            <a href="<?php echo esc_url(get_term_link($department)); ?>"
+                class="px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container-high text-on-surface font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto border border-surface-container-high">
+                <span class=""><?php esc_html_e('كل الخبراء', 'hello-elementor-child'); ?></span>
+                <span class="material-symbols-outlined text-[16px]">close</span>
+            </a>
+        <?php endif; ?>
+    </div>
 
-        <div
-            class="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+    <!-- Creator Cards Grid Layout -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
 
-            <?php foreach ($active_terms as $data):
-                $term = $data['term'];
-                $count = $data['count'];
+        <?php
+        $index = 1;
+        foreach ($active_terms as $data):
+            $term = $data['term'];
+            $count = $data['count'];
 
-                // Link depends on context
-                if ($department instanceof WP_Term) {
-                    $url = add_query_arg($query_var, $term->slug, get_term_link($department));
-                } else {
-                    $url = get_term_link($term);
-                }
+            // Link depends on context
+            if ($department instanceof WP_Term) {
+                $url = add_query_arg($query_var, $term->slug, get_term_link($department));
+            } else {
+                $url = get_term_link($term);
+            }
 
-                $image = get_field('taxonomy_image', $term);
-                ?>
+            $image = get_field('taxonomy_image', $term);
+
+            // Dynamic primary/secondary fixed text colors to match the design
+            $theme_color_text = ($index % 2 === 0) ? 'text-secondary-fixed' : 'text-primary-fixed';
+
+            $is_active = (isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug);
+            $active_classes = $is_active ? 'ring-2 ring-primary ring-offset-2 ring-offset-background' : 'hover:shadow-xl';
+            ?>
+
+            <div
+                class="rounded-3xl overflow-hidden bg-inverse-surface text-surface-bright flex flex-col p-space-md group transition-all <?php echo esc_attr($active_classes); ?>">
 
                 <a href="<?php echo esc_url($url); ?>"
-                    class="group flex-none w-48 snap-start flex flex-col items-center p-4 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out">
-
-                    <div
-                        class="w-full aspect-[9/16] mb-4 rounded-xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-blue-100 transition-colors duration-300 shadow-sm relative">
-
-                        <?php if (!empty($image) && is_array($image)): ?>
-                            <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
-                                'class' => 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out',
-                            ]); ?>
-                        <?php else: ?>
-                            <span class="text-4xl font-bold text-gray-300 uppercase">
+                    class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-surface-container-high mb-space-md block">
+                    <?php if (!empty($image) && is_array($image)): ?>
+                        <?php echo wp_get_attachment_image($image['ID'], 'medium_large', false, [
+                            'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                        ]); ?>
+                    <?php else: ?>
+                        <div class="w-full h-full flex items-center justify-center bg-surface-container">
+                            <span class="text-6xl font-bold text-surface-variant/30 uppercase">
                                 <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                             </span>
-                        <?php endif; ?>
+                        </div>
+                    <?php endif; ?>
 
-                    </div>
-
-                    <h3
-                        class="text-sm font-bold text-gray-900 text-center mb-3 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
-                        <?php echo esc_html($term->name); ?>
-                    </h3>
-
-                    <div class="mt-auto pb-1">
-                        <span
-                            class="text-xs font-bold tracking-wide text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
-                            <?php echo esc_html($count); ?>
-                            <?php esc_html_e('Items', 'hello-elementor-child'); ?>
-                        </span>
-                    </div>
-
+                    <span
+                        class="absolute top-2 right-2 px-space-sm py-0.5 rounded-full bg-inverse-surface/80 backdrop-blur-md text-surface-bright font-label-caps text-label-caps shadow-sm">
+                        <?php echo esc_html($count); ?>     <?php esc_html_e('مادة منشورة', 'hello-elementor-child'); ?>
+                    </span>
                 </a>
 
-            <?php endforeach; ?>
+                <div class="flex flex-col gap-1">
+                    <span class="font-label-caps text-label-caps <?php echo esc_attr($theme_color_text); ?>">
+                        <?php
+                        // Fallback if no specific title field exists
+                        $speaker_title = get_field('speaker_title', $term);
+                        echo esc_html($speaker_title ?: __('خبير وصانع أثر', 'hello-elementor-child'));
+                        ?>
+                    </span>
 
-        </div>
+                    <a href="<?php echo esc_url($url); ?>">
+                        <h3
+                            class="font-headline-sm text-headline-sm text-surface-bright font-bold hover:text-surface-variant transition-colors">
+                            <?php echo esc_html($term->name); ?>
+                        </h3>
+                    </a>
+
+                    <?php if (!empty($term->description)): ?>
+                        <p class="font-body-sm text-body-sm text-surface-variant text-xs mt-1 line-clamp-3">
+                            <?php echo esc_html(wp_strip_all_tags($term->description)); ?>
+                        </p>
+                    <?php endif; ?>
+                </div>
+
+                <div
+                    class="mt-space-md pt-space-xs flex items-center justify-between border-t border-surface-container-highest/10">
+                    <a href="<?php echo esc_url($url); ?>"
+                        class="<?php echo esc_attr($theme_color_text); ?> hover:text-surface-bright font-label-pill text-label-pill flex items-center gap-1 transition-colors group/link">
+                        <span class=""><?php esc_html_e('عرض الملف والمقالات', 'hello-elementor-child'); ?></span>
+                        <span
+                            class="material-symbols-outlined text-[14px] group-hover/link:-translate-x-1 transition-transform">arrow_back</span>
+                    </a>
+                </div>
+
+            </div>
+
+            <?php
+            $index++;
+        endforeach;
+        ?>
+
     </div>
 </section>

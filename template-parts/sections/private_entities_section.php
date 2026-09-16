@@ -1,6 +1,8 @@
 <?php
 /**
  * Flexible Content: Private Entities Section
+ * Department → entities linked to that department
+ * Homepage  → all private entities with content
  */
 
 $department = $args['department'] ?? null;
@@ -12,7 +14,7 @@ if (!empty($section)) {
     $section_title = get_sub_field('section_title');
 }
 
-$section_title = $section_title ?: __('Private Sector Entities', 'hello-elementor-child');
+$section_title = $section_title ?: __('القطاع الخاص والتقني', 'hello-elementor-child');
 $target_taxonomy = 'private_entity';
 $query_var = 'private_entity';
 
@@ -41,17 +43,33 @@ if (empty($active_terms)) {
 }
 ?>
 
-<section class="py-12 border-b border-gray-100 last:border-0">
-    <div class="max-w-7xl mx-auto px-6">
-        <header class="mb-8">
-            <h2 class="text-2xl font-bold text-gray-900 tracking-tight">
+<section
+    class="w-full px-margin-mobile lg:px-margin py-space-lg bg-surface-container-low border-b border-surface-container-highest/30 last:border-0">
+    <div class="flex flex-col gap-space-md">
+
+        <div class="flex flex-col items-start gap-space-xs">
+            <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
+                PRIVATE SECTOR ENTITIES
+            </span>
+            <h3 class="font-headline-sm text-headline-sm text-on-background">
                 <?php echo esc_html($section_title); ?>
-            </h2>
-        </header>
+            </h3>
+        </div>
 
         <div
-            class="flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-            <?php foreach ($active_terms as $data):
+            class="flex items-center gap-space-sm overflow-x-auto pb-space-xs pt-1 whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+
+            <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
+                <!-- Reset/Clear Filter Button -->
+                <a href="<?php echo esc_url(get_term_link($department)); ?>"
+                    class="px-space-md py-space-xs rounded-full bg-on-background text-surface-container-lowest font-label-pill text-label-pill whitespace-nowrap flex items-center justify-center gap-space-xs shadow-sm transition-colors">
+                    <span class=""><?php esc_html_e('كل الجهات', 'hello-elementor-child'); ?></span>
+                    <span class="material-symbols-outlined text-[16px]">close</span>
+                </a>
+            <?php endif; ?>
+
+            <?php
+            foreach ($active_terms as $data):
                 $term = $data['term'];
                 $count = $data['count'];
 
@@ -61,35 +79,29 @@ if (empty($active_terms)) {
                     $url = get_term_link($term);
                 }
 
-                $image = get_field('taxonomy_image', $term);
+                $is_active = (isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug);
+
+                // Active vs Inactive styling logic
+                $pill_classes = $is_active
+                    ? 'bg-primary text-on-primary border-primary'
+                    : 'bg-surface-container-lowest text-on-surface hover:bg-surface-container-high border-transparent hover:border-surface-container-highest';
+
+                $badge_classes = $is_active
+                    ? 'bg-primary-container text-on-primary-container'
+                    : 'bg-surface-container text-on-surface-variant';
                 ?>
+
                 <a href="<?php echo esc_url($url); ?>"
-                    class="group flex-none w-48 snap-start flex flex-col items-center p-6 bg-white border border-gray-100 rounded-2xl hover:border-gray-200 hover:shadow-xl hover:shadow-gray-200/50 hover:-translate-y-1 transition-all duration-300 ease-out">
-                    <div
-                        class="w-24 h-24 aspect-square mb-5 rounded-2xl bg-gray-50 flex items-center justify-center overflow-hidden border border-gray-100 group-hover:border-blue-100 group-hover:bg-white transition-colors duration-300 shadow-sm">
-                        <?php if (!empty($image) && is_array($image)): ?>
-                            <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
-                                'class' => 'w-full h-full object-contain p-3 group-hover:scale-110 transition-transform duration-500',
-                            ]); ?>
-                        <?php else: ?>
-                            <span class="text-3xl font-bold text-gray-300 uppercase">
-                                <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
-                            </span>
-                        <?php endif; ?>
-                    </div>
-                    <h3
-                        class="text-sm font-bold text-gray-900 text-center mb-4 line-clamp-2 leading-snug group-hover:text-blue-600 transition-colors">
-                        <?php echo esc_html($term->name); ?>
-                    </h3>
-                    <div class="mt-auto">
-                        <span
-                            class="text-xs font-bold tracking-wide text-gray-500 bg-gray-100 px-3 py-1.5 rounded-full group-hover:bg-blue-50 group-hover:text-blue-700 transition-colors">
-                            <?php echo esc_html($count); ?>
-                            <?php esc_html_e('Items', 'hello-elementor-child'); ?>
-                        </span>
-                    </div>
+                    class="px-space-md py-space-xs rounded-full font-label-pill text-label-pill whitespace-nowrap flex items-center justify-center gap-space-sm shadow-sm transition-all border <?php echo esc_attr($pill_classes); ?>">
+                    <span class=""><?php echo esc_html($term->name); ?></span>
+                    <span
+                        class="px-1.5 py-0.5 rounded-full text-[11px] font-bold <?php echo esc_attr($badge_classes); ?>">
+                        <?php echo esc_html($count); ?>     <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
+                    </span>
                 </a>
+
             <?php endforeach; ?>
+
         </div>
     </div>
 </section>
