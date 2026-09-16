@@ -33,33 +33,31 @@ if (!$featured_post) {
         <h1
             class="font-headline-xl text-headline-xl-mobile md:text-headline-xl font-bold text-on-background leading-tight text-right">
             <?php
-            // 1. Automatically inject the blue color class if the editor types an empty <span>
             $formatted_title = str_replace('<span>', '<span class="text-primary">', $section_title);
-
-            // 2. Automatically wrap the bullet point to give it the light-blue accent and spacing
             $formatted_title = str_replace('•', '<span class="text-primary-container px-2 inline-block">•</span>', $formatted_title);
-
-            // 3. Output the title while safely allowing HTML tags (like span) to render
             echo wp_kses_post($formatted_title);
             ?>
         </h1>
     </div>
 
-    <!-- Asymmetric Hero Composition (70/30 Split) -->
+    <!-- Asymmetric Hero Composition (8/4 Split restored) -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
 
         <!-- RIGHT SIDE: Featured Lead Story (Col-span 8) -->
-        <?php
-        get_template_part('template-parts/cards/card', 'hero-featured', [
-            'post' => $featured_post
-        ]);
-        ?>
+        <div class="lg:col-span-8 flex w-full h-full">
+            <?php
+            get_template_part('template-parts/cards/card', 'hero-featured', [
+                'post' => $featured_post
+            ]);
+            ?>
+        </div>
 
         <!-- LEFT SIDE: Trending Radar & Velocity Stack (Col-span 4) -->
-        <div class="lg:col-span-4 flex flex-col gap-space-md">
+        <div class="lg:col-span-4 flex flex-col gap-space-md h-full">
 
             <!-- Live Velocity Metrics Hub -->
-            <div class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md h-full">
+            <div
+                class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md flex-grow overflow-hidden">
                 <div class="flex items-center justify-between">
                     <div class="flex items-center gap-space-xs">
                         <span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
@@ -68,7 +66,8 @@ if (!$featured_post) {
                 </div>
 
                 <!-- Trending List Items -->
-                <div class="flex flex-col gap-space-sm pt-space-xs flex-grow">
+                <div
+                    class="flex flex-col gap-space-sm pt-space-xs flex-grow overflow-y-auto [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                     <?php if (!empty($trending)): ?>
                         <?php foreach ($trending as $index => $t_post):
                             $num = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
@@ -83,13 +82,13 @@ if (!$featured_post) {
 
             <!-- Pulse Highlight Mini Banner -->
             <div
-                class="p-space-md rounded-3xl bg-secondary text-on-secondary flex items-center justify-between mt-auto">
+                class="p-space-md rounded-3xl bg-primary text-on-primary flex items-center justify-between flex-shrink-0 shadow-md">
                 <div class="flex flex-col">
                     <span class="font-label-caps text-label-caps uppercase opacity-80">DAILY NEWSLETTER</span>
                     <span class="font-title-editorial text-title-editorial font-bold">نشرة عن السعودية الموجزة</span>
                 </div>
                 <button
-                    class="px-space-md py-space-xs rounded-full bg-surface-container-lowest text-on-background font-label-pill text-label-pill hover:bg-secondary-fixed transition-colors">
+                    class="px-space-md py-space-xs rounded-full bg-surface-container-lowest text-primary font-label-pill text-label-pill hover:bg-surface-container-low transition-colors shadow-sm">
                     تفعيل التنبيهات
                 </button>
             </div>

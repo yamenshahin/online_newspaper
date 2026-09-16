@@ -41,3 +41,62 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 #site-footer {
     display: none;
 }
+
+
+
+/* ==========================================================================
+   Header / Navigation Reset
+   ========================================================================== */
+
+/* 1. Header Container Layout (Aligned with page content) */
+.site-header {
+    display: flex;
+    align-items: center;
+    /* Adjust this padding to perfectly match your lg:px-margin Tailwind setting */
+    padding: 1rem 6vw;
+    background-color: transparent;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+/* 2. Logo Container - Fix the squished spacing */
+.site-header .site-branding {
+    display: flex;
+    align-items: center;
+    /* Pushes the navigation menu away from the logo in RTL */
+    margin-inline-end: 3rem;
+}
+
+.site-header .site-branding img {
+    max-height: 120px;
+    width: auto;
+}
+
+/* 3. Navigation List Layout */
+.site-header .site-navigation {
+    flex-grow: 1;
+    /* Allows the menu to take up remaining space */
+}
+
+.site-header .site-navigation ul {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1.25rem;
+    /* Reduced space between each text link */
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+/* 4. Link Styling */
+.site-header .site-navigation a {
+    text-decoration: none;
+    color: var(--color-on-background, #1f2937);
+    font-weight: 700;
+    font-size: 1rem;
+    transition: color 0.2s ease-in-out;
+}
+
+.site-header .site-navigation a:hover {
+    color: var(--color-primary, #0055ff);
+}
