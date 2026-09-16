@@ -19,7 +19,7 @@ if (empty($view) && isset($_GET['view'])) {
 $allowed_views = ['program', 'infographic', 'interview', 'post'];
 ?>
 
-<main class="w-full pt-20 bg-background">
+<main class="w-full bg-background">
     <div class="flex flex-col w-full">
 
         <?php if ($view && in_array($view, $allowed_views, true)): ?>

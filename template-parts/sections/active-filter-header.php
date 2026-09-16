@@ -53,8 +53,7 @@ if (empty($description)) {
 $extra_info = get_field('extra_info', $active_term);
 ?>
 
-<section
-    class="relative bg-white border-b border-gray-100 py-12 md:py-20 mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
+<section class="relative bg-white border-b border-gray-100 py-12  mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Back / Clear Filter Button -->

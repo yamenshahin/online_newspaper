@@ -38,8 +38,7 @@ $tax_obj = get_taxonomy($term->taxonomy);
 $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
 ?>
 
-<section
-    class="relative bg-white border-b border-gray-100 py-12 md:py-20 mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
+<section class="relative bg-white border-b border-gray-100 py-12  mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
     <div class="max-w-6xl mx-auto px-6">
 
         <!-- Back Button -->
