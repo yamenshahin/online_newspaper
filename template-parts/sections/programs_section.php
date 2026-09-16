@@ -93,7 +93,8 @@ if ($department instanceof WP_Term) {
         </a>
     </div>
 
-    <div class="grid grid-cols-1 lg:grid-cols-2 gap-gutter">
+    <!-- Updated to 4 columns on large screens -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
             $query->the_post(); ?>
             <?php get_template_part('template-parts/cards/card', 'program'); ?>
