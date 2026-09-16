@@ -6,6 +6,7 @@
  */
 
 $department = $args['department'] ?? null;
+$section = $args['section'] ?? [];
 
 if (!$department instanceof WP_Term) {
     return;
@@ -47,6 +48,16 @@ $detailed_description = get_field('detailed_description', $context);
 if (empty($detailed_description)) {
     $detailed_description = __('Follow us across our digital platforms for the latest updates, programs, and exclusive insights.', 'hello-elementor-child');
 }
+
+// Get section title from ACF flexible content or fallback
+if (!empty($section)) {
+    $section_title = $section['section_title'] ?? '';
+} else {
+    $section_title = get_sub_field('section_title');
+}
+
+$section_title = $section_title ?: __('انضم إلى مجتمع', 'hello-elementor-child');
+$heading_text = trim($section_title . ' ' . $title_name);
 ?>
 
 <section class="py-16 bg-gray-50/50 border-t border-gray-100">
@@ -55,7 +66,7 @@ if (empty($detailed_description)) {
             <?php esc_html_e('Stay Connected', 'hello-elementor-child'); ?>
         </span>
         <h2 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4">
-            <?php echo esc_html(sprintf(__('Join the %s Community', 'hello-elementor-child'), $title_name)); ?>
+            <?php echo esc_html($heading_text); ?>
         </h2>
         <p class="text-lg text-gray-500 max-w-2xl mx-auto mb-12">
             <?php echo wp_kses_post($detailed_description); ?>
