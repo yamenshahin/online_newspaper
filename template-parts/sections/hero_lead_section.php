@@ -19,154 +19,87 @@ if (!is_array($trending)) {
     $trending = $trending ? [$trending] : [];
 }
 
-// 2. Enforce Curation (Show nothing if editors haven't picked a featured post)
+// 2. Enforce Curation
 if (!$featured_post) {
     return;
 }
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin pt-space-xl pb-space-lg">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
 
-    <!-- Top Cultural Marquee -->
-    <div
-        class="flex flex-col md:flex-row md:items-end justify-between mb-space-lg gap-4 border-b border-surface-variant pb-4">
-        <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl font-bold text-primary tracking-tight">
-            نبض أمة <span class="text-secondary mx-2">•</span> صوت الجيل الجديد
-        </h1>
-        <div class="flex items-center gap-3">
-            <span class="font-label-caps text-label-caps text-on-surface-variant uppercase tracking-widest">KSA YOUTH
-                DISRUPTION</span>
-            <span class="px-3 py-1 rounded-full bg-secondary text-white font-label-pill text-label-pill">EDITION 2025 //
-                04</span>
+    <!-- Top Header & Marquee -->
+    <div class="flex flex-col gap-space-md mb-space-lg">
+        <div class="flex flex-wrap items-center justify-between gap-space-md">
+            <div class="flex items-center gap-space-sm">
+                <span
+                    class="font-label-caps text-label-caps px-space-md py-1 rounded-full bg-primary-container text-on-primary font-bold">EDITION
+                    2025 // 04</span>
+                <span class="font-label-caps text-label-caps text-tertiary tracking-widest">KSA YOUTH DISRUPTION</span>
+            </div>
+            <div class="flex items-center gap-space-xs font-label-pill text-label-pill text-on-surface-variant">
+                <span class="material-symbols-outlined text-[16px] text-primary">schedule</span>
+                <span class=""><?php esc_html_e('تحديث مباشر كل 15 دقيقة', 'hello-elementor-child'); ?></span>
+            </div>
         </div>
+
+        <!-- Oversized Editorial Kinetic Title (Fixed Scaling) -->
+        <h1
+            class="font-headline-xl text-headline-xl-mobile md:text-headline-xl font-bold text-on-background leading-tight text-right">
+            <span class="">نبض أمة</span>
+            <span class="text-primary-container px-2">•</span>
+            <span class="text-primary">صوت الجيل الجديد</span>
+        </h1>
     </div>
 
-    <!-- Hero Grid: RTL Layout -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+    <!-- Asymmetric Hero Composition (70/30 Split) -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-gutter items-stretch">
 
-        <!-- ========================================== -->
         <!-- RIGHT SIDE: Featured Lead Story (Col-span 8) -->
-        <!-- Move to: template-parts/cards/card-hero-featured.php -->
-        <!-- ========================================== -->
-        <div
-            class="lg:col-span-8 group relative rounded-3xl overflow-hidden bg-inverse-surface min-h-[500px] flex items-end">
-            <?php
-            $featured_img = get_post_thumbnail_id($featured_post->ID);
-            if ($featured_img): ?>
-                <?php echo wp_get_attachment_image($featured_img, 'full', false, [
-                    'class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
-                ]); ?>
-            <?php endif; ?>
+        <?php
+        get_template_part('template-parts/cards/card', 'hero-featured', [
+            'post' => $featured_post
+        ]);
+        ?>
 
+        <!-- LEFT SIDE: Trending Radar & Velocity Stack (Col-span 4) -->
+        <div class="lg:col-span-4 flex flex-col gap-space-md">
+
+            <!-- Live Velocity Metrics Hub -->
+            <div class="p-space-lg rounded-3xl bg-surface-container-lowest shadow-sm flex flex-col gap-space-md h-full">
+                <div class="flex items-center justify-between">
+                    <div class="flex items-center gap-space-xs">
+                        <span class="w-2.5 h-2.5 rounded-full bg-primary-container"></span>
+                        <h3 class="font-headline-sm text-headline-sm text-on-background">الأكثر تداولاً</h3>
+                    </div>
+                </div>
+
+                <!-- Trending List Items -->
+                <div class="flex flex-col gap-space-sm pt-space-xs flex-grow">
+                    <?php if (!empty($trending)): ?>
+                        <?php foreach ($trending as $index => $t_post):
+                            $num = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
+                            get_template_part('template-parts/cards/card', 'hero-trending', [
+                                'post' => $t_post,
+                                'num' => $num
+                            ]);
+                        endforeach; ?>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <!-- Pulse Highlight Mini Banner -->
             <div
-                class="absolute inset-0 bg-gradient-to-l from-inverse-surface/90 via-inverse-surface/70 to-transparent">
-            </div>
-
-            <div class="relative z-10 w-full lg:w-2/3 p-space-xl flex flex-col items-start text-surface-bright">
-
-                <div class="flex items-center gap-3 mb-4">
-                    <span class="px-space-sm py-1 rounded-full bg-secondary text-white font-label-caps text-label-caps">
-                        قصة الغلاف • FEATURED STORY
-                    </span>
-                    <span
-                        class="px-space-sm py-1 rounded-full bg-white/10 backdrop-blur-md text-white font-label-pill text-label-pill border border-white/20">
-                        وثائقي خاص
-                    </span>
+                class="p-space-md rounded-3xl bg-secondary text-on-secondary flex items-center justify-between mt-auto">
+                <div class="flex flex-col">
+                    <span class="font-label-caps text-label-caps uppercase opacity-80">DAILY NEWSLETTER</span>
+                    <span class="font-title-editorial text-title-editorial font-bold">نشرة عن السعودية الموجزة</span>
                 </div>
-
-                <div
-                    class="flex items-center gap-2 font-label-pill text-label-pill text-surface-variant/80 mb-space-sm">
-                    <span class="material-symbols-outlined text-[16px]">schedule</span>
-                    <span><?php echo human_time_diff(get_post_time('U', false, $featured_post->ID), current_time('timestamp')) . ' ' . __('مضت', 'hello-elementor-child'); ?></span>
-                    <span class="mx-1">•</span>
-                    <span>قراءة 6 دقائق</span>
-                </div>
-
-                <span class="font-label-caps text-label-caps text-primary-fixed uppercase tracking-widest mb-2">
-                    <?php
-                    $post_type_obj = get_post_type_object($featured_post->post_type);
-                    echo esc_html($post_type_obj->labels->singular_name);
-                    ?> & CULTURE
-                </span>
-
-                <a href="<?php echo esc_url(get_permalink($featured_post->ID)); ?>"
-                    class="hover:text-primary-fixed transition-colors block">
-                    <h2 class="font-headline-lg text-headline-lg font-bold leading-tight mb-4">
-                        <?php echo esc_html(get_the_title($featured_post->ID)); ?>
-                    </h2>
-                </a>
-
-                <p class="font-body-base text-body-base text-surface-variant/80 line-clamp-3 mb-space-lg max-w-md">
-                    <?php echo esc_html(wp_strip_all_tags(get_the_excerpt($featured_post->ID))); ?>
-                </p>
-
-                <a href="<?php echo esc_url(get_permalink($featured_post->ID)); ?>"
-                    class="flex items-center gap-2 px-space-lg py-2 rounded-full bg-primary hover:bg-primary-container text-white transition-colors font-label-pill text-label-pill group/btn">
-                    <span
-                        class="material-symbols-outlined text-[18px] group-hover/btn:-translate-x-1 transition-transform">play_circle</span>
-                    <span>مشاهدة القصة الكاملة</span>
-                </a>
-            </div>
-        </div>
-
-        <!-- ========================================== -->
-        <!-- LEFT SIDE: Trending Velocity Radar (Col-span 4) -->
-        <!-- Move to: template-parts/cards/card-hero-trending.php -->
-        <!-- ========================================== -->
-        <div
-            class="lg:col-span-4 flex flex-col bg-white rounded-3xl shadow-sm border border-surface-variant/30 overflow-hidden">
-
-            <div class="p-space-lg flex items-center gap-2 border-b border-surface-variant/30">
-                <div class="w-2 h-2 rounded-full bg-secondary"></div>
-                <h3 class="font-headline-sm text-headline-sm font-bold text-on-background">الأكثر تداولاً</h3>
-            </div>
-
-            <div class="flex flex-col p-space-lg gap-space-md flex-grow">
-                <?php if (!empty($trending)): ?>
-                    <?php foreach ($trending as $index => $t_post):
-                        $num = str_pad($index + 1, 2, '0', STR_PAD_LEFT);
-                        ?>
-                        <div class="flex items-start gap-4 group cursor-pointer">
-                            <span
-                                class="font-headline-sm text-headline-sm font-bold text-secondary/30 group-hover:text-secondary transition-colors">
-                                <?php echo esc_html($num); ?>
-                            </span>
-                            <div class="flex flex-col gap-1">
-                                <span class="font-label-caps text-[10px] text-outline uppercase tracking-wider">
-                                    <?php
-                                    $t_type = get_post_type_object($t_post->post_type);
-                                    echo esc_html($t_type->labels->singular_name);
-                                    ?>
-                                </span>
-                                <a href="<?php echo esc_url(get_permalink($t_post->ID)); ?>"
-                                    class="font-title-editorial text-title-editorial font-bold text-on-background group-hover:text-primary transition-colors line-clamp-2">
-                                    <?php echo esc_html(get_the_title($t_post->ID)); ?>
-                                </a>
-                                <div class="flex items-center gap-2 font-label-pill text-[11px] text-on-surface-variant mt-1">
-                                    <span><?php echo human_time_diff(get_post_time('U', false, $t_post->ID), current_time('timestamp')) . ' ' . __('مضت', 'hello-elementor-child'); ?></span>
-                                </div>
-                            </div>
-                        </div>
-                    <?php endforeach; ?>
-                <?php else: ?>
-                    <p class="font-body-sm text-surface-variant text-center py-4">لم يتم تحديد مقالات.</p>
-                <?php endif; ?>
-            </div>
-
-            <!-- Daily Newsletter Block -->
-            <div class="bg-secondary p-space-md flex items-center justify-between mt-auto">
-                <a href="#"
-                    class="px-space-md py-2 bg-white text-secondary hover:bg-surface-container rounded-full font-label-pill text-label-pill transition-colors shadow-sm">
+                <button
+                    class="px-space-md py-space-xs rounded-full bg-surface-container-lowest text-on-background font-label-pill text-label-pill hover:bg-secondary-fixed transition-colors">
                     تفعيل التنبيهات
-                </a>
-                <div class="flex flex-col items-end text-white text-right">
-                    <span class="font-label-caps text-[10px] uppercase tracking-widest text-white/70">DAILY
-                        NEWSLETTER</span>
-                    <span class="font-title-editorial text-sm font-bold">نشرة عن السعودية الموجزة</span>
-                </div>
+                </button>
             </div>
 
         </div>
-
     </div>
 </section>
