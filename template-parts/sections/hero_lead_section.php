@@ -1,13 +1,12 @@
 <?php
 /**
- * Flexible Content: Hero Lead Section (Home Page)
- * Editorial Split Layout: Large Image on the Right, Text & Trending on the Left
- * Minimalist Pure White Theme
+ * Flexible Content: Hero Lead Section
+ * Used on Home + Department archives
+ * Editorial Split: Large Image | Text + Trending
  */
-
 $section = $args['section'] ?? [];
+$department = $args['department'] ?? null; // null on home, WP_Term on department
 
-// 1. Read and Normalize Data
 $featured = $section['hero_featured'] ?? null;
 $trending = $section['hero_trending'] ?? [];
 $section_title = $section['section_title'] ?? '';
@@ -21,28 +20,59 @@ if (!is_array($trending)) {
     $trending = $trending ? [$trending] : [];
 }
 
-if (!$featured_post) {
-    return;
+// ── Fallback: auto content when on a department and ACF is empty ──
+if (!$featured_post && $department instanceof WP_Term) {
+    $auto = new WP_Query([
+        'post_type' => ['post', 'interview', 'program', 'infographic'],
+        'posts_per_page' => 1,
+        'tax_query' => [
+            [
+                'taxonomy' => 'department',
+                'field' => 'term_id',
+                'terms' => $department->term_id,
+            ]
+        ],
+        'no_found_rows' => true,
+    ]);
+    if ($auto->have_posts()) {
+        $featured_post = $auto->posts[0];
+    }
+    wp_reset_postdata();
 }
 
-// 2. Dynamic Category/Meta Label 
+if (empty($trending) && $department instanceof WP_Term) {
+    $auto_trending = new WP_Query([
+        'post_type' => ['post', 'interview', 'program', 'infographic'],
+        'posts_per_page' => 3,
+        'post__not_in' => $featured_post ? [$featured_post->ID] : [],
+        'tax_query' => [
+            [
+                'taxonomy' => 'department',
+                'field' => 'term_id',
+                'terms' => $department->term_id,
+            ]
+        ],
+        'no_found_rows' => true,
+    ]);
+    $trending = $auto_trending->posts;
+    wp_reset_postdata();
+}
+
+if (!$featured_post) {
+    return; // nothing to show
+}
+
+// ── Meta label (department name or post type) ──
 $dept = get_the_terms($featured_post->ID, 'department');
 $f_meta = (!empty($dept) && !is_wp_error($dept)) ? $dept[0]->name : '';
-
 if (!$f_meta) {
     $post_type_obj = get_post_type_object($featured_post->post_type);
     $f_meta = $post_type_obj ? $post_type_obj->labels->singular_name : '';
 }
-
 $f_link = get_permalink($featured_post->ID);
-
-// Path to your new SVG
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>
-
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-white">
-
-    <!-- DYNAMIC TITLE FROM ACF -->
     <?php if (!empty($section_title)): ?>
         <div class="flex flex-col gap-space-md mb-10 md:mb-12 text-start">
             <h2 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl font-bold text-gray-900 leading-tight">
@@ -55,15 +85,15 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         </div>
     <?php endif; ?>
 
-    <!-- MAIN GRID -->
     <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-stretch">
-
-        <!-- 1. FEATURED IMAGE COLUMN (Sits on the RIGHT in RTL) -->
+        <!-- FEATURED IMAGE (Right in RTL) -->
         <div class="lg:col-span-7 min-h-[400px] lg:min-h-[600px] relative h-full">
             <a href="<?php echo esc_url($f_link); ?>"
                 class="block w-full h-full relative group overflow-hidden rounded-2xl shadow-sm border border-gray-100">
                 <?php if (has_post_thumbnail($featured_post->ID)): ?>
-                    <?php echo get_the_post_thumbnail($featured_post->ID, 'full', ['class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105']); ?>
+                    <?php echo get_the_post_thumbnail($featured_post->ID, 'full', [
+                        'class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+                    ]); ?>
                 <?php else: ?>
                     <div class="absolute inset-0 bg-gray-50 w-full h-full flex items-center justify-center">
                         <span class="text-gray-400 font-label-caps tracking-widest uppercase">No Image</span>
@@ -72,19 +102,14 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
             </a>
         </div>
 
-        <!-- 2. TEXT & TRENDING COLUMN (Sits on the LEFT in RTL) -->
+        <!-- TEXT + TRENDING (Left in RTL) -->
         <div class="lg:col-span-5 flex flex-col justify-between">
-
-            <!-- Featured Post Text Block -->
             <div class="mb-10 text-start">
                 <div class="flex items-center gap-2 mb-4 text-primary">
                     <div
                         class="w-4 h-4 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current">
-                        <?php
-                        if (file_exists($helper_icon_path)) {
-                            echo file_get_contents($helper_icon_path);
-                        }
-                        ?>
+                        <?php if (file_exists($helper_icon_path))
+                            echo file_get_contents($helper_icon_path); ?>
                     </div>
                     <span class="font-label-caps text-sm uppercase tracking-widest font-bold mt-0.5">
                         <?php echo esc_html($f_meta); ?>
@@ -98,14 +123,11 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
                 </a>
             </div>
 
-            <!-- Trending Posts List -->
             <div class="flex flex-col">
                 <?php foreach ($trending as $t_post):
                     get_template_part('template-parts/cards/card', 'hero-trending', ['post' => $t_post]);
                 endforeach; ?>
             </div>
-
         </div>
-
     </div>
 </section>

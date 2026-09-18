@@ -264,8 +264,8 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 		$layouts_to_hide[] = 'social_section';
 		$layouts_to_hide[] = 'geographic_section';
 	} elseif ($is_term_screen) {
-		// On Departments: Hide Hero Lead
-		$layouts_to_hide[] = 'hero_lead_section';
+		// On Departments: DO NOT hide Hero Lead anymore
+		// $layouts_to_hide[] = 'hero_lead_section';  // ← remove / comment this
 
 		// Hide Geographic on all departments EXCEPT 'tourism'
 		if ($term_slug !== 'tourism') {
