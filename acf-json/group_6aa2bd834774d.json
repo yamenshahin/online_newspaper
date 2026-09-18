@@ -21,7 +21,7 @@
             "min_width": "",
             "min_height": "",
             "min_size": "",
-            "max_width": "",
+            "max_width": 1920,
             "max_height": "",
             "max_size": "",
             "mime_types": "",
@@ -52,13 +52,39 @@
             "palette_colors": ""
         },
         {
+            "key": "field_6aacace4743a2",
+            "label": "Department Icon",
+            "name": "department_icon",
+            "aria-label": "",
+            "type": "image",
+            "instructions": "Please ensure the uploaded image has a maximum width of 600px.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "return_format": "array",
+            "library": "all",
+            "min_width": "",
+            "min_height": "",
+            "min_size": "",
+            "max_width": 600,
+            "max_height": "",
+            "max_size": "",
+            "mime_types": "",
+            "allow_in_bindings": 0,
+            "preview_size": "medium"
+        },
+        {
             "key": "field_6aa2bd8349620",
             "label": "Detailed Description",
             "name": "detailed_description",
             "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -265,5 +291,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789416533
+    "modified": 1789701516
 }

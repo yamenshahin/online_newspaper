@@ -217,7 +217,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "مختبر البيانات والإنفوجرافيك • DATA LAB",
+                            "default_value": "إنفوجرافيك",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -292,7 +292,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "حوارات ملهمة • INTERVIEWS & PODCASTS",
+                            "default_value": "حوارات ولقاءات",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -367,7 +367,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "مرئيات • VIDEOS STREAM",
+                            "default_value": "آخر الأخبار بالفيديو",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -546,7 +546,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "صناع الأثر • VOICES & SPEAKERS",
+                            "default_value": "صُنّاع الأثر",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -681,7 +681,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "البرامج والعروض • PROGRAMS (SHOWS)",
+                            "default_value": "البرامج",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -832,5 +832,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789533670
+    "modified": 1789701302
 }
