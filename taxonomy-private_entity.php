@@ -1,9 +1,9 @@
 <?php
 /**
- * Taxonomy Archive: Speaker & Influencer
+ * Taxonomy Archive: Private Entity
  *
  * Profile header + Home page Layout Engine sections,
- * filtered to this speaker (same idea as department + ?speaker_influencer=).
+ * filtered to this speaker (same idea as department + ?private_entity=).
  */
 
 get_header();
@@ -16,7 +16,7 @@ if (!$term instanceof WP_Term || is_wp_error($term)) {
 }
 
 /**
- * Reuse section templates that already read $_GET['speaker_influencer'].
+ * Reuse section templates that already read $_GET['private_entity'].
  * Department URLs use the query string; this archive uses the term itself.
  */
 $_GET[$term->taxonomy] = $term->slug;

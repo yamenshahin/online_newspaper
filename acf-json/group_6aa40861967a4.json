@@ -142,7 +142,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "آخر الأخبار والتحليلات • LATEST NEWS",
+                            "default_value": "آخر الأخبار",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -832,5 +832,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789701302
+    "modified": 1789707516
 }
