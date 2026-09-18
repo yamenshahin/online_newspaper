@@ -46,7 +46,7 @@ if (empty($active_terms)) {
 ?>
 
 <section
-    class="w-full px-margin-mobile lg:px-margin py-space-lg something-removed border-b border-surface-container-highest/30 last:border-0">
+    class="w-full px-margin-mobile lg:px-margin py-space-lg  border-b border-surface-container-highest/30 last:border-0">
     <div class="flex flex-col gap-space-md">
 
         <div class="flex flex-col items-start gap-space-xs text-start">
@@ -87,11 +87,11 @@ if (empty($active_terms)) {
 
                 $pill_classes = $is_active
                     ? 'bg-primary text-on-primary border-primary'
-                    : 'something-removedest text-on-surface hover:something-deleted-high border-transparent hover:border-surface-container-highest';
+                    : 'est text-on-surface hover:-high border-transparent hover:border-surface-container-highest';
 
                 $badge_classes = $is_active
                     ? 'bg-primary-container text-on-primary-container'
-                    : 'something-deleted text-on-surface-variant';
+                    : ' text-on-surface-variant';
                 ?>
 
                 <a href="<?php echo esc_url($url); ?>"

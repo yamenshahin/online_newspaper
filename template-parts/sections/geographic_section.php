@@ -91,7 +91,7 @@ if (!empty($_GET[$query_var])) {
 ?>
 
 <section
-    class="w-full px-margin-mobile lg:px-margin py-space-lg something-removed border-b border-surface-container-highest/30 last:border-0"
+    class="w-full px-margin-mobile lg:px-margin py-space-lg  border-b border-surface-container-highest/30 last:border-0"
     id="geographic-filter-section">
     <div class="flex flex-col gap-space-md">
 
@@ -122,12 +122,12 @@ if (!empty($_GET[$query_var])) {
                         : 'href="' . esc_url($url) . '"';
                     ?>
                     <<?php echo $tag; ?>     <?php echo $attr; ?>
-                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 something-removedest
+                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 est
                         border
                         border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl
                         hover:-translate-y-1 transition-all duration-300 ease-out text-center focus:outline-none">
                         <div
-                            class="w-24 h-24 aspect-square mb-5 rounded-2xl something-deleted flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:something-removedest transition-colors duration-300 shadow-sm relative">
+                            class="w-24 h-24 aspect-square mb-5 rounded-2xl  flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative">
                             <?php if (!empty($image) && is_array($image)): ?>
                                 <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
@@ -144,7 +144,7 @@ if (!empty($_GET[$query_var])) {
                         </h3>
                         <div class="mt-auto">
                             <span
-                                class="text-xs font-bold tracking-wide text-on-surface-variant something-deleted px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                                class="text-xs font-bold tracking-wide text-on-surface-variant  px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                 <?php echo esc_html($count); ?>
                                 <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
                             </span>
@@ -164,9 +164,9 @@ if (!empty($_GET[$query_var])) {
                     class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex gap-5 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
 
                     <button type="button" onclick="showCountries()"
-                        class="group flex-none w-32 snap-start flex flex-col items-center justify-center p-4 something-removedest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:something-removed transition-all duration-300 focus:outline-none">
+                        class="group flex-none w-32 snap-start flex flex-col items-center justify-center p-4 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover: transition-all duration-300 focus:outline-none">
                         <div
-                            class="w-12 h-12 rounded-full something-deleted flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-3 shadow-sm transition-colors border border-surface-container-high">
+                            class="w-12 h-12 rounded-full  flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-3 shadow-sm transition-colors border border-surface-container-high">
                             <span class="text-xl">&rarr;</span>
                         </div>
                         <span class="text-xs font-bold text-on-surface-variant group-hover:text-primary">
@@ -175,9 +175,9 @@ if (!empty($_GET[$query_var])) {
                     </button>
 
                     <a href="<?php echo esc_url($parent_url); ?>"
-                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 something-removedest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
+                        class="group flex-none w-48 snap-start flex flex-col items-center p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
                         <div
-                            class="w-24 h-24 aspect-square mb-5 rounded-2xl something-deleted flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:something-removedest transition-colors duration-300 shadow-sm relative z-10">
+                            class="w-24 h-24 aspect-square mb-5 rounded-2xl  flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative z-10">
                             <?php if (!empty($parent_image) && is_array($parent_image)): ?>
                                 <?php echo wp_get_attachment_image($parent_image['ID'], 'medium', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
@@ -208,9 +208,9 @@ if (!empty($_GET[$query_var])) {
                         $image = get_field('taxonomy_image', $term);
                         ?>
                         <a href="<?php echo esc_url($url); ?>"
-                            class="group flex-none w-48 snap-start flex flex-col items-center p-6 something-removedest border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
+                            class="group flex-none w-48 snap-start flex flex-col items-center p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
                             <div
-                                class="w-24 h-24 aspect-square mb-5 rounded-2xl something-deleted flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:something-removedest transition-colors duration-300 shadow-sm">
+                                class="w-24 h-24 aspect-square mb-5 rounded-2xl  flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm">
                                 <?php if (!empty($image) && is_array($image)): ?>
                                     <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
                                         'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
@@ -227,7 +227,7 @@ if (!empty($_GET[$query_var])) {
                             </h3>
                             <div class="mt-auto">
                                 <span
-                                    class="text-xs font-bold tracking-wide text-on-surface-variant something-deleted px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                                    class="text-xs font-bold tracking-wide text-on-surface-variant  px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                     <?php echo esc_html($count); ?>
                                     <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
                                 </span>

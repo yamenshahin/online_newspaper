@@ -34,7 +34,7 @@ $skip_layouts = [
 ];
 ?>
 
-<main id="primary" class="site-main something-toberemoved">
+<main id="primary" class="site-main ">
 
     <?php
     // 1. Profile header (your existing template part)

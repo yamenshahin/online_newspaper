@@ -43,7 +43,7 @@ if (empty($active_terms)) {
 }
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin py-space-xl something-removedest">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl est">
     <div
         class="p-space-lg md:p-space-xl rounded-3xl bg-inverse-surface text-inverse-on-surface shadow-xl flex flex-col gap-space-xl relative overflow-hidden">
 
@@ -96,7 +96,7 @@ if (empty($active_terms)) {
                     class="rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group text-start <?php echo esc_attr($active_bg); ?>">
 
                     <!-- Wide (16:9) Image -->
-                    <div class="w-full aspect-video something-deleted-highest/10 relative overflow-hidden">
+                    <div class="w-full aspect-video -highest/10 relative overflow-hidden">
                         <?php if (!empty($image) && is_array($image)): ?>
                             <?php echo wp_get_attachment_image($image['ID'], 'large', false, [
                                 'class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
@@ -118,7 +118,7 @@ if (empty($active_terms)) {
                                     SERIES // <?php echo esc_html(str_pad($index, 2, '0', STR_PAD_LEFT)); ?>
                                 </span>
                                 <span
-                                    class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full something-removedest/10 text-surface-bright">
+                                    class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full est/10 text-surface-bright">
                                     <?php echo esc_html($count); ?>
                                     <?php esc_html_e('حلقة معتمدة', 'hello-elementor-child'); ?>
                                 </span>

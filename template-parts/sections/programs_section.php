@@ -68,7 +68,7 @@ if ($department instanceof WP_Term) {
 }
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin py-space-xl something-toberemoved">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl ">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
@@ -85,7 +85,7 @@ if ($department instanceof WP_Term) {
             </p>
         </div>
 
-        <a class="px-space-md py-space-xs rounded-full something-removedest hover:something-deleted-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
+        <a class="px-space-md py-space-xs rounded-full est hover:-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
             href="<?php echo esc_url($more_link); ?>">
             <span
                 class=""><?php echo esc_html(sprintf(__('استعراض جميع %s', 'hello-elementor-child'), $section_title ?: 'البرامج')); ?></span>

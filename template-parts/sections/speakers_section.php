@@ -68,7 +68,7 @@ if (empty($active_terms)) {
         <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
             <!-- Reset/Clear Filter Button -->
             <a href="<?php echo esc_url(get_term_link($department)); ?>"
-                class="px-space-md py-space-xs rounded-full something-removedest hover:something-deleted-high text-on-surface font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto border border-surface-container-high">
+                class="px-space-md py-space-xs rounded-full est hover:-high text-on-surface font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto border border-surface-container-high">
                 <span class=""><?php esc_html_e('كل الخبراء', 'hello-elementor-child'); ?></span>
                 <span class="material-symbols-outlined text-[16px]">close</span>
             </a>
@@ -104,13 +104,13 @@ if (empty($active_terms)) {
                 class="rounded-3xl overflow-hidden bg-inverse-surface text-surface-bright flex flex-col p-space-md group transition-all <?php echo esc_attr($active_classes); ?>">
 
                 <a href="<?php echo esc_url($url); ?>"
-                    class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden something-deleted-high mb-space-md block">
+                    class="relative w-full aspect-[4/5] rounded-2xl overflow-hidden -high mb-space-md block">
                     <?php if (!empty($image) && is_array($image)): ?>
                         <?php echo wp_get_attachment_image($image['ID'], 'medium_large', false, [
                             'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
                         ]); ?>
                     <?php else: ?>
-                        <div class="w-full h-full flex items-center justify-center something-deleted">
+                        <div class="w-full h-full flex items-center justify-center ">
                             <span class="text-6xl font-bold text-surface-variant/30 uppercase">
                                 <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                             </span>

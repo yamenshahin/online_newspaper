@@ -3,9 +3,9 @@
  * Template Part: Rich Interview Card (16:9)
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden something-removedest flex flex-col shadow-sm border border-surface-container-high group hover:shadow-xl transition-all'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden est flex flex-col shadow-sm border border-surface-container-high group hover:shadow-xl transition-all'); ?>>
 
-    <a href="<?php the_permalink(); ?>" class="relative w-full aspect-video overflow-hidden something-deleted block">
+    <a href="<?php the_permalink(); ?>" class="relative w-full aspect-video overflow-hidden  block">
         <?php if (has_post_thumbnail()): ?>
             <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
         <?php else: ?>
@@ -32,7 +32,7 @@
                         خاص</span>
                     <!-- Note: Static placeholder for Episode number -->
                     <span
-                        class="px-space-md py-0.5 rounded-full something-deleted-high text-on-surface-variant font-label-caps text-label-caps">متميز</span>
+                        class="px-space-md py-0.5 rounded-full -high text-on-surface-variant font-label-caps text-label-caps">متميز</span>
                 </div>
                 <span class="font-label-caps text-label-caps text-secondary font-semibold">
                     <?php

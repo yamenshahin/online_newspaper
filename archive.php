@@ -44,7 +44,7 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
 }
 ?>
 
-<main id="primary" class="site-main something-toberemoved min-h-screen">
+<main id="primary" class="site-main  min-h-screen">
 
     <section class="w-full px-margin-mobile lg:px-margin py-space-xl pt-12">
 
@@ -85,8 +85,8 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
 
             <!-- PAGINATION -->
             <div class="mt-space-xl pt-space-lg flex justify-center w-full gap-2 
-    [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:something-removedest [&_.page-numbers]:text-on-background [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.page-numbers]:transition-colors
-    [&_a.page-numbers:hover]:something-removed [&_a.page-numbers:hover]:text-primary
+    [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:est [&_.page-numbers]:text-on-background [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.page-numbers]:transition-colors
+    [&_a.page-numbers:hover]: [&_a.page-numbers:hover]:text-primary
     [&_.current]:bg-primary [&_.current]:text-on-primary [&_.current]:shadow-md">
                 <?php
                 echo paginate_links([
@@ -101,7 +101,7 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
         <?php else: ?>
             <!-- NO POSTS FOUND STATE -->
             <div
-                class="flex flex-col items-center justify-center py-20 text-center something-removedest rounded-3xl border border-surface-container-highest/30 shadow-sm">
+                class="flex flex-col items-center justify-center py-20 text-center est rounded-3xl border border-surface-container-highest/30 shadow-sm">
                 <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">search_off</span>
                 <h3 class="text-2xl font-bold text-gray-900 mb-2">لا توجد محتويات بعد</h3>
                 <p class="text-gray-500 text-lg">لم يتم نشر أي محتوى في هذا القسم حتى الآن.</p>

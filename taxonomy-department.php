@@ -19,7 +19,7 @@ if (empty($view) && isset($_GET['view'])) {
 $allowed_views = ['program', 'infographic', 'interview', 'post'];
 ?>
 
-<main class="w-full something-toberemoved">
+<main class="w-full ">
     <div class="flex flex-col w-full">
 
         <?php if ($view && in_array($view, $allowed_views, true)): ?>

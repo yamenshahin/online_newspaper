@@ -73,7 +73,7 @@ if ($department instanceof WP_Term) {
 }
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin py-space-xl something-toberemoved">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl ">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
@@ -90,7 +90,7 @@ if ($department instanceof WP_Term) {
             </p>
         </div>
 
-        <a class="px-space-md py-space-xs rounded-full something-removedest hover:something-deleted-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
+        <a class="px-space-md py-space-xs rounded-full est hover:-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
             href="<?php echo esc_url($more_link); ?>">
             <span
                 class=""><?php echo esc_html(sprintf(__('عرض كل %s', 'hello-elementor-child'), $section_title ?: 'الأخبار')); ?></span>
@@ -101,7 +101,7 @@ if ($department instanceof WP_Term) {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
             $query->the_post(); ?>
-                <?php get_template_part('template-parts/cards/card', 'post'); ?>
+            <?php get_template_part('template-parts/cards/card', 'post'); ?>
         <?php endwhile; ?>
     </div>
 </section>

@@ -53,13 +53,12 @@ $permalink = get_permalink($featured_post->ID);
                     <span class="w-2 h-2 rounded-full bg-surface-bright animate-ping"></span>
                     <?php esc_html_e('قصة الغلاف • FEATURED STORY', 'hello-elementor-child'); ?>
                 </span>
-                <span
-                    class="px-space-md py-1 rounded-full something-removedest/15 text-surface-bright font-label-caps text-label-caps">
+                <span class="px-space-md py-1 rounded-full est/15 text-surface-bright font-label-caps text-label-caps">
                     <?php echo esc_html($type_name); ?>
                 </span>
             </div>
             <div
-                class="flex items-center gap-space-xs something-removedest/10 px-space-md py-1 rounded-full text-surface-variant font-label-pill text-label-pill">
+                class="flex items-center gap-space-xs est/10 px-space-md py-1 rounded-full text-surface-variant font-label-pill text-label-pill">
                 <span class="material-symbols-outlined text-[16px] text-primary-fixed">timer</span>
                 <span class=""><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time_diff); ?></span>
             </div>
@@ -97,7 +96,7 @@ $permalink = get_permalink($featured_post->ID);
             </a>
 
             <button
-                class="px-space-md py-space-sm rounded-full something-removedest/15 hover:something-removedest/25 text-surface-bright font-label-pill text-label-pill flex items-center gap-space-xs transition-all"
+                class="px-space-md py-space-sm rounded-full est/15 hover:est/25 text-surface-bright font-label-pill text-label-pill flex items-center gap-space-xs transition-all"
                 onclick="navigator.share && navigator.share({title: '<?php echo esc_js(get_the_title($featured_post->ID)); ?>', url: '<?php echo esc_url($permalink); ?>'})">
                 <span class="material-symbols-outlined text-[18px]">share</span>
                 <span class=""><?php esc_html_e('مشاركة', 'hello-elementor-child'); ?></span>
