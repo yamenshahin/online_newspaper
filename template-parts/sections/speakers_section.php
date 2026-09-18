@@ -7,7 +7,6 @@
 
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];
-$section_index = $args['section_index'] ?? null; // Retrieve the dynamic index
 
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
@@ -53,11 +52,7 @@ if (empty($active_terms)) {
     <div class="flex items-end justify-between mb-space-lg">
         <div class="flex flex-col gap-space-xs">
             <div class="flex items-center gap-space-xs">
-                <?php if ($section_index !== null): ?>
-                    <span class="font-headline-lg text-headline-lg text-primary font-bold">
-                        <?php echo esc_html(sprintf('%02d', $section_index)); ?> /
-                    </span>
-                <?php endif; ?>
+                <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
                     <?php echo esc_html($section_title); ?>
                 </h2>

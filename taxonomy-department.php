@@ -57,7 +57,6 @@ $allowed_views = ['program', 'infographic', 'interview', 'post'];
                     }
 
                     $should_count = in_array($layout, $included_layouts, true);
-                    $section_index = $should_count ? $counter : null;
 
                     get_template_part(
                         'template-parts/sections/' . $layout,
@@ -65,7 +64,6 @@ $allowed_views = ['program', 'infographic', 'interview', 'post'];
                         [
                             'department' => $department,
                             'section' => $section,
-                            'section_index' => $section_index,
                         ]
                     );
 

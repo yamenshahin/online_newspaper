@@ -25,28 +25,24 @@ if (!$term || is_wp_error($term)) {
     // 2. Dynamic Content Sections (Configured and ordered perfectly to match the mockups)
     $post_types_config = [
         'program' => [
-            'num' => '06',
             'title' => 'مرئيات • VIDEOS STREAM',
             'subtitle' => 'تغطيات مرئية ووثائقيات رقمية ترصد مشاريع الجيل السعودي الواعد',
             'btn_text' => 'استعراض جميع مرئيات',
             'card' => 'program'
         ],
         'infographic' => [
-            'num' => '05',
             'title' => 'تصاميم بيانات وإنفوجرافيك • DATA LAB',
             'subtitle' => 'إحصاءات وأرقام تعكس واقع النهضة السعودية',
             'btn_text' => 'استعراض جميع الإنفوجرافيك',
             'card' => 'infographic'
         ],
         'interview' => [
-            'num' => '03',
             'title' => 'حوارات ملهمة • INTERVIEWS & PODCASTS',
             'subtitle' => 'لقاءات حصرية مع قادة الفكر وصناع القرار',
             'btn_text' => 'استعراض جميع الحوارات',
             'card' => 'interview'
         ],
         'post' => [
-            'num' => '04',
             'title' => 'آخر الأخبار والمستجدات • LATEST NEWS',
             'subtitle' => 'تغطيات وتقارير ترصد مشاريع الجيل السعودي الواعد',
             'btn_text' => 'استعراض جميع الأخبار',
@@ -78,9 +74,7 @@ if (!$term || is_wp_error($term)) {
                 <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
                     <div class="flex flex-col gap-space-xs text-start">
                         <div class="flex items-center gap-space-xs">
-                            <span
-                                class="font-headline-lg text-headline-lg text-primary font-bold"><?php echo esc_html($data['num']); ?>
-                                /</span>
+                            <?php render_department_icon(null); ?>
                             <h2 class="font-headline-lg text-headline-lg text-on-background">
                                 <?php echo esc_html($data['title']); ?>
                             </h2>

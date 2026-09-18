@@ -25,7 +25,6 @@ get_header();
             }
 
             $should_count = in_array($layout, $included_layouts, true);
-            $section_index = $should_count ? $counter : null;
 
             get_template_part(
                 'template-parts/sections/' . $layout,
@@ -33,7 +32,6 @@ get_header();
                 [
                     'section' => $section,
                     'department' => null,
-                    'section_index' => $section_index,
                 ]
             );
 

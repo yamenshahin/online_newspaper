@@ -326,3 +326,31 @@ function dynamic_department_theme_color()
 		}
 	}
 }
+
+
+/**
+ * Render the Dynamic Department Icon or Fallback
+ */
+function render_department_icon($department = null)
+{
+	// Default fallback from the theme assets
+	$fallback_url = get_stylesheet_directory_uri() . '/assets/images/department-icon.png';
+	$icon_url = $fallback_url;
+	$alt_text = '';
+
+	// If we are in a department context, check for the ACF field
+	if ($department instanceof WP_Term) {
+		$acf_icon = get_field('department_icon', $department);
+
+		if (is_array($acf_icon) && !empty($acf_icon['url'])) {
+			$icon_url = $acf_icon['url'];
+			$alt_text = $acf_icon['alt'] ?: $department->name;
+		} elseif (is_numeric($acf_icon) && !empty($acf_icon)) {
+			$icon_url = wp_get_attachment_image_url($acf_icon, 'thumbnail');
+			$alt_text = $department->name;
+		}
+	}
+
+	// Output the image with classes to match the sizing of your old numbers
+	echo '<img src="' . esc_url($icon_url) . '" alt="' . esc_attr($alt_text) . '" class="w-8 h-8 md:w-10 md:h-10 object-contain shrink-0" />';
+}
