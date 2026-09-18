@@ -3,8 +3,29 @@
 @source "../**/*.php";
 @source "../template-parts/**/*.php";
 
+@font-face {
+    font-family: 'SF Pro AR Display';
+    src: url('../fonts/SFProARDisplay-Regular.woff2') format('woff2'),
+        url('../fonts/SFProARDisplay-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* SF Pro AR Display - Semibold (600) */
+@font-face {
+    font-family: 'SF Pro AR Display';
+    src: url('../fonts/SFProARDisplay-Semibold.woff2') format('woff2'),
+        url('../fonts/SFProARDisplay-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}
+
+
+
 @theme {
-    /* Colors */
+    /* Colors — unchanged */
     --color-on-primary: #ffffff;
     --color-on-error: #ffffff;
     --color-error-container: #ffdad6;
@@ -70,28 +91,30 @@
     --spacing-space-xl: 2.5rem;
     --spacing-gutter: 1.5rem;
 
-    /* Global Default Font */
-    --default-font-family: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    /* Global default = body (Regular 400) */
+    --default-font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
 
-    /* Font Families */
-    --font-headline-lg: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-body-lg: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-display-hero: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-body-sm: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-label-caps: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-title-editorial: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-body-base: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-headline-sm: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-display-hero-mobile: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-headline-xl-mobile: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-headline-xl: "Syne", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
-    --font-label-pill: "Plus Jakarta Sans", "Noto Naskh Arabic", ui-sans-serif, system-ui, sans-serif;
+    /* Body roles → Regular */
+    --font-body-lg: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-body-sm: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-body-base: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-label-caps: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-label-pill: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-title-editorial: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
 
-    /* Typography / Font Sizes (includes line-height, letter-spacing, and weight) */
+    /* Heading / display roles → same family; weight from --text-*--font-weight */
+    --font-headline-lg: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-sm: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-xl: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-headline-xl-mobile: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-display-hero: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+    --font-display-hero-mobile: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+
+    /* Typography sizes (weights: body 400, headings 600 / heroes 700) */
     --text-headline-lg: 2.25rem;
     --text-headline-lg--line-height: 2.75rem;
     --text-headline-lg--letter-spacing: -0.02em;
-    --text-headline-lg--font-weight: 700;
+    --text-headline-lg--font-weight: 600;
 
     --text-body-lg: 1.125rem;
     --text-body-lg--line-height: 1.875rem;
@@ -101,7 +124,7 @@
     --text-display-hero: 5rem;
     --text-display-hero--line-height: 5.25rem;
     --text-display-hero--letter-spacing: -0.04em;
-    --text-display-hero--font-weight: 800;
+    --text-display-hero--font-weight: 700;
 
     --text-body-sm: 0.875rem;
     --text-body-sm--line-height: 1.375rem;
@@ -111,7 +134,7 @@
     --text-label-caps: 0.6875rem;
     --text-label-caps--line-height: 1rem;
     --text-label-caps--letter-spacing: 0.12em;
-    --text-label-caps--font-weight: 700;
+    --text-label-caps--font-weight: 600;
 
     --text-title-editorial: 1.25rem;
     --text-title-editorial--line-height: 1.75rem;
@@ -131,17 +154,17 @@
     --text-display-hero-mobile: 2.75rem;
     --text-display-hero-mobile--line-height: 3rem;
     --text-display-hero-mobile--letter-spacing: -0.03em;
-    --text-display-hero-mobile--font-weight: 800;
+    --text-display-hero-mobile--font-weight: 700;
 
     --text-headline-xl-mobile: 2.25rem;
     --text-headline-xl-mobile--line-height: 2.5rem;
     --text-headline-xl-mobile--letter-spacing: -0.02em;
-    --text-headline-xl-mobile--font-weight: 700;
+    --text-headline-xl-mobile--font-weight: 600;
 
     --text-headline-xl: 3.5rem;
     --text-headline-xl--line-height: 3.75rem;
     --text-headline-xl--letter-spacing: -0.03em;
-    --text-headline-xl--font-weight: 700;
+    --text-headline-xl--font-weight: 600;
 
     --text-label-pill: 0.75rem;
     --text-label-pill--line-height: 1rem;
@@ -149,7 +172,6 @@
     --text-label-pill--font-weight: 600;
 }
 
-/* Base layer adjustments matching your layout design */
 @layer base {
 
     html,
@@ -160,6 +182,18 @@
 
     body {
         overscroll-behavior: none;
+        font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+        font-weight: 400;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
+        font-weight: 600;
     }
 
     main> :first-child {
@@ -171,7 +205,6 @@
     }
 }
 
-/* Hide scrollbars cleanly as intended by design */
 ::-webkit-scrollbar {
     display: none;
 }

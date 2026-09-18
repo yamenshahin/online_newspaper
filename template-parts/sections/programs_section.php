@@ -34,7 +34,6 @@ $filterable_taxonomies = [
     'geographic',
     'program_series',
 ];
-
 $more_link_args = [];
 
 foreach ($filterable_taxonomies as $tax) {
@@ -66,9 +65,12 @@ if ($department instanceof WP_Term) {
 } else {
     $more_link = get_post_type_archive_link('program');
 }
+
+$more_icon_path = get_stylesheet_directory() . '/assets/images/more-icon.svg';
+$more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg';
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin py-space-xl ">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
@@ -85,15 +87,19 @@ if ($department instanceof WP_Term) {
             </p>
         </div>
 
-        <a class="px-space-md py-space-xs rounded-full est hover:-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
-            href="<?php echo esc_url($more_link); ?>">
-            <span
-                class=""><?php echo esc_html(sprintf(__('استعراض جميع %s', 'hello-elementor-child'), $section_title ?: 'البرامج')); ?></span>
-            <span class="material-symbols-outlined text-[14px]">arrow_back</span>
+        <a href="<?php echo esc_url($more_link); ?>"
+            class="inline-flex items-center gap-1.5 self-start md:self-auto text-base md:text-lg font-medium text-primary hover:opacity-70 transition-opacity">
+            <?php if (file_exists($more_icon_path)): ?>
+                <span class="inline-flex w-5 h-5 shrink-0 [&>svg]:w-full [&>svg]:h-full" aria-hidden="true">
+                    <?php echo file_get_contents($more_icon_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped, WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents ?>
+                </span>
+            <?php else: ?>
+                <img src="<?php echo esc_url($more_icon_uri); ?>" alt="" class="w-5 h-5" width="20" height="20" />
+            <?php endif; ?>
+            <span><?php esc_html_e('المزيد', 'hello-elementor-child'); ?></span>
         </a>
     </div>
 
-    <!-- Updated to 4 columns on large screens -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
             $query->the_post(); ?>
