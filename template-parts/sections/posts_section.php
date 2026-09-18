@@ -90,7 +90,7 @@ if ($department instanceof WP_Term) {
             </p>
         </div>
 
-        <a class="px-space-md py-space-xs rounded-full bg-surface-container-lowest hover:bg-surface-container-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
+        <a class="px-space-md py-space-xs rounded-full something-removedest hover:something-deleted-high text-primary font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto"
             href="<?php echo esc_url($more_link); ?>">
             <span
                 class=""><?php echo esc_html(sprintf(__('عرض كل %s', 'hello-elementor-child'), $section_title ?: 'الأخبار')); ?></span>

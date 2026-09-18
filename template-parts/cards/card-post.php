@@ -3,7 +3,7 @@
  * Template Part: Minimalist Standard Post Card (News)
  */
 ?>
-<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all'); ?>>
+<article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden something-removedest shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all'); ?>>
 
     <?php if (has_post_thumbnail()): ?>
         <div class="relative w-full aspect-[4/3] overflow-hidden bg-inverse-surface">

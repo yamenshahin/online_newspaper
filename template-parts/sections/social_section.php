@@ -61,7 +61,7 @@ $heading_text = trim($section_title . ' ' . $title_name);
 ?>
 
 <section
-    class="py-16 bg-gray-50/50 border-t border-gray-100 bg-surface-container-low border-b border-surface-container-highest/30 last:border-0">
+    class="py-16 bg-gray-50/50 border-t border-gray-100 something-removed border-b border-surface-container-highest/30 last:border-0">
     <div class="max-w-7xl mx-auto px-6 text-center">
         <span class="text-xs font-bold text-primary uppercase tracking-widest mb-3 block">
             <?php esc_html_e('Stay Connected', 'hello-elementor-child'); ?>

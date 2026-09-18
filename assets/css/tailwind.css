@@ -15,6 +15,7 @@
     --color-gray-700: oklch(37.3% 0.034 259.733);
     --color-gray-900: oklch(21% 0.034 264.665);
     --color-neutral-500: oklch(55.6% 0 none);
+    --color-black: #000;
     --color-white: #fff;
     --spacing: 0.25rem;
     --container-2xl: 42rem;
@@ -327,6 +328,9 @@
   .z-10 {
     z-index: 10;
   }
+  .-mx-4 {
+    margin-inline: calc(var(--spacing) * -4);
+  }
   .mx-1 {
     margin-inline: var(--spacing);
   }
@@ -341,6 +345,9 @@
   }
   .-mt-24 {
     margin-top: calc(var(--spacing) * -24);
+  }
+  .mt-0 {
+    margin-top: 0px;
   }
   .mt-0\.5 {
     margin-top: calc(var(--spacing) * 0.5);
@@ -468,6 +475,9 @@
   .h-2\.5 {
     height: calc(var(--spacing) * 2.5);
   }
+  .h-3 {
+    height: calc(var(--spacing) * 3);
+  }
   .h-3\.5 {
     height: calc(var(--spacing) * 3.5);
   }
@@ -515,6 +525,9 @@
   }
   .w-2\.5 {
     width: calc(var(--spacing) * 2.5);
+  }
+  .w-3 {
+    width: calc(var(--spacing) * 3);
   }
   .w-3\.5 {
     width: calc(var(--spacing) * 3.5);
@@ -793,6 +806,12 @@
   .bg-background {
     background-color: var(--color-background);
   }
+  .bg-black\/5 {
+    background-color: color-mix(in srgb, #000 5%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 5%, transparent);
+    }
+  }
   .bg-gray-50 {
     background-color: var(--color-gray-50);
   }
@@ -888,6 +907,12 @@
   }
   .bg-white {
     background-color: var(--color-white);
+  }
+  .bg-white\/95 {
+    background-color: color-mix(in srgb, #fff 95%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-white) 95%, transparent);
+    }
   }
   .fill-current {
     fill: currentcolor;
@@ -1485,6 +1510,14 @@
     .hover\:border-surface-container-highest:hover {
       border-color: var(--color-surface-container-highest);
     }
+    .hover\:bg-gray-50\/50:hover {
+      background-color: color-mix(in srgb, oklch(98.5% 0.002 247.839) 50%, transparent);
+    }
+    @supports (color: color-mix(in lab, red, red)) {
+      .hover\:bg-gray-50\/50:hover {
+        background-color: color-mix(in oklab, var(--color-gray-50) 50%, transparent);
+      }
+    }
     .hover\:bg-inverse-surface:hover {
       background-color: var(--color-inverse-surface);
     }
@@ -1554,6 +1587,9 @@
     }
   }
   @media (width >= 48rem) {
+    .md\:mb-12 {
+      margin-bottom: calc(var(--spacing) * 12);
+    }
     .md\:h-10 {
       height: calc(var(--spacing) * 10);
     }
@@ -1843,6 +1879,15 @@
   }
   .\[\&\>p\]\:mb-6 > p {
     margin-bottom: calc(var(--spacing) * 6);
+  }
+  .\[\&\>svg\]\:h-full > svg {
+    height: 100%;
+  }
+  .\[\&\>svg\]\:w-full > svg {
+    width: 100%;
+  }
+  .\[\&\>svg\]\:fill-current > svg {
+    fill: currentcolor;
   }
   .\[\&\>ul\]\:mb-6 > ul {
     margin-bottom: calc(var(--spacing) * 6);

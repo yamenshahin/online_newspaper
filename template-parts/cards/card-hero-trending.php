@@ -1,50 +1,72 @@
 <?php
 /**
  * Card: Hero Trending (List Row)
- * Expects: $args['post'] (WP_Post object), $args['num'] (string)
+ * Minimalist Pure White Theme
  */
 
 $t_post = $args['post'] ?? null;
-$num = $args['num'] ?? '01';
-if (!$t_post)
+if (!$t_post) {
     return;
+}
 
-// 1. Custom Arabic Post Type Mapping
-$type_map = [
-    'post' => 'أخبار',
-    'interview' => 'مقابلات',
-    'program' => 'برامج',
-    'infographic' => 'انفوجرافيك'
-];
-$post_type_obj = get_post_type_object($t_post->post_type);
-$type_name = $type_map[$t_post->post_type] ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
+// 1. Dynamic Category/Meta Label
+$dept = get_the_terms($t_post->ID, 'department');
+$t_meta = (!empty($dept) && !is_wp_error($dept)) ? $dept[0]->name : '';
 
-$time_diff = human_time_diff(get_post_time('U', false, $t_post->ID), current_time('timestamp'));
-$permalink = get_permalink($t_post->ID);
+if (!$t_meta) {
+    $post_type_obj = get_post_type_object($t_post->post_type);
+    $t_meta = $post_type_obj ? $post_type_obj->labels->singular_name : '';
+}
+
+$t_link = get_permalink($t_post->ID);
+$is_video = in_array($t_post->post_type, ['interview', 'program']);
+
+// Path to your new SVG
+$helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>
 
-<a href="<?php echo esc_url($permalink); ?>"
-    class="p-space-sm rounded-2xl hover:bg-surface-container-low transition-colors flex items-start gap-space-sm cursor-pointer group text-right w-full">
+<div
+    class="flex items-center justify-between gap-4 py-5 border-t border-gray-100 group bg-white hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
 
-    <span
-        class="font-headline-sm text-headline-sm text-primary font-bold opacity-60 group-hover:opacity-100 transition-opacity mt-1 shrink-0">
-        <?php echo esc_html($num); ?>
-    </span>
+    <!-- Trending Image Thumbnail (Sits on the Right in RTL) -->
+    <a href="<?php echo esc_url($t_link); ?>"
+        class="shrink-0 w-32 md:w-40 aspect-video rounded-xl overflow-hidden relative bg-gray-50 border border-gray-100 shadow-sm">
+        <?php if (has_post_thumbnail($t_post->ID)): ?>
+            <?php echo get_the_post_thumbnail($t_post->ID, 'medium', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
+        <?php endif; ?>
 
-    <div class="flex flex-col flex-1 min-w-0 items-start">
-        <span class="font-label-caps text-label-caps text-tertiary">
-            <?php echo esc_html($type_name); ?>
-        </span>
-        <h4
-            class="font-title-editorial text-title-editorial text-on-background group-hover:text-primary transition-colors line-clamp-2 text-right">
-            <?php echo esc_html(get_the_title($t_post->ID)); ?>
-        </h4>
+        <?php if ($is_video): ?>
+            <div
+                class="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-transparent transition-colors">
+                <div
+                    class="w-8 h-8 rounded-full bg-white/95 flex items-center justify-center shadow-sm border border-gray-100">
+                    <span class="material-symbols-outlined text-primary text-[18px]">play_arrow</span>
+                </div>
+            </div>
+        <?php endif; ?>
+    </a>
 
-        <div class="flex items-center gap-space-sm mt-1 text-on-surface-variant font-body-sm text-body-sm text-xs">
-            <span class=""><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time_diff); ?></span>
-            <span class="">•</span>
-            <span
-                class="text-primary font-semibold"><?php esc_html_e('أحدث المستجدات', 'hello-elementor-child'); ?></span>
+    <!-- Trending Text (Sits on the Left in RTL) -->
+    <div class="flex-1 min-w-0 text-start">
+        <div class="flex items-center gap-1.5 mb-2 text-primary">
+            <div
+                class="w-3.5 h-3.5 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current">
+                <?php
+                if (file_exists($helper_icon_path)) {
+                    echo file_get_contents($helper_icon_path);
+                }
+                ?>
+            </div>
+            <span class="font-label-caps text-xs font-bold mt-0.5">
+                <?php echo esc_html($t_meta); ?>
+            </span>
         </div>
+        <a href="<?php echo esc_url($t_link); ?>" class="block">
+            <h3
+                class="text-lg md:text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                <?php echo esc_html(get_the_title($t_post->ID)); ?>
+            </h3>
+        </a>
     </div>
-</a>
+
+</div>
