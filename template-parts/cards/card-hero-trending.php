@@ -26,7 +26,7 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
 ?>
 
 <div
-    class="flex items-center justify-between gap-4 py-5 border-t border-gray-100 group bg-white hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
+    class="flex items-center justify-between gap-4 py-5 group bg-white hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
 
     <!-- Trending Image Thumbnail (Sits on the Right in RTL) -->
     <a href="<?php echo esc_url($t_link); ?>"

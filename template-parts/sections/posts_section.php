@@ -73,7 +73,7 @@ if ($department instanceof WP_Term) {
 }
 ?>
 
-<section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-background">
+<section class="w-full px-margin-mobile lg:px-margin py-space-xl something-toberemoved">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
@@ -101,7 +101,7 @@ if ($department instanceof WP_Term) {
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
             $query->the_post(); ?>
-            <?php get_template_part('template-parts/cards/card', 'post'); ?>
+                <?php get_template_part('template-parts/cards/card', 'post'); ?>
         <?php endwhile; ?>
     </div>
 </section>

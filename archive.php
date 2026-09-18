@@ -44,7 +44,7 @@ if (isset($post_types_config[$post_type]) && is_post_type_archive()) {
 }
 ?>
 
-<main id="primary" class="site-main bg-background min-h-screen">
+<main id="primary" class="site-main something-toberemoved min-h-screen">
 
     <section class="w-full px-margin-mobile lg:px-margin py-space-xl pt-12">
 
