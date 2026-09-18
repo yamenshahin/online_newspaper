@@ -9,7 +9,7 @@ get_header();
 // 1. Map Post Types to their exact Titles, Subtitles, and Cards
 $post_types_config = [
     'program' => [
-        'title' => 'البرامج والعروض • PROGRAMS (SHOWS)',
+        'title' => 'آخر الأخبار بالفيديو',
         'subtitle' => 'تغطيات مرئية ووثائقيات رقمية ترصد مشاريع الجيل السعودي الواعد',
         'card' => 'program'
     ],
@@ -19,12 +19,12 @@ $post_types_config = [
         'card' => 'interview'
     ],
     'infographic' => [
-        'title' => 'تصاميم بيانات وإنفوجرافيك • DATA LAB',
+        'title' => 'إنفوجرافيك',
         'subtitle' => 'إحصاءات وأرقام تعكس واقع النهضة السعودية',
         'card' => 'infographic'
     ],
     'post' => [
-        'title' => 'آخر الأخبار والمستجدات • LATEST NEWS',
+        'title' => 'آخر الأخبار',
         'subtitle' => 'تغطيات وتقارير ترصد مشاريع الجيل السعودي الواعد',
         'card' => 'post'
     ]

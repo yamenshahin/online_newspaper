@@ -62,13 +62,18 @@ if (!$featured_post) {
     return; // nothing to show
 }
 
-// ── Meta label (department name or post type) ──
-$dept = get_the_terms($featured_post->ID, 'department');
-$f_meta = (!empty($dept) && !is_wp_error($dept)) ? $dept[0]->name : '';
-if (!$f_meta) {
-    $post_type_obj = get_post_type_object($featured_post->post_type);
-    $f_meta = $post_type_obj ? $post_type_obj->labels->singular_name : '';
-}
+// ── Meta label = CPT (mapped) ──
+$type_map = [
+    'post' => 'آخر الأخبار',
+    'interview' => 'حوارات ولقاءات',
+    'program' => 'آخر الأخبار بالفيديو',
+    'infographic' => 'إنفوجرافيك',
+];
+
+$post_type_obj = get_post_type_object($featured_post->post_type);
+$f_meta = $type_map[$featured_post->post_type]
+    ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
+
 $f_link = get_permalink($featured_post->ID);
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>

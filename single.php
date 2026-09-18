@@ -7,10 +7,10 @@ get_header();
 
 // 1. Custom Arabic Post Type Mapping
 $type_map = [
-    'post' => 'أخبار',
-    'interview' => 'مقابلات',
-    'program' => 'برامج',
-    'infographic' => 'انفوجرافيك'
+    'post' => 'آخر الأخبار',
+    'interview' => 'حوارات ولقاءات',
+    'program' => 'آخر الأخبار بالفيديو',
+    'infographic' => 'إنفوجرافيك'
 ];
 
 while (have_posts()):

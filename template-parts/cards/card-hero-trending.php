@@ -3,36 +3,38 @@
  * Card: Hero Trending (List Row)
  * Minimalist Pure White Theme
  */
-
 $t_post = $args['post'] ?? null;
-if (!$t_post) {
+if (!$t_post instanceof WP_Post) {
     return;
 }
 
-// 1. Dynamic Category/Meta Label
-$dept = get_the_terms($t_post->ID, 'department');
-$t_meta = (!empty($dept) && !is_wp_error($dept)) ? $dept[0]->name : '';
+// 1. CPT Meta Label (mapped)
+$type_map = [
+    'post' => 'آخر الأخبار',
+    'interview' => 'حوارات ولقاءات',
+    'program' => 'آخر الأخبار بالفيديو',
+    'infographic' => 'إنفوجرافيك',
+];
 
-if (!$t_meta) {
-    $post_type_obj = get_post_type_object($t_post->post_type);
-    $t_meta = $post_type_obj ? $post_type_obj->labels->singular_name : '';
-}
+$post_type_obj = get_post_type_object($t_post->post_type);
+$t_meta = $type_map[$t_post->post_type]
+    ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
 
 $t_link = get_permalink($t_post->ID);
-$is_video = in_array($t_post->post_type, ['interview', 'program']);
+$is_video = in_array($t_post->post_type, ['interview', 'program'], true);
 
-// Path to your new SVG
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>
-
 <div
     class="flex items-center justify-between gap-4 py-5 group bg-white hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
 
-    <!-- Trending Image Thumbnail (Sits on the Right in RTL) -->
+    <!-- Trending Image Thumbnail (Right in RTL) -->
     <a href="<?php echo esc_url($t_link); ?>"
         class="shrink-0 w-32 md:w-40 aspect-video rounded-xl overflow-hidden relative bg-gray-50 border border-gray-100 shadow-sm">
         <?php if (has_post_thumbnail($t_post->ID)): ?>
-            <?php echo get_the_post_thumbnail($t_post->ID, 'medium', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
+            <?php echo get_the_post_thumbnail($t_post->ID, 'medium', [
+                'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+            ]); ?>
         <?php endif; ?>
 
         <?php if ($is_video): ?>
@@ -46,7 +48,7 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         <?php endif; ?>
     </a>
 
-    <!-- Trending Text (Sits on the Left in RTL) -->
+    <!-- Trending Text (Left in RTL) -->
     <div class="flex-1 min-w-0 text-start">
         <div class="flex items-center gap-1.5 mb-2 text-primary">
             <div
@@ -61,6 +63,7 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
                 <?php echo esc_html($t_meta); ?>
             </span>
         </div>
+
         <a href="<?php echo esc_url($t_link); ?>" class="block">
             <h3
                 class="text-lg md:text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
@@ -68,5 +71,4 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
             </h3>
         </a>
     </div>
-
 </div>
