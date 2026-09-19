@@ -111,8 +111,8 @@
                                 "taxonomy"
                             ],
                             "return_format": "object",
-                            "min": 4,
-                            "max": 4,
+                            "min": 2,
+                            "max": 2,
                             "allow_in_bindings": 0,
                             "elements": "",
                             "bidirectional": 0,
@@ -832,5 +832,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789722624
+    "modified": 1789810856
 }
