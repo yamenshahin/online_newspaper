@@ -71,7 +71,8 @@ if (empty($active_terms)) {
             <?php endif; ?>
         </div>
 
-        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 gap-gutter">
+        <!-- Updated to 4 columns on large screens -->
+        <div class="relative z-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
 
             <?php
             $index = 1;
