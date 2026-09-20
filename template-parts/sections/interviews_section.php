@@ -18,8 +18,9 @@ if (!empty($section)) {
 }
 
 $tax_query = ['relation' => 'AND'];
+$is_department_page = ($department instanceof WP_Term);
 
-if ($department instanceof WP_Term) {
+if ($is_department_page) {
     $tax_query[] = [
         'taxonomy' => 'department',
         'field' => 'term_id',
@@ -60,7 +61,7 @@ if (!$query->have_posts()) {
     return;
 }
 
-if ($department instanceof WP_Term) {
+if ($is_department_page) {
     $more_link = add_query_arg(array_merge(['view' => 'interview'], $more_link_args), get_term_link($department));
 } else {
     $more_link = get_post_type_archive_link('interview');
@@ -103,10 +104,29 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
     <!-- Updated to 4 columns on large screens -->
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
-            $query->the_post(); ?>
-            <?php get_template_part('template-parts/cards/card', 'interview'); ?>
-        <?php endwhile; ?>
+            $query->the_post();
+            $post_id = get_the_ID();
+            $interview_label = 'حوار'; // Fallback
+        
+            if ($is_department_page) {
+                // Section is on a Department Page: Pull the "post_editor" taxonomy
+                $editors = get_the_terms($post_id, 'post_editor');
+                if (!empty($editors) && !is_wp_error($editors)) {
+                    $interview_label = $editors[0]->name;
+                } else {
+                    $interview_label = 'تفاعل السعودية';
+                }
+            } else {
+                // Section is on the Home Page: Pull the "department" taxonomy
+                $departments = get_the_terms($post_id, 'department');
+                if (!empty($departments) && !is_wp_error($departments)) {
+                    $interview_label = $departments[0]->name;
+                }
+            }
+
+            get_template_part('template-parts/cards/card', 'interview', ['interview_label' => $interview_label]);
+        endwhile; ?>
     </div>
 </section>
 
-<?php wp_reset_postdata(); ?>
+<?php wp_reset_postdata(); ?>s

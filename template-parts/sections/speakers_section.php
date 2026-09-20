@@ -126,9 +126,38 @@ if (empty($active_terms)) {
                 <div class="flex flex-col gap-1">
                     <span class="font-label-caps text-label-caps <?php echo esc_attr($theme_color_text); ?>">
                         <?php
-                        // Fallback if no specific title field exists
-                        $speaker_title = get_field('speaker_title', $term);
-                        echo esc_html($speaker_title ?: __('خبير وصانع أثر', 'hello-elementor-child'));
+                        $dept_names = [];
+
+                        if ($department instanceof WP_Term) {
+                            // Already inside a department page
+                            $dept_names[] = $department->name;
+                        } else {
+                            // On Homepage: Find recent posts by this speaker to extract departments
+                            $speaker_posts = get_posts([
+                                'post_type' => ['post', 'interview', 'program', 'video', 'infographic'],
+                                'posts_per_page' => 5, // Lightweight limit
+                                'fields' => 'ids',
+                                'tax_query' => [
+                                    [
+                                        'taxonomy' => 'speaker_influencer',
+                                        'field' => 'term_id',
+                                        'terms' => $term->term_id,
+                                    ]
+                                ]
+                            ]);
+
+                            if (!empty($speaker_posts)) {
+                                $deps = wp_get_object_terms($speaker_posts, 'department', ['fields' => 'names']);
+                                if (!is_wp_error($deps) && !empty($deps)) {
+                                    $dept_names = array_unique($deps);
+                                }
+                            }
+                        }
+
+                        // Changed the separator from '، ' to ' و '
+                        $dept_string = !empty($dept_names) ? implode(' و ', $dept_names) : 'تفاعل السعودية';
+
+                        echo esc_html__('خبير وصانع أثر في', 'hello-elementor-child') . ' ' . esc_html($dept_string);
                         ?>
                     </span>
 
