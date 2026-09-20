@@ -17,9 +17,25 @@ if (empty($view) && isset($_GET['view'])) {
 }
 
 $allowed_views = get_content_post_types();
+
+// Check if any specific taxonomy filter is active
+$is_filtered = false;
+$filterable_taxonomies = [
+    'government_entity',
+    'private_entity',
+    'speaker_influencer',
+    'geographic',
+    'program_series',
+];
+foreach ($filterable_taxonomies as $tax) {
+    if (!empty($_GET[$tax])) {
+        $is_filtered = true;
+        break;
+    }
+}
 ?>
 
-<main class="w-full ">
+<main class="w-full">
     <div class="flex flex-col w-full">
 
         <?php if ($view && in_array($view, $allowed_views, true)): ?>
@@ -53,6 +69,11 @@ $allowed_views = get_content_post_types();
                     $layout = $section['acf_fc_layout'] ?? '';
 
                     if (!$layout) {
+                        continue;
+                    }
+
+                    // Hide the hero section if a filter is applied
+                    if ($is_filtered && $layout === 'hero_lead_section') {
                         continue;
                     }
 
