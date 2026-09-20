@@ -31,11 +31,11 @@ $is_all_active = !($current_department instanceof WP_Term);
 <nav class="w-full max-w-6xl mx-auto px-6 pb-8 -mt-4 mb-8"
     aria-label="<?php esc_attr_e('Departments', 'hello-elementor-child'); ?>">
     <ul class="flex flex-wrap items-center gap-2 border-b border-gray-100 pb-4">
-        <!-- الكل / All → pure taxonomy archive -->
+        <!-- الكل / All ← pure taxonomy archive -->
         <li>
             <a href="<?php echo esc_url($all_url); ?>" class="inline-flex px-4 py-2 rounded-full text-sm font-semibold transition-colors <?php echo $is_all_active
-                     ? 'bg-primary text-white'
-                     : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-primary'; ?>">
+                   ? 'bg-primary text-white'
+                   : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-primary'; ?>">
                 <?php esc_html_e('الكل', 'hello-elementor-child'); ?>
             </a>
         </li>
@@ -46,8 +46,8 @@ $is_all_active = !($current_department instanceof WP_Term);
             ?>
             <li>
                 <a href="<?php echo esc_url($url); ?>" class="inline-flex px-4 py-2 rounded-full text-sm font-semibold transition-colors <?php echo $is_active
-                         ? 'bg-primary text-white'
-                         : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-primary'; ?>">
+                       ? 'bg-primary text-white'
+                       : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-primary'; ?>">
                     <?php echo esc_html($dept->name); ?>
                 </a>
             </li>

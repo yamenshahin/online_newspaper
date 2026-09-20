@@ -91,8 +91,7 @@ if ($department instanceof WP_Term) {
             <div class="mb-4">
                 <a href="<?php echo esc_url(get_term_link($department)); ?>"
                     class="inline-flex items-center gap-1 text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
-                    <span class="transition-transform duration-300 group-hover:translate-x-1"
-                        aria-hidden="true">&rarr;</span>
+                    <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">←</span>
                     <?php
                     echo esc_html(
                         sprintf(

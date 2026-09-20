@@ -1,6 +1,6 @@
 <?php
 /**
- * Master archive → shared cpt-loop
+ * Master archive ← shared cpt-loop
  */
 
 get_header();

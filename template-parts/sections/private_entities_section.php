@@ -1,8 +1,8 @@
 <?php
 /**
  * Flexible Content: Private Entities Section
- * Department → entities linked to that department
- * Homepage   → all private entities with content
+ * Department ← entities linked to that department
+ * Homepage   ← all private entities with content
  */
 
 $department = $args['department'] ?? null;

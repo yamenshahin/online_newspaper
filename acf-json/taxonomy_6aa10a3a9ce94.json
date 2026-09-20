@@ -35,7 +35,7 @@
         "name_field_description": "Names can be entered in Arabic or English.",
         "slug_field_description": "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here.",
         "parent_field_description": "",
-        "desc_field_description": "Hierarchical location filter: Country → City.",
+        "desc_field_description": "Hierarchical location filter: Country ← City.",
         "filter_by_item": "",
         "items_list_navigation": "Geographic list navigation",
         "items_list": "Geographic list",

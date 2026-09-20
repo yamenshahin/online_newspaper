@@ -1,8 +1,8 @@
 <?php
 /**
  * Flexible Content: Program Series Section (Filter)
- * Department → series linked to that department
- * Homepage   → all series with content
+ * Department ← series linked to that department
+ * Homepage   ← all series with content
  */
 
 $department = $args['department'] ?? null;
@@ -179,7 +179,7 @@ if ($department instanceof WP_Term) {
                             class="flex items-center justify-between <?php echo esc_attr($theme_color_text); ?> font-label-pill text-label-pill pt-space-sm mt-2 border-t border-surface-container-lowest/10">
                             <span class=""><?php esc_html_e('تصفح كل الحلقات', 'hello-elementor-child'); ?></span>
                             <span
-                                class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">arrow_back</span>
+                                class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">←</span>
                         </div>
                     </div>
 

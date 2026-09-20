@@ -1,8 +1,8 @@
 <?php
 /**
  * Flexible Content: Speakers & Influencers Section (Filter)
- * Department → speakers linked to that department
- * Homepage   → all speakers with content
+ * Department ← speakers linked to that department
+ * Homepage   ← all speakers with content
  */
 
 $department = $args['department'] ?? null;
@@ -181,7 +181,7 @@ if (empty($active_terms)) {
                         class="<?php echo esc_attr($theme_color_text); ?> hover:text-surface-bright font-label-pill text-label-pill flex items-center gap-1 transition-colors group/link">
                         <span class=""><?php esc_html_e('عرض الملف والمقالات', 'hello-elementor-child'); ?></span>
                         <span
-                            class="material-symbols-outlined text-[14px] group-hover/link:-translate-x-1 transition-transform">arrow_back</span>
+                            class="material-symbols-outlined text-[14px] group-hover/link:-translate-x-1 transition-transform">←</span>
                     </a>
                 </div>
 

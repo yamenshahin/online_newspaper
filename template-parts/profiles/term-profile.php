@@ -41,18 +41,18 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
 <section class="relative bg-white border-b border-gray-100 py-12  mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">
     <div class="max-w-6xl mx-auto px-6">
 
-        <!-- Back Button -->
-        <div class="mb-10 text-start">
+        <!-- Back Button (Flex gap keeps arrow and text aligned properly in RTL/LTR) -->
+        <div class="mb-10 flex justify-start">
             <a href="<?php echo esc_url($back_url); ?>"
-                class="inline-flex items-center text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
-                <span class="ml-2 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
-                <?php echo esc_html($back_label); ?>
+                class="inline-flex items-center gap-2 text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
+                <span class="transition-transform duration-300 group-hover:translate-x-1">←</span>
+                <span dir="auto"><?php echo esc_html($back_label); ?></span>
             </a>
         </div>
 
         <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
 
-            <!-- Content Column -->
+            <!-- Content Column (First in DOM = Right Side in RTL) -->
             <div class="flex-1 text-start">
 
                 <p class="text-sm font-bold text-primary uppercase tracking-widest mb-3">
@@ -112,7 +112,7 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : 'PROFILE';
 
             </div>
 
-            <!-- Image Column -->
+            <!-- Image Column (Second in DOM = Left Side in RTL) -->
             <?php if ($image_id): ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">

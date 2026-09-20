@@ -1,8 +1,8 @@
 <?php
 /**
  * Social Media Links
- * Department → term social_links
- * Homepage   → page social_links
+ * Department ← term social_links
+ * Homepage   ← page social_links
  */
 
 $department = $args['department'] ?? null;
@@ -92,7 +92,7 @@ $heading_text = trim($section_title . ' ' . $title_name);
                     <span
                         class="text-xs font-semibold text-gray-400 flex items-center group-hover:text-primary transition-colors">
                         <?php echo $follower_count ? esc_html($follower_count) : esc_html__('Visit', 'hello-elementor-child'); ?>
-                        <span class="mx-1 transition-transform duration-300 group-hover:translate-x-1">&rarr;</span>
+                        <span class="mx-1 transition-transform duration-300 group-hover:translate-x-1">←</span>
                     </span>
                 </a>
             <?php endwhile; ?>

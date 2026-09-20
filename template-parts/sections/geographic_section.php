@@ -1,7 +1,7 @@
 <?php
 /**
  * Flexible Content: Geographic Section (Filter)
- * Hierarchical: Parents (Countries) → Children (Cities)
+ * Hierarchical: Parents (Countries) ← Children (Cities)
  */
 
 $department = $args['department'] ?? null;

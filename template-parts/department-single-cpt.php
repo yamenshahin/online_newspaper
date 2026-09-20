@@ -1,6 +1,6 @@
 <?php
 /**
- * Department isolated CPT view → shared cpt-loop
+ * Department isolated CPT view ← shared cpt-loop
  */
 
 $department = $args['department'] ?? null;

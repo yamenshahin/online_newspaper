@@ -94,7 +94,7 @@
     /* Global default = body (Regular 400) */
     --default-font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
 
-    /* Body roles → Regular */
+    /* Body roles ← Regular */
     --font-body-lg: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
     --font-body-sm: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
     --font-body-base: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
@@ -102,7 +102,7 @@
     --font-label-pill: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
     --font-title-editorial: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
 
-    /* Heading / display roles → same family; weight from --text-*--font-weight */
+    /* Heading / display roles ← same family; weight from --text-*--font-weight */
     --font-headline-lg: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
     --font-headline-sm: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
     --font-headline-xl: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif;
