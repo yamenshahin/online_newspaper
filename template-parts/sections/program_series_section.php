@@ -41,6 +41,13 @@ if ($department instanceof WP_Term) {
 if (empty($active_terms)) {
     return;
 }
+
+// Determine the archive link for the "دليل كل المواسم" button
+if ($department instanceof WP_Term) {
+    $archive_link = add_query_arg(['view' => 'program'], get_term_link($department));
+} else {
+    $archive_link = get_post_type_archive_link('program') ?: home_url('/');
+}
 ?>
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl est">
@@ -64,10 +71,10 @@ if (empty($active_terms)) {
                     <span class="material-symbols-outlined text-[16px]">close</span>
                 </a>
             <?php else: ?>
-                <button
+                <a href="<?php echo esc_url($archive_link); ?>"
                     class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill self-start md:self-auto transition-colors">
                     <?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?>
-                </button>
+                </a>
             <?php endif; ?>
         </div>
 
