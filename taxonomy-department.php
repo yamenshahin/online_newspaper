@@ -16,7 +16,7 @@ if (empty($view) && isset($_GET['view'])) {
     $view = sanitize_text_field(wp_unslash($_GET['view']));
 }
 
-$allowed_views = ['program', 'infographic', 'interview', 'post'];
+$allowed_views = get_content_post_types();
 ?>
 
 <main class="w-full ">

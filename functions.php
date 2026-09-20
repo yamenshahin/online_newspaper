@@ -405,3 +405,43 @@ function get_departments_for_filter_term(WP_Term $filter_term): array
 
 	return $departments;
 }
+
+
+/**
+ * Content post types (archives + department ?view=).
+ * Add new CPTs here only.
+ */
+function get_content_post_types(): array
+{
+	return [
+		'post',
+		'program',
+		'interview',
+		'infographic',
+		'video',
+		'podcast',
+		'reel',
+	];
+}
+
+/**
+ * Taxonomies used as filters on sections / isolated archives.
+ */
+function get_filterable_taxonomies(): array
+{
+	return [
+		'government_entity',
+		'private_entity',
+		'speaker_influencer',
+		'geographic',
+		'program_series',
+	];
+}
+
+/**
+ * Whether a slug is a managed content post type.
+ */
+function is_content_post_type(string $slug): bool
+{
+	return in_array($slug, get_content_post_types(), true);
+}
