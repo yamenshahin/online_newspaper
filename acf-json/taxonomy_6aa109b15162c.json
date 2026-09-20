@@ -8,7 +8,10 @@
         "post",
         "infographic",
         "interview",
-        "program"
+        "program",
+        "video",
+        "reel",
+        "podcast"
     ],
     "advanced_configuration": 1,
     "import_source": "",
@@ -76,5 +79,5 @@
     "meta_box_sanitize_cb": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789416369
+    "modified": 1789907465
 }
