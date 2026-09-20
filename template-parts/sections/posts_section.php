@@ -106,9 +106,28 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-gutter">
         <?php while ($query->have_posts()):
-            $query->the_post(); ?>
-            <?php get_template_part('template-parts/cards/card', 'post'); ?>
-        <?php endwhile; ?>
+            $query->the_post();
+            $post_id = get_the_ID();
+            $post_label = 'أخبار • NEWS'; // Universal fallback
+        
+            if ($department instanceof WP_Term) {
+                // Section is on a Department Page: Pull the "post_editor" taxonomy from the post
+                $editors = get_the_terms($post_id, 'post_editor');
+                if (!empty($editors) && !is_wp_error($editors)) {
+                    $post_label = $editors[0]->name;
+                } else {
+                    $post_label = 'تفاعل السعودية';
+                }
+            } else {
+                // Section is on the Home Page: Pull the "department" taxonomy from the post
+                $departments = get_the_terms($post_id, 'department');
+                if (!empty($departments) && !is_wp_error($departments)) {
+                    $post_label = $departments[0]->name;
+                }
+            }
+
+            get_template_part('template-parts/cards/card', 'post', ['post_label' => $post_label]);
+        endwhile; ?>
     </div>
 </section>
 

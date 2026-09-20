@@ -2,6 +2,7 @@
 /**
  * Template Part: Minimalist Standard Post Card (News)
  */
+$post_label = $args['post_label'] ?? 'أخبار • NEWS';
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden est shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all'); ?>>
 
@@ -16,7 +17,7 @@
     <div class="p-space-md flex flex-col justify-between flex-grow gap-space-sm">
         <div class="flex flex-col gap-1">
             <span class="font-label-caps text-label-caps text-primary font-semibold uppercase tracking-wider">
-                <?php esc_html_e('أخبار • NEWS', 'hello-elementor-child'); ?>
+                <?php echo esc_html($post_label); ?>
             </span>
 
             <a href="<?php the_permalink(); ?>">
