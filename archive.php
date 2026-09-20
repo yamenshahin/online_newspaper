@@ -14,7 +14,7 @@ $post_types_config = [
         'card' => 'program'
     ],
     'interview' => [
-        'title' => 'حوارات ملهمة • INTERVIEWS & PODCASTS',
+        'title' => 'حوارات ولقاءات',
         'subtitle' => 'لقاءات حصرية مع قادة الفكر وصناع القرار',
         'card' => 'interview'
     ],

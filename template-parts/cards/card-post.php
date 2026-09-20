@@ -2,7 +2,7 @@
 /**
  * Template Part: Minimalist Standard Post Card (News)
  */
-$post_label = $args['post_label'] ?? 'أخبار • NEWS';
+$post_label = $args['post_label'] ?? 'آخر الأخبار';
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden est shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all'); ?>>
 
@@ -14,7 +14,7 @@ $post_label = $args['post_label'] ?? 'أخبار • NEWS';
         </div>
     <?php endif; ?>
 
-    <div class="p-space-md flex flex-col justify-between flex-grow gap-space-sm">
+    <div class="p-space-md flex flex-col gap-space-sm">
         <div class="flex flex-col gap-1">
             <span class="font-label-caps text-label-caps text-primary font-semibold uppercase tracking-wider">
                 <?php echo esc_html($post_label); ?>
@@ -25,20 +25,6 @@ $post_label = $args['post_label'] ?? 'أخبار • NEWS';
                     class="font-title-editorial text-title-editorial text-on-background leading-snug group-hover:text-primary transition-colors">
                     <?php the_title(); ?>
                 </h3>
-            </a>
-
-            <div class="text-on-surface-variant font-body-sm text-xs line-clamp-3 mt-1">
-                <?php echo wp_trim_words(get_the_excerpt(), 20); ?>
-            </div>
-        </div>
-
-        <div
-            class="flex items-center justify-between text-on-surface-variant font-body-sm text-xs pt-space-xs border-t border-surface-container mt-auto">
-            <span class=""><?php echo get_the_date(); ?></span>
-            <a href="<?php the_permalink(); ?>"
-                class="text-primary font-medium hover:text-primary-container transition-colors flex items-center gap-1 group-hover:translate-x-[-4px] duration-300">
-                <?php esc_html_e('اقرأ المزيد', 'hello-elementor-child'); ?>
-                <span class="material-symbols-outlined text-[14px]">arrow_back</span>
             </a>
         </div>
     </div>

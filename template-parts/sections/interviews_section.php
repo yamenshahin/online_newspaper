@@ -77,7 +77,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: 'حوارات ملهمة • INTERVIEWS & PODCASTS'); ?>
+                    <?php echo esc_html($section_title ?: 'حوارات ولقاءات'); ?>
                 </h2>
                 <span
                     class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">جلسات
