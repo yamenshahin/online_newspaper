@@ -123,7 +123,38 @@ if ($department instanceof WP_Term) {
                         <div class="flex flex-col gap-space-xs">
                             <div class="flex items-center justify-between">
                                 <span class="font-label-caps text-label-caps <?php echo esc_attr($theme_color_text); ?>">
-                                    SERIES // <?php echo esc_html(str_pad($index, 2, '0', STR_PAD_LEFT)); ?>
+                                    <?php
+                                    $dept_names = [];
+
+                                    if ($department instanceof WP_Term) {
+                                        // Already inside a department page
+                                        $dept_names[] = $department->name;
+                                    } else {
+                                        // On Homepage: Find recent posts in this series to extract departments
+                                        $series_posts = get_posts([
+                                            'post_type' => ['program', 'post', 'video', 'interview'],
+                                            'posts_per_page' => 5, // Lightweight limit
+                                            'fields' => 'ids',
+                                            'tax_query' => [
+                                                [
+                                                    'taxonomy' => 'program_series',
+                                                    'field' => 'term_id',
+                                                    'terms' => $term->term_id,
+                                                ]
+                                            ]
+                                        ]);
+
+                                        if (!empty($series_posts)) {
+                                            $deps = wp_get_object_terms($series_posts, 'department', ['fields' => 'names']);
+                                            if (!is_wp_error($deps) && !empty($deps)) {
+                                                $dept_names = array_unique($deps);
+                                            }
+                                        }
+                                    }
+
+                                    $dept_string = !empty($dept_names) ? implode(' و ', $dept_names) : 'تفاعل السعودية';
+                                    echo esc_html($dept_string);
+                                    ?>
                                 </span>
                                 <span
                                     class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full est/10 text-surface-bright">
