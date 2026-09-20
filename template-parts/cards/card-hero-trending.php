@@ -20,6 +20,13 @@ $post_type_obj = get_post_type_object($t_post->post_type);
 $t_meta = $type_map[$t_post->post_type]
     ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
 
+// ── Department Label Logic ──
+$departments = get_the_terms($t_post->ID, 'department');
+if (!empty($departments) && !is_wp_error($departments)) {
+    $dept_name = $departments[0]->name; // Grab first department if multiple exist
+    $t_meta = 'آخر الأخبار ' . $dept_name;
+}
+
 $t_link = get_permalink($t_post->ID);
 $is_video = in_array($t_post->post_type, ['interview', 'program'], true);
 

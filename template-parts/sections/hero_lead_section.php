@@ -74,6 +74,13 @@ $post_type_obj = get_post_type_object($featured_post->post_type);
 $f_meta = $type_map[$featured_post->post_type]
     ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
 
+// ── Department Label Logic ──
+$f_departments = get_the_terms($featured_post->ID, 'department');
+if (!empty($f_departments) && !is_wp_error($f_departments)) {
+    $f_dept_name = $f_departments[0]->name; // Grab first department if multiple exist
+    $f_meta = 'آخر الأخبار ' . $f_dept_name;
+}
+
 $f_link = get_permalink($featured_post->ID);
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>
