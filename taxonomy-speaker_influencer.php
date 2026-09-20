@@ -38,10 +38,16 @@ $skip_layouts = [
 
     <?php
     // 1. Profile header (your existing template part)
+    // 1. Profile header (your existing template part)
     get_template_part('template-parts/profiles/term-profile', null, [
         'term' => $term,
         'back_url' => home_url('/'),
         'back_label' => __('العودة إلى الرئيسية', 'hello-elementor-child'),
+    ]);
+
+    get_template_part('template-parts/profiles/filter-departments-nav', null, [
+        'term' => $term,
+        'current_department' => null, // archive = "الكل" active
     ]);
     ?>
 

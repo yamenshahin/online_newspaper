@@ -134,3 +134,9 @@ $extra_info = get_field('extra_info', $active_term);
 
     </div>
 </section>
+<?php
+get_template_part('template-parts/profiles/filter-departments-nav', null, [
+    'term' => $active_term,
+    'current_department' => $department,
+]);
+?>

@@ -235,7 +235,6 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 
 	$is_page_screen = false;
 	$is_term_screen = false;
-	$term_slug = '';
 
 	// 1. Detect if editing a Page (e.g., Homepage)
 	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
@@ -248,35 +247,22 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 	// 2. Detect if editing a Department Taxonomy Term
 	if (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'department') {
 		$is_term_screen = true;
-		if (isset($_GET['tag_ID'])) {
-			$term = get_term((int) $_GET['tag_ID'], 'department');
-			if ($term && !is_wp_error($term)) {
-				$term_slug = $term->slug;
-			}
-		}
 	}
 
-	// 3. Build a list of layout names to hide based on the context
-	$layouts_to_hide = [];
-
-	if ($is_page_screen) {
-		// On Pages (Home): Hide Social and Geographic
-		$layouts_to_hide[] = 'social_section';
-		$layouts_to_hide[] = 'geographic_section';
-	} elseif ($is_term_screen) {
-		// On Departments: DO NOT hide Hero Lead anymore
-		// $layouts_to_hide[] = 'hero_lead_section';  // ← remove / comment this
-
-		// Hide Geographic on all departments EXCEPT 'tourism'
-		if ($term_slug !== 'tourism') {
-			$layouts_to_hide[] = 'geographic_section';
-		}
-	} else {
-		// If neither a page nor a department, do not modify layouts
+	// 3. Exit early if not on a relevant screen
+	if (!$is_page_screen && !$is_term_screen) {
 		return $field;
 	}
 
-	// 4. Remove the layouts
+	// 4. Build a list of layout names to hide based on the context
+	$layouts_to_hide = [];
+
+	if ($is_page_screen) {
+		// On Pages (Home): Only hide Social.
+		$layouts_to_hide[] = 'social_section';
+	}
+
+	// 5. Remove the layouts
 	if (!empty($field['layouts']) && is_array($field['layouts'])) {
 		foreach ($field['layouts'] as $key => $layout) {
 			$layout_name = $layout['name'] ?? '';
@@ -353,4 +339,69 @@ function render_department_icon($department = null)
 
 	// Output the image with classes to match the sizing of your old numbers
 	echo '<img src="' . esc_url($icon_url) . '" alt="' . esc_attr($alt_text) . '" class="w-8 h-8 md:w-10 md:h-10 object-contain shrink-0" />';
+}
+
+/**
+ * Departments that share at least one published post/CPT with a filter term.
+ *
+ * @return WP_Term[]
+ */
+function get_departments_for_filter_term(WP_Term $filter_term): array
+{
+	global $wpdb;
+
+	$post_types = ['post', 'program', 'interview', 'infographic'];
+	$pt_placeholders = implode(',', array_fill(0, count($post_types), '%s'));
+
+	// Posts tagged with this filter term
+	$sql = "
+		SELECT DISTINCT tr.object_id
+		FROM {$wpdb->term_relationships} tr
+		INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+		INNER JOIN {$wpdb->posts} p ON p.ID = tr.object_id
+		WHERE tt.taxonomy = %s
+		  AND tt.term_id = %d
+		  AND p.post_status = 'publish'
+		  AND p.post_type IN ($pt_placeholders)
+	";
+
+	$params = array_merge([$filter_term->taxonomy, (int) $filter_term->term_id], $post_types);
+	$post_ids = $wpdb->get_col($wpdb->prepare($sql, $params));
+
+	if (empty($post_ids)) {
+		return [];
+	}
+
+	$post_ids = array_map('intval', $post_ids);
+	$id_ph = implode(',', array_fill(0, count($post_ids), '%d'));
+
+	// Departments on those posts
+	$sql2 = "
+		SELECT DISTINCT tt.term_id
+		FROM {$wpdb->term_relationships} tr
+		INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+		WHERE tt.taxonomy = 'department'
+		  AND tr.object_id IN ($id_ph)
+	";
+
+	$dept_ids = $wpdb->get_col($wpdb->prepare($sql2, $post_ids));
+
+	if (empty($dept_ids)) {
+		return [];
+	}
+
+	$departments = [];
+	foreach ($dept_ids as $dept_id) {
+		$t = get_term((int) $dept_id, 'department');
+		if ($t && !is_wp_error($t)) {
+			$departments[] = $t;
+		}
+	}
+
+	// Optional: sort by name
+	usort($departments, static function ($a, $b) {
+		return strcasecmp($a->name, $b->name);
+	});
+
+	return $departments;
 }
