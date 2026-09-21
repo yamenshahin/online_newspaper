@@ -445,3 +445,8 @@ function is_content_post_type(string $slug): bool
 {
 	return in_array($slug, get_content_post_types(), true);
 }
+
+$theme_inc = get_stylesheet_directory() . '/inc';
+
+require_once $theme_inc . '/department-context.php';
+require_once $theme_inc . '/shortcodes/department-footer.php';
