@@ -87,8 +87,7 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl bg-white">
     <?php if (!empty($section_title)): ?>
         <div class="flex flex-col gap-space-md mb-10 md:mb-12 text-start">
-            <!-- Sized down the H1 -->
-            <h1 class="font-headline-lg text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 leading-tight">
+            <h1 class="text-3xl md:text-4xl font-bold text-gray-900 leading-tight">
                 <?php
                 $formatted_title = str_replace('<span>', '<span class="text-primary">', $section_title);
                 $formatted_title = str_replace('•', '<span class="text-gray-300 px-2 inline-block">•</span>', $formatted_title);
@@ -129,7 +128,6 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
                     </span>
                 </div>
                 <a href="<?php echo esc_url($f_link); ?>" class="block group">
-                    <!-- Sized down the H2 -->
                     <h2
                         class="text-2xl md:text-3xl lg:text-4xl font-bold text-gray-900 leading-[1.3] tracking-tight group-hover:text-primary transition-colors">
                         <?php echo esc_html(get_the_title($featured_post->ID)); ?>
