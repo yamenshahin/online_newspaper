@@ -280,39 +280,37 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 });
 
 /**
- * Dynamically inject the Department Color to override the default Tailwind Blue
+ * Inject department accent color (archives + singles in a department).
  */
 add_action('wp_head', 'dynamic_department_theme_color');
+
 function dynamic_department_theme_color()
 {
-	// Do not interfere with the WordPress admin backend
 	if (is_admin()) {
 		return;
 	}
 
-	$current_department = null;
-
-	// ONLY apply the dynamic department color if we are on a Department archive/page
-	if (is_tax('department')) {
-		$current_department = get_queried_object();
+	$department = get_context_department();
+	if (!$department instanceof WP_Term) {
+		return;
 	}
 
-	// Fetch and inject the ACF Color only if it's strictly a department page
-	if ($current_department) {
-		$color = get_field('department_color', $current_department);
+	$color = get_field('department_color', $department);
+	// Or with fallback to about-saudia if you want:
+	// $color = get_department_field_with_fallback( 'department_color', $department );
 
-		if (!empty($color)) {
-			echo "<!-- Dynamic Department Accent Color -->\n";
-			echo "<style>\n";
-			echo ":root {\n";
-			echo "    --color-primary: " . esc_attr($color) . " !important;\n";
-			echo "    --color-primary-container: " . esc_attr($color) . " !important;\n";
-			echo "}\n";
-			echo "</style>\n";
-		}
+	if (empty($color)) {
+		return;
 	}
+
+	echo "<!-- Dynamic Department Accent Color -->\n";
+	echo "<style>\n";
+	echo ":root {\n";
+	echo "  --color-primary: " . esc_attr($color) . " !important;\n";
+	echo "  --color-primary-container: " . esc_attr($color) . " !important;\n";
+	echo "}\n";
+	echo "</style>\n";
 }
-
 
 /**
  * Render the Dynamic Department Icon or Fallback
