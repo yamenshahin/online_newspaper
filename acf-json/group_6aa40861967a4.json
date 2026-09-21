@@ -60,9 +60,10 @@
                             },
                             "post_type": [
                                 "post",
-                                "program",
                                 "interview",
-                                "infographic"
+                                "podcast",
+                                "program",
+                                "video"
                             ],
                             "post_status": [
                                 "publish"
@@ -97,9 +98,10 @@
                             },
                             "post_type": [
                                 "post",
-                                "infographic",
                                 "program",
-                                "interview"
+                                "interview",
+                                "video",
+                                "podcast"
                             ],
                             "post_status": [
                                 "publish"
@@ -111,8 +113,8 @@
                                 "taxonomy"
                             ],
                             "return_format": "object",
-                            "min": 2,
-                            "max": 2,
+                            "min": 3,
+                            "max": 3,
                             "allow_in_bindings": 0,
                             "elements": "",
                             "bidirectional": 0,
@@ -832,5 +834,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789810856
+    "modified": 1789983359
 }
