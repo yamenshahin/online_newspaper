@@ -27,7 +27,7 @@ $interview_label = $args['interview_label'] ?? 'حوار';
     <div class="p-space-lg flex flex-col justify-between flex-grow gap-space-md">
         <div class="flex flex-col gap-space-xs">
             <!-- Dynamic Label Above Title -->
-            <span class="font-label-caps text-label-caps text-secondary font-semibold">
+            <span class="font-label-caps text-label-caps text-primary font-semibold">
                 <?php echo esc_html($interview_label); ?>
             </span>
 
