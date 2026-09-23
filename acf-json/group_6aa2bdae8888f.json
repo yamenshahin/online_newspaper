@@ -8,7 +8,7 @@
             "name": "taxonomy_image",
             "aria-label": "",
             "type": "image",
-            "instructions": "Please ensure the uploaded image has a 1:1 aspect ratio and a maximum width of 512px.",
+            "instructions": "Please ensure the uploaded image has a 3:4 aspect ratio and a maximum width of 1920px.",
             "required": 0,
             "conditional_logic": 0,
             "wrapper": {
@@ -21,8 +21,8 @@
             "min_width": "",
             "min_height": "",
             "min_size": "",
-            "max_width": 512,
-            "max_height": 512,
+            "max_width": 1920,
+            "max_height": "",
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
@@ -220,5 +220,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790194863
+    "modified": 1790195016
 }
