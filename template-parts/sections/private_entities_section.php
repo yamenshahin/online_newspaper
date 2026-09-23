@@ -46,7 +46,7 @@ if (empty($active_terms)) {
 ?>
 
 <section
-    class="w-full px-margin-mobile lg:px-margin py-space-lg  border-b border-surface-container-highest/30 last:border-0">
+    class="w-full px-margin-mobile lg:px-margin py-space-lg border-b border-surface-container-highest/30 last:border-0">
     <div class="flex flex-col gap-space-md">
 
         <div class="flex flex-col items-start gap-space-xs text-start">
@@ -60,8 +60,8 @@ if (empty($active_terms)) {
             <?php endif; ?>
         </div>
 
-        <div
-            class="flex items-center gap-space-sm overflow-x-auto pb-space-xs pt-1 whitespace-nowrap [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+        <!-- CHANGED: Replaced whitespace-nowrap & overflow-x-auto with flex-wrap -->
+        <div class="flex flex-wrap items-center gap-space-sm pb-space-xs pt-1">
 
             <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
                 <!-- Reset/Clear Filter Button -->
