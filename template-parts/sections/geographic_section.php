@@ -107,9 +107,9 @@ if (!empty($_GET[$query_var])) {
         </div>
 
         <div class="relative">
-            <!-- CHANGED: Replaced Horizontal Scroll with Responsive CSS Grid -->
+            <!-- Fixed-width Horizontal Scroll -->
             <div id="geo-parents-view"
-                class="geo-view <?php echo $active_parent_id ? 'hidden' : ''; ?> grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 pb-6 transition-opacity duration-300">
+                class="geo-view <?php echo $active_parent_id ? 'hidden' : ''; ?> flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
 
                 <?php foreach ($parents as $parent_id => $data):
                     $term = $data['term'];
@@ -123,24 +123,24 @@ if (!empty($_GET[$query_var])) {
                         : 'href="' . esc_url($url) . '"';
                     ?>
                     <<?php echo $tag; ?>     <?php echo $attr; ?>
-                        class="group flex flex-col items-center p-4 md:p-6 est
+                        class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est
                         border
                         border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl
                         hover:-translate-y-1 transition-all duration-300 ease-out text-center focus:outline-none">
                         <div
-                            class="w-20 h-20 md:w-24 md:h-24 aspect-square mb-4 md:mb-5 rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative">
+                            class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative">
                             <?php if (!empty($image) && is_array($image)): ?>
-                                <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
+                                <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
                                 ]); ?>
                             <?php else: ?>
-                                <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
+                                <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
                                     <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                                 </span>
                             <?php endif; ?>
                         </div>
                         <h3
-                            class="text-sm font-bold text-on-background text-center mb-4 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                            class="text-sm font-bold text-on-background text-center mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
                             <?php echo esc_html($term->name); ?>
                         </h3>
                         <div class="mt-auto">
@@ -161,12 +161,12 @@ if (!empty($_GET[$query_var])) {
                 $parent_image = get_field('taxonomy_image', $parent_term);
                 $is_active = ($active_parent_id === $parent_id);
                 ?>
-                <!-- CHANGED: Replaced Horizontal Scroll with Responsive CSS Grid -->
+                <!-- Fixed-width Horizontal Scroll -->
                 <div id="geo-children-view-<?php echo (int) $parent_id; ?>"
-                    class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4 pb-6 transition-opacity duration-300">
+                    class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
 
                     <button type="button" onclick="showCountries()"
-                        class="group flex flex-col items-center justify-center p-4 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover: transition-all duration-300 focus:outline-none">
+                        class="group flex-none w-32 md:w-36 snap-start flex flex-col items-center justify-center p-4 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover: transition-all duration-300 focus:outline-none">
                         <div
                             class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-3 shadow-sm transition-colors border border-surface-container-high">
                             <span class="text-xl">&rarr;</span>
@@ -177,15 +177,15 @@ if (!empty($_GET[$query_var])) {
                     </button>
 
                     <a href="<?php echo esc_url($parent_url); ?>"
-                        class="group flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
+                        class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
                         <div
-                            class="w-20 h-20 md:w-24 md:h-24 aspect-square mb-4 md:mb-5 rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative z-10">
+                            class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative z-10">
                             <?php if (!empty($parent_image) && is_array($parent_image)): ?>
-                                <?php echo wp_get_attachment_image($parent_image['ID'], 'medium', false, [
+                                <?php echo wp_get_attachment_image($parent_image['ID'], 'thumbnail', false, [
                                     'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
                                 ]); ?>
                             <?php else: ?>
-                                <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
+                                <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
                                     <?php echo esc_html(mb_substr($parent_term->name, 0, 1)); ?>
                                 </span>
                             <?php endif; ?>
@@ -210,21 +210,21 @@ if (!empty($_GET[$query_var])) {
                         $image = get_field('taxonomy_image', $term);
                         ?>
                         <a href="<?php echo esc_url($url); ?>"
-                            class="group flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
+                            class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
                             <div
-                                class="w-20 h-20 md:w-24 md:h-24 aspect-square mb-4 md:mb-5 rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm">
+                                class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm">
                                 <?php if (!empty($image) && is_array($image)): ?>
-                                    <?php echo wp_get_attachment_image($image['ID'], 'medium', false, [
+                                    <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
                                         'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
                                     ]); ?>
                                 <?php else: ?>
-                                    <span class="text-3xl font-bold text-on-surface-variant/40 uppercase">
+                                    <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
                                         <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                                     </span>
                                 <?php endif; ?>
                             </div>
                             <h3
-                                class="text-sm font-bold text-on-background text-center mb-4 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                                class="text-sm font-bold text-on-background text-center mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
                                 <?php echo esc_html($term->name); ?>
                             </h3>
                             <div class="mt-auto">
