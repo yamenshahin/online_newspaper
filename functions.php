@@ -500,3 +500,19 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 
 	return $cache[$taxonomy];
 }
+
+/**
+ * Clean up legacy WordPress captions and hardcoded image dimensions globally.
+ */
+add_filter('the_content', function ($content) {
+	// 1. إزالة كود الـ caption القديم تماماً والحفاظ على الصورة والنص فقط لتصبح مرنة
+	$content = preg_replace('/\[caption[^\]]*\](<img[^>]+>)(.*?)\[\/caption\]/is', '<div class="my-8">$1<p class="text-center text-sm text-gray-500 mt-2">$2</p></div>', $content);
+
+	// 2. إزالة الـ width والـ height المباشرة من وسوم الـ img
+	$content = preg_replace('/(<img[^>]+)(width|height)="\d*"\s?/i', '$1', $content);
+
+	// 3. إزالة الـ inline style الخاص بالعرض الذي يفرضه الـ WordPress captions
+	$content = preg_replace('/style="[^"]*width:\s*\d+px;?[^"]*"/', '', $content);
+
+	return $content;
+}, 20);

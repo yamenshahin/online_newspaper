@@ -28,7 +28,8 @@ while (have_posts()):
 
         <!-- Hero Header Section -->
         <header class="py-16 md:py-24 bg-gray-50/50 border-b border-gray-100 mb-12">
-            <div class="max-w-4xl mx-auto px-6 text-center">
+            <!-- Using standard margin classes -->
+            <div class="w-full px-margin-mobile lg:px-margin max-w-5xl mx-auto text-center">
 
                 <!-- Dynamic Post Type Badge -->
                 <span class="text-sm font-bold text-primary uppercase tracking-widest mb-4 block">
@@ -61,31 +62,30 @@ while (have_posts()):
                 $image_classes .= ' aspect-[9/16] object-contain bg-gray-50';
             }
             ?>
-            <div class="<?php echo esc_attr($wrapper_classes); ?> mx-auto px-6 mb-16 -mt-24 relative z-10">
+            <div
+                class="<?php echo esc_attr($wrapper_classes); ?> mx-auto px-margin-mobile lg:px-margin mb-16 -mt-24 relative z-10">
                 <div class="rounded-3xl overflow-hidden shadow-2xl shadow-gray-200/50 bg-white p-2">
                     <?php the_post_thumbnail('full', ['class' => $image_classes]); ?>
                 </div>
             </div>
         <?php endif; ?>
 
-        <!-- Main Content -->
-        <article class="max-w-3xl mx-auto px-6">
-
-            <div class="text-lg md:text-xl text-gray-700 leading-relaxed 
+        <!-- Main Content (Expanded to match site margins) -->
+        <article class="w-full px-margin-mobile lg:px-margin">
+            <div class="max-w-4xl mx-auto text-lg md:text-xl text-gray-700 leading-relaxed 
                         [&>p]:mb-6 
                         [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:text-gray-900 [&>h2]:mt-12 [&>h2]:mb-6 [&>h2]:tracking-tight
-                        [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:text-gray-900 [&>h3]:mt-10 [&>h3]:mb-4
+                        [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:text-on-background [&>h3]:mt-10 [&>h3]:mb-4
                         [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul>li]:mb-2 [&>ul>li::marker]:text-gray-400
                         [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol>li]:mb-2
                         [&>a]:text-primary [&>a]:font-medium [&>a:hover]:text-primary/85 [&>a:hover]:underline 
                         [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-6 [&>blockquote]:py-1 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:my-8 [&>blockquote]:bg-gray-50 [&>blockquote]:rounded-r-lg
-                        [&>img]:rounded-2xl [&>img]:shadow-md [&>img]:my-8 [&>img]:w-full [&>img]:h-auto
+                        [&_img]:w-full [&_img]:h-auto [&_img]:max-w-full [&_img]:object-cover [&_img]:rounded-2xl [&_img]:shadow-md [&_img]:my-8
                         [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:shadow-sm [&>iframe]:my-8">
 
                 <?php the_content(); ?>
 
             </div>
-
         </article>
 
     </main>
