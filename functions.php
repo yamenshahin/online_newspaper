@@ -9,9 +9,18 @@ if (!defined('ABSPATH')) {
 
 define('HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0');
 
+// ---------------------------------------------------------------------------
+// Includes
+// ---------------------------------------------------------------------------
+$theme_inc = get_stylesheet_directory() . '/inc';
+require_once $theme_inc . '/department-context.php';
+require_once $theme_inc . '/shortcodes/department-footer.php';
+
+// ---------------------------------------------------------------------------
+// Assets
+// ---------------------------------------------------------------------------
 function hello_elementor_child_scripts_styles()
 {
-	// 1. Enqueue FontAwesome
 	wp_enqueue_style(
 		'font-awesome-cdn',
 		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
@@ -19,7 +28,6 @@ function hello_elementor_child_scripts_styles()
 		'6.5.1'
 	);
 
-	// 2. Enqueue Google Fonts cleanly (Now including Noto Naskh Arabic)
 	wp_enqueue_style(
 		'hello-elementor-child-fonts',
 		'https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
@@ -27,7 +35,6 @@ function hello_elementor_child_scripts_styles()
 		null
 	);
 
-	// 3. Enqueue Google Material Symbols
 	wp_enqueue_style(
 		'hello-elementor-child-icons',
 		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
@@ -35,7 +42,6 @@ function hello_elementor_child_scripts_styles()
 		null
 	);
 
-	// 4. Enqueue Root Style (Dependency Removed!)
 	wp_enqueue_style(
 		'hello-elementor-child-style',
 		get_stylesheet_uri(),
@@ -43,7 +49,6 @@ function hello_elementor_child_scripts_styles()
 		filemtime(get_stylesheet_directory() . '/style.css')
 	);
 
-	// 5. Enqueue Tailwind CSS
 	wp_enqueue_style(
 		'hello-elementor-child-tailwind',
 		get_stylesheet_directory_uri() . '/assets/css/tailwind.css',
@@ -53,28 +58,40 @@ function hello_elementor_child_scripts_styles()
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
-/**
- * Register custom query var
- */
+// ---------------------------------------------------------------------------
+// Query vars
+// ---------------------------------------------------------------------------
 add_filter('query_vars', function ($vars) {
 	$vars[] = 'view';
 	return $vars;
 });
 
-/**
- * Hide the default WordPress taxonomy description field
- */
+// ---------------------------------------------------------------------------
+// Admin UI
+// ---------------------------------------------------------------------------
 add_action('admin_head', function () {
 	if (isset($_GET['taxonomy'])) {
 		echo '<style>.term-description-wrap { display: none !important; }</style>';
 	}
 });
 
-/**
- * Force program, infographic, interview to use /post-type/ID/
- */
+add_action('init', function () {
+	foreach (get_post_types() as $post_type) {
+		unregister_taxonomy_for_object_type('category', $post_type);
+		unregister_taxonomy_for_object_type('post_tag', $post_type);
+	}
+}, 20);
+
+add_action('admin_menu', function () {
+	remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
+	remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
+});
+
+// ---------------------------------------------------------------------------
+// Permalinks: /{post-type}/{id}/ and /news/{id}/
+// ---------------------------------------------------------------------------
 add_filter('post_type_link', function ($permalink, $post) {
-	$targets = ['program', 'infographic', 'interview'];
+	$targets = ['program', 'infographic', 'interview', 'video', 'podcast', 'reel'];
 	if (in_array($post->post_type, $targets, true)) {
 		return home_url($post->post_type . '/' . $post->ID . '/');
 	}
@@ -82,7 +99,7 @@ add_filter('post_type_link', function ($permalink, $post) {
 }, 10, 2);
 
 add_action('init', function () {
-	$targets = ['program', 'infographic', 'interview'];
+	$targets = ['program', 'infographic', 'interview', 'video', 'podcast', 'reel'];
 	foreach ($targets as $post_type) {
 		add_rewrite_rule(
 			'^' . $post_type . '/([0-9]+)/?$',
@@ -92,9 +109,6 @@ add_action('init', function () {
 	}
 });
 
-/**
- * Force standard posts to /news/ID/
- */
 add_filter('post_link', function ($permalink, $post) {
 	if ('post' === $post->post_type) {
 		return home_url('news/' . $post->ID . '/');
@@ -106,25 +120,56 @@ add_action('init', function () {
 	add_rewrite_rule('^news/([0-9]+)/?$', 'index.php?p=$matches[1]', 'top');
 });
 
-/**
- * -------------------------------------------------
- * INTERSECTION ENGINE
- * Returns terms of a taxonomy that actually have posts
- * in common with the given department + accurate counts
- * -------------------------------------------------
- */
+// ---------------------------------------------------------------------------
+// Content registry
+// ---------------------------------------------------------------------------
+function get_content_post_types(): array
+{
+	return [
+		'post',
+		'program',
+		'interview',
+		'infographic',
+		'video',
+		'podcast',
+	];
+}
+
+function get_filterable_taxonomies(): array
+{
+	return [
+		'government_entity',
+		'private_entity',
+		'speaker_influencer',
+		'geographic',
+		'program_series',
+	];
+}
+
+function is_content_post_type(string $slug): bool
+{
+	return in_array($slug, get_content_post_types(), true);
+}
+
+// ---------------------------------------------------------------------------
+// Department helpers (queries / UI)
+// ---------------------------------------------------------------------------
 function get_department_intersected_terms(int $department_id, string $taxonomy, int $limit = 0): array
 {
 	global $wpdb;
 
-	// 1. Get all post IDs belonging to this department
-	$department_posts = $wpdb->get_col($wpdb->prepare("
-		SELECT tr.object_id
-		FROM {$wpdb->term_relationships} tr
-		INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-		WHERE tt.taxonomy = 'department'
-		AND tt.term_id = %d
-	", $department_id));
+	$department_posts = $wpdb->get_col(
+		$wpdb->prepare(
+			"
+			SELECT tr.object_id
+			FROM {$wpdb->term_relationships} tr
+			INNER JOIN {$wpdb->term_taxonomy} tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+			WHERE tt.taxonomy = 'department'
+			AND tt.term_id = %d
+			",
+			$department_id
+		)
+	);
 
 	if (empty($department_posts)) {
 		return [];
@@ -133,7 +178,6 @@ function get_department_intersected_terms(int $department_id, string $taxonomy, 
 	$post_ids = array_map('intval', $department_posts);
 	$placeholders = implode(',', array_fill(0, count($post_ids), '%d'));
 
-	// 2. Find terms of the target taxonomy attached to those posts
 	$sql = "
 		SELECT tt.term_id, COUNT(tr.object_id) AS post_count
 		FROM {$wpdb->term_relationships} tr
@@ -151,7 +195,6 @@ function get_department_intersected_terms(int $department_id, string $taxonomy, 
 	}
 
 	$results = $wpdb->get_results($query);
-
 	if (empty($results)) {
 		return [];
 	}
@@ -170,188 +213,13 @@ function get_department_intersected_terms(int $department_id, string $taxonomy, 
 	return $output;
 }
 
-/**
- * Dynamically swap the Custom Logo based on Department context.
- */
-add_filter('theme_mod_custom_logo', 'dynamic_department_custom_logo');
-
-function dynamic_department_custom_logo($default_logo_id)
-{
-	// Do not interfere with the WordPress admin backend
-	if (is_admin()) {
-		return $default_logo_id;
-	}
-
-	$current_department = null;
-
-	// 1. Context Engine: Figure out if we are in a Department
-	if (is_tax('department')) {
-		$current_department = get_queried_object();
-	} elseif (is_singular(['post', 'program', 'infographic', 'interview'])) {
-		$terms = get_the_terms(get_the_ID(), 'department');
-		if (!empty($terms) && !is_wp_error($terms)) {
-			$current_department = $terms[0];
-		}
-	}
-
-	// 2. Fetch the ACF Logo if context matches
-	if ($current_department) {
-		$image_data = get_field('department_logo', $current_department);
-
-		if (is_array($image_data) && !empty($image_data['ID'])) {
-			return $image_data['ID']; // Return Department Logo ID
-		} elseif (is_numeric($image_data) && !empty($image_data)) {
-			return (int) $image_data; // Return Department Logo ID
-		}
-	}
-
-	// 3. Fallback to the default global logo
-	return $default_logo_id;
-}
-
-/**
- * Hide tag and category taxonomies
- */
-add_action('init', function () {
-	foreach (get_post_types() as $post_type) {
-		unregister_taxonomy_for_object_type('category', $post_type);
-		unregister_taxonomy_for_object_type('post_tag', $post_type);
-	}
-}, 20);
-
-add_action('admin_menu', function () {
-	remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=post_tag');
-	remove_submenu_page('edit.php', 'edit-tags.php?taxonomy=category');
-});
-
-/**
- * Contextual Layout Engine: Hide specific Flexible Content layouts 
- * based on where the editor is currently working.
- */
-add_filter('acf/load_field/name=department_sections', function ($field) {
-	if (!is_admin()) {
-		return $field;
-	}
-
-	$is_page_screen = false;
-	$is_term_screen = false;
-
-	// 1. Detect if editing a Page (e.g., Homepage)
-	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
-	if ($post_id && get_post_type($post_id) === 'page') {
-		$is_page_screen = true;
-	} elseif (isset($_GET['post_type']) && $_GET['post_type'] === 'page') {
-		$is_page_screen = true; // post-new.php?post_type=page
-	}
-
-	// 2. Detect if editing a Department Taxonomy Term
-	if (isset($_GET['taxonomy']) && $_GET['taxonomy'] === 'department') {
-		$is_term_screen = true;
-	}
-
-	// 3. Exit early if not on a relevant screen
-	if (!$is_page_screen && !$is_term_screen) {
-		return $field;
-	}
-
-	// 4. Build a list of layout names to hide based on the context
-	$layouts_to_hide = [];
-
-	if ($is_page_screen) {
-		// On Pages (Home): Only hide Social.
-		$layouts_to_hide[] = 'social_section';
-	}
-
-	// 5. Remove the layouts
-	if (!empty($field['layouts']) && is_array($field['layouts'])) {
-		foreach ($field['layouts'] as $key => $layout) {
-			$layout_name = $layout['name'] ?? '';
-
-			if (in_array($layout_name, $layouts_to_hide, true)) {
-				unset($field['layouts'][$key]);
-			}
-		}
-
-		// Re-index array so ACF stays happy
-		$field['layouts'] = array_values($field['layouts']);
-	}
-
-	return $field;
-});
-
-/**
- * Inject department accent color (archives + singles in a department).
- */
-add_action('wp_head', 'dynamic_department_theme_color');
-
-function dynamic_department_theme_color()
-{
-	if (is_admin()) {
-		return;
-	}
-
-	$department = get_context_department();
-	if (!$department instanceof WP_Term) {
-		return;
-	}
-
-	$color = get_field('department_color', $department);
-	// Or with fallback to about-saudia if you want:
-	// $color = get_department_field_with_fallback( 'department_color', $department );
-
-	if (empty($color)) {
-		return;
-	}
-
-	echo "<!-- Dynamic Department Accent Color -->\n";
-	echo "<style>\n";
-	echo ":root {\n";
-	echo "  --color-primary: " . esc_attr($color) . " !important;\n";
-	echo "  --color-primary-container: " . esc_attr($color) . " !important;\n";
-	echo "}\n";
-	echo "</style>\n";
-}
-
-/**
- * Render the Dynamic Department Icon or Fallback
- */
-function render_department_icon($department = null)
-{
-	// Default fallback from the theme assets
-	$fallback_url = get_stylesheet_directory_uri() . '/assets/images/department-icon.png';
-	$icon_url = $fallback_url;
-	$alt_text = '';
-
-	// If we are in a department context, check for the ACF field
-	if ($department instanceof WP_Term) {
-		$acf_icon = get_field('department_icon', $department);
-
-		if (is_array($acf_icon) && !empty($acf_icon['url'])) {
-			$icon_url = $acf_icon['url'];
-			$alt_text = $acf_icon['alt'] ?: $department->name;
-		} elseif (is_numeric($acf_icon) && !empty($acf_icon)) {
-			$icon_url = wp_get_attachment_image_url($acf_icon, 'thumbnail');
-			$alt_text = $department->name;
-		}
-	}
-
-	// Output the image with classes to match the sizing of your old numbers
-	echo '<img src="' . esc_url($icon_url) . '" alt="' . esc_attr($alt_text) . '" class="w-8 h-8 md:w-10 md:h-10 object-contain shrink-0" />';
-}
-
-/**
- * Departments that share at least one published post/CPT with a filter term.
- *
- * @return WP_Term[]
- */
 function get_departments_for_filter_term(WP_Term $filter_term): array
 {
 	global $wpdb;
 
-	$post_types = ['post', 'program', 'interview', 'infographic'];
+	$post_types = get_content_post_types();
 	$pt_placeholders = implode(',', array_fill(0, count($post_types), '%s'));
 
-	// Posts tagged with this filter term
 	$sql = "
 		SELECT DISTINCT tr.object_id
 		FROM {$wpdb->term_relationships} tr
@@ -373,7 +241,6 @@ function get_departments_for_filter_term(WP_Term $filter_term): array
 	$post_ids = array_map('intval', $post_ids);
 	$id_ph = implode(',', array_fill(0, count($post_ids), '%d'));
 
-	// Departments on those posts
 	$sql2 = "
 		SELECT DISTINCT tt.term_id
 		FROM {$wpdb->term_relationships} tr
@@ -383,7 +250,6 @@ function get_departments_for_filter_term(WP_Term $filter_term): array
 	";
 
 	$dept_ids = $wpdb->get_col($wpdb->prepare($sql2, $post_ids));
-
 	if (empty($dept_ids)) {
 		return [];
 	}
@@ -396,55 +262,119 @@ function get_departments_for_filter_term(WP_Term $filter_term): array
 		}
 	}
 
-	// Optional: sort by name
-	usort($departments, static function ($a, $b) {
-		return strcasecmp($a->name, $b->name);
-	});
+	usort(
+		$departments,
+		static function ($a, $b) {
+			return strcasecmp($a->name, $b->name);
+		}
+	);
 
 	return $departments;
 }
 
-
-/**
- * Content post types (archives + department ?view=).
- * Add new CPTs here only.
- */
-function get_content_post_types(): array
+function render_department_icon($department = null)
 {
-	return [
-		'post',
-		'program',
-		'interview',
-		'infographic',
-		'video',
-		'podcast',
-		// no 'reel'
-	];
+	$fallback_url = get_stylesheet_directory_uri() . '/assets/images/department-icon.png';
+	$icon_url = $fallback_url;
+	$alt_text = '';
+
+	if ($department instanceof WP_Term) {
+		$acf_icon = get_field('department_icon', $department);
+		if (is_array($acf_icon) && !empty($acf_icon['url'])) {
+			$icon_url = $acf_icon['url'];
+			$alt_text = $acf_icon['alt'] ?: $department->name;
+		} elseif (is_numeric($acf_icon) && !empty($acf_icon)) {
+			$icon_url = wp_get_attachment_image_url($acf_icon, 'thumbnail');
+			$alt_text = $department->name;
+		}
+	}
+
+	echo '<img src="' . esc_url($icon_url) . '" alt="' . esc_attr($alt_text) . '" class="w-8 h-8 md:w-10 md:h-10 object-contain shrink-0" />';
 }
 
-/**
- * Taxonomies used as filters on sections / isolated archives.
- */
-function get_filterable_taxonomies(): array
+// ---------------------------------------------------------------------------
+// Department chrome (logo + primary color)
+// ---------------------------------------------------------------------------
+add_filter('theme_mod_custom_logo', 'dynamic_department_custom_logo');
+
+function dynamic_department_custom_logo($default_logo_id)
 {
-	return [
-		'government_entity',
-		'private_entity',
-		'speaker_influencer',
-		'geographic',
-		'program_series',
-	];
+	if (is_admin()) {
+		return $default_logo_id;
+	}
+
+	$department = get_context_department();
+	if (!$department instanceof WP_Term) {
+		return $default_logo_id;
+	}
+
+	$image_data = get_field('department_logo', $department);
+	if (is_array($image_data) && !empty($image_data['ID'])) {
+		return (int) $image_data['ID'];
+	}
+	if (is_numeric($image_data) && !empty($image_data)) {
+		return (int) $image_data;
+	}
+
+	return $default_logo_id;
 }
 
-/**
- * Whether a slug is a managed content post type.
- */
-function is_content_post_type(string $slug): bool
+add_action('wp_head', 'dynamic_department_theme_color');
+
+function dynamic_department_theme_color()
 {
-	return in_array($slug, get_content_post_types(), true);
+	if (is_admin()) {
+		return;
+	}
+
+	$department = get_context_department();
+	if (!$department instanceof WP_Term) {
+		return;
+	}
+
+	$color = get_field('department_color', $department);
+	if (empty($color)) {
+		return;
+	}
+
+	echo "<!-- Dynamic Department Accent Color -->\n<style>\n:root {\n";
+	echo '  --color-primary: ' . esc_attr($color) . " !important;\n";
+	echo '  --color-primary-container: ' . esc_attr($color) . " !important;\n";
+	echo "}\n</style>\n";
 }
 
-$theme_inc = get_stylesheet_directory() . '/inc';
+// ---------------------------------------------------------------------------
+// ACF Layout Engine: hide layouts by screen
+// ---------------------------------------------------------------------------
+add_filter('acf/load_field/name=department_sections', function ($field) {
+	if (!is_admin()) {
+		return $field;
+	}
 
-require_once $theme_inc . '/department-context.php';
-require_once $theme_inc . '/shortcodes/department-footer.php';
+	$is_page_screen = false;
+
+	$post_id = isset($_GET['post']) ? (int) $_GET['post'] : 0;
+	if ($post_id && get_post_type($post_id) === 'page') {
+		$is_page_screen = true;
+	} elseif (isset($_GET['post_type']) && $_GET['post_type'] === 'page') {
+		$is_page_screen = true;
+	}
+
+	if (!$is_page_screen) {
+		return $field;
+	}
+
+	$layouts_to_hide = ['social_section'];
+
+	if (!empty($field['layouts']) && is_array($field['layouts'])) {
+		foreach ($field['layouts'] as $key => $layout) {
+			$name = $layout['name'] ?? '';
+			if (in_array($name, $layouts_to_hide, true)) {
+				unset($field['layouts'][$key]);
+			}
+		}
+		$field['layouts'] = array_values($field['layouts']);
+	}
+
+	return $field;
+});

@@ -70,3 +70,21 @@ function is_department_field_empty($value): bool
     }
     return false;
 }
+
+/**
+ * Department color for chrome (primary / footer), with about-saudia fallback.
+ */
+function get_department_theme_color(?WP_Term $term = null): string
+{
+    if ($term === null) {
+        $term = get_context_department();
+    }
+
+    $color = get_department_field_with_fallback('department_color', $term);
+
+    if (is_string($color) && $color !== '') {
+        return $color;
+    }
+
+    return ''; // let CSS theme default apply
+}
