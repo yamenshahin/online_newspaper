@@ -1,6 +1,6 @@
 {
     "key": "taxonomy_6aa10a3a9ce94",
-    "title": "Geographic",
+    "title": "Geographics",
     "menu_order": 0,
     "active": true,
     "taxonomy": "geographic",
@@ -17,7 +17,7 @@
     "import_source": "",
     "import_date": "",
     "labels": {
-        "name": "Geographic",
+        "name": "Geographics",
         "singular_name": "Geographic",
         "menu_name": "Geographic",
         "all_items": "All Geographic",
@@ -35,7 +35,7 @@
         "name_field_description": "Names can be entered in Arabic or English.",
         "slug_field_description": "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here.",
         "parent_field_description": "",
-        "desc_field_description": "Hierarchical location filter: Country ← City.",
+        "desc_field_description": "Hierarchical location filter: Country → City.",
         "filter_by_item": "",
         "items_list_navigation": "Geographic list navigation",
         "items_list": "Geographic list",
@@ -79,5 +79,5 @@
     "meta_box_sanitize_cb": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789907436
+    "modified": 1790171124
 }

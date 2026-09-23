@@ -21,10 +21,19 @@ $image_data = get_field('taxonomy_image', $acf_term_id)
     ?: get_field('image', $acf_term_id);
 
 $image_id = 0;
+$fallback_image_url = '';
+
 if (is_array($image_data) && !empty($image_data['ID'])) {
     $image_id = (int) $image_data['ID'];
 } elseif (is_numeric($image_data)) {
     $image_id = (int) $image_data;
+} elseif (empty($image_data)) {
+    // Fallback logic for specific taxonomies if no ACF image is set
+    if ($term->taxonomy === 'government_entity') {
+        $fallback_image_url = get_stylesheet_directory_uri() . '/assets/images/government_entity.jpeg';
+    } elseif ($term->taxonomy === 'private_entity') {
+        $fallback_image_url = get_stylesheet_directory_uri() . '/assets/images/private_entity.jpeg';
+    }
 }
 
 // Description
@@ -57,11 +66,7 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : __('Profile', 'hello-e
             </a>
         </div>
 
-        <!--
-            DOM order: content then image.
-            dir=ltr  → content left, image right
-            dir=rtl  → content right, image left
-        -->
+
         <div class="flex flex-col md:flex-row gap-10 md:gap-16 items-start">
 
             <div class="flex-1 text-start min-w-0">
@@ -129,6 +134,12 @@ $tax_label = $tax_obj ? $tax_obj->labels->singular_name : __('Profile', 'hello-e
                         'class' => 'w-full h-auto object-cover',
                     ]);
                     ?>
+                </div>
+            <?php elseif (!empty($fallback_image_url)): ?>
+                <div
+                    class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
+                    <img src="<?php echo esc_url($fallback_image_url); ?>" alt="<?php echo esc_attr($term->name); ?>"
+                        class="w-full h-auto object-cover">
                 </div>
             <?php else: ?>
                 <div

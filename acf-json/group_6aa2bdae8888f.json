@@ -9,7 +9,7 @@
             "aria-label": "",
             "type": "image",
             "instructions": "Please ensure the uploaded image has a 1:1 aspect ratio and a maximum width of 512px.",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -35,7 +35,7 @@
             "aria-label": "",
             "type": "wysiwyg",
             "instructions": "",
-            "required": 1,
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -220,5 +220,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789416542
+    "modified": 1790194863
 }
