@@ -88,3 +88,7 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 .site-header .site-navigation a:hover {
     color: var(--color-primary, #0055ff);
 }
+
+.elementor-element-341994f.bg-primary {
+    background-color: var(--color-primary) !important;
+}

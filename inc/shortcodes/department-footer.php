@@ -89,7 +89,7 @@ function render_department_footer_social(): string
                 }
                 ?>
                 <a href="<?php echo esc_url($url); ?>" target="_blank" rel="noopener noreferrer"
-                    class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-white text-gray-800 hover:bg-primary hover:text-white transition-colors duration-300 shadow-sm">
+                    class="w-10 h-10 inline-flex items-center justify-center rounded-full bg-white text-gray-800 hover:bg-gray-900 hover:text-white transition-colors duration-300 shadow-sm">
                     <i class="<?php echo esc_attr($platform); ?>"></i>
                 </a>
             <?php endforeach; ?>
