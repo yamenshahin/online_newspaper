@@ -735,7 +735,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "آخر الأخبار بالفيديو",
+                            "default_value": "بودكاست أثر",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -756,7 +756,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة",
+                            "default_value": "برامج حوارية مع الإعلامية ازدهار علاف",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -909,5 +909,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789995469
+    "modified": 1789997640
 }

@@ -418,7 +418,7 @@ function get_content_post_types(): array
 		'infographic',
 		'video',
 		'podcast',
-		'reel',
+		// no 'reel'
 	];
 }
 
