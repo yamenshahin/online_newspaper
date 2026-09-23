@@ -402,7 +402,7 @@ function get_dynamic_cpt_labels(string $post_type): array
 	$layout_map = [
 		'post' => 'posts_section',
 		'interview' => 'interviews_section',
-		'program' => 'programs_section',
+		'program' => 'program_series_section',
 		'infographic' => 'infographics_section',
 		'video' => 'videos_section',
 		'podcast' => 'podcasts_section',
