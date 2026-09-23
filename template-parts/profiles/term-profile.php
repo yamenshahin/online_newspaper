@@ -48,8 +48,15 @@ if (empty($description)) {
 $extra_info = get_field('extra_info', $acf_term_id)
     ?: get_field('extra_info', $term);
 
-$tax_obj = get_taxonomy($term->taxonomy);
-$tax_label = $tax_obj ? $tax_obj->labels->singular_name : __('Profile', 'hello-elementor-child');
+// Fetch dynamic taxonomy label from Homepage ACF (via functions.php)
+$dynamic_labels = get_dynamic_taxonomy_labels($term->taxonomy);
+
+if (!empty($dynamic_labels['title'])) {
+    $tax_label = $dynamic_labels['title'];
+} else {
+    $tax_obj = get_taxonomy($term->taxonomy);
+    $tax_label = $tax_obj ? $tax_obj->labels->singular_name : __('Profile', 'hello-elementor-child');
+}
 ?>
 
 <section class="relative bg-white border-b border-gray-100 py-12 mb-12 shadow-[0_10px_40px_-15px_rgba(0,0,0,0.05)]">

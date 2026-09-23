@@ -442,3 +442,61 @@ function get_dynamic_cpt_labels(string $post_type): array
 
 	return $cache[$post_type];
 }
+
+/**
+ * -------------------------------------------------
+ * DYNAMIC TAXONOMY LABELS ENGINE
+ * Fetches the taxonomy title and subtitle from the 
+ * Homepage ACF 'department_sections' flexible content.
+ * -------------------------------------------------
+ */
+function get_dynamic_taxonomy_labels(string $taxonomy): array
+{
+	// Static cache prevents multiple database lookups per page load
+	static $cache = [];
+
+	if (isset($cache[$taxonomy])) {
+		return $cache[$taxonomy];
+	}
+
+	$title = '';
+	$subtitle = '';
+
+	// Map your taxonomies to their exact ACF Flexible Content layout names
+	$layout_map = [
+		'government_entity' => 'government_entities_section',
+		'private_entity' => 'private_entities_section',
+		'speaker_influencer' => 'speakers_section',
+		'geographic' => 'geographic_section',
+	];
+
+	$target_layout = $layout_map[$taxonomy] ?? '';
+	$front_page_id = get_option('page_on_front');
+
+	if ($target_layout && $front_page_id) {
+		$sections = get_field('department_sections', $front_page_id);
+		if (is_array($sections)) {
+			foreach ($sections as $sec) {
+				if (($sec['acf_fc_layout'] ?? '') === $target_layout) {
+					$title = wp_strip_all_tags($sec['section_title'] ?? '');
+					$subtitle = $sec['subtitle'] ?? '';
+					break;
+				}
+			}
+		}
+	}
+
+	// Fallback to standard WP taxonomy labels if ACF is empty
+	$tax_obj = get_taxonomy($taxonomy);
+
+	if (empty($title)) {
+		$title = $tax_obj ? $tax_obj->labels->singular_name : $taxonomy;
+	}
+
+	$cache[$taxonomy] = [
+		'title' => $title,
+		'subtitle' => $subtitle,
+	];
+
+	return $cache[$taxonomy];
+}
