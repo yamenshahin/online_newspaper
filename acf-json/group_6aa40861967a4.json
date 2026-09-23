@@ -600,7 +600,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "فرز المحتوى حسب المواقع الجغرافية",
+                            "default_value": "الدول والمدن",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -621,7 +621,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "الدول والمدن",
+                            "default_value": "فرز المحتوى حسب المواقع الجغرافية",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -909,5 +909,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789997640
+    "modified": 1790203981
 }
