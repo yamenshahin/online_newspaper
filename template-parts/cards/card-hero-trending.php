@@ -8,27 +8,22 @@ if (!$t_post instanceof WP_Post) {
     return;
 }
 
-// 1. CPT Meta Label (mapped)
-$type_map = [
-    'post' => 'آخر الأخبار',
-    'interview' => 'حوارات ولقاءات',
-    'program' => 'آخر الأخبار بالفيديو',
-    'infographic' => 'إنفوجرافيك',
-];
+$pt = $t_post->post_type;
 
-$post_type_obj = get_post_type_object($t_post->post_type);
-$t_meta = $type_map[$t_post->post_type]
-    ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
+// 1. Fetch dynamic title from centralized function
+$cpt_labels = get_dynamic_cpt_labels($pt);
+$dynamic_meta = $cpt_labels['title'];
+$t_meta = $dynamic_meta;
 
 // ── Department Label Logic ──
 $departments = get_the_terms($t_post->ID, 'department');
 if (!empty($departments) && !is_wp_error($departments)) {
     $dept_name = $departments[0]->name; // Grab first department if multiple exist
-    $t_meta = 'آخر الأخبار ' . $dept_name;
+    $t_meta = $dynamic_meta . ' ' . $dept_name; // Dynamically combines post type + dept
 }
 
 $t_link = get_permalink($t_post->ID);
-$is_video = in_array($t_post->post_type, ['interview', 'program'], true);
+$is_video = in_array($pt, ['interview', 'program', 'video'], true);
 
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>

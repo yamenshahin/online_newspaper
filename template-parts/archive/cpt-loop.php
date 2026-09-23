@@ -59,14 +59,14 @@ if ($use_main_query) {
 }
 
 // -------------------------------------------------------------------------
-// Title / subtitle
+// Title / subtitle (Dynamically fetched from Homepage ACF via Functions)
 // -------------------------------------------------------------------------
-$pt_obj = get_post_type_object($post_type);
-$type_label = $pt_obj ? $pt_obj->labels->name : $post_type;
+$cpt_labels = get_dynamic_cpt_labels($post_type);
+$type_label = $cpt_labels['title'];
 
 $subtitle = $args['subtitle'] ?? '';
-if ($subtitle === '' && $pt_obj && !empty($pt_obj->description)) {
-    $subtitle = $pt_obj->description;
+if ($subtitle === '') {
+    $subtitle = $cpt_labels['subtitle'];
 }
 
 if ($department instanceof WP_Term) {
@@ -91,7 +91,9 @@ if ($department instanceof WP_Term) {
             <div class="mb-4">
                 <a href="<?php echo esc_url(get_term_link($department)); ?>"
                     class="inline-flex items-center gap-1 text-sm font-semibold text-gray-500 hover:text-primary transition-colors group">
-                    <span class="transition-transform duration-300 group-hover:translate-x-1" aria-hidden="true">←</span>
+                    <span
+                        class="transition-transform duration-300 group-hover:translate-x-1 rtl:group-hover:-translate-x-1 rtl:rotate-180"
+                        aria-hidden="true">←</span>
                     <?php
                     echo esc_html(
                         sprintf(
@@ -118,12 +120,12 @@ if ($department instanceof WP_Term) {
         <?php endif; ?>
 
         <h1 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background font-bold">
-            <?php echo esc_html($header_title); ?>
+            <?php echo wp_kses_post($header_title); ?>
         </h1>
 
         <?php if ($subtitle !== '' && !($department instanceof WP_Term)): ?>
             <p class="font-body-lg text-body-lg text-on-surface-variant max-w-3xl mt-4 leading-relaxed">
-                <?php echo esc_html($subtitle); ?>
+                <?php echo wp_kses_post($subtitle); ?>
             </p>
         <?php endif; ?>
 

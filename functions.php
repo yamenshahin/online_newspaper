@@ -378,3 +378,67 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 
 	return $field;
 });
+
+
+/**
+ * -------------------------------------------------
+ * DYNAMIC CPT LABELS ENGINE
+ * Fetches the post type title and subtitle from the 
+ * Homepage ACF 'department_sections' flexible content.
+ * -------------------------------------------------
+ */
+function get_dynamic_cpt_labels(string $post_type): array
+{
+	// Use a static cache so we only loop through the ACF data once per post type per page load
+	static $cache = [];
+
+	if (isset($cache[$post_type])) {
+		return $cache[$post_type];
+	}
+
+	$title = '';
+	$subtitle = '';
+
+	$layout_map = [
+		'post' => 'posts_section',
+		'interview' => 'interviews_section',
+		'program' => 'programs_section',
+		'infographic' => 'infographics_section',
+		'video' => 'videos_section',
+		'podcast' => 'podcasts_section',
+	];
+
+	$target_layout = $layout_map[$post_type] ?? $post_type . 's_section';
+	$front_page_id = get_option('page_on_front');
+
+	if ($front_page_id) {
+		$sections = get_field('department_sections', $front_page_id);
+		if (is_array($sections)) {
+			foreach ($sections as $sec) {
+				if (($sec['acf_fc_layout'] ?? '') === $target_layout) {
+					$title = wp_strip_all_tags($sec['section_title'] ?? '');
+					$subtitle = $sec['subtitle'] ?? '';
+					break;
+				}
+			}
+		}
+	}
+
+	$pt_obj = get_post_type_object($post_type);
+
+	// Fallbacks if ACF is empty
+	if (empty($title)) {
+		$title = $pt_obj ? $pt_obj->labels->singular_name : $post_type;
+	}
+
+	if (empty($subtitle) && $pt_obj && !empty($pt_obj->description)) {
+		$subtitle = $pt_obj->description;
+	}
+
+	$cache[$post_type] = [
+		'title' => $title,
+		'subtitle' => $subtitle,
+	];
+
+	return $cache[$post_type];
+}

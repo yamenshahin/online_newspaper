@@ -5,18 +5,14 @@
 
 get_header();
 
-// 1. Custom Arabic Post Type Mapping
-$type_map = [
-    'post' => 'آخر الأخبار',
-    'interview' => 'حوارات ولقاءات',
-    'program' => 'آخر الأخبار بالفيديو',
-    'infographic' => 'إنفوجرافيك'
-];
-
 while (have_posts()):
     the_post();
 
     $current_post_type = get_post_type();
+
+    // Fetch dynamic title from centralized function
+    $cpt_labels = get_dynamic_cpt_labels($current_post_type);
+    $dynamic_type_name = $cpt_labels['title'];
 
     // Fetch first term from the 'post_editor' custom taxonomy with fallback
     $editor_terms = get_the_terms(get_the_ID(), 'post_editor');
@@ -36,15 +32,7 @@ while (have_posts()):
 
                 <!-- Dynamic Post Type Badge -->
                 <span class="text-sm font-bold text-primary uppercase tracking-widest mb-4 block">
-                    <?php
-                    if ('post' === $current_post_type || 'infographic' === $current_post_type || 'interview' === $current_post_type || 'program' === $current_post_type) {
-                        $type_name = $type_map[$current_post_type];
-                        echo esc_html__($type_name, 'hello-elementor-child');
-                    } else {
-                        $post_type_obj = get_post_type_object($current_post_type);
-                        echo esc_html($post_type_obj->labels->singular_name);
-                    }
-                    ?>
+                    <?php echo esc_html($dynamic_type_name); ?>
                 </span>
 
                 <!-- Title -->

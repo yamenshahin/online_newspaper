@@ -62,23 +62,18 @@ if (!$featured_post) {
     return; // nothing to show
 }
 
-// ── Meta label = CPT (mapped) ──
-$type_map = [
-    'post' => 'آخر الأخبار',
-    'interview' => 'حوارات ولقاءات',
-    'program' => 'آخر الأخبار بالفيديو',
-    'infographic' => 'إنفوجرافيك',
-];
+$pt = $featured_post->post_type;
 
-$post_type_obj = get_post_type_object($featured_post->post_type);
-$f_meta = $type_map[$featured_post->post_type]
-    ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
+// ── Meta label = Dynamic fetch from centralized function ──
+$cpt_labels = get_dynamic_cpt_labels($pt);
+$dynamic_meta = $cpt_labels['title'];
+$f_meta = $dynamic_meta;
 
 // ── Department Label Logic ──
 $f_departments = get_the_terms($featured_post->ID, 'department');
 if (!empty($f_departments) && !is_wp_error($f_departments)) {
     $f_dept_name = $f_departments[0]->name; // Grab first department if multiple exist
-    $f_meta = 'آخر الأخبار ' . $f_dept_name;
+    $f_meta = $dynamic_meta . ' ' . $f_dept_name;
 }
 
 $f_link = get_permalink($featured_post->ID);
