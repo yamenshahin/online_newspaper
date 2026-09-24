@@ -505,14 +505,145 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
  * Clean up legacy WordPress captions and hardcoded image dimensions globally.
  */
 add_filter('the_content', function ($content) {
-	// 1. إزالة كود الـ caption القديم تماماً والحفاظ على الصورة والنص فقط لتصبح مرنة
+	// 1. Completely remove the old caption shortcode, keeping only the image and text to make it flexible/responsive
 	$content = preg_replace('/\[caption[^\]]*\](<img[^>]+>)(.*?)\[\/caption\]/is', '<div class="my-8">$1<p class="text-center text-sm text-gray-500 mt-2">$2</p></div>', $content);
 
-	// 2. إزالة الـ width والـ height المباشرة من وسوم الـ img
+	// 2. Remove the hardcoded width and height attributes directly from the img tags
 	$content = preg_replace('/(<img[^>]+)(width|height)="\d*"\s?/i', '$1', $content);
 
-	// 3. إزالة الـ inline style الخاص بالعرض الذي يفرضه الـ WordPress captions
+	// 3. Remove the inline width styles forced by WordPress captions
 	$content = preg_replace('/style="[^"]*width:\s*\d+px;?[^"]*"/', '', $content);
 
 	return $content;
 }, 20);
+
+
+/**
+ * -------------------------------------------------
+ * 1. CACHE-SAFE POST VIEWS TRACKER (REST API)
+ * -------------------------------------------------
+ */
+add_action('rest_api_init', function () {
+	register_rest_route('tafaol/v1', '/track-view/(?P<id>\d+)', [
+		'methods' => 'POST',
+		'callback' => 'tafaol_track_post_view_api',
+		'permission_callback' => '__return_true',
+	]);
+});
+
+function tafaol_track_post_view_api($request)
+{
+	$post_id = (int) $request['id'];
+
+	if (!$post_id || get_post_status($post_id) !== 'publish') {
+		return new WP_Error('invalid_post', 'Invalid Post ID', ['status' => 404]);
+	}
+
+	// Basic bot filtering
+	$user_agent = $_SERVER['HTTP_USER_AGENT'] ?? '';
+	if (preg_match('/bot|crawl|slurp|spider|mediapartners|facebookexternalhit/i', $user_agent)) {
+		return rest_ensure_response(['success' => false, 'reason' => 'bot']);
+	}
+
+	$count = (int) get_post_meta($post_id, 'post_views_count', true);
+	$new_count = $count + 1;
+	update_post_meta($post_id, 'post_views_count', $new_count);
+
+	return rest_ensure_response(['success' => true, 'views' => $new_count]);
+}
+
+/**
+ * -------------------------------------------------
+ * 2. FRONTEND SCRIPT (loaded via wp_footer)
+ * -------------------------------------------------
+ */
+add_action('wp_footer', function () {
+	if (!is_singular()) {
+		return;
+	}
+
+	$post_id = get_queried_object_id();
+	?>
+	<script>
+		document.addEventListener("DOMContentLoaded", function () {
+			const postId = <?php echo (int) $post_id; ?>;
+			const sessionKey = 'viewed_post_' + postId;
+
+			if (!sessionStorage.getItem(sessionKey) && !/bot|crawl|spider|robot/i.test(navigator.userAgent)) {
+				fetch('<?php echo esc_url(rest_url('tafaol/v1/track-view/' . $post_id)); ?>', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' }
+				})
+					.then(response => response.json())
+					.then(result => {
+						if (result.success) {
+							sessionStorage.setItem(sessionKey, '1');
+						}
+					})
+					.catch(() => { });
+			}
+		});
+	</script>
+	<?php
+});
+
+/**
+ * -------------------------------------------------
+ * 3. ADMIN UI: READ-ONLY META BOX
+ * -------------------------------------------------
+ */
+add_action('add_meta_boxes', function () {
+	$post_types = ['post', 'infographic', 'interview', 'video', 'podcast', 'program'];
+
+	foreach ($post_types as $post_type) {
+		add_meta_box(
+			'post_view_count',
+			__('Post Views', 'hello-elementor-child'),
+			function ($post) {
+				$count = (int) get_post_meta($post->ID, 'post_views_count', true);
+				echo '<p style="font-size: 24px; font-weight: 600; margin: 8px 0; color: #2271b1;">' . esc_html(number_format_i18n($count)) . '</p>';
+				echo '<p class="description">Total unique session views by real users.</p>';
+			},
+			$post_type,
+			'side',
+			'high'
+		);
+	}
+});
+
+/**
+ * -------------------------------------------------
+ * 4. ADMIN UI: POST LIST COLUMNS + SORTING
+ * -------------------------------------------------
+ */
+$target_cpts = ['post', 'infographic', 'interview', 'video', 'podcast', 'program'];
+
+foreach ($target_cpts as $cpt) {
+	add_filter("manage_{$cpt}_posts_columns", function ($columns) {
+		$columns['post_views'] = __('Views', 'hello-elementor-child');
+		return $columns;
+	});
+
+	add_action("manage_{$cpt}_posts_custom_column", function ($column, $post_id) {
+		if ($column === 'post_views') {
+			$count = (int) get_post_meta($post_id, 'post_views_count', true);
+			echo esc_html(number_format_i18n($count));
+		}
+	}, 10, 2);
+
+	add_filter("manage_edit-{$cpt}_sortable_columns", function ($columns) {
+		$columns['post_views'] = 'post_views_count';
+		return $columns;
+	});
+}
+
+add_action('pre_get_posts', function ($query) {
+	if (!is_admin() || !$query->is_main_query()) {
+		return;
+	}
+
+	if ($query->get('orderby') === 'post_views_count') {
+		$query->set('meta_key', 'post_views_count');
+		$query->set('orderby', 'meta_value_num');
+	}
+});
