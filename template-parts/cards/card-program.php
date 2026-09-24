@@ -2,6 +2,27 @@
 /**
  * Template Part: Rich Program Card (16:9)
  */
+
+$card_label = '';
+if (is_tax('department')) {
+    $editors = get_the_terms(get_the_ID(), 'post_editor');
+    $card_label = (!empty($editors) && !is_wp_error($editors)) ? implode(' و ', wp_list_pluck($editors, 'name')) : __('تفاعل السعودية', 'hello-elementor-child');
+} elseif (is_archive() || is_home() || is_front_page() || is_search()) {
+    $departments = get_the_terms(get_the_ID(), 'department');
+    if (!empty($departments) && !is_wp_error($departments)) {
+        $card_label = implode(' و ', wp_list_pluck($departments, 'name'));
+    }
+}
+
+if (empty($card_label)) {
+    $pt = get_post_type();
+    if (function_exists('get_dynamic_cpt_labels')) {
+        $cpt_data = get_dynamic_cpt_labels($pt);
+        $card_label = !empty($cpt_data['title']) ? $cpt_data['title'] : $pt;
+    } else {
+        $card_label = __('برامجنا', 'hello-elementor-child');
+    }
+}
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden est flex flex-col shadow-sm border border-surface-container-high group hover:shadow-xl transition-all'); ?>>
 
@@ -18,7 +39,7 @@
 
         <div class="absolute inset-0 bg-inverse-surface/20 group-hover:bg-transparent transition-colors"></div>
 
-        <!-- Program Series Name + TV Icon (Using the dark video overlay style) -->
+        <!-- Program Series Name + TV Icon -->
         <div
             class="absolute bottom-2 right-2 px-space-sm py-0.5 rounded-full bg-inverse-surface/80 backdrop-blur-md text-surface-bright font-label-caps text-label-caps flex items-center gap-1 shadow-sm">
             <span class="material-symbols-outlined text-[14px]">tv</span>
@@ -39,18 +60,10 @@
         <div class="flex flex-col gap-space-xs">
 
             <div class="flex items-center">
-                <!-- Department Name(s) Pill -->
+                <!-- Context-Aware Pill Label -->
                 <span
                     class="px-space-md py-0.5 rounded-full bg-primary-container text-on-primary font-label-pill text-label-pill">
-                    <?php
-                    $departments = get_the_terms(get_the_ID(), 'department');
-                    if (!empty($departments) && !is_wp_error($departments)) {
-                        $dept_names = wp_list_pluck($departments, 'name');
-                        echo esc_html(implode(' و ', $dept_names));
-                    } else {
-                        echo esc_html__('تفاعل السعودية', 'hello-elementor-child');
-                    }
-                    ?>
+                    <?php echo esc_html($card_label); ?>
                 </span>
             </div>
 
