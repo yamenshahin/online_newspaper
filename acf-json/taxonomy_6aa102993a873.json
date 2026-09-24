@@ -45,9 +45,9 @@
     },
     "description": "Primary navigation axis. The core vertical division of the site.",
     "capabilities": {
-        "manage_terms": "manage_categories",
-        "edit_terms": "manage_categories",
-        "delete_terms": "manage_categories",
+        "manage_terms": "manage_options",
+        "edit_terms": "manage_options",
+        "delete_terms": "manage_options",
         "assign_terms": "edit_posts"
     },
     "public": 1,
@@ -79,5 +79,5 @@
     "meta_box_sanitize_cb": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789907506
+    "modified": 1790272150
 }
