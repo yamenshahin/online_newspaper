@@ -1,10 +1,10 @@
 <?php
 /**
- * Template Part: Image-Only Infographic Card (9:16)
+ * Template Part: Image-Only Infographic Card (3:4)
  */
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden bg-surface-container-lowest shadow-sm flex flex-col group border border-surface-container-high hover:shadow-xl transition-all relative'); ?>>
-    <a href="<?php the_permalink(); ?>" class="block w-full aspect-[9/16] bg-inverse-surface relative overflow-hidden">
+    <a href="<?php the_permalink(); ?>" class="block w-full aspect-[3/4] bg-inverse-surface relative overflow-hidden">
         <?php if (has_post_thumbnail()): ?>
             <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
         <?php else: ?>
