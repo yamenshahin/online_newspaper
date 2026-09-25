@@ -1,7 +1,7 @@
 <?php
 /**
  * Flexible Content: Programs Section 
- * TODO: to be removed
+ * TODO: to be removed (I don't think we need this anymore as we use program_series_section instead)
  * Works on Department pages and Homepage
  */
 
