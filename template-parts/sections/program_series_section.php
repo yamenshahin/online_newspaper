@@ -52,7 +52,7 @@ if ($department instanceof WP_Term) {
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl est">
     <div
-        class="p-space-lg md:p-space-xl rounded-3xl bg-inverse-surface text-inverse-on-surface shadow-xl flex flex-col gap-space-xl relative overflow-hidden">
+        class="p-space-lg md:p-space-xl rounded-3xl bg-primary-container text-on-primary shadow-xl flex flex-col gap-space-xl relative overflow-hidden">
 
         <div class="relative z-10 flex flex-col md:flex-row md:items-center justify-between gap-space-md">
             <div class="flex flex-col gap-space-xs text-start">
@@ -66,13 +66,13 @@ if ($department instanceof WP_Term) {
 
             <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
                 <a href="<?php echo esc_url(get_term_link($department)); ?>"
-                    class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill self-start md:self-auto transition-colors flex items-center gap-1">
+                    class="px-space-lg py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill self-start md:self-auto transition-all flex items-center gap-1">
                     <span><?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?></span>
                     <span class="material-symbols-outlined text-[16px]">close</span>
                 </a>
             <?php else: ?>
                 <a href="<?php echo esc_url($archive_link); ?>"
-                    class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill self-start md:self-auto transition-colors">
+                    class="px-space-lg py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill self-start md:self-auto transition-all">
                     <?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?>
                 </a>
             <?php endif; ?>
