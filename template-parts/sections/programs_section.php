@@ -1,6 +1,7 @@
 <?php
 /**
- * Flexible Content: Programs Section
+ * Flexible Content: Programs Section 
+ * TODO: to be removed
  * Works on Department pages and Homepage
  */
 
