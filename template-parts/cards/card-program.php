@@ -26,11 +26,11 @@ if (empty($card_label)) {
 ?>
 <article id="post-<?php the_ID(); ?>" <?php post_class('rounded-3xl overflow-hidden est flex flex-col shadow-sm border border-surface-container-high group hover:shadow-xl transition-all'); ?>>
 
-    <a href="<?php the_permalink(); ?>" class="relative w-full aspect-video overflow-hidden bg-inverse-surface block">
+    <a href="<?php the_permalink(); ?>" class="relative w-full aspect-[16/9] overflow-hidden bg-inverse-surface block">
         <?php if (has_post_thumbnail()): ?>
             <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
         <?php else: ?>
-            <div class="w-full h-full flex items-center justify-center ">
+            <div class="w-full h-full flex items-center justify-center">
                 <span class="text-on-surface-variant font-label-caps text-label-caps tracking-widest uppercase">
                     <?php esc_html_e('No Image', 'hello-elementor-child'); ?>
                 </span>

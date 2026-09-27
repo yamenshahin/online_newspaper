@@ -33,7 +33,7 @@
             "elements": "",
             "bidirectional": 1,
             "bidirectional_target": [
-                "field_6ab12c019c951"
+                "field_6ab12b4c6bf35"
             ]
         }
     ],
@@ -58,5 +58,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1789996632
+    "modified": 1790539249
 }
