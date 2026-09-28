@@ -98,16 +98,15 @@ $has_more = $total_terms > $show_limit;
                 }
 
                 $image = get_field('taxonomy_image', $term);
-                $theme_color_text = ($index % 2 === 0) ? 'text-secondary-fixed' : 'text-primary-fixed';
 
                 $is_active = isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug;
                 $active_bg = $is_active
-                    ? 'bg-inverse-surface border border-surface-variant'
-                    : 'bg-inverse-surface/80 hover:bg-inverse-surface border border-transparent';
+                    ? 'bg-white border-2 border-primary shadow-md'
+                    : 'bg-white hover:bg-gray-50 border border-gray-200 shadow-sm';
 
                 // Hide items beyond the 4th item initially if there are more than 4
                 $is_extra = ($index > $show_limit);
-                $card_classes = "rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group text-start {$active_bg}";
+                $card_classes = "rounded-2xl overflow-hidden transition-all flex flex-col group text-start {$active_bg}";
                 if ($is_extra && !$is_active) {
                     $card_classes .= ' hidden program-extra-item';
                 }
@@ -116,14 +115,14 @@ $has_more = $total_terms > $show_limit;
                 <a href="<?php echo esc_url($url); ?>" class="<?php echo esc_attr($card_classes); ?>">
 
                     <!-- Wide (16:9) Image -->
-                    <div class="w-full aspect-video -highest/10 relative overflow-hidden">
+                    <div class="w-full aspect-video bg-gray-100 relative overflow-hidden">
                         <?php if (!empty($image) && is_array($image)): ?>
                             <?php echo wp_get_attachment_image($image['ID'], 'large', false, [
                                 'class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
                             ]); ?>
                         <?php else: ?>
                             <div class="w-full h-full flex items-center justify-center">
-                                <span class="text-4xl font-bold text-surface-variant/30 uppercase">
+                                <span class="text-4xl font-bold text-gray-300 uppercase">
                                     <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
                                 </span>
                             </div>
@@ -134,7 +133,7 @@ $has_more = $total_terms > $show_limit;
                     <div class="p-space-lg flex flex-col justify-between flex-grow gap-space-md">
                         <div class="flex flex-col gap-space-xs">
                             <div class="flex items-center justify-between">
-                                <span class="font-label-caps text-label-caps <?php echo esc_attr($theme_color_text); ?>">
+                                <span class="font-label-caps text-label-caps text-primary">
                                     <?php
                                     $dept_names = [];
 
@@ -167,26 +166,26 @@ $has_more = $total_terms > $show_limit;
                                     ?>
                                 </span>
                                 <span
-                                    class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full est/10 text-surface-bright">
+                                    class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full bg-gray-100 text-gray-700">
                                     <?php echo esc_html($count); ?>
                                     <?php esc_html_e('حلقة معتمدة', 'hello-elementor-child'); ?>
                                 </span>
                             </div>
 
                             <h3
-                                class="font-headline-sm text-headline-sm text-surface-bright group-hover:<?php echo esc_attr($theme_color_text); ?> transition-colors mt-1">
+                                class="font-headline-sm text-headline-sm text-gray-900 group-hover:text-primary transition-colors mt-1">
                                 <?php echo esc_html($term->name); ?>
                             </h3>
 
                             <?php if (!empty($term->description)): ?>
-                                <p class="font-body-sm text-body-sm text-surface-variant line-clamp-2 mt-1">
+                                <p class="font-body-sm text-body-sm text-gray-600 line-clamp-2 mt-1">
                                     <?php echo esc_html(wp_strip_all_tags($term->description)); ?>
                                 </p>
                             <?php endif; ?>
                         </div>
 
                         <div
-                            class="flex items-center justify-between <?php echo esc_attr($theme_color_text); ?> font-label-pill text-label-pill pt-space-sm mt-2 border-t border-surface-container-lowest/10">
+                            class="flex items-center justify-between text-primary font-label-pill text-label-pill pt-space-sm mt-2 border-t border-gray-100">
                             <span><?php esc_html_e('تصفح كل الحلقات', 'hello-elementor-child'); ?></span>
                             <span
                                 class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">←</span>
