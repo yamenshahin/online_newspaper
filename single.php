@@ -78,7 +78,7 @@ while (have_posts()):
                         [&>h3]:text-2xl [&>h3]:font-bold [&>h3]:text-on-background [&>h3]:mt-10 [&>h3]:mb-4
                         [&>ul]:list-disc [&>ul]:pl-6 [&>ul]:mb-6 [&>ul>li]:mb-2 [&>ul>li::marker]:text-gray-400
                         [&>ol]:list-decimal [&>ol]:pl-6 [&>ol]:mb-6 [&>ol>li]:mb-2
-                        [&>a]:text-primary [&>a]:font-medium [&>a:hover]:text-primary/85 [&>a:hover]:underline 
+                        [&_a]:text-primary [&_a]:font-medium [&_a:hover]:text-primary/85 [&_a:hover]:underline 
                         [&>blockquote]:border-l-4 [&>blockquote]:border-primary [&>blockquote]:pl-6 [&>blockquote]:py-1 [&>blockquote]:italic [&>blockquote]:text-gray-600 [&>blockquote]:my-8 [&>blockquote]:bg-gray-50 [&>blockquote]:rounded-r-lg
                         [&_img]:w-full [&_img]:h-auto [&_img]:max-w-full [&_img]:object-cover [&_img]:rounded-2xl [&_img]:shadow-md [&_img]:my-8
                         [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:shadow-sm [&>iframe]:my-8">

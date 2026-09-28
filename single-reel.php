@@ -42,7 +42,8 @@ while (have_posts()):
         <?php endif; ?>
 
         <article class="max-w-2xl mx-auto px-6">
-            <div class="text-lg text-gray-700 leading-relaxed [&>p]:mb-6 [&>iframe]:w-full [&>iframe]:rounded-xl">
+            <div
+                class="text-lg text-gray-700 leading-relaxed [&>p]:mb-6 [&_a]:text-primary [&_a]:font-medium [&_a:hover]:text-primary/85 [&_a:hover]:underline [&>iframe]:w-full [&>iframe]:rounded-xl">
                 <?php the_content(); ?>
             </div>
 

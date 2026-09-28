@@ -45,9 +45,10 @@ while (have_posts()):
 		<?php endif; ?>
 
 		<article class="max-w-3xl mx-auto px-6">
-			<div class="text-lg md:text-xl text-gray-700 leading-relaxed
+			<div
+				class="text-lg md:text-xl text-gray-700 leading-relaxed
 				[&>p]:mb-6 [&>h2]:text-3xl [&>h2]:font-bold [&>h2]:mt-12 [&>h2]:mb-6
-				[&>a]:text-primary [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:my-8">
+				[&_a]:text-primary [&_a]:font-medium [&_a:hover]:text-primary/85 [&_a:hover]:underline [&>iframe]:w-full [&>iframe]:rounded-xl [&>iframe]:my-8">
 				<?php the_content(); ?>
 			</div>
 		</article>

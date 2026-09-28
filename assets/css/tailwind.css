@@ -1903,6 +1903,25 @@
     --tw-shadow: 0 1px 3px 0 var(--tw-shadow-color, rgb(0 0 0 / 0.1)), 0 1px 2px -1px var(--tw-shadow-color, rgb(0 0 0 / 0.1));
     box-shadow: var(--tw-inset-shadow), var(--tw-inset-ring-shadow), var(--tw-ring-offset-shadow), var(--tw-ring-shadow), var(--tw-shadow);
   }
+  .\[\&_a\]\:font-medium a {
+    --tw-font-weight: var(--font-weight-medium);
+    font-weight: var(--font-weight-medium);
+  }
+  .\[\&_a\]\:\!text-primary a {
+    color: var(--color-primary) !important;
+  }
+  .\[\&_a\]\:text-primary a {
+    color: var(--color-primary);
+  }
+  .\[\&_a\:hover\]\:text-primary\/85 a:hover {
+    color: color-mix(in srgb, #057338 85%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      color: color-mix(in oklab, var(--color-primary) 85%, transparent);
+    }
+  }
+  .\[\&_a\:hover\]\:underline a:hover {
+    text-decoration-line: underline;
+  }
   .\[\&_img\]\:my-8 img {
     margin-block: calc(var(--spacing) * 8);
   }
