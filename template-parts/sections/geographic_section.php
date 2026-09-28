@@ -95,7 +95,7 @@ if (!empty($_GET[$query_var])) {
     id="geographic-filter-section">
     <div class="flex flex-col gap-space-md">
 
-        <div class="flex flex-col items-start gap-space-xs">
+        <div class="flex flex-col items-start gap-space-xs text-start">
             <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
                 <?php echo esc_html($section_title); ?>
             </span>
@@ -107,51 +107,68 @@ if (!empty($_GET[$query_var])) {
         </div>
 
         <div class="relative">
-            <!-- Fixed-width Horizontal Scroll -->
+            <!-- Grid Wrap View (Parents) -->
             <div id="geo-parents-view"
-                class="geo-view <?php echo $active_parent_id ? 'hidden' : ''; ?> flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
+                class="geo-view <?php echo $active_parent_id ? 'hidden' : ''; ?> flex flex-col transition-opacity duration-300">
 
-                <?php foreach ($parents as $parent_id => $data):
-                    $term = $data['term'];
-                    $count = $data['count'];
-                    $has_children = isset($children_by_parent[$parent_id]);
-                    $image = get_field('taxonomy_image', $term);
-                    $url = $build_geo_url($term->slug);
-                    $tag = $has_children ? 'button' : 'a';
-                    $attr = $has_children
-                        ? 'type="button" onclick="openCities(' . (int) $parent_id . ')"'
-                        : 'href="' . esc_url($url) . '"';
-                    ?>
-                    <<?php echo $tag; ?>     <?php echo $attr; ?>
-                        class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est
-                        border
-                        border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl
-                        hover:-translate-y-1 transition-all duration-300 ease-out text-center focus:outline-none">
-                        <div
-                            class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative">
-                            <?php if (!empty($image) && is_array($image)): ?>
-                                <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
-                                    'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
-                                ]); ?>
-                            <?php else: ?>
-                                <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
-                                    <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                        <h3
-                            class="text-sm font-bold text-on-background text-center mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                            <?php echo esc_html($term->name); ?>
-                        </h3>
-                        <div class="mt-auto">
-                            <span
-                                class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
-                                <?php echo esc_html($count); ?>
-                                <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
-                            </span>
-                        </div>
-                    </<?php echo $tag; ?>>
-                <?php endforeach; ?>
+                <div class="filter-wrapper relative w-full">
+                    <div
+                        class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
+                        <?php foreach ($parents as $parent_id => $data):
+                            $term = $data['term'];
+                            $count = $data['count'];
+                            $has_children = isset($children_by_parent[$parent_id]);
+                            $image = get_field('taxonomy_image', $term);
+                            $url = $build_geo_url($term->slug);
+                            $tag = $has_children ? 'button' : 'a';
+                            $attr = $has_children
+                                ? 'type="button" onclick="openCities(' . (int) $parent_id . ')"'
+                                : 'href="' . esc_url($url) . '"';
+                            ?>
+                            <<?php echo $tag; ?>     <?php echo $attr; ?>
+                                class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border
+                                border-surface-container-high rounded-2xl hover:border-surface-container-highest
+                                hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center
+                                focus:outline-none">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm relative">
+                                    <?php if (!empty($image) && is_array($image)): ?>
+                                        <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
+                                            'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
+                                        ]); ?>
+                                    <?php else: ?>
+                                        <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
+                                            <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <h3
+                                    class="text-sm font-bold text-on-background text-center mb-2 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                                    <?php echo esc_html($term->name); ?>
+                                </h3>
+                                <div class="mt-auto pt-1">
+                                    <span
+                                        class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                                        <?php echo esc_html($count); ?>
+                                        <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
+                                    </span>
+                                </div>
+                            </<?php echo $tag; ?>>
+                        <?php endforeach; ?>
+                    </div>
+
+                    <div
+                        class="filter-fade-overlay absolute bottom-0 left-0 w-full h-[50px] bg-gradient-to-t from-background to-transparent pointer-events-none transition-opacity duration-300">
+                    </div>
+                </div>
+
+                <div class="flex justify-center w-full mt-2">
+                    <button type="button"
+                        class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
+                        <span class="toggle-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                        <span class="material-symbols-outlined text-[16px] toggle-icon">expand_more</span>
+                    </button>
+                </div>
             </div>
 
             <?php foreach ($children_by_parent as $parent_id => $children):
@@ -161,81 +178,102 @@ if (!empty($_GET[$query_var])) {
                 $parent_image = get_field('taxonomy_image', $parent_term);
                 $is_active = ($active_parent_id === $parent_id);
                 ?>
-                <!-- Fixed-width Horizontal Scroll -->
+                <!-- Grid Wrap View (Children) -->
                 <div id="geo-children-view-<?php echo (int) $parent_id; ?>"
-                    class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex gap-4 overflow-x-auto pb-6 snap-x snap-mandatory items-stretch [scrollbar-width:none] [&::-webkit-scrollbar]:hidden transition-opacity duration-300">
+                    class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex flex-col transition-opacity duration-300">
 
-                    <button type="button" onclick="showCountries()"
-                        class="group flex-none w-32 md:w-36 snap-start flex flex-col items-center justify-center p-4 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover: transition-all duration-300 focus:outline-none">
+                    <div class="filter-wrapper relative w-full">
                         <div
-                            class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-3 shadow-sm transition-colors border border-surface-container-high">
-                            <span class="text-xl">&rarr;</span>
-                        </div>
-                        <span class="text-xs font-bold text-on-surface-variant group-hover:text-primary">
-                            <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
-                        </span>
-                    </button>
+                            class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
 
-                    <a href="<?php echo esc_url($parent_url); ?>"
-                        class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
-                        <div
-                            class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm relative z-10">
-                            <?php if (!empty($parent_image) && is_array($parent_image)): ?>
-                                <?php echo wp_get_attachment_image($parent_image['ID'], 'thumbnail', false, [
-                                    'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
-                                ]); ?>
-                            <?php else: ?>
-                                <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
-                                    <?php echo esc_html(mb_substr($parent_term->name, 0, 1)); ?>
+                            <!-- Item 1: Back Button -->
+                            <button type="button" onclick="showCountries()"
+                                class="group flex-none w-28 md:w-32 flex flex-col items-center justify-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl transition-all duration-300 focus:outline-none">
+                                <div
+                                    class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-2 shadow-sm transition-colors border border-surface-container-high">
+                                    <span class="text-xl">&rarr;</span>
+                                </div>
+                                <span class="text-xs font-bold text-on-surface-variant group-hover:text-primary">
+                                    <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
                                 </span>
-                            <?php endif; ?>
-                        </div>
-                        <h3
-                            class="text-sm font-bold text-on-background text-center mb-1 line-clamp-2 leading-snug group-hover:text-primary transition-colors relative z-10">
-                            <?php echo esc_html(sprintf(__('كل %s', 'hello-elementor-child'), $parent_term->name)); ?>
-                        </h3>
-                        <div class="mt-auto relative z-10 pt-3">
-                            <span
-                                class="text-xs font-bold tracking-wide text-primary bg-primary-container border border-primary/20 px-3 py-1.5 rounded-full group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                                <?php echo esc_html($parent_data['count']); ?>
-                                <?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?>
-                            </span>
-                        </div>
-                    </a>
+                            </button>
 
-                    <?php foreach ($children as $data):
-                        $term = $data['term'];
-                        $count = $data['count'];
-                        $url = $build_geo_url($term->slug);
-                        $image = get_field('taxonomy_image', $term);
-                        ?>
-                        <a href="<?php echo esc_url($url); ?>"
-                            class="group flex-none w-40 md:w-48 snap-start flex flex-col items-center p-4 md:p-6 est border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
-                            <div
-                                class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-3 md:mb-4 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:est transition-colors duration-300 shadow-sm">
-                                <?php if (!empty($image) && is_array($image)): ?>
-                                    <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
-                                        'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
-                                    ]); ?>
-                                <?php else: ?>
-                                    <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
-                                        <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
+                            <!-- Item 2: All [Parent] Link -->
+                            <a href="<?php echo esc_url($parent_url); ?>"
+                                class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
+                                <div
+                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm relative z-10">
+                                    <?php if (!empty($parent_image) && is_array($parent_image)): ?>
+                                        <?php echo wp_get_attachment_image($parent_image['ID'], 'thumbnail', false, [
+                                            'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
+                                        ]); ?>
+                                    <?php else: ?>
+                                        <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
+                                            <?php echo esc_html(mb_substr($parent_term->name, 0, 1)); ?>
+                                        </span>
+                                    <?php endif; ?>
+                                </div>
+                                <h3
+                                    class="text-sm font-bold text-on-background text-center mb-1 line-clamp-2 leading-snug group-hover:text-primary transition-colors relative z-10">
+                                    <?php echo esc_html(sprintf(__('كل %s', 'hello-elementor-child'), $parent_term->name)); ?>
+                                </h3>
+                                <div class="mt-auto relative z-10 pt-2">
+                                    <span
+                                        class="text-xs font-bold tracking-wide text-primary bg-primary-container border border-primary/20 px-3 py-1 rounded-full group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                        <?php echo esc_html($parent_data['count']); ?>
+                                        <?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?>
                                     </span>
-                                <?php endif; ?>
-                            </div>
-                            <h3
-                                class="text-sm font-bold text-on-background text-center mb-3 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
-                                <?php echo esc_html($term->name); ?>
-                            </h3>
-                            <div class="mt-auto">
-                                <span
-                                    class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1.5 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
-                                    <?php echo esc_html($count); ?>
-                                    <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
-                                </span>
-                            </div>
-                        </a>
-                    <?php endforeach; ?>
+                                </div>
+                            </a>
+
+                            <!-- Items 3+: Child Terms -->
+                            <?php foreach ($children as $data):
+                                $term = $data['term'];
+                                $count = $data['count'];
+                                $url = $build_geo_url($term->slug);
+                                $image = get_field('taxonomy_image', $term);
+                                ?>
+                                <a href="<?php echo esc_url($url); ?>"
+                                    class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
+                                    <div
+                                        class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm">
+                                        <?php if (!empty($image) && is_array($image)): ?>
+                                            <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
+                                                'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
+                                            ]); ?>
+                                        <?php else: ?>
+                                            <span class="text-xl md:text-2xl font-bold text-on-surface-variant/40 uppercase">
+                                                <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
+                                            </span>
+                                        <?php endif; ?>
+                                    </div>
+                                    <h3
+                                        class="text-sm font-bold text-on-background text-center mb-2 line-clamp-2 leading-snug group-hover:text-primary transition-colors">
+                                        <?php echo esc_html($term->name); ?>
+                                    </h3>
+                                    <div class="mt-auto pt-1">
+                                        <span
+                                            class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
+                                            <?php echo esc_html($count); ?>
+                                            <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
+                                        </span>
+                                    </div>
+                                </a>
+                            <?php endforeach; ?>
+                        </div>
+
+                        <div
+                            class="filter-fade-overlay absolute bottom-0 left-0 w-full h-[50px] bg-gradient-to-t from-background to-transparent pointer-events-none transition-opacity duration-300">
+                        </div>
+                    </div>
+
+                    <div class="flex justify-center w-full mt-2">
+                        <button type="button"
+                            class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
+                            <span class="toggle-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                            <span class="material-symbols-outlined text-[16px] toggle-icon">expand_more</span>
+                        </button>
+                    </div>
                 </div>
             <?php endforeach; ?>
         </div>
@@ -245,13 +283,19 @@ if (!empty($_GET[$query_var])) {
         function openCities(parentId) {
             document.querySelectorAll('.geo-view').forEach(view => view.classList.add('hidden'));
             const targetView = document.getElementById('geo-children-view-' + parentId);
-            if (targetView) targetView.classList.remove('hidden');
+            if (targetView) {
+                targetView.classList.remove('hidden');
+                window.dispatchEvent(new Event('resize'));
+            }
         }
 
         function showCountries() {
             document.querySelectorAll('.geo-view').forEach(view => view.classList.add('hidden'));
             const parentView = document.getElementById('geo-parents-view');
-            if (parentView) parentView.classList.remove('hidden');
+            if (parentView) {
+                parentView.classList.remove('hidden');
+                window.dispatchEvent(new Event('resize'));
+            }
         }
     </script>
 </section>
