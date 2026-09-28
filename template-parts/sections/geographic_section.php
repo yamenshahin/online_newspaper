@@ -3,10 +3,8 @@
  * Flexible Content: Geographic Section (Filter)
  * Hierarchical: Parents (Countries) ← Children (Cities)
  */
-
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];
-
 if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
     $subtitle = $section['subtitle'] ?? '';
@@ -14,13 +12,10 @@ if (!empty($section)) {
     $section_title = get_sub_field('section_title');
     $subtitle = get_sub_field('subtitle');
 }
-
 $section_title = $section_title ?: __('Geographic Locations', 'hello-elementor-child');
 $target_taxonomy = 'geographic';
 $query_var = 'geographic';
-
 $active_terms = [];
-
 if ($department instanceof WP_Term) {
     $active_terms = get_department_intersected_terms((int) $department->term_id, $target_taxonomy);
 } else {
@@ -28,7 +23,6 @@ if ($department instanceof WP_Term) {
         'taxonomy' => $target_taxonomy,
         'hide_empty' => true,
     ]);
-
     if (!empty($terms) && !is_wp_error($terms)) {
         foreach ($terms as $term) {
             $active_terms[] = [
@@ -38,11 +32,9 @@ if ($department instanceof WP_Term) {
         }
     }
 }
-
 if (empty($active_terms)) {
     return;
 }
-
 // Helper for links
 $build_geo_url = static function ($term_slug) use ($department, $query_var) {
     if ($department instanceof WP_Term) {
@@ -51,11 +43,9 @@ $build_geo_url = static function ($term_slug) use ($department, $query_var) {
     $term = get_term_by('slug', $term_slug, 'geographic');
     return ($term && !is_wp_error($term)) ? get_term_link($term) : home_url('/');
 };
-
 // Group parents / children
 $parents = [];
 $children_by_parent = [];
-
 foreach ($active_terms as $data) {
     $term = $data['term'];
     if ((int) $term->parent === 0) {
@@ -64,7 +54,6 @@ foreach ($active_terms as $data) {
         $children_by_parent[$term->parent][] = $data;
     }
 }
-
 foreach ($children_by_parent as $parent_id => $children) {
     if (!isset($parents[$parent_id])) {
         $parent_term = get_term($parent_id, $target_taxonomy);
@@ -76,7 +65,6 @@ foreach ($children_by_parent as $parent_id => $children) {
         }
     }
 }
-
 $active_parent_id = 0;
 if (!empty($_GET[$query_var])) {
     $active_term_obj = get_term_by('slug', sanitize_text_field(wp_unslash($_GET[$query_var])), $target_taxonomy);
@@ -89,12 +77,10 @@ if (!empty($_GET[$query_var])) {
     }
 }
 ?>
-
 <section
     class="w-full px-margin-mobile lg:px-margin py-space-lg border-b border-surface-container-highest/30 last:border-0"
     id="geographic-filter-section">
     <div class="flex flex-col gap-space-md">
-
         <div class="flex flex-col items-start gap-space-xs text-start">
             <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
                 <?php echo esc_html($section_title); ?>
@@ -105,15 +91,13 @@ if (!empty($_GET[$query_var])) {
                 </h3>
             <?php endif; ?>
         </div>
-
         <div class="relative">
             <!-- Grid Wrap View (Parents) -->
             <div id="geo-parents-view"
                 class="geo-view <?php echo $active_parent_id ? 'hidden' : ''; ?> flex flex-col transition-opacity duration-300">
-
                 <div class="filter-wrapper relative w-full">
-                    <div
-                        class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
+                    <div class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out"
+                        data-collapsed-max="190">
                         <?php foreach ($parents as $parent_id => $data):
                             $term = $data['term'];
                             $count = $data['count'];
@@ -156,12 +140,10 @@ if (!empty($_GET[$query_var])) {
                             </<?php echo $tag; ?>>
                         <?php endforeach; ?>
                     </div>
-
                     <div
                         class="filter-fade-overlay absolute bottom-0 left-0 w-full h-[50px] bg-gradient-to-t from-background to-transparent pointer-events-none transition-opacity duration-300">
                     </div>
                 </div>
-
                 <div class="flex justify-center w-full mt-2">
                     <button type="button"
                         class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
@@ -170,7 +152,6 @@ if (!empty($_GET[$query_var])) {
                     </button>
                 </div>
             </div>
-
             <?php foreach ($children_by_parent as $parent_id => $children):
                 $parent_data = $parents[$parent_id];
                 $parent_term = $parent_data['term'];
@@ -181,11 +162,9 @@ if (!empty($_GET[$query_var])) {
                 <!-- Grid Wrap View (Children) -->
                 <div id="geo-children-view-<?php echo (int) $parent_id; ?>"
                     class="geo-view <?php echo $is_active ? '' : 'hidden'; ?> flex flex-col transition-opacity duration-300">
-
                     <div class="filter-wrapper relative w-full">
-                        <div
-                            class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
-
+                        <div class="filter-container flex flex-wrap gap-3 md:gap-4 pb-space-xs pt-1 max-h-[190px] overflow-hidden transition-[max-height] duration-500 ease-in-out"
+                            data-collapsed-max="190">
                             <!-- Item 1: Back Button -->
                             <button type="button" onclick="showCountries()"
                                 class="group flex-none w-28 md:w-32 flex flex-col items-center justify-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl transition-all duration-300 focus:outline-none">
@@ -198,7 +177,6 @@ if (!empty($_GET[$query_var])) {
                                     <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
                                 </span>
                             </button>
-
                             <!-- Item 2: All [Parent] Link -->
                             <a href="<?php echo esc_url($parent_url); ?>"
                                 class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
@@ -226,7 +204,6 @@ if (!empty($_GET[$query_var])) {
                                     </span>
                                 </div>
                             </a>
-
                             <!-- Items 3+: Child Terms -->
                             <?php foreach ($children as $data):
                                 $term = $data['term'];
@@ -262,12 +239,10 @@ if (!empty($_GET[$query_var])) {
                                 </a>
                             <?php endforeach; ?>
                         </div>
-
                         <div
                             class="filter-fade-overlay absolute bottom-0 left-0 w-full h-[50px] bg-gradient-to-t from-background to-transparent pointer-events-none transition-opacity duration-300">
                         </div>
                     </div>
-
                     <div class="flex justify-center w-full mt-2">
                         <button type="button"
                             class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
@@ -279,7 +254,6 @@ if (!empty($_GET[$query_var])) {
             <?php endforeach; ?>
         </div>
     </div>
-
     <script>
         function openCities(parentId) {
             document.querySelectorAll('.geo-view').forEach(view => view.classList.add('hidden'));
@@ -289,7 +263,6 @@ if (!empty($_GET[$query_var])) {
                 window.dispatchEvent(new Event('resize'));
             }
         }
-
         function showCountries() {
             document.querySelectorAll('.geo-view').forEach(view => view.classList.add('hidden'));
             const parentView = document.getElementById('geo-parents-view');

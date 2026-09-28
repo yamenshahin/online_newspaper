@@ -302,6 +302,9 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .visible {
+    visibility: visible;
+  }
   .absolute {
     position: absolute;
   }
@@ -559,6 +562,12 @@
   }
   .max-h-\[190px\] {
     max-height: 190px;
+  }
+  .max-h-\[220px\] {
+    max-height: 220px;
+  }
+  .max-h-\[250px\] {
+    max-height: 250px;
   }
   .max-h-\[2000px\] {
     max-height: 2000px;

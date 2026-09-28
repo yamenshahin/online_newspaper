@@ -62,9 +62,8 @@ if (empty($active_terms)) {
 
         <!-- Tailwind Expandable Filter Wrapper -->
         <div class="filter-wrapper relative w-full">
-            <div
-                class="filter-container flex flex-wrap items-center gap-space-sm pb-space-xs pt-1 max-h-[110px] overflow-hidden transition-[max-height] duration-500 ease-in-out">
-
+            <div class="filter-container flex flex-wrap items-center gap-space-sm pb-space-xs pt-1 max-h-[110px] overflow-hidden transition-[max-height] duration-500 ease-in-out"
+                data-collapsed-max="110">
                 <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
                     <a href="<?php echo esc_url(get_term_link($department)); ?>"
                         class="px-space-md py-space-xs rounded-full bg-on-background text-surface-container-lowest font-label-pill text-label-pill whitespace-nowrap flex items-center justify-center gap-space-xs shadow-sm transition-colors">
