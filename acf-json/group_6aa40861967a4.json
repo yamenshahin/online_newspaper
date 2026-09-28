@@ -199,6 +199,37 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_6aa4942c540a0": {
+                    "key": "layout_6aa4942c540a0",
+                    "name": "social_section",
+                    "label": "Social Media Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aa4942c540a1",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "انضم إلى مجتمع",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa416023b582": {
                     "key": "layout_6aa416023b582",
                     "name": "infographics_section",
@@ -424,6 +455,185 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_6ab129aeedc23": {
+                    "key": "layout_6ab129aeedc23",
+                    "name": "podcasts_section",
+                    "label": "Podcasts Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6ab129aeedc24",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "بودكاست أثر",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6ab129aeedc25",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "برامج حوارية مع الإعلامية ازدهار علاف",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6ab129aeedc26",
+                            "label": "Posts Limit",
+                            "name": "posts_limit",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": 4,
+                            "min": "",
+                            "max": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "step": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6aa42cceba60e": {
+                    "key": "layout_6aa42cceba60e",
+                    "name": "speakers_section",
+                    "label": "Speakers Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aa42cceba60f",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "صُنّاع الأثر",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa169fcc54c",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "شخصيات قيادية وصناع محتوى يشاركون رؤاهم وتحليلاتهم الحصرية عبر منصة عن السعودية",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
+                "layout_6aa7bdd194e2f": {
+                    "key": "layout_6aa7bdd194e2f",
+                    "name": "program_series_section",
+                    "label": "Program Series Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6aa7c0fd81d4a",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "البرامج",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6aaa16b4cc54e",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa42c2dba600": {
                     "key": "layout_6aa42c2dba600",
                     "name": "government_entities_section",
@@ -517,59 +727,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "فرز المحتوى بحسب الشريك",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                "layout_6aa42cceba60e": {
-                    "key": "layout_6aa42cceba60e",
-                    "name": "speakers_section",
-                    "label": "Speakers Section",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6aa42cceba60f",
-                            "label": "Section Title",
-                            "name": "section_title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "صُنّاع الأثر",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_6aaa169fcc54c",
-                            "label": "Subtitle",
-                            "name": "subtitle",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "شخصيات قيادية وصناع محتوى يشاركون رؤاهم وتحليلاتهم الحصرية عبر منصة عن السعودية",
+                            "default_value": "فرز المحتوى بحسب القطاع الخاص",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -625,164 +783,6 @@
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                "layout_6aa4942c540a0": {
-                    "key": "layout_6aa4942c540a0",
-                    "name": "social_section",
-                    "label": "Social Media Section",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6aa4942c540a1",
-                            "label": "Section Title",
-                            "name": "section_title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "انضم إلى مجتمع",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                "layout_6aa7bdd194e2f": {
-                    "key": "layout_6aa7bdd194e2f",
-                    "name": "program_series_section",
-                    "label": "Program Series Section",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6aa7c0fd81d4a",
-                            "label": "Section Title",
-                            "name": "section_title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "البرامج",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_6aaa16b4cc54e",
-                            "label": "Subtitle",
-                            "name": "subtitle",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
-                "layout_6ab129aeedc23": {
-                    "key": "layout_6ab129aeedc23",
-                    "name": "podcasts_section",
-                    "label": "Podcasts Section",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6ab129aeedc24",
-                            "label": "Section Title",
-                            "name": "section_title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "بودكاست أثر",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_6ab129aeedc25",
-                            "label": "Subtitle",
-                            "name": "subtitle",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "برامج حوارية مع الإعلامية ازدهار علاف",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_6ab129aeedc26",
-                            "label": "Posts Limit",
-                            "name": "posts_limit",
-                            "aria-label": "",
-                            "type": "number",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": 4,
-                            "min": "",
-                            "max": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "step": "",
                             "prepend": "",
                             "append": ""
                         }
@@ -909,5 +909,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790203981
+    "modified": 1790572061
 }
