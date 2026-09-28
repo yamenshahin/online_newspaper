@@ -92,3 +92,10 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 .elementor-element-341994f.bg-primary {
     background-color: var(--color-primary) !important;
 }
+
+
+/* Fix footer navigation menu font */
+.elementor-element-183ccf0 .hfe-menu-item,
+.elementor-element-183ccf0 .hfe-nav-menu a {
+    font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif !important;
+}
