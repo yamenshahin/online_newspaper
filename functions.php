@@ -55,6 +55,18 @@ function hello_elementor_child_scripts_styles()
 		['hello-elementor-child-style'],
 		filemtime(get_stylesheet_directory() . '/assets/css/tailwind.css')
 	);
+
+	// ADDED: Enqueue the custom filters JS file in the footer
+	$filters_js_path = '/assets/js/filters.js';
+	if (file_exists(get_stylesheet_directory() . $filters_js_path)) {
+		wp_enqueue_script(
+			'hello-elementor-child-filters',
+			get_stylesheet_directory_uri() . $filters_js_path,
+			[],
+			filemtime(get_stylesheet_directory() . $filters_js_path),
+			true
+		);
+	}
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
