@@ -48,6 +48,10 @@ if ($department instanceof WP_Term) {
 } else {
     $archive_link = get_post_type_archive_link('program') ?: home_url('/');
 }
+
+$total_terms = count($active_terms);
+$show_limit = 4;
+$has_more = $total_terms > $show_limit;
 ?>
 
 <section class="w-full px-margin-mobile lg:px-margin py-space-xl est">
@@ -100,10 +104,16 @@ if ($department instanceof WP_Term) {
                 $active_bg = $is_active
                     ? 'bg-inverse-surface border border-surface-variant'
                     : 'bg-inverse-surface/80 hover:bg-inverse-surface border border-transparent';
+
+                // Hide items beyond the 4th item initially if there are more than 4
+                $is_extra = ($index > $show_limit);
+                $card_classes = "rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group text-start {$active_bg}";
+                if ($is_extra && !$is_active) {
+                    $card_classes .= ' hidden program-extra-item';
+                }
                 ?>
 
-                <a href="<?php echo esc_url($url); ?>"
-                    class="rounded-2xl overflow-hidden transition-colors flex flex-col shadow-inner group text-start <?php echo esc_attr($active_bg); ?>">
+                <a href="<?php echo esc_url($url); ?>" class="<?php echo esc_attr($card_classes); ?>">
 
                     <!-- Wide (16:9) Image -->
                     <div class="w-full aspect-video -highest/10 relative overflow-hidden">
@@ -129,13 +139,11 @@ if ($department instanceof WP_Term) {
                                     $dept_names = [];
 
                                     if ($department instanceof WP_Term) {
-                                        // Already inside a department page
                                         $dept_names[] = $department->name;
                                     } else {
-                                        // On Homepage: Find recent posts in this series to extract departments
                                         $series_posts = get_posts([
                                             'post_type' => ['program', 'post', 'video', 'interview'],
-                                            'posts_per_page' => 5, // Lightweight limit
+                                            'posts_per_page' => 5,
                                             'fields' => 'ids',
                                             'tax_query' => [
                                                 [
@@ -193,6 +201,42 @@ if ($department instanceof WP_Term) {
             ?>
 
         </div>
+
+        <!-- Show More / Show Less Toggle Button -->
+        <?php if ($has_more): ?>
+            <div class="flex justify-center z-10 relative mt-2">
+                <button type="button" id="toggle-program-series"
+                    class="px-space-xl py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill transition-all flex items-center gap-2 cursor-pointer">
+                    <span class="button-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                    <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
+                </button>
+            </div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const btn = document.getElementById('toggle-program-series');
+                    if (!btn) return;
+                    const extraItems = document.querySelectorAll('.program-extra-item');
+                    const icon = btn.querySelector('.material-symbols-outlined');
+                    const textSpan = btn.querySelector('.button-text');
+
+                    let expanded = false;
+                    btn.addEventListener('click', function () {
+                        expanded = !expanded;
+                        extraItems.forEach(item => {
+                            item.classList.toggle('hidden', !expanded);
+                        });
+                        if (expanded) {
+                            textSpan.textContent = '<?php echo esc_js(__('عرض أقل', 'hello-elementor-child')); ?>';
+                            icon.style.transform = 'rotate(180deg)';
+                        } else {
+                            textSpan.textContent = '<?php echo esc_js(__('عرض المزيد', 'hello-elementor-child')); ?>';
+                            icon.style.transform = 'rotate(0deg)';
+                        }
+                    });
+                });
+            </script>
+        <?php endif; ?>
 
     </div>
 </section>

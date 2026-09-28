@@ -686,6 +686,9 @@
   .animate-ping {
     animation: var(--animate-ping);
   }
+  .cursor-pointer {
+    cursor: pointer;
+  }
   .resize {
     resize: both;
   }
@@ -1016,6 +1019,9 @@
   }
   .px-space-sm {
     padding-inline: var(--spacing-space-sm);
+  }
+  .px-space-xl {
+    padding-inline: var(--spacing-space-xl);
   }
   .py-0 {
     padding-block: 0px;
