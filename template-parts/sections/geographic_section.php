@@ -190,10 +190,11 @@ if (!empty($_GET[$query_var])) {
                             <button type="button" onclick="showCountries()"
                                 class="group flex-none w-28 md:w-32 flex flex-col items-center justify-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl transition-all duration-300 focus:outline-none">
                                 <div
-                                    class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary-container mb-2 shadow-sm transition-colors border border-surface-container-high">
+                                    class="w-12 h-12 rounded-full flex items-center justify-center text-on-surface-variant group-hover:text-primary mb-2 shadow-sm transition-colors border border-surface-container-high group-hover:border-primary">
                                     <span class="text-xl">&rarr;</span>
                                 </div>
-                                <span class="text-xs font-bold text-on-surface-variant group-hover:text-primary">
+                                <span
+                                    class="text-xs font-bold text-on-surface-variant group-hover:text-primary transition-colors">
                                     <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
                                 </span>
                             </button>
@@ -217,11 +218,11 @@ if (!empty($_GET[$query_var])) {
                                     class="text-sm font-bold text-on-background text-center mb-1 line-clamp-2 leading-snug group-hover:text-primary transition-colors relative z-10">
                                     <?php echo esc_html(sprintf(__('كل %s', 'hello-elementor-child'), $parent_term->name)); ?>
                                 </h3>
-                                <div class="mt-auto relative z-10 pt-2">
+                                <div class="mt-auto relative z-10 pt-2 w-full flex justify-center">
                                     <span
-                                        class="text-xs font-bold tracking-wide text-primary bg-primary-container border border-primary/20 px-3 py-1 rounded-full group-hover:bg-primary group-hover:text-on-primary transition-colors">
-                                        <?php echo esc_html($parent_data['count']); ?>
-                                        <?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?>
+                                        class="inline-flex items-center justify-center gap-1 text-[11px] font-bold tracking-wide text-white bg-primary-container border border-primary/20 px-2.5 py-1 rounded-full whitespace-nowrap group-hover:bg-primary group-hover:text-on-primary transition-colors">
+                                        <span><?php echo esc_html($parent_data['count']); ?></span>
+                                        <span><?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?></span>
                                     </span>
                                 </div>
                             </a>
