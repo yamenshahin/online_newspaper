@@ -96,7 +96,8 @@ if (!empty($dynamic_labels['title'])) {
                                 <span class="text-xs text-gray-400 uppercase tracking-wider block mb-0.5 font-semibold">
                                     <?php echo esc_html($info['label']); ?>
                                 </span>
-                                <span class="text-sm font-bold text-gray-900">
+                                <!-- Added dir="ltr" to ensure phone numbers and codes with spaces/symbols display in correct order -->
+                                <span class="text-sm font-bold text-gray-900 block" dir="ltr">
                                     <?php echo esc_html($info['value']); ?>
                                 </span>
                             </div>
@@ -142,13 +143,13 @@ if (!empty($dynamic_labels['title'])) {
                     ]);
                     ?>
                 </div>
-            <?php elseif (!empty($fallback_image_url)): ?>
+            <? elseif (!empty($fallback_image_url)): ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
                     <img src="<?php echo esc_url($fallback_image_url); ?>" alt="<?php echo esc_attr($term->name); ?>"
                         class="w-full h-auto object-cover">
                 </div>
-            <?php else: ?>
+            <? else: ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center aspect-[3/4]">
                     <span class="material-symbols-outlined text-6xl text-gray-300">person</span>
