@@ -143,13 +143,13 @@ if (!empty($dynamic_labels['title'])) {
                     ]);
                     ?>
                 </div>
-            <? elseif (!empty($fallback_image_url)): ?>
+            <?php elseif (!empty($fallback_image_url)): ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
                     <img src="<?php echo esc_url($fallback_image_url); ?>" alt="<?php echo esc_attr($term->name); ?>"
                         class="w-full h-auto object-cover">
                 </div>
-            <? else: ?>
+            <?php else: ?>
                 <div
                     class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center aspect-[3/4]">
                     <span class="material-symbols-outlined text-6xl text-gray-300">person</span>
