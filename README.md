@@ -9,7 +9,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![WP-CLI](https://img.shields.io/badge/WP_CLI-000000?style=flat-square&logo=wordpress&logoColor=white)](https://wp-cli.org/)
 
-Child theme developed for Tafaol Online Newspaper on top of the `hello-elementor` base theme. The codebase provides a flexible layout engine driven by Advanced Custom Fields (ACF), custom multi-media post types, taxonomy systems, and dynamic RTL styling.
+Child theme developed for Online Newspaper on top of the `hello-elementor` base theme. The codebase provides a flexible layout engine driven by Advanced Custom Fields (ACF), custom multi-media post types, taxonomy systems, and dynamic RTL styling.
 
 ---
 
