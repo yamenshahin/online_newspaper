@@ -1,4 +1,4 @@
-# Tafaol Online Newspaper
+# Online Newspaper
 
 [![WordPress](https://img.shields.io/badge/WordPress-1172B7?style=flat-square&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
