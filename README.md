@@ -68,7 +68,7 @@ Sections are modularly rendered across front page (`front-page.php`) and departm
 ### Contextual Department Theming
 
 - Theme colors are injected programmatically via `inc/department-context.php` to customize border accents and primary UI colors per department.
-- Elementor shortcode integration via `[department_footer]`[cite: 5].
+- Elementor shortcode integration via `[department_footer]`.
 
 ---
 
