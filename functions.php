@@ -15,7 +15,7 @@ define('HELLO_ELEMENTOR_CHILD_VERSION', '2.0.0');
 $theme_inc = get_stylesheet_directory() . '/inc';
 require_once $theme_inc . '/department-context.php';
 require_once $theme_inc . '/shortcodes/department-footer.php';
-
+require_once $theme_inc . '/taxonomy-helpers.php';
 // ---------------------------------------------------------------------------
 // Assets
 // ---------------------------------------------------------------------------
@@ -65,6 +65,13 @@ function hello_elementor_child_scripts_styles()
 			[],
 			filemtime(get_stylesheet_directory() . $filters_js_path),
 			true
+		);
+		wp_localize_script(
+			'hello-elementor-child-filters',
+			'helloEntityNav',
+			[
+				'searchUrl' => esc_url_raw(rest_url('hello/v1/entity-search')),
+			]
 		);
 	}
 }
@@ -659,3 +666,4 @@ add_action('pre_get_posts', function ($query) {
 		$query->set('orderby', 'meta_value_num');
 	}
 });
+
