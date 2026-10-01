@@ -45,13 +45,17 @@ $dept_id = $department instanceof WP_Term ? (int) $department->term_id : 0;
             <?php endif; ?>
         </div>
 
-        <!-- Entity Search Input -->
-        <div class="entity-search relative w-full max-w-xl">
-            <span
-                class="material-symbols-outlined absolute top-1/2 start-3 -translate-y-1/2 text-on-surface-variant text-[20px] pointer-events-none">search</span>
-            <input type="search"
-                class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2.5 pe-4 ps-11 text-sm focus:outline-none focus:ring-2 focus:ring-primary/30"
-                placeholder="<?php esc_attr_e('ابحث عن جهة…', 'hello-elementor-child'); ?>" autocomplete="off" />
+        <!-- Entity Search Input (RTL-Aligned & Styled) -->
+        <div class="entity-search relative w-full max-w-md">
+            <div class="relative flex items-center w-full">
+                <span
+                    class="material-symbols-outlined absolute start-3.5 text-on-surface-variant/70 text-[20px] pointer-events-none select-none">
+                    search
+                </span>
+                <input type="search"
+                    class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2.5 !ps-11 !pe-4 text-sm text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all duration-200 focus:border-primary focus:bg-background focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
+                    placeholder="<?php esc_attr_e('ابحث عن جهة…', 'hello-elementor-child'); ?>" autocomplete="off" />
+            </div>
         </div>
 
         <!-- Expandable Filter Wrapper for Private Entities Tree -->
