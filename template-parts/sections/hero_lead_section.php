@@ -92,9 +92,9 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         </div>
     <?php endif; ?>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
-        <!-- FEATURED IMAGE: fixed 16:9, no min-height stretch -->
-        <div class="lg:col-span-7">
+    <div class="grid grid-cols-1 min-[1360px]:grid-cols-12 gap-8 md:gap-12 items-start">
+        <!-- FEATURED IMAGE: fixed 16:9; side-by-side only from 1360px -->
+        <div class="min-[1360px]:col-span-7">
             <a href="<?php echo esc_url($f_link); ?>"
                 class="block w-full aspect-video relative group overflow-hidden rounded-2xl shadow-sm border border-gray-100 bg-gray-100">
                 <?php if (has_post_thumbnail($featured_post->ID)): ?>
@@ -110,7 +110,7 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         </div>
 
         <!-- TEXT + TRENDING (Left in RTL) -->
-        <div class="lg:col-span-5 flex flex-col justify-between">
+        <div class="min-[1360px]:col-span-5 flex flex-col justify-between">
             <div class="mb-10 text-start">
                 <div class="flex items-center gap-2 mb-4 text-primary">
                     <div
