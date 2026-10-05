@@ -58,7 +58,8 @@
     "show_in_quick_edit": 1,
     "show_admin_column": 0,
     "rewrite": {
-        "permalink_rewrite": "taxonomy_key",
+        "permalink_rewrite": "custom_permalink",
+        "slug": "car-model",
         "with_front": "1",
         "rewrite_hierarchical": "0"
     },
@@ -73,5 +74,5 @@
     "meta_box_sanitize_cb": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790197639
+    "modified": 1791165994
 }

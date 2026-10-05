@@ -1,9 +1,9 @@
 {
     "key": "taxonomy_6ab43ec7abc43",
-    "title": "Car Model Year",
+    "title": "Car Year",
     "menu_order": 0,
     "active": true,
-    "taxonomy": "car_model_year",
+    "taxonomy": "car_year",
     "object_type": [
         "car"
     ],
@@ -11,8 +11,8 @@
     "import_source": "",
     "import_date": "",
     "labels": {
-        "name": "Car Model Year",
-        "singular_name": "Car Model Year",
+        "name": "Car Year",
+        "singular_name": "Car Year",
         "menu_name": "Model Year",
         "all_items": "All Model Year",
         "edit_item": "Edit Model Year",
@@ -58,7 +58,8 @@
     "show_in_quick_edit": 1,
     "show_admin_column": 0,
     "rewrite": {
-        "permalink_rewrite": "taxonomy_key",
+        "permalink_rewrite": "custom_permalink",
+        "slug": "car-year",
         "with_front": "1",
         "rewrite_hierarchical": "0"
     },
@@ -73,5 +74,5 @@
     "meta_box_sanitize_cb": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790197717
+    "modified": 1791166006
 }
