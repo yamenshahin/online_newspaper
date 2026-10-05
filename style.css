@@ -99,3 +99,10 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
 .elementor-element-183ccf0 .hfe-nav-menu a {
     font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif !important;
 }
+
+/** Temp fix footer logo TODO: remove when fixed **/
+#site-footer img {
+    padding: 20px;
+    max-width: 220px;
+    height: auto;
+}
