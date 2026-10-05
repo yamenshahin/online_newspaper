@@ -27,11 +27,11 @@ $permalink = get_permalink($featured_post->ID);
 ?>
 
 <div
-    class="lg:col-span-8 rounded-3xl overflow-hidden bg-inverse-surface shadow-xl grid grid-cols-1 lg:grid-cols-2 group min-h-[520px]">
+    class="lg:col-span-8 rounded-3xl overflow-hidden bg-inverse-surface shadow-xl grid grid-cols-1 lg:grid-cols-2 group lg:min-h-[520px]">
 
     <!-- 1. IMAGE PANE (First in DOM = Sits on the Right in RTL) -->
     <a href="<?php echo esc_url($permalink); ?>"
-        class="relative w-full h-full min-h-[360px] lg:min-h-full overflow-hidden bg-inverse-surface block">
+        class="relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-full overflow-hidden bg-inverse-surface block">
         <?php
         $featured_img = get_post_thumbnail_id($featured_post->ID);
         if ($featured_img): ?>

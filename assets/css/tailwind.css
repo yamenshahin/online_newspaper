@@ -21,7 +21,6 @@
     --spacing: 0.25rem;
     --container-sm: 24rem;
     --container-md: 28rem;
-    --container-xl: 36rem;
     --container-2xl: 42rem;
     --container-3xl: 48rem;
     --container-4xl: 56rem;
@@ -1746,6 +1745,15 @@
     }
     .lg\:col-span-8 {
       grid-column: span 8 / span 8;
+    }
+    .lg\:aspect-auto {
+      aspect-ratio: auto;
+    }
+    .lg\:h-full {
+      height: 100%;
+    }
+    .lg\:min-h-\[520px\] {
+      min-height: 520px;
     }
     .lg\:min-h-\[600px\] {
       min-height: 600px;
