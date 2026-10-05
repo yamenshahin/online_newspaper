@@ -92,17 +92,17 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         </div>
     <?php endif; ?>
 
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-stretch">
-        <!-- FEATURED IMAGE (Right in RTL) -->
-        <div class="lg:col-span-7 min-h-[400px] lg:min-h-[600px] relative h-full">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 md:gap-12 items-start">
+        <!-- FEATURED IMAGE: fixed 16:9, no min-height stretch -->
+        <div class="lg:col-span-7">
             <a href="<?php echo esc_url($f_link); ?>"
-                class="block w-full h-full relative group overflow-hidden rounded-2xl shadow-sm border border-gray-100">
+                class="block w-full aspect-video relative group overflow-hidden rounded-2xl shadow-sm border border-gray-100 bg-gray-100">
                 <?php if (has_post_thumbnail($featured_post->ID)): ?>
-                    <?php echo get_the_post_thumbnail($featured_post->ID, 'full', [
-                        'class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
+                    <?php echo get_the_post_thumbnail($featured_post->ID, 'large', [
+                        'class' => 'absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105'
                     ]); ?>
                 <?php else: ?>
-                    <div class="absolute inset-0 bg-gray-50 w-full h-full flex items-center justify-center">
+                    <div class="absolute inset-0 flex items-center justify-center">
                         <span class="text-gray-400 font-label-caps tracking-widest uppercase">No Image</span>
                     </div>
                 <?php endif; ?>

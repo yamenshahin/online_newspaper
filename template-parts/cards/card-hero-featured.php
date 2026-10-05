@@ -1,51 +1,51 @@
 <?php
 /**
- * Card: Hero Featured (Lead Story)
- * Expects: $args['post'] (WP_Post object)
+ * Card: Hero Featured
+ * 16:9 box, full image visible, centered in column.
  */
-
-$featured_post = $args['post'] ?? null;
-if (!$featured_post)
+$post = $args['post'] ?? null;
+if (!$post instanceof WP_Post) {
     return;
+}
 
-// 1. Custom Arabic Post Type Mapping
 $type_map = [
     'post' => 'أخبار',
     'interview' => 'مقابلات',
     'program' => 'برامج',
-    'infographic' => 'انفوجرافيك'
+    'infographic' => 'انفوجرافيك',
 ];
-$post_type_obj = get_post_type_object($featured_post->post_type);
-$type_name = $type_map[$featured_post->post_type] ?? ($post_type_obj ? $post_type_obj->labels->singular_name : '');
+$pt_obj = get_post_type_object($post->post_type);
+$type_name = $type_map[$post->post_type] ?? ($pt_obj ? $pt_obj->labels->singular_name : '');
 
-// 2. Fetch the Department Name
-$departments = get_the_terms($featured_post->ID, 'department');
-$department_name = (!empty($departments) && !is_wp_error($departments)) ? $departments[0]->name : '';
+$depts = get_the_terms($post->ID, 'department');
+$dept = (!empty($depts) && !is_wp_error($depts)) ? $depts[0]->name : '';
 
-$time_diff = human_time_diff(get_post_time('U', false, $featured_post->ID), current_time('timestamp'));
-$permalink = get_permalink($featured_post->ID);
+$time = human_time_diff(get_post_time('U', false, $post->ID), current_time('timestamp'));
+$url = get_permalink($post->ID);
+$img = get_post_thumbnail_id($post->ID);
 ?>
 
 <div
-    class="lg:col-span-8 rounded-3xl overflow-hidden bg-inverse-surface shadow-xl grid grid-cols-1 lg:grid-cols-2 group lg:min-h-[520px]">
+    class="lg:col-span-8 rounded-3xl overflow-hidden bg-inverse-surface shadow-xl grid grid-cols-1 lg:grid-cols-2 group">
 
-    <!-- 1. IMAGE PANE (First in DOM = Sits on the Right in RTL) -->
-    <a href="<?php echo esc_url($permalink); ?>"
-        class="relative w-full aspect-video lg:aspect-auto lg:h-full lg:min-h-full overflow-hidden bg-inverse-surface block">
-        <?php
-        $featured_img = get_post_thumbnail_id($featured_post->ID);
-        if ($featured_img): ?>
-            <?php echo wp_get_attachment_image($featured_img, 'full', false, [
-                'class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105'
-            ]); ?>
-        <?php endif; ?>
-    </a>
+    <!-- IMAGE -->
+    <div class="flex items-center p-0 lg:p-4">
+        <a href="<?php echo esc_url($url); ?>"
+            class="block w-full aspect-video relative overflow-hidden rounded-xl bg-black/20">
+            <?php
+            if ($img) {
+                echo wp_get_attachment_image($img, 'large', false, [
+                    'class' => 'w-full h-full object-contain',
+                    'style' => 'width:100%;height:100%;object-fit:contain;',
+                ]);
+            }
+            ?>
+        </a>
+    </div>
 
-    <!-- 2. TEXT CONTENT (Second in DOM = Sits on the Left in RTL) -->
-    <div
-        class="p-space-lg md:p-space-xl flex flex-col justify-between items-start gap-space-lg text-on-primary z-10 text-start w-full">
+    <!-- TEXT -->
+    <div class="p-space-lg md:p-space-xl flex flex-col justify-between gap-space-lg text-on-primary text-start">
 
-        <!-- Top Badges & Time -->
         <div class="flex flex-wrap items-center justify-between gap-space-sm w-full">
             <div class="flex items-center gap-space-xs">
                 <span
@@ -60,48 +60,42 @@ $permalink = get_permalink($featured_post->ID);
             <div
                 class="flex items-center gap-space-xs est/10 px-space-md py-1 rounded-full text-surface-variant font-label-pill text-label-pill">
                 <span class="material-symbols-outlined text-[16px] text-primary-fixed">timer</span>
-                <span class=""><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time_diff); ?></span>
+                <span><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time); ?></span>
             </div>
         </div>
 
-        <!-- Core Headline & Description -->
-        <div class="flex flex-col gap-space-md my-auto pt-space-md items-start w-full">
-            <?php if ($department_name): ?>
-                <div class="flex items-center gap-space-xs text-primary-fixed">
-                    <span class="font-label-caps text-label-caps tracking-widest uppercase">
-                        <?php echo esc_html($department_name); ?>
-                    </span>
-                </div>
+        <div class="flex flex-col gap-space-md items-start w-full">
+            <?php if ($dept): ?>
+                <span class="font-label-caps text-label-caps tracking-widest uppercase text-primary-fixed">
+                    <?php echo esc_html($dept); ?>
+                </span>
             <?php endif; ?>
 
-            <a href="<?php echo esc_url($permalink); ?>" class="block">
+            <a href="<?php echo esc_url($url); ?>">
                 <h2
-                    class="font-headline-lg text-headline-lg text-surface-bright tracking-tight leading-tight group-hover:text-primary-fixed-dim transition-colors text-start">
-                    <?php echo esc_html(get_the_title($featured_post->ID)); ?>
+                    class="font-headline-lg text-headline-lg text-surface-bright tracking-tight leading-tight group-hover:text-primary-fixed-dim transition-colors">
+                    <?php echo esc_html(get_the_title($post->ID)); ?>
                 </h2>
             </a>
 
-            <p class="font-body-base text-body-base text-surface-variant leading-snug line-clamp-3 text-start">
-                <?php echo esc_html(wp_strip_all_tags(get_the_excerpt($featured_post->ID))); ?>
+            <p class="font-body-base text-body-base text-surface-variant leading-snug line-clamp-3">
+                <?php echo esc_html(wp_strip_all_tags(get_the_excerpt($post->ID))); ?>
             </p>
         </div>
 
-        <!-- Action CTA Buttons -->
-        <div class="flex flex-wrap items-center justify-start gap-space-md pt-space-xs w-full">
-            <a href="<?php echo esc_url($permalink); ?>"
-                class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill flex items-center gap-space-xs transition-all shadow-md inline-flex">
+        <div class="flex flex-wrap gap-space-md w-full">
+            <a href="<?php echo esc_url($url); ?>"
+                class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill inline-flex items-center gap-space-xs shadow-md">
                 <span class="material-symbols-outlined text-[20px]"
-                    style="font-variation-settings: 'FILL' 1;">play_arrow</span>
-                <span class=""><?php esc_html_e('مشاهدة القصة الكاملة', 'hello-elementor-child'); ?></span>
+                    style="font-variation-settings:'FILL' 1">play_arrow</span>
+                <?php esc_html_e('مشاهدة القصة الكاملة', 'hello-elementor-child'); ?>
             </a>
-
-            <button
-                class="px-space-md py-space-sm rounded-full est/15 hover:est/25 text-surface-bright font-label-pill text-label-pill flex items-center gap-space-xs transition-all"
-                onclick="navigator.share && navigator.share({title: '<?php echo esc_js(get_the_title($featured_post->ID)); ?>', url: '<?php echo esc_url($permalink); ?>'})">
+            <button type="button"
+                class="px-space-md py-space-sm rounded-full est/15 hover:est/25 text-surface-bright font-label-pill text-label-pill inline-flex items-center gap-space-xs"
+                onclick="navigator.share&&navigator.share({title:'<?php echo esc_js(get_the_title($post->ID)); ?>',url:'<?php echo esc_url($url); ?>'})">
                 <span class="material-symbols-outlined text-[18px]">share</span>
-                <span class=""><?php esc_html_e('مشاركة', 'hello-elementor-child'); ?></span>
+                <?php esc_html_e('مشاركة', 'hello-elementor-child'); ?>
             </button>
         </div>
     </div>
-
 </div>

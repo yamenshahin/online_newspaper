@@ -300,8 +300,14 @@
   .pointer-events-none {
     pointer-events: none;
   }
+  .visible {
+    visibility: visible;
+  }
   .absolute {
     position: absolute;
+  }
+  .fixed {
+    position: fixed;
   }
   .relative {
     position: relative;
@@ -549,6 +555,12 @@
   .max-h-\[190px\] {
     max-height: 190px;
   }
+  .max-h-none {
+    max-height: none;
+  }
+  .min-h-0 {
+    min-height: 0px;
+  }
   .min-h-\[360px\] {
     min-height: 360px;
   }
@@ -735,8 +747,14 @@
   .gap-space-xs {
     gap: var(--spacing-space-xs);
   }
+  .self-center {
+    align-self: center;
+  }
   .self-start {
     align-self: flex-start;
+  }
+  .self-stretch {
+    align-self: stretch;
   }
   .overflow-hidden {
     overflow: hidden;
@@ -822,6 +840,12 @@
     background-color: color-mix(in srgb, #000 5%, transparent);
     @supports (color: color-mix(in lab, red, red)) {
       background-color: color-mix(in oklab, var(--color-black) 5%, transparent);
+    }
+  }
+  .bg-black\/20 {
+    background-color: color-mix(in srgb, #000 20%, transparent);
+    @supports (color: color-mix(in lab, red, red)) {
+      background-color: color-mix(in oklab, var(--color-black) 20%, transparent);
     }
   }
   .bg-gray-50 {
@@ -922,6 +946,12 @@
   }
   .object-cover {
     object-fit: cover;
+  }
+  .object-center {
+    object-position: center;
+  }
+  .p-0 {
+    padding: 0px;
   }
   .p-2 {
     padding: calc(var(--spacing) * 2);
@@ -1642,11 +1672,23 @@
     .md\:mb-12 {
       margin-bottom: calc(var(--spacing) * 12);
     }
+    .md\:aspect-auto {
+      aspect-ratio: auto;
+    }
     .md\:h-10 {
       height: calc(var(--spacing) * 10);
     }
     .md\:h-14 {
       height: calc(var(--spacing) * 14);
+    }
+    .md\:h-full {
+      height: 100%;
+    }
+    .md\:min-h-\[520px\] {
+      min-height: 520px;
+    }
+    .md\:min-h-full {
+      min-height: 100%;
     }
     .md\:w-10 {
       width: calc(var(--spacing) * 10);
@@ -1662,6 +1704,9 @@
     }
     .md\:w-72 {
       width: calc(var(--spacing) * 72);
+    }
+    .md\:grid-cols-1 {
+      grid-template-columns: repeat(1, minmax(0, 1fr));
     }
     .md\:grid-cols-2 {
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1769,6 +1814,12 @@
     }
     .lg\:grid-cols-12 {
       grid-template-columns: repeat(12, minmax(0, 1fr));
+    }
+    .lg\:items-center {
+      align-items: center;
+    }
+    .lg\:p-4 {
+      padding: calc(var(--spacing) * 4);
     }
     .lg\:px-margin {
       padding-inline: var(--spacing-margin);
