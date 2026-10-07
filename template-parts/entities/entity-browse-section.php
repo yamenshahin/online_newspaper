@@ -1,12 +1,9 @@
 <?php
 /**
- * Shared entity browse UI: Main tabs → Sub tabs → Entity pills.
+ * Shared entity browse: Main tabs → Sub tabs → Entity pills + search.
+ * No show-more / max-height (Geographic only uses that).
  *
- * $args:
- * - taxonomy (string) required  government_entity | private_entity
- * - section_title (string)
- * - subtitle (string)
- * - department (WP_Term|null)
+ * $args: taxonomy, section_title, subtitle, department
  */
 
 $taxonomy = $args['taxonomy'] ?? '';
@@ -59,7 +56,7 @@ $first_main_id = $main_ids[0] ?? 0;
             </div>
         </div>
 
-        <!-- LEVEL 1: Main tabs -->
+        <!-- Main tabs -->
         <div class="entity-main-tabs flex flex-wrap gap-2 border-b border-surface-container-highest/40 pb-2"
             role="tablist">
             <?php foreach ($tree as $main_id => $main): ?>
@@ -113,61 +110,46 @@ $first_main_id = $main_ids[0] ?? 0;
                     </div>
                 <?php endif; ?>
 
-                <div class="filter-wrapper relative w-full">
-                    <?php if (!empty($subs)): ?>
-                        <?php foreach ($subs as $sub_id => $sub): ?>
-                            <div class="entity-sub-panel filter-container flex flex-wrap gap-2 max-h-[180px] overflow-hidden transition-[max-height] duration-500 ease-in-out <?php echo (int) $sub_id === (int) $default_sub ? '' : 'hidden'; ?>"
-                                data-main-id="<?php echo esc_attr((string) $main_id); ?>"
-                                data-sub-id="<?php echo esc_attr((string) $sub_id); ?>" data-collapsed-max="180">
-                                <?php if (!empty($sub['children'])): ?>
-                                    <?php foreach ($sub['children'] as $entity): ?>
-                                        <?php if (empty($entity['is_leaf'])) {
-                                            continue;
-                                        } ?>
-                                        <a href="<?php echo esc_url($entity['link']); ?>"
-                                            class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
-                                            data-entity-name="<?php echo esc_attr(mb_strtolower($entity['name'])); ?>">
-                                            <?php echo esc_html($entity['name']); ?>
-                                            <?php if (!empty($entity['count'])): ?>
-                                                <span
-                                                    class="text-[11px] font-bold text-on-surface-variant">(<?php echo esc_html((string) $entity['count']); ?>)</span>
-                                            <?php endif; ?>
-                                        </a>
-                                    <?php endforeach; ?>
-                                <?php endif; ?>
-                            </div>
-                        <?php endforeach; ?>
-                    <?php elseif (!empty($leaf_under_main)): ?>
-                        <div class="entity-sub-panel filter-container flex flex-wrap gap-2 max-h-[180px] overflow-hidden transition-[max-height] duration-500 ease-in-out"
-                            data-main-id="<?php echo esc_attr((string) $main_id); ?>" data-sub-id="0"
-                            data-collapsed-max="180">
-                            <?php foreach ($leaf_under_main as $entity): ?>
-                                <a href="<?php echo esc_url($entity['link']); ?>"
-                                    class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
-                                    data-entity-name="<?php echo esc_attr(mb_strtolower($entity['name'])); ?>">
-                                    <?php echo esc_html($entity['name']); ?>
-                                    <?php if (!empty($entity['count'])): ?>
-                                        <span
-                                            class="text-[11px] font-bold text-on-surface-variant">(<?php echo esc_html((string) $entity['count']); ?>)</span>
-                                    <?php endif; ?>
-                                </a>
-                            <?php endforeach; ?>
+                <?php if (!empty($subs)): ?>
+                    <?php foreach ($subs as $sub_id => $sub): ?>
+                        <div class="entity-sub-panel flex flex-wrap gap-2 <?php echo (int) $sub_id === (int) $default_sub ? '' : 'hidden'; ?>"
+                            data-main-id="<?php echo esc_attr((string) $main_id); ?>"
+                            data-sub-id="<?php echo esc_attr((string) $sub_id); ?>">
+                            <?php if (!empty($sub['children'])): ?>
+                                <?php foreach ($sub['children'] as $entity): ?>
+                                    <?php if (empty($entity['is_leaf'])) {
+                                        continue;
+                                    } ?>
+                                    <a href="<?php echo esc_url($entity['link']); ?>"
+                                        class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
+                                        data-entity-name="<?php echo esc_attr(mb_strtolower($entity['name'])); ?>">
+                                        <?php echo esc_html($entity['name']); ?>
+                                        <?php if (!empty($entity['count'])): ?>
+                                            <span
+                                                class="text-[11px] font-bold text-on-surface-variant">(<?php echo esc_html((string) $entity['count']); ?>)</span>
+                                        <?php endif; ?>
+                                    </a>
+                                <?php endforeach; ?>
+                            <?php endif; ?>
                         </div>
-                    <?php endif; ?>
-
-                    <div
-                        class="filter-fade-overlay absolute bottom-0 left-0 w-full h-[60px] bg-gradient-to-t from-background to-transparent pointer-events-none transition-opacity duration-300">
+                    <?php endforeach; ?>
+                <?php elseif (!empty($leaf_under_main)): ?>
+                    <div class="entity-sub-panel flex flex-wrap gap-2"
+                        data-main-id="<?php echo esc_attr((string) $main_id); ?>" data-sub-id="0">
+                        <?php foreach ($leaf_under_main as $entity): ?>
+                            <a href="<?php echo esc_url($entity['link']); ?>"
+                                class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
+                                data-entity-name="<?php echo esc_attr(mb_strtolower($entity['name'])); ?>">
+                                <?php echo esc_html($entity['name']); ?>
+                                <?php if (!empty($entity['count'])): ?>
+                                    <span
+                                        class="text-[11px] font-bold text-on-surface-variant">(<?php echo esc_html((string) $entity['count']); ?>)</span>
+                                <?php endif; ?>
+                            </a>
+                        <?php endforeach; ?>
                     </div>
-                </div>
+                <?php endif; ?>
             </div>
         <?php endforeach; ?>
-
-        <div class="flex justify-center w-full mt-2">
-            <button type="button"
-                class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
-                <span class="toggle-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
-                <span class="material-symbols-outlined text-[16px] toggle-icon">expand_more</span>
-            </button>
-        </div>
     </div>
 </section>

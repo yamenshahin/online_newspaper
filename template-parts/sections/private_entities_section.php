@@ -1,6 +1,6 @@
 <?php
 /**
- * Flexible Content layout: private_entities_section
+ * Flexible Content: private_entities_section
  */
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];

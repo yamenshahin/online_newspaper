@@ -1,5 +1,5 @@
 /**
- * Dynamic Taxonomy Filters & Entity Search Handler
+ * Filters: Geographic show-more + Entity main/sub tabs + entity search
  */
 document.addEventListener('DOMContentLoaded', function () {
     initFilterWrappers();
@@ -8,27 +8,27 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 /**
- * Expandable Filter Containers ("Show More / Show Less")
+ * Show more / less — Geographic (and any non-entity-browse) only
  */
 function initFilterWrappers() {
-    const wrappers = document.querySelectorAll('.filter-wrapper');
+    document.querySelectorAll('.filter-wrapper').forEach(function (wrapper) {
+        if (wrapper.closest('.entity-browse')) {
+            return;
+        }
 
-    wrappers.forEach(wrapper => {
         const container = wrapper.querySelector('.filter-container');
         const fadeOverlay = wrapper.querySelector('.filter-fade-overlay');
-        const parentSection = wrapper.closest('.entity-browse') || wrapper.closest('section') || wrapper.parentElement;
+        const parentSection = wrapper.closest('section') || wrapper.parentElement;
         const toggleBtn = parentSection ? parentSection.querySelector('.filter-toggle-btn') : null;
 
         if (!container || !toggleBtn) return;
-
-        const collapsedMax = parseInt(container.dataset.collapsedMax, 10) || 110;
-
         if (toggleBtn.dataset.initialized === 'true') return;
         toggleBtn.dataset.initialized = 'true';
 
+        const collapsedMax = parseInt(container.dataset.collapsedMax, 10) || 110;
+
         function checkOverflow() {
-            // Only measure the visible panel
-            if (wrapper.classList.contains('hidden')) {
+            if (wrapper.classList.contains('hidden') || container.classList.contains('hidden')) {
                 return;
             }
             if (container.classList.contains('is-expanded') || container.classList.contains('is-searching')) {
@@ -51,24 +51,20 @@ function initFilterWrappers() {
         checkOverflow();
 
         toggleBtn.addEventListener('click', function () {
-            const visibleWrapper = parentSection.querySelector('.entity-main-panel:not(.hidden).filter-wrapper') || wrapper;
-            const visibleContainer = visibleWrapper.querySelector('.filter-container') || container;
-            const visibleFade = visibleWrapper.querySelector('.filter-fade-overlay') || fadeOverlay;
-            const isExpanded = visibleContainer.classList.contains('is-expanded');
+            const isExpanded = container.classList.contains('is-expanded');
             const toggleText = toggleBtn.querySelector('.toggle-text');
             const toggleIcon = toggleBtn.querySelector('.toggle-icon');
-            const max = parseInt(visibleContainer.dataset.collapsedMax, 10) || collapsedMax;
 
             if (isExpanded) {
-                visibleContainer.style.maxHeight = max + 'px';
-                visibleContainer.classList.remove('is-expanded');
-                if (visibleFade) visibleFade.classList.remove('opacity-0');
+                container.style.maxHeight = collapsedMax + 'px';
+                container.classList.remove('is-expanded');
+                if (fadeOverlay) fadeOverlay.classList.remove('opacity-0');
                 if (toggleText) toggleText.textContent = 'عرض المزيد';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
             } else {
-                visibleContainer.style.maxHeight = visibleContainer.scrollHeight + 'px';
-                visibleContainer.classList.add('is-expanded');
-                if (visibleFade) visibleFade.classList.add('opacity-0');
+                container.style.maxHeight = container.scrollHeight + 'px';
+                container.classList.add('is-expanded');
+                if (fadeOverlay) fadeOverlay.classList.add('opacity-0');
                 if (toggleText) toggleText.textContent = 'عرض أقل';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
             }
@@ -95,55 +91,27 @@ function normalizeArabic(text) {
 }
 
 /**
- * Client-side entity search (active main panel only)
+ * Entity search — active main + sub panel only
  */
 function initEntitySearch() {
-    const searchInputs = document.querySelectorAll('.entity-search-input');
-
-    searchInputs.forEach(searchInput => {
-        const section = searchInput.closest('.entity-browse') || searchInput.closest('section');
+    document.querySelectorAll('.entity-search-input').forEach(function (searchInput) {
+        const section = searchInput.closest('.entity-browse');
         if (!section) return;
 
         searchInput.addEventListener('input', function (e) {
-            const rawQuery = e.target.value.trim();
-            const query = normalizeArabic(rawQuery);
+            const query = normalizeArabic(e.target.value.trim());
+            const activeMain = section.querySelector('.entity-main-panel:not(.hidden)') || section;
+            const activeSub = activeMain.querySelector('.entity-sub-panel:not(.hidden)') || activeMain;
+            const pills = activeSub.querySelectorAll('.entity-pill');
 
-            const activePanel = section.querySelector('.entity-main-panel:not(.hidden)') || section;
-            const subGroups = activePanel.querySelectorAll('.entity-sub');
-            const pills = activePanel.querySelectorAll('.entity-pill');
-            const filterContainer = activePanel.querySelector('.filter-container');
-            const fadeOverlay = activePanel.querySelector('.filter-fade-overlay');
-
-            if (query === '') {
-                pills.forEach(pill => {
+            pills.forEach(function (pill) {
+                if (query === '') {
                     pill.style.display = '';
                     pill.classList.remove('hidden');
-                });
-                subGroups.forEach(sub => {
-                    sub.style.display = '';
-                    sub.classList.remove('hidden');
-                });
-                if (filterContainer) {
-                    filterContainer.classList.remove('is-searching');
-                    const collapsedMax = parseInt(filterContainer.dataset.collapsedMax, 10) || 180;
-                    if (!filterContainer.classList.contains('is-expanded')) {
-                        filterContainer.style.maxHeight = collapsedMax + 'px';
-                        if (fadeOverlay) fadeOverlay.classList.remove('opacity-0');
-                    }
+                    return;
                 }
-                return;
-            }
-
-            if (filterContainer) {
-                filterContainer.classList.add('is-searching');
-                filterContainer.style.maxHeight = 'none';
-            }
-            if (fadeOverlay) fadeOverlay.classList.add('opacity-0');
-
-            pills.forEach(pill => {
-                const rawName = pill.getAttribute('data-entity-name') || pill.textContent;
-                const normalizedName = normalizeArabic(rawName);
-                if (normalizedName.includes(query)) {
+                const name = normalizeArabic(pill.getAttribute('data-entity-name') || pill.textContent);
+                if (name.includes(query)) {
                     pill.style.display = 'inline-flex';
                     pill.classList.remove('hidden');
                 } else {
@@ -151,23 +119,12 @@ function initEntitySearch() {
                     pill.classList.add('hidden');
                 }
             });
-
-            subGroups.forEach(sub => {
-                const visiblePills = sub.querySelectorAll('.entity-pill:not(.hidden)');
-                if (visiblePills.length > 0) {
-                    sub.style.display = '';
-                    sub.classList.remove('hidden');
-                } else {
-                    sub.style.display = 'none';
-                    sub.classList.add('hidden');
-                }
-            });
         });
     });
 }
 
 /**
- * Main tabs → Sub tabs → Entity pills
+ * Main tabs → Sub tabs (show/hide only — no height limits)
  */
 function initEntityMainTabs() {
     document.querySelectorAll('.entity-browse').forEach(function (section) {
@@ -188,15 +145,12 @@ function initEntityMainTabs() {
                 const on = panel.getAttribute('data-main-id') === mainId;
                 panel.classList.toggle('hidden', !on);
                 if (on) {
-                    // Activate first visible sub tab in this main
                     const firstSub = panel.querySelector('.entity-sub-tab');
                     if (firstSub) {
                         activateSub(panel, firstSub.getAttribute('data-sub-id'));
                     }
                 }
             });
-
-            window.dispatchEvent(new Event('resize'));
         }
 
         function activateSub(mainPanel, subId) {
@@ -215,8 +169,6 @@ function initEntityMainTabs() {
             subPanels.forEach(function (p) {
                 p.classList.toggle('hidden', p.getAttribute('data-sub-id') !== subId);
             });
-
-            window.dispatchEvent(new Event('resize'));
         }
 
         mainTabs.forEach(function (tab) {

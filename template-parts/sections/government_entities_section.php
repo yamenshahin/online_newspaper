@@ -1,6 +1,6 @@
 <?php
 /**
- * Flexible Content layout: government_entities_section
+ * Flexible Content: government_entities_section
  */
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];
