@@ -4,10 +4,11 @@
 document.addEventListener('DOMContentLoaded', function () {
     initFilterWrappers();
     initEntitySearch();
+    initEntityMainTabs();
 });
 
 /**
- * Initialize Expandable Filter Containers ("Show More / Show Less")
+ * Expandable Filter Containers ("Show More / Show Less")
  */
 function initFilterWrappers() {
     const wrappers = document.querySelectorAll('.filter-wrapper');
@@ -15,20 +16,21 @@ function initFilterWrappers() {
     wrappers.forEach(wrapper => {
         const container = wrapper.querySelector('.filter-container');
         const fadeOverlay = wrapper.querySelector('.filter-fade-overlay');
-        const parentSection = wrapper.closest('section') || wrapper.parentElement;
+        const parentSection = wrapper.closest('.entity-browse') || wrapper.closest('section') || wrapper.parentElement;
         const toggleBtn = parentSection ? parentSection.querySelector('.filter-toggle-btn') : null;
 
         if (!container || !toggleBtn) return;
 
         const collapsedMax = parseInt(container.dataset.collapsedMax, 10) || 110;
 
-        // Prevent attaching multiple event listeners
         if (toggleBtn.dataset.initialized === 'true') return;
         toggleBtn.dataset.initialized = 'true';
 
-        // Check overflow status and set initial states
         function checkOverflow() {
-            // Do not recalculate if user is currently searching or has manually expanded
+            // Only measure the visible panel
+            if (wrapper.classList.contains('hidden')) {
+                return;
+            }
             if (container.classList.contains('is-expanded') || container.classList.contains('is-searching')) {
                 return;
             }
@@ -46,31 +48,32 @@ function initFilterWrappers() {
             }
         }
 
-        // Run initial calculation
         checkOverflow();
 
-        // Handle Toggle Button Click
         toggleBtn.addEventListener('click', function () {
-            const isExpanded = container.classList.contains('is-expanded');
+            const visibleWrapper = parentSection.querySelector('.entity-main-panel:not(.hidden).filter-wrapper') || wrapper;
+            const visibleContainer = visibleWrapper.querySelector('.filter-container') || container;
+            const visibleFade = visibleWrapper.querySelector('.filter-fade-overlay') || fadeOverlay;
+            const isExpanded = visibleContainer.classList.contains('is-expanded');
             const toggleText = toggleBtn.querySelector('.toggle-text');
             const toggleIcon = toggleBtn.querySelector('.toggle-icon');
+            const max = parseInt(visibleContainer.dataset.collapsedMax, 10) || collapsedMax;
 
             if (isExpanded) {
-                container.style.maxHeight = collapsedMax + 'px';
-                container.classList.remove('is-expanded');
-                if (fadeOverlay) fadeOverlay.classList.remove('opacity-0');
+                visibleContainer.style.maxHeight = max + 'px';
+                visibleContainer.classList.remove('is-expanded');
+                if (visibleFade) visibleFade.classList.remove('opacity-0');
                 if (toggleText) toggleText.textContent = 'عرض المزيد';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
             } else {
-                container.style.maxHeight = container.scrollHeight + 'px';
-                container.classList.add('is-expanded');
-                if (fadeOverlay) fadeOverlay.classList.add('opacity-0');
+                visibleContainer.style.maxHeight = visibleContainer.scrollHeight + 'px';
+                visibleContainer.classList.add('is-expanded');
+                if (visibleFade) visibleFade.classList.add('opacity-0');
                 if (toggleText) toggleText.textContent = 'عرض أقل';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
             }
         });
 
-        // Recalculate on window resize (debounced)
         let resizeTimer;
         window.addEventListener('resize', function () {
             clearTimeout(resizeTimer);
@@ -79,43 +82,38 @@ function initFilterWrappers() {
     });
 }
 
-/**
- * Normalize Arabic text for accurate search matching
- */
 function normalizeArabic(text) {
     if (!text) return '';
     return text
         .toLowerCase()
-        .replace(/[\u064B-\u0652]/g, '') // Remove Tashkeel (diacritics)
-        .replace(/[أإآ]/g, 'ا')         // Normalize Alif
-        .replace(/ة/g, 'ه')             // Normalize Ta Marbouta
-        .replace(/ى/g, 'ي')             // Normalize Alef Maqsoora
-        .replace(/^ال/g, '')            // Strip leading "ال"
+        .replace(/[\u064B-\u0652]/g, '')
+        .replace(/[أإآ]/g, 'ا')
+        .replace(/ة/g, 'ه')
+        .replace(/ى/g, 'ي')
+        .replace(/^ال/g, '')
         .trim();
 }
 
 /**
- * Initialize Client-Side Entity Live Filtering
+ * Client-side entity search (active main panel only)
  */
 function initEntitySearch() {
     const searchInputs = document.querySelectorAll('.entity-search-input');
 
     searchInputs.forEach(searchInput => {
-        const section = searchInput.closest('section') || searchInput.parentElement;
+        const section = searchInput.closest('.entity-browse') || searchInput.closest('section');
         if (!section) return;
-
-        const mainGroups = section.querySelectorAll('.entity-main');
-        const subGroups = section.querySelectorAll('.entity-sub');
-        const pills = section.querySelectorAll('.entity-pill');
-        const filterContainer = section.querySelector('.filter-container');
-        const fadeOverlay = section.querySelector('.filter-fade-overlay');
-        const toggleBtn = section.querySelector('.filter-toggle-btn');
 
         searchInput.addEventListener('input', function (e) {
             const rawQuery = e.target.value.trim();
             const query = normalizeArabic(rawQuery);
 
-            // 1. Reset state when search input is empty
+            const activePanel = section.querySelector('.entity-main-panel:not(.hidden)') || section;
+            const subGroups = activePanel.querySelectorAll('.entity-sub');
+            const pills = activePanel.querySelectorAll('.entity-pill');
+            const filterContainer = activePanel.querySelector('.filter-container');
+            const fadeOverlay = activePanel.querySelector('.filter-fade-overlay');
+
             if (query === '') {
                 pills.forEach(pill => {
                     pill.style.display = '';
@@ -125,11 +123,6 @@ function initEntitySearch() {
                     sub.style.display = '';
                     sub.classList.remove('hidden');
                 });
-                mainGroups.forEach(main => {
-                    main.style.display = '';
-                    main.classList.remove('hidden');
-                });
-
                 if (filterContainer) {
                     filterContainer.classList.remove('is-searching');
                     const collapsedMax = parseInt(filterContainer.dataset.collapsedMax, 10) || 180;
@@ -141,18 +134,15 @@ function initEntitySearch() {
                 return;
             }
 
-            // 2. Expand container during active search
             if (filterContainer) {
                 filterContainer.classList.add('is-searching');
                 filterContainer.style.maxHeight = 'none';
             }
             if (fadeOverlay) fadeOverlay.classList.add('opacity-0');
 
-            // 3. Filter individual pills using normalized Arabic matching
             pills.forEach(pill => {
                 const rawName = pill.getAttribute('data-entity-name') || pill.textContent;
                 const normalizedName = normalizeArabic(rawName);
-
                 if (normalizedName.includes(query)) {
                     pill.style.display = 'inline-flex';
                     pill.classList.remove('hidden');
@@ -162,9 +152,8 @@ function initEntitySearch() {
                 }
             });
 
-            // 4. Hide empty sub-groups
             subGroups.forEach(sub => {
-                const visiblePills = sub.querySelectorAll('.entity-pill:not([style*="display: none"])');
+                const visiblePills = sub.querySelectorAll('.entity-pill:not(.hidden)');
                 if (visiblePills.length > 0) {
                     sub.style.display = '';
                     sub.classList.remove('hidden');
@@ -173,63 +162,77 @@ function initEntitySearch() {
                     sub.classList.add('hidden');
                 }
             });
-
-            // 5. Hide empty main groups
-            mainGroups.forEach(main => {
-                const visiblePills = main.querySelectorAll('.entity-pill:not([style*="display: none"])');
-                if (visiblePills.length > 0) {
-                    main.style.display = '';
-                    main.classList.remove('hidden');
-                } else {
-                    main.style.display = 'none';
-                    main.classList.add('hidden');
-                }
-            });
         });
     });
 }
 
 /**
- * Fetch entity typeahead search results via REST API (Optional)
+ * Main tabs → Sub tabs → Entity pills
  */
-let fetchDebounceTimer;
-function fetchResultsREST(query, resultsContainer) {
-    clearTimeout(fetchDebounceTimer);
+function initEntityMainTabs() {
+    document.querySelectorAll('.entity-browse').forEach(function (section) {
+        const mainTabs = section.querySelectorAll('.entity-main-tab');
+        const mainPanels = section.querySelectorAll('.entity-main-panel');
 
-    if (query.length < 2) {
-        resultsContainer.innerHTML = '';
-        resultsContainer.classList.add('hidden');
-        return;
-    }
-
-    fetchDebounceTimer = setTimeout(() => {
-        const fetchUrl = `${helloEntityNav.searchUrl}?s=${encodeURIComponent(query)}`;
-
-        fetch(fetchUrl)
-            .then(res => res.json())
-            .then(data => {
-                if (!Array.isArray(data) || data.length === 0) {
-                    resultsContainer.innerHTML = `<li class="px-4 py-3 text-sm text-on-surface-variant">لا توجد نتائج مطابقة</li>`;
-                    resultsContainer.classList.remove('hidden');
-                    return;
-                }
-
-                let html = '';
-                data.forEach(item => {
-                    html += `
-                        <li>
-                            <a href="${item.link}" class="block px-4 py-2.5 text-sm text-on-background hover:bg-surface-container-high transition-colors">
-                                ${item.name}
-                            </a>
-                        </li>
-                    `;
-                });
-
-                resultsContainer.innerHTML = html;
-                resultsContainer.classList.remove('hidden');
-            })
-            .catch(() => {
-                resultsContainer.classList.add('hidden');
+        function activateMain(mainId) {
+            mainTabs.forEach(function (t) {
+                const on = t.getAttribute('data-main-id') === mainId;
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.classList.toggle('bg-primary', on);
+                t.classList.toggle('text-on-primary', on);
+                t.classList.toggle('bg-surface-container', !on);
+                t.classList.toggle('text-on-surface', !on);
             });
-    }, 250);
+
+            mainPanels.forEach(function (panel) {
+                const on = panel.getAttribute('data-main-id') === mainId;
+                panel.classList.toggle('hidden', !on);
+                if (on) {
+                    // Activate first visible sub tab in this main
+                    const firstSub = panel.querySelector('.entity-sub-tab');
+                    if (firstSub) {
+                        activateSub(panel, firstSub.getAttribute('data-sub-id'));
+                    }
+                }
+            });
+
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        function activateSub(mainPanel, subId) {
+            const subTabs = mainPanel.querySelectorAll('.entity-sub-tab');
+            const subPanels = mainPanel.querySelectorAll('.entity-sub-panel');
+
+            subTabs.forEach(function (t) {
+                const on = t.getAttribute('data-sub-id') === subId;
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.classList.toggle('bg-primary-container', on);
+                t.classList.toggle('text-on-primary-container', on);
+                t.classList.toggle('bg-surface-container-low', !on);
+                t.classList.toggle('text-on-surface-variant', !on);
+            });
+
+            subPanels.forEach(function (p) {
+                p.classList.toggle('hidden', p.getAttribute('data-sub-id') !== subId);
+            });
+
+            window.dispatchEvent(new Event('resize'));
+        }
+
+        mainTabs.forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                activateMain(tab.getAttribute('data-main-id'));
+            });
+        });
+
+        section.querySelectorAll('.entity-sub-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                const mainId = tab.getAttribute('data-main-id');
+                const mainPanel = section.querySelector('.entity-main-panel[data-main-id="' + mainId + '"]');
+                if (mainPanel) {
+                    activateSub(mainPanel, tab.getAttribute('data-sub-id'));
+                }
+            });
+        });
+    });
 }
