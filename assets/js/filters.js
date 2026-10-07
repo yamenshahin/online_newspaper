@@ -91,26 +91,85 @@ function normalizeArabic(text) {
 }
 
 /**
- * Entity search — active main + sub panel only
+ * Entity search — all entities in the section (all mains/subs), not only active tabs
  */
 function initEntitySearch() {
     document.querySelectorAll('.entity-search-input').forEach(function (searchInput) {
         const section = searchInput.closest('.entity-browse');
         if (!section) return;
 
+        const mainTabsWrap = section.querySelector('.entity-main-tabs');
+
+        function getActiveMainId() {
+            const t = section.querySelector('.entity-main-tab[aria-selected="true"]');
+            return t ? t.getAttribute('data-main-id') : null;
+        }
+
+        function getActiveSubId(mainPanel) {
+            const t = mainPanel.querySelector('.entity-sub-tab[aria-selected="true"]');
+            return t ? t.getAttribute('data-sub-id') : null;
+        }
+
+        /** Restore normal tab view after clearing search */
+        function restoreTabs() {
+            section.classList.remove('is-entity-searching');
+            if (mainTabsWrap) mainTabsWrap.classList.remove('hidden');
+
+            section.querySelectorAll('.entity-sub-tabs').forEach(function (el) {
+                el.classList.remove('hidden');
+            });
+
+            section.querySelectorAll('.entity-pill').forEach(function (pill) {
+                pill.style.display = '';
+                pill.classList.remove('hidden');
+            });
+
+            const mainId = getActiveMainId();
+            section.querySelectorAll('.entity-main-panel').forEach(function (panel) {
+                const on = panel.getAttribute('data-main-id') === mainId;
+                panel.classList.toggle('hidden', !on);
+
+                if (on) {
+                    const subId = getActiveSubId(panel);
+                    panel.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                        if (subId === null) {
+                            sub.classList.remove('hidden');
+                        } else {
+                            sub.classList.toggle('hidden', sub.getAttribute('data-sub-id') !== subId);
+                        }
+                    });
+                }
+            });
+        }
+
         searchInput.addEventListener('input', function (e) {
             const query = normalizeArabic(e.target.value.trim());
-            const activeMain = section.querySelector('.entity-main-panel:not(.hidden)') || section;
-            const activeSub = activeMain.querySelector('.entity-sub-panel:not(.hidden)') || activeMain;
-            const pills = activeSub.querySelectorAll('.entity-pill');
 
-            pills.forEach(function (pill) {
-                if (query === '') {
-                    pill.style.display = '';
-                    pill.classList.remove('hidden');
-                    return;
-                }
-                const name = normalizeArabic(pill.getAttribute('data-entity-name') || pill.textContent);
+            if (query === '') {
+                restoreTabs();
+                return;
+            }
+
+            section.classList.add('is-entity-searching');
+
+            // Hide tab chrome while searching — results are global
+            if (mainTabsWrap) mainTabsWrap.classList.add('hidden');
+            section.querySelectorAll('.entity-sub-tabs').forEach(function (el) {
+                el.classList.add('hidden');
+            });
+
+            // Show all panels; filter every pill in the section
+            section.querySelectorAll('.entity-main-panel').forEach(function (panel) {
+                panel.classList.remove('hidden');
+            });
+            section.querySelectorAll('.entity-sub-panel').forEach(function (panel) {
+                panel.classList.remove('hidden');
+            });
+
+            section.querySelectorAll('.entity-pill').forEach(function (pill) {
+                const name = normalizeArabic(
+                    pill.getAttribute('data-entity-name') || pill.textContent
+                );
                 if (name.includes(query)) {
                     pill.style.display = 'inline-flex';
                     pill.classList.remove('hidden');
@@ -118,6 +177,18 @@ function initEntitySearch() {
                     pill.style.display = 'none';
                     pill.classList.add('hidden');
                 }
+            });
+
+            // Hide empty sub panels
+            section.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                const visible = sub.querySelectorAll('.entity-pill:not(.hidden)');
+                sub.classList.toggle('hidden', visible.length === 0);
+            });
+
+            // Hide empty main panels
+            section.querySelectorAll('.entity-main-panel').forEach(function (main) {
+                const visible = main.querySelectorAll('.entity-pill:not(.hidden)');
+                main.classList.toggle('hidden', visible.length === 0);
             });
         });
     });
