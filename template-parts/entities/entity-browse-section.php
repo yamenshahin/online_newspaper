@@ -148,7 +148,7 @@ $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
                     </div>
 
                     <?php foreach ($gov_subs as $sub_id => $sub): ?>
-                        <div class="entity-sub-panel flex flex-wrap gap-2 <?php echo (int) $sub_id === (int) $gov_default_sub ? '' : 'hidden'; ?>"
+                        <div class="entity-sub-panel flex flex-wrap gap-2 p-4 md:p-5 rounded-2xl bg-primary <?php echo (int) $sub_id === (int) $gov_default_sub ? '' : 'hidden'; ?>"
                             data-entity-type="government" data-sub-id="<?php echo esc_attr((string) $sub_id); ?>">
                             <?php foreach ($sub['children'] ?? [] as $entity): ?>
                                 <?php if (empty($entity['is_leaf'])) {
@@ -169,7 +169,8 @@ $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
                     <?php endforeach; ?>
 
                 <?php elseif (!empty($gov_root_leaves)): ?>
-                    <div class="entity-sub-panel flex flex-wrap gap-2" data-entity-type="government" data-sub-id="0">
+                    <div class="entity-sub-panel flex flex-wrap gap-2 p-4 md:p-5 rounded-2xl bg-primary"
+                        data-entity-type="government" data-sub-id="0">
                         <?php foreach ($gov_root_leaves as $entity): ?>
                             <a href="<?php echo esc_url($entity['link']); ?>"
                                 class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
@@ -241,7 +242,7 @@ $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
                             </div>
 
                             <?php foreach ($subs as $sub_id => $sub): ?>
-                                <div class="entity-sub-panel flex flex-wrap gap-2 <?php echo (int) $sub_id === (int) $default_sub ? '' : 'hidden'; ?>"
+                                <div class="entity-sub-panel flex flex-wrap gap-2 p-4 md:p-5 rounded-2xl bg-primary <?php echo (int) $sub_id === (int) $default_sub ? '' : 'hidden'; ?>"
                                     data-entity-type="private" data-main-id="<?php echo esc_attr((string) $main_id); ?>"
                                     data-sub-id="<?php echo esc_attr((string) $sub_id); ?>">
                                     <?php foreach ($sub['children'] ?? [] as $entity): ?>
@@ -263,8 +264,9 @@ $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
                             <?php endforeach; ?>
 
                         <?php elseif (!empty($leaves)): ?>
-                            <div class="entity-sub-panel flex flex-wrap gap-2" data-entity-type="private"
-                                data-main-id="<?php echo esc_attr((string) $main_id); ?>" data-sub-id="0">
+                            <div class="entity-sub-panel flex flex-wrap gap-2 p-4 md:p-5 rounded-2xl bg-primary"
+                                data-entity-type="private" data-main-id="<?php echo esc_attr((string) $main_id); ?>"
+                                data-sub-id="0">
                                 <?php foreach ($leaves as $entity): ?>
                                     <a href="<?php echo esc_url($entity['link']); ?>"
                                         class="entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors"
