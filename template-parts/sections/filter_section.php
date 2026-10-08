@@ -1,6 +1,7 @@
 <?php
 /**
- * Flexible Content: private_entities_section
+ * Flexible Content: filter_section
+ * Combined government + private entity browser.
  */
 $department = $args['department'] ?? null;
 $section = $args['section'] ?? [];
@@ -17,8 +18,7 @@ get_template_part(
     'template-parts/entities/entity-browse-section',
     null,
     [
-        'taxonomy' => 'private_entity',
-        'section_title' => $section_title ?: __('الجهات الخاصة', 'hello-elementor-child'),
+        'section_title' => $section_title ?: __('الجهات', 'hello-elementor-child'),
         'subtitle' => $subtitle,
         'department' => $department,
     ]

@@ -1,14 +1,14 @@
 /**
- * Filters: Geographic show-more + Entity main/sub tabs + entity search
+ * Filters: Geographic show-more + combined entity tabs + entity search
  */
 document.addEventListener('DOMContentLoaded', function () {
     initFilterWrappers();
-    initEntitySearch();
     initEntityMainTabs();
+    initEntitySearch();
 });
 
 /**
- * Show more / less — Geographic (and any non-entity-browse) only
+ * Show more / less — Geographic only (skip .entity-browse)
  */
 function initFilterWrappers() {
     document.querySelectorAll('.filter-wrapper').forEach(function (wrapper) {
@@ -91,114 +91,137 @@ function normalizeArabic(text) {
 }
 
 /**
- * Entity search — all entities in the section (all mains/subs), not only active tabs
+ * Combined UI:
+ * L1 type (gov|private)
+ * Gov:  L2 sub → L3 entities
+ * Priv: L2 main → L3 sub → L4 entities
  */
-function initEntitySearch() {
-    document.querySelectorAll('.entity-search-input').forEach(function (searchInput) {
-        const section = searchInput.closest('.entity-browse');
-        if (!section) return;
-
-        const mainTabsWrap = section.querySelector('.entity-main-tabs');
-
-        function getActiveMainId() {
-            const t = section.querySelector('.entity-main-tab[aria-selected="true"]');
-            return t ? t.getAttribute('data-main-id') : null;
-        }
-
-        function getActiveSubId(mainPanel) {
-            const t = mainPanel.querySelector('.entity-sub-tab[aria-selected="true"]');
-            return t ? t.getAttribute('data-sub-id') : null;
-        }
-
-        /** Restore normal tab view after clearing search */
-        function restoreTabs() {
-            section.classList.remove('is-entity-searching');
-            if (mainTabsWrap) mainTabsWrap.classList.remove('hidden');
-
-            section.querySelectorAll('.entity-sub-tabs').forEach(function (el) {
-                el.classList.remove('hidden');
+function initEntityMainTabs() {
+    document.querySelectorAll('.entity-browse--combined').forEach(function (section) {
+        function setType(type) {
+            section.querySelectorAll('.entity-type-tab').forEach(function (t) {
+                const on = t.getAttribute('data-entity-type') === type;
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.classList.toggle('bg-primary', on);
+                t.classList.toggle('text-on-primary', on);
+                t.classList.toggle('bg-surface-container', !on);
+                t.classList.toggle('text-on-surface', !on);
             });
 
-            section.querySelectorAll('.entity-pill').forEach(function (pill) {
-                pill.style.display = '';
-                pill.classList.remove('hidden');
+            section.querySelectorAll('.entity-type-panel').forEach(function (p) {
+                p.classList.toggle('hidden', p.getAttribute('data-entity-type') !== type);
             });
 
-            const mainId = getActiveMainId();
-            section.querySelectorAll('.entity-main-panel').forEach(function (panel) {
-                const on = panel.getAttribute('data-main-id') === mainId;
-                panel.classList.toggle('hidden', !on);
+            const panel = section.querySelector('.entity-type-panel[data-entity-type="' + type + '"]');
+            if (!panel) return;
 
-                if (on) {
-                    const subId = getActiveSubId(panel);
-                    panel.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
-                        if (subId === null) {
-                            sub.classList.remove('hidden');
-                        } else {
-                            sub.classList.toggle('hidden', sub.getAttribute('data-sub-id') !== subId);
-                        }
-                    });
+            if (type === 'private') {
+                const firstMain = panel.querySelector('.entity-main-tab');
+                if (firstMain) {
+                    setPrivateMain(panel, firstMain.getAttribute('data-main-id'));
                 }
-            });
-        }
-
-        searchInput.addEventListener('input', function (e) {
-            const query = normalizeArabic(e.target.value.trim());
-
-            if (query === '') {
-                restoreTabs();
-                return;
+            } else {
+                const firstSub = panel.querySelector('.entity-sub-tab');
+                if (firstSub) {
+                    setSub(panel, firstSub.getAttribute('data-sub-id'), null);
+                }
             }
+        }
 
-            section.classList.add('is-entity-searching');
-
-            // Hide tab chrome while searching — results are global
-            if (mainTabsWrap) mainTabsWrap.classList.add('hidden');
-            section.querySelectorAll('.entity-sub-tabs').forEach(function (el) {
-                el.classList.add('hidden');
+        function setPrivateMain(typePanel, mainId) {
+            typePanel.querySelectorAll('.entity-main-tab').forEach(function (t) {
+                const on = t.getAttribute('data-main-id') === mainId;
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.classList.toggle('bg-primary', on);
+                t.classList.toggle('text-on-primary', on);
+                t.classList.toggle('bg-surface-container', !on);
+                t.classList.toggle('text-on-surface', !on);
             });
 
-            // Show all panels; filter every pill in the section
-            section.querySelectorAll('.entity-main-panel').forEach(function (panel) {
-                panel.classList.remove('hidden');
-            });
-            section.querySelectorAll('.entity-sub-panel').forEach(function (panel) {
-                panel.classList.remove('hidden');
-            });
-
-            section.querySelectorAll('.entity-pill').forEach(function (pill) {
-                const name = normalizeArabic(
-                    pill.getAttribute('data-entity-name') || pill.textContent
-                );
-                if (name.includes(query)) {
-                    pill.style.display = 'inline-flex';
-                    pill.classList.remove('hidden');
-                } else {
-                    pill.style.display = 'none';
-                    pill.classList.add('hidden');
+            typePanel.querySelectorAll('.entity-main-panel').forEach(function (p) {
+                const on = p.getAttribute('data-main-id') === mainId;
+                p.classList.toggle('hidden', !on);
+                if (on) {
+                    const firstSub = p.querySelector('.entity-sub-tab');
+                    if (firstSub) {
+                        setSub(p, firstSub.getAttribute('data-sub-id'), mainId);
+                    } else {
+                        p.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                            sub.classList.remove('hidden');
+                        });
+                    }
                 }
             });
+        }
 
-            // Hide empty sub panels
-            section.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
-                const visible = sub.querySelectorAll('.entity-pill:not(.hidden)');
-                sub.classList.toggle('hidden', visible.length === 0);
+        function setSub(scope, subId, mainId) {
+            scope.querySelectorAll('.entity-sub-tab').forEach(function (t) {
+                let on = t.getAttribute('data-sub-id') === subId;
+                if (mainId !== null && t.getAttribute('data-main-id')) {
+                    on = on && t.getAttribute('data-main-id') === mainId;
+                }
+                t.setAttribute('aria-selected', on ? 'true' : 'false');
+                t.classList.toggle('bg-primary-container', on);
+                t.classList.toggle('text-on-primary-container', on);
+                t.classList.toggle('bg-surface-container-low', !on);
+                t.classList.toggle('text-on-surface-variant', !on);
             });
 
-            // Hide empty main panels
-            section.querySelectorAll('.entity-main-panel').forEach(function (main) {
-                const visible = main.querySelectorAll('.entity-pill:not(.hidden)');
-                main.classList.toggle('hidden', visible.length === 0);
+            scope.querySelectorAll('.entity-sub-panel').forEach(function (p) {
+                let on = p.getAttribute('data-sub-id') === subId;
+                if (mainId !== null && p.getAttribute('data-main-id')) {
+                    on = on && p.getAttribute('data-main-id') === mainId;
+                }
+                p.classList.toggle('hidden', !on);
+            });
+        }
+
+        section.querySelectorAll('.entity-type-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                section.classList.remove('is-entity-searching');
+                const search = section.querySelector('.entity-search-input');
+                if (search) search.value = '';
+                section.querySelectorAll('.entity-pill').forEach(function (p) {
+                    p.style.display = '';
+                    p.classList.remove('hidden');
+                });
+                section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
+                    el.classList.remove('hidden');
+                });
+                setType(tab.getAttribute('data-entity-type'));
+            });
+        });
+
+        section.querySelectorAll('.entity-main-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                const typePanel = section.querySelector('.entity-type-panel[data-entity-type="private"]');
+                if (typePanel) {
+                    setPrivateMain(typePanel, tab.getAttribute('data-main-id'));
+                }
+            });
+        });
+
+        section.querySelectorAll('.entity-sub-tab').forEach(function (tab) {
+            tab.addEventListener('click', function () {
+                const type = tab.getAttribute('data-entity-type');
+                const mainId = tab.getAttribute('data-main-id');
+                let scope;
+                if (mainId) {
+                    scope = section.querySelector(
+                        '.entity-main-panel[data-entity-type="private"][data-main-id="' + mainId + '"]'
+                    );
+                } else {
+                    scope = section.querySelector('.entity-type-panel[data-entity-type="' + type + '"]');
+                }
+                if (scope) {
+                    setSub(scope, tab.getAttribute('data-sub-id'), mainId);
+                }
             });
         });
     });
-}
 
-/**
- * Main tabs → Sub tabs (show/hide only — no height limits)
- */
-function initEntityMainTabs() {
-    document.querySelectorAll('.entity-browse').forEach(function (section) {
+    // Legacy single-taxonomy browse (if any left)
+    document.querySelectorAll('.entity-browse:not(.entity-browse--combined)').forEach(function (section) {
         const mainTabs = section.querySelectorAll('.entity-main-tab');
         const mainPanels = section.querySelectorAll('.entity-main-panel');
 
@@ -211,7 +234,6 @@ function initEntityMainTabs() {
                 t.classList.toggle('bg-surface-container', !on);
                 t.classList.toggle('text-on-surface', !on);
             });
-
             mainPanels.forEach(function (panel) {
                 const on = panel.getAttribute('data-main-id') === mainId;
                 panel.classList.toggle('hidden', !on);
@@ -225,10 +247,7 @@ function initEntityMainTabs() {
         }
 
         function activateSub(mainPanel, subId) {
-            const subTabs = mainPanel.querySelectorAll('.entity-sub-tab');
-            const subPanels = mainPanel.querySelectorAll('.entity-sub-panel');
-
-            subTabs.forEach(function (t) {
+            mainPanel.querySelectorAll('.entity-sub-tab').forEach(function (t) {
                 const on = t.getAttribute('data-sub-id') === subId;
                 t.setAttribute('aria-selected', on ? 'true' : 'false');
                 t.classList.toggle('bg-primary-container', on);
@@ -236,8 +255,7 @@ function initEntityMainTabs() {
                 t.classList.toggle('bg-surface-container-low', !on);
                 t.classList.toggle('text-on-surface-variant', !on);
             });
-
-            subPanels.forEach(function (p) {
+            mainPanel.querySelectorAll('.entity-sub-panel').forEach(function (p) {
                 p.classList.toggle('hidden', p.getAttribute('data-sub-id') !== subId);
             });
         }
@@ -247,7 +265,6 @@ function initEntityMainTabs() {
                 activateMain(tab.getAttribute('data-main-id'));
             });
         });
-
         section.querySelectorAll('.entity-sub-tab').forEach(function (tab) {
             tab.addEventListener('click', function () {
                 const mainId = tab.getAttribute('data-main-id');
@@ -255,6 +272,76 @@ function initEntityMainTabs() {
                 if (mainPanel) {
                     activateSub(mainPanel, tab.getAttribute('data-sub-id'));
                 }
+            });
+        });
+    });
+}
+
+/**
+ * Search within active type (gov or private), across all mains/subs of that type
+ */
+function initEntitySearch() {
+    document.querySelectorAll('.entity-browse--combined .entity-search-input').forEach(function (searchInput) {
+        const section = searchInput.closest('.entity-browse');
+        if (!section) return;
+
+        function getActiveType() {
+            const t = section.querySelector('.entity-type-tab[aria-selected="true"]');
+            return t ? t.getAttribute('data-entity-type') : null;
+        }
+
+        function restoreFromTabs() {
+            section.classList.remove('is-entity-searching');
+            section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
+                el.classList.remove('hidden');
+            });
+            section.querySelectorAll('.entity-pill').forEach(function (p) {
+                p.style.display = '';
+                p.classList.remove('hidden');
+            });
+            const active = section.querySelector('.entity-type-tab[aria-selected="true"]');
+            if (active) {
+                active.click();
+            }
+        }
+
+        searchInput.addEventListener('input', function () {
+            const query = normalizeArabic(searchInput.value.trim());
+            const type = getActiveType();
+
+            if (!query) {
+                restoreFromTabs();
+                return;
+            }
+
+            section.classList.add('is-entity-searching');
+
+            section.querySelectorAll('.entity-type-panel').forEach(function (panel) {
+                panel.classList.toggle('hidden', panel.getAttribute('data-entity-type') !== type);
+            });
+
+            const typePanel = section.querySelector('.entity-type-panel[data-entity-type="' + type + '"]');
+            if (!typePanel) return;
+
+            typePanel.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
+                el.classList.add('hidden');
+            });
+            typePanel.querySelectorAll('.entity-main-panel, .entity-sub-panel').forEach(function (p) {
+                p.classList.remove('hidden');
+            });
+
+            typePanel.querySelectorAll('.entity-pill').forEach(function (pill) {
+                const name = normalizeArabic(pill.getAttribute('data-entity-name') || pill.textContent);
+                const match = name.includes(query);
+                pill.style.display = match ? 'inline-flex' : 'none';
+                pill.classList.toggle('hidden', !match);
+            });
+
+            typePanel.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                sub.classList.toggle('hidden', !sub.querySelector('.entity-pill:not(.hidden)'));
+            });
+            typePanel.querySelectorAll('.entity-main-panel').forEach(function (main) {
+                main.classList.toggle('hidden', !main.querySelector('.entity-pill:not(.hidden)'));
             });
         });
     });

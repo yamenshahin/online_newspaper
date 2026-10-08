@@ -634,62 +634,10 @@
                     "min": "",
                     "max": ""
                 },
-                "layout_6aa42c2dba600": {
-                    "key": "layout_6aa42c2dba600",
-                    "name": "government_entities_section",
-                    "label": "Government Entities Section",
-                    "display": "block",
-                    "sub_fields": [
-                        {
-                            "key": "field_6aa42c6aba602",
-                            "label": "Section Title",
-                            "name": "section_title",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "الجهات الحكومية",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        },
-                        {
-                            "key": "field_6aaa168dcc54a",
-                            "label": "Subtitle",
-                            "name": "subtitle",
-                            "aria-label": "",
-                            "type": "text",
-                            "instructions": "",
-                            "required": 0,
-                            "conditional_logic": 0,
-                            "wrapper": {
-                                "width": "",
-                                "class": "",
-                                "id": ""
-                            },
-                            "default_value": "فرز المحتوى بحسب الجهة الحكومية",
-                            "maxlength": "",
-                            "allow_in_bindings": 0,
-                            "placeholder": "",
-                            "prepend": "",
-                            "append": ""
-                        }
-                    ],
-                    "min": "",
-                    "max": ""
-                },
                 "layout_6aa42cc7ba60a": {
                     "key": "layout_6aa42cc7ba60a",
-                    "name": "private_entities_section",
-                    "label": "Private Entities Section",
+                    "name": "filter_section",
+                    "label": "Filter Government + Private Entities Section",
                     "display": "block",
                     "sub_fields": [
                         {
@@ -706,7 +654,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "القطاع الخاص",
+                            "default_value": "الجهات الحكومية والقطاع الخاص",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -727,7 +675,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "فرز المحتوى بحسب القطاع الخاص",
+                            "default_value": "فرز المحتوى بحسب الجهة",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -909,5 +857,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1790572728
+    "modified": 1791459230
 }

@@ -106,3 +106,30 @@ Tags: flexible-header, custom-colors, custom-menu, custom-logo, editor-style, fe
     max-width: 220px;
     height: auto;
 }
+
+
+/* Plain Links Menu (Always Horizontal, No Mobile Toggle) */
+.plain-links-list {
+    display: flex !important;
+    flex-wrap: wrap !important;
+    align-items: center !important;
+    gap: 16px !important;
+    list-style: none !important;
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
+.plain-links-list li {
+    display: inline-flex !important;
+    margin: 0 !important;
+}
+
+.plain-links-list li a {
+    text-decoration: none;
+    color: var(--color-on-primary, #fff);
+    transition: opacity 0.2s ease;
+}
+
+.plain-links-list li a:hover {
+    opacity: 0.8;
+}

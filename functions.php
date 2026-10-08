@@ -667,3 +667,38 @@ add_action('pre_get_posts', function ($query) {
 	}
 });
 
+/**
+ * Shortcode to display a WordPress menu as plain horizontal links.
+ * Usage: [plain_menu name="Footer Menu"] or [plain_menu location="footer"]
+ */
+add_shortcode('plain_menu', function ($atts) {
+	$atts = shortcode_atts([
+		'name' => '',
+		'location' => '',
+		'class' => '',
+	], $atts, 'plain_menu');
+
+	$args = [
+		'echo' => false,
+		'container' => 'nav',
+		'container_class' => 'plain-links-nav ' . esc_attr($atts['class']),
+		'menu_class' => 'plain-links-list',
+		'fallback_cb' => false,
+		'depth' => 1, // Single-level flat links only
+	];
+
+	if (!empty($atts['name'])) {
+		$args['menu'] = $atts['name'];
+	} elseif (!empty($atts['location'])) {
+		$args['theme_location'] = $atts['location'];
+	}
+
+	$html = wp_nav_menu($args);
+
+	return $html ?: '';
+});
+
+/**
+ * Disable Rank Math Virtual Robots.txt
+ */
+add_filter('rank_math/tools/robots_txt', '__return_false');
