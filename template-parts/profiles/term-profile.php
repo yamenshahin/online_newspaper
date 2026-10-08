@@ -135,8 +135,7 @@ if (!empty($dynamic_labels['title'])) {
             </div>
 
             <?php if ($image_id): ?>
-                <div
-                    class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
+                <div class="w-48 md:w-72 flex-shrink-0 bg-gray-50 overflow-hidden shadow-xl shadow-gray-200/50">
                     <?php
                     echo wp_get_attachment_image($image_id, 'large', false, [
                         'class' => 'w-full h-auto object-cover',
@@ -144,18 +143,26 @@ if (!empty($dynamic_labels['title'])) {
                     ?>
                 </div>
             <?php elseif (!empty($fallback_image_url)): ?>
-                <div
-                    class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50">
+                <div class="w-48 md:w-72 flex-shrink-0 bg-gray-50 overflow-hidden shadow-xl shadow-gray-200/50">
                     <img src="<?php echo esc_url($fallback_image_url); ?>" alt="<?php echo esc_attr($term->name); ?>"
                         class="w-full h-auto object-cover">
                 </div>
             <?php else: ?>
                 <div
-                    class="w-48 md:w-72 flex-shrink-0 bg-gray-50 rounded-3xl overflow-hidden border border-gray-100 shadow-xl shadow-gray-200/50 flex items-center justify-center aspect-[3/4]">
+                    class="w-48 md:w-72 flex-shrink-0 bg-gray-50 overflow-hidden shadow-xl shadow-gray-200/50 flex items-center justify-center aspect-[3/4]">
                     <span class="material-symbols-outlined text-6xl text-gray-300">person</span>
                 </div>
             <?php endif; ?>
 
         </div>
+        <!-- Nested Sub-Profile: Organizer (for Event taxonomy) -->
+        <?php if (in_array($term->taxonomy, ['event', 'events'], true)): ?>
+            <?php
+            get_template_part('template-parts/profiles/sub-profile-organizer', null, [
+                'term' => $term,
+                'acf_term_id' => $acf_term_id,
+            ]);
+            ?>
+        <?php endif; ?>
     </div>
 </section>
