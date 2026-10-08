@@ -20,13 +20,7 @@ $allowed_views = get_content_post_types();
 
 // Check if any specific taxonomy filter is active
 $is_filtered = false;
-$filterable_taxonomies = [
-    'government_entity',
-    'private_entity',
-    'speaker_influencer',
-    'geographic',
-    'program_series',
-];
+$filterable_taxonomies = get_filterable_taxonomies();
 foreach ($filterable_taxonomies as $tax) {
     if (!empty($_GET[$tax])) {
         $is_filtered = true;

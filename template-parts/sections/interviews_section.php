@@ -28,13 +28,7 @@ if ($is_department_page) {
     ];
 }
 
-$filterable_taxonomies = [
-    'government_entity',
-    'private_entity',
-    'speaker_influencer',
-    'geographic',
-    'program_series',
-];
+$filterable_taxonomies = get_filterable_taxonomies();
 $more_link_args = [];
 
 foreach ($filterable_taxonomies as $tax) {

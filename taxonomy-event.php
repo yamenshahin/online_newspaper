@@ -1,43 +1,27 @@
 <?php
 /**
  * Taxonomy Archive: Event
- *
- * Event profile header + Home page Layout Engine sections,
- * filtered to this event (same idea as department + ?event=).
+ * /event/{slug}/  + home sections filtered via $_GET['event']
  */
-
 get_header();
 
 $term = get_queried_object();
-
 if (!$term instanceof WP_Term || is_wp_error($term)) {
     get_footer();
     return;
 }
 
-/**
- * Reuse section templates that read $_GET['event'].
- * Department URLs use the query string; this archive uses the term itself.
- */
 $_GET[$term->taxonomy] = $term->slug;
 
-// Home page ID (Layout Engine lives on the front page)
 $home_id = (int) get_option('page_on_front');
 
-// Layouts that do not belong on a single-event archive
 $skip_layouts = [
     'hero_lead_section',
-    'events_section', // list of all events
-    // 'social_section',
-    // 'ad_banner_section',
-    // 'ad_code_section',
+    'events_section', // list of all events — not on a single event page
 ];
 ?>
-
 <main id="primary" class="site-main">
-
     <?php
-    // 1. Profile header & department filter navigation
     get_template_part('template-parts/profiles/term-profile', null, [
         'term' => $term,
         'back_url' => home_url('/'),
@@ -46,27 +30,23 @@ $skip_layouts = [
 
     get_template_part('template-parts/profiles/filter-departments-nav', null, [
         'term' => $term,
-        'current_department' => null, // archive = "الكل" active
+        'current_department' => null,
     ]);
     ?>
 
     <?php
-    // 2. Sections from Home (same engine as front-page.php)
     $sections = $home_id ? get_field('department_sections', $home_id) : null;
-
     if (!empty($sections)):
         foreach ($sections as $section):
             $layout = $section['acf_fc_layout'] ?? '';
-
             if (!$layout || in_array($layout, $skip_layouts, true)) {
                 continue;
             }
-
             get_template_part(
                 'template-parts/sections/' . $layout,
                 null,
                 [
-                    'department' => null, // homepage-style queries
+                    'department' => null,
                     'section' => $section,
                 ]
             );
@@ -79,8 +59,6 @@ $skip_layouts = [
             </p>
         </div>
     <?php endif; ?>
-
 </main>
-
 <?php
 get_footer();

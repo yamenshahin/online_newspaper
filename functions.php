@@ -162,6 +162,7 @@ function get_filterable_taxonomies(): array
 		'speaker_influencer',
 		'geographic',
 		'program_series',
+		'event',
 	];
 }
 

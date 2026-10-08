@@ -215,6 +215,27 @@
             "layout": "block",
             "sub_fields": [
                 {
+                    "key": "field_6ac823e168873",
+                    "label": "Organizer Name",
+                    "name": "organizer_name",
+                    "aria-label": "",
+                    "type": "text",
+                    "instructions": "",
+                    "required": 0,
+                    "conditional_logic": 0,
+                    "wrapper": {
+                        "width": "",
+                        "class": "",
+                        "id": ""
+                    },
+                    "default_value": "",
+                    "maxlength": "",
+                    "allow_in_bindings": 0,
+                    "placeholder": "",
+                    "prepend": "",
+                    "append": ""
+                },
+                {
                     "key": "field_6ac7d2afc551c",
                     "label": "Organizer Image",
                     "name": "organizer_image",
@@ -473,5 +494,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1791481636
+    "modified": 1791501309
 }
