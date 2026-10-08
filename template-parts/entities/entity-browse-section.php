@@ -91,35 +91,40 @@ $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
             <?php endif; ?>
         </div>
 
-        <div class="entity-search relative w-full max-w-md">
-            <div class="relative flex items-center w-full">
-                <span
-                    class="material-symbols-outlined absolute start-3.5 text-on-surface-variant/70 text-[20px] pointer-events-none select-none">search</span>
-                <input type="search"
-                    class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2.5 !ps-11 !pe-4 text-sm text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
-                    placeholder="<?php esc_attr_e('ابحث عن جهة…', 'hello-elementor-child'); ?>" autocomplete="off" />
-            </div>
-        </div>
 
-        <!-- L1: Type tabs -->
-        <div class="entity-type-tabs flex flex-wrap gap-2 border-b border-surface-container-highest/40 pb-2"
-            role="tablist">
-            <?php if (!empty($gov_tree)): ?>
-                <button type="button"
-                    class="entity-type-tab px-space-md py-space-xs rounded-full font-label-pill text-label-pill transition-colors <?php echo $default_type === 'government' ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'; ?>"
-                    data-entity-type="government"
-                    aria-selected="<?php echo $default_type === 'government' ? 'true' : 'false'; ?>">
-                    <?php esc_html_e('الجهات الحكومية', 'hello-elementor-child'); ?>
-                </button>
-            <?php endif; ?>
-            <?php if (!empty($prv_tree)): ?>
-                <button type="button"
-                    class="entity-type-tab px-space-md py-space-xs rounded-full font-label-pill text-label-pill transition-colors <?php echo $default_type === 'private' ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'; ?>"
-                    data-entity-type="private"
-                    aria-selected="<?php echo $default_type === 'private' ? 'true' : 'false'; ?>">
-                    <?php esc_html_e('القطاع الخاص', 'hello-elementor-child'); ?>
-                </button>
-            <?php endif; ?>
+        <!-- L1: Type tabs + search at end of bar -->
+        <div
+            class="entity-type-bar flex flex-wrap items-center gap-3 border-b border-surface-container-highest/40 pb-2">
+
+            <div class="entity-type-tabs flex flex-wrap gap-2 flex-1 min-w-0" role="tablist">
+                <?php if (!empty($gov_tree)): ?>
+                    <button type="button"
+                        class="entity-type-tab px-space-md py-space-xs rounded-full font-label-pill text-label-pill transition-colors <?php echo $default_type === 'government' ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'; ?>"
+                        data-entity-type="government"
+                        aria-selected="<?php echo $default_type === 'government' ? 'true' : 'false'; ?>">
+                        <?php esc_html_e('الجهات الحكومية', 'hello-elementor-child'); ?>
+                    </button>
+                <?php endif; ?>
+                <?php if (!empty($prv_tree)): ?>
+                    <button type="button"
+                        class="entity-type-tab px-space-md py-space-xs rounded-full font-label-pill text-label-pill transition-colors <?php echo $default_type === 'private' ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'; ?>"
+                        data-entity-type="private"
+                        aria-selected="<?php echo $default_type === 'private' ? 'true' : 'false'; ?>">
+                        <?php esc_html_e('القطاع الخاص', 'hello-elementor-child'); ?>
+                    </button>
+                <?php endif; ?>
+            </div>
+
+            <div class="entity-search relative w-full sm:w-56 md:w-64 shrink-0">
+                <div class="relative flex items-center w-full">
+                    <span
+                        class="material-symbols-outlined absolute start-3 text-on-surface-variant/70 text-[18px] pointer-events-none select-none">search</span>
+                    <input type="search"
+                        class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2 !ps-10 !pe-3 text-sm text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
+                        placeholder="<?php esc_attr_e('ابحث عن جهة…', 'hello-elementor-child'); ?>"
+                        autocomplete="off" />
+                </div>
+            </div>
         </div>
 
         <?php if (!empty($gov_tree)): ?>

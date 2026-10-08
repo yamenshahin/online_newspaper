@@ -278,36 +278,33 @@ function initEntityMainTabs() {
 }
 
 /**
- * Search within active type (gov or private), across all mains/subs of that type
+ * Search gov + private together — keep type tabs visible
  */
 function initEntitySearch() {
     document.querySelectorAll('.entity-browse--combined .entity-search-input').forEach(function (searchInput) {
         const section = searchInput.closest('.entity-browse');
         if (!section) return;
 
-        function getActiveType() {
-            const t = section.querySelector('.entity-type-tab[aria-selected="true"]');
-            return t ? t.getAttribute('data-entity-type') : null;
-        }
-
         function restoreFromTabs() {
             section.classList.remove('is-entity-searching');
+
             section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
                 el.classList.remove('hidden');
             });
+
             section.querySelectorAll('.entity-pill').forEach(function (p) {
                 p.style.display = '';
                 p.classList.remove('hidden');
             });
-            const active = section.querySelector('.entity-type-tab[aria-selected="true"]');
-            if (active) {
-                active.click();
+
+            const activeType = section.querySelector('.entity-type-tab[aria-selected="true"]');
+            if (activeType) {
+                activeType.click();
             }
         }
 
         searchInput.addEventListener('input', function () {
             const query = normalizeArabic(searchInput.value.trim());
-            const type = getActiveType();
 
             if (!query) {
                 restoreFromTabs();
@@ -316,32 +313,42 @@ function initEntitySearch() {
 
             section.classList.add('is-entity-searching');
 
-            section.querySelectorAll('.entity-type-panel').forEach(function (panel) {
-                panel.classList.toggle('hidden', panel.getAttribute('data-entity-type') !== type);
-            });
-
-            const typePanel = section.querySelector('.entity-type-panel[data-entity-type="' + type + '"]');
-            if (!typePanel) return;
-
-            typePanel.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
+            // Keep L1 type tabs (الجهات الحكومية | القطاع الخاص) — do NOT hide them
+            // Hide only deeper tab rows so results stay readable
+            section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
                 el.classList.add('hidden');
             });
-            typePanel.querySelectorAll('.entity-main-panel, .entity-sub-panel').forEach(function (p) {
+
+            // Show both gov + private panels
+            section.querySelectorAll('.entity-type-panel').forEach(function (panel) {
+                panel.classList.remove('hidden');
+            });
+            section.querySelectorAll('.entity-main-panel, .entity-sub-panel').forEach(function (p) {
                 p.classList.remove('hidden');
             });
 
-            typePanel.querySelectorAll('.entity-pill').forEach(function (pill) {
-                const name = normalizeArabic(pill.getAttribute('data-entity-name') || pill.textContent);
+            // Filter all pills
+            section.querySelectorAll('.entity-pill').forEach(function (pill) {
+                const name = normalizeArabic(
+                    pill.getAttribute('data-entity-name') || pill.textContent
+                );
                 const match = name.includes(query);
                 pill.style.display = match ? 'inline-flex' : 'none';
                 pill.classList.toggle('hidden', !match);
             });
 
-            typePanel.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+            // Hide empty groups only
+            section.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
                 sub.classList.toggle('hidden', !sub.querySelector('.entity-pill:not(.hidden)'));
             });
-            typePanel.querySelectorAll('.entity-main-panel').forEach(function (main) {
+            section.querySelectorAll('.entity-main-panel').forEach(function (main) {
                 main.classList.toggle('hidden', !main.querySelector('.entity-pill:not(.hidden)'));
+            });
+            section.querySelectorAll('.entity-type-panel').forEach(function (typePanel) {
+                typePanel.classList.toggle(
+                    'hidden',
+                    !typePanel.querySelector('.entity-pill:not(.hidden)')
+                );
             });
         });
     });
