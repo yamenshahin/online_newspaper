@@ -177,9 +177,18 @@ $has_more = $total_terms > $show_limit;
                                 <?php echo esc_html($term->name); ?>
                             </h3>
 
-                            <?php if (!empty($term->description)): ?>
+                            <?php
+                            // Fetch detailed_description from ACF / term meta with fallback to standard description
+                            $acf_term_id = $term->taxonomy . '_' . $term->term_id;
+                            $detailed_desc = get_field('detailed_description', $acf_term_id)
+                                ?: get_field('detailed_description', 'term_' . $term->term_id)
+                                ?: get_term_meta($term->term_id, 'detailed_description', true)
+                                ?: $term->description;
+                            ?>
+
+                            <?php if (!empty($detailed_desc)): ?>
                                 <p class="font-body-sm text-body-sm text-gray-600 line-clamp-2 mt-1">
-                                    <?php echo esc_html(wp_strip_all_tags($term->description)); ?>
+                                    <?php echo esc_html(wp_strip_all_tags($detailed_desc)); ?>
                                 </p>
                             <?php endif; ?>
                         </div>
