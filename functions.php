@@ -464,11 +464,9 @@ function get_dynamic_cpt_labels(string $post_type): array
 }
 
 /**
- * -------------------------------------------------
  * DYNAMIC TAXONOMY LABELS ENGINE
- * Fetches the taxonomy title and subtitle from the 
- * Homepage ACF 'department_sections' flexible content.
- * -------------------------------------------------
+ * Uses hardcoded labels for core taxonomies (event, government_entity, private_entity),
+ * and dynamically fetches titles/subtitles from Homepage ACF for all others.
  */
 function get_dynamic_taxonomy_labels(string $taxonomy): array
 {
@@ -479,13 +477,32 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 		return $cache[$taxonomy];
 	}
 
+	// Hardcoded overrides
+	$hardcoded_map = [
+		'government_entity' => [
+			'title' => 'الجهات الحكومية',
+			'subtitle' => 'فرز المحتوى بحسب الجهة الحكومية',
+		],
+		'private_entity' => [
+			'title' => 'القطاع الخاص',
+			'subtitle' => 'فرز المحتوى بحسب القطاع الخاص',
+		],
+		'event' => [
+			'title' => 'الفعاليات',
+			'subtitle' => 'فرز المحتوى بحسب الفعالية',
+		],
+	];
+
+	if (isset($hardcoded_map[$taxonomy])) {
+		$cache[$taxonomy] = $hardcoded_map[$taxonomy];
+		return $cache[$taxonomy];
+	}
+
 	$title = '';
 	$subtitle = '';
 
-	// Map your taxonomies to their exact ACF Flexible Content layout names
+	// Map remaining taxonomies to their exact ACF Flexible Content layout names
 	$layout_map = [
-		'government_entity' => 'government_entities_section',
-		'private_entity' => 'private_entities_section',
 		'speaker_influencer' => 'speakers_section',
 		'geographic' => 'geographic_section',
 	];
@@ -507,9 +524,8 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 	}
 
 	// Fallback to standard WP taxonomy labels if ACF is empty
-	$tax_obj = get_taxonomy($taxonomy);
-
 	if (empty($title)) {
+		$tax_obj = get_taxonomy($taxonomy);
 		$title = $tax_obj ? $tax_obj->labels->singular_name : $taxonomy;
 	}
 

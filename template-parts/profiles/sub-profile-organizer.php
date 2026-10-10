@@ -18,6 +18,7 @@ if (empty($organizer) || !is_array($organizer)) {
     return;
 }
 
+$org_name = trim((string) ($organizer['organizer_name'] ?? ''));
 $image = $organizer['organizer_image'] ?? null;
 $socials = $organizer['organizer_social_links'] ?? [];
 $extra = $organizer['organizer_extra_info'] ?? [];
@@ -46,7 +47,7 @@ $has_social = is_array($socials) && count(array_filter($socials, static function
 })) > 0;
 
 // Nothing to show
-if ($image_url === '' && !$has_extra && !$has_social) {
+if ($org_name === '' && $image_url === '' && !$has_extra && !$has_social) {
     return;
 }
 ?>
@@ -71,6 +72,12 @@ if ($image_url === '' && !$has_extra && !$has_social) {
             <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-3">
                 <?php esc_html_e('الجهة المنظمة', 'hello-elementor-child'); ?>
             </span>
+
+            <?php if ($org_name !== ''): ?>
+                <h3 class="text-xl md:text-2xl font-bold text-gray-900 mb-3">
+                    <?php echo esc_html($org_name); ?>
+                </h3>
+            <?php endif; ?>
 
             <?php if ($has_extra): ?>
                 <div class="flex flex-wrap gap-3">
