@@ -560,14 +560,14 @@ add_filter('the_content', function ($content) {
  * -------------------------------------------------
  */
 add_action('rest_api_init', function () {
-	register_rest_route('tafaol/v1', '/track-view/(?P<id>\d+)', [
+	register_rest_route('newspapersite/v1', '/track-view/(?P<id>\d+)', [
 		'methods' => 'POST',
-		'callback' => 'tafaol_track_post_view_api',
+		'callback' => 'newspapersite_track_post_view_api',
 		'permission_callback' => '__return_true',
 	]);
 });
 
-function tafaol_track_post_view_api($request)
+function newspapersite_track_post_view_api($request)
 {
 	$post_id = (int) $request['id'];
 
@@ -606,7 +606,7 @@ add_action('wp_footer', function () {
 			const sessionKey = 'viewed_post_' + postId;
 
 			if (!sessionStorage.getItem(sessionKey) && !/bot|crawl|spider|robot/i.test(navigator.userAgent)) {
-				fetch('<?php echo esc_url(rest_url('tafaol/v1/track-view/' . $post_id)); ?>', {
+				fetch('<?php echo esc_url(rest_url('newspapersite/v1/track-view/' . $post_id)); ?>', {
 					method: 'POST',
 					headers: { 'Content-Type': 'application/json' }
 				})
