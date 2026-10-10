@@ -719,3 +719,200 @@ add_shortcode('plain_menu', function ($atts) {
  * Disable Rank Math Virtual Robots.txt
  */
 add_filter('rank_math/tools/robots_txt', '__return_false');
+
+
+/**
+ * Admin terms list: show ACF detailed_description instead of native Description.
+ */
+add_action('admin_init', function () {
+	$taxonomies = get_taxonomies(['public' => true], 'names');
+
+	// Optional: only your custom taxonomies
+	// $taxonomies = [ 'department', 'government_entity', 'private_entity', 'speaker_influencer', 'geographic', 'program_series', 'event' ];
+
+	foreach ($taxonomies as $taxonomy) {
+		add_filter("manage_edit-{$taxonomy}_columns", 'hello_replace_term_description_column');
+		add_filter("manage_{$taxonomy}_custom_column", 'hello_render_term_detailed_description_column', 10, 3);
+	}
+});
+
+/**
+ * Replace core "description" column with detailed_description.
+ *
+ * @param array $columns
+ * @return array
+ */
+function hello_replace_term_description_column(array $columns): array
+{
+	$out = [];
+
+	foreach ($columns as $key => $label) {
+		if ($key === 'description') {
+			$out['detailed_description'] = __('Detailed Description', 'hello-elementor-child');
+			continue;
+		}
+		// Drop a duplicate ACF auto-column if present
+		if ($key === 'detailed_description' && isset($out['detailed_description'])) {
+			continue;
+		}
+		$out[$key] = $label;
+	}
+
+	// If core description was already removed, still ensure our column exists
+	if (!isset($out['detailed_description'])) {
+		// Insert before slug when possible
+		$with = [];
+		foreach ($out as $key => $label) {
+			if ($key === 'slug') {
+				$with['detailed_description'] = __('Detailed Description', 'hello-elementor-child');
+			}
+			$with[$key] = $label;
+		}
+		$out = $with;
+		if (!isset($out['detailed_description'])) {
+			$out['detailed_description'] = __('Detailed Description', 'hello-elementor-child');
+		}
+	}
+
+	return $out;
+}
+
+/**
+ * Render ACF detailed_description in the admin terms table.
+ *
+ * @param string $content
+ * @param string $column_name
+ * @param int    $term_id
+ * @return string
+ */
+function hello_render_term_detailed_description_column($content, $column_name, $term_id)
+{
+	if ($column_name !== 'detailed_description') {
+		return $content;
+	}
+
+	$term = get_term((int) $term_id);
+	if (!$term instanceof WP_Term || is_wp_error($term)) {
+		return '—';
+	}
+
+	$acf_key = $term->taxonomy . '_' . $term->term_id;
+	$text = get_field('detailed_description', $acf_key);
+
+	if ($text === null || $text === false || $text === '') {
+		$text = get_field('detailed_description', $term);
+	}
+
+	if (empty($text)) {
+		return '—';
+	}
+
+	$plain = wp_strip_all_tags((string) $text);
+	$plain = preg_replace('/\s+/u', ' ', $plain);
+	$plain = trim($plain);
+
+	if ($plain === '') {
+		return '—';
+	}
+
+	// Short preview in the list table
+	return esc_html(wp_html_excerpt($plain, 120, '…'));
+}
+
+
+/**
+ * Admin posts list: Department column (+ Program Series on program).
+ */
+add_action('init', function () {
+	$post_types = function_exists('get_content_post_types')
+		? get_content_post_types()
+		: ['post', 'program', 'interview', 'infographic', 'video', 'podcast'];
+
+	foreach ($post_types as $post_type) {
+		add_filter("manage_{$post_type}_posts_columns", 'hello_admin_posts_taxonomy_columns');
+		add_action("manage_{$post_type}_posts_custom_column", 'hello_admin_posts_taxonomy_column_content', 10, 2);
+	}
+}, 20);
+
+/**
+ * @param array $columns
+ * @return array
+ */
+function hello_admin_posts_taxonomy_columns(array $columns): array
+{
+	$new = [];
+
+	foreach ($columns as $key => $label) {
+		$new[$key] = $label;
+
+		// Insert after title
+		if ($key === 'title') {
+			$new['tax_department'] = __('Department', 'hello-elementor-child');
+
+			$screen = function_exists('get_current_screen') ? get_current_screen() : null;
+			if ($screen && $screen->post_type === 'program') {
+				$new['tax_program_series'] = __('Program Series', 'hello-elementor-child');
+			}
+		}
+	}
+
+	// Fallback if title column missing
+	if (!isset($new['tax_department'])) {
+		$new['tax_department'] = __('Department', 'hello-elementor-child');
+	}
+
+	return $new;
+}
+
+/**
+ * @param string $column
+ * @param int    $post_id
+ */
+function hello_admin_posts_taxonomy_column_content(string $column, int $post_id): void
+{
+	if ($column === 'tax_department') {
+		echo hello_admin_format_post_terms($post_id, 'department');
+		return;
+	}
+
+	if ($column === 'tax_program_series') {
+		echo hello_admin_format_post_terms($post_id, 'program_series');
+	}
+}
+
+/**
+ * Linked term names for a post + taxonomy (admin list).
+ */
+function hello_admin_format_post_terms(int $post_id, string $taxonomy): string
+{
+	$terms = get_the_terms($post_id, $taxonomy);
+
+	if (empty($terms) || is_wp_error($terms)) {
+		return '—';
+	}
+
+	$links = [];
+	foreach ($terms as $term) {
+		$url = add_query_arg(
+			[
+				$taxonomy => $term->slug,
+				'post_type' => get_post_type($post_id),
+			],
+			admin_url('edit.php')
+		);
+
+		// Prefer native filter URL when taxonomy is registered for this post type
+		$filter_url = admin_url(
+			'edit.php?post_type=' . rawurlencode((string) get_post_type($post_id))
+			. '&' . rawurlencode($taxonomy) . '=' . rawurlencode($term->slug)
+		);
+
+		$links[] = sprintf(
+			'<a href="%s">%s</a>',
+			esc_url($filter_url),
+			esc_html($term->name)
+		);
+	}
+
+	return implode(', ', $links);
+}
