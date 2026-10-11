@@ -1,8 +1,9 @@
 <?php
 /**
  * Flexible Content: Hero Lead Section
- * Used on Home + Department archives
- * Layout: Image + featured post title under it | Trending list
+ * Image (16:9) + post title under it | Trending list
+ * Desktop ≥1360px: columns equal height (trending stretches)
+ * Mobile: stacked, tight trending rows
  */
 $section = $args['section'] ?? [];
 $department = $args['department'] ?? null;
@@ -19,7 +20,6 @@ if (!is_array($trending)) {
     $trending = $trending ? [$trending] : [];
 }
 
-// Fallback: auto content on department when ACF is empty
 if (!$featured_post && $department instanceof WP_Term) {
     $auto = new WP_Query(
         [
@@ -65,15 +65,6 @@ if (!$featured_post) {
     return;
 }
 
-$pt = $featured_post->post_type;
-$cpt_labels = get_dynamic_cpt_labels($pt);
-$dynamic_meta = $cpt_labels['title'];
-
-$f_departments = get_the_terms($featured_post->ID, 'department');
-if (!empty($f_departments) && !is_wp_error($f_departments)) {
-    $f_meta = $dynamic_meta . ' ' . $f_departments[0]->name;
-}
-
 $f_link = get_permalink($featured_post->ID);
 ?>
 
@@ -91,10 +82,10 @@ $f_link = get_permalink($featured_post->ID);
         </div>
     <?php endif; ?>
 
-    <div class="grid grid-cols-1 min-[1360px]:grid-cols-12 gap-8 md:gap-12 items-stretch">
+    <div class="grid grid-cols-1 min-[1360px]:grid-cols-12 gap-6 md:gap-12 items-start min-[1360px]:items-stretch">
 
-        <!-- Image + featured POST title under it -->
-        <div class="min-[1360px]:col-span-7 flex flex-col gap-6">
+        <!-- Image + featured post title under it -->
+        <div class="min-[1360px]:col-span-7 flex flex-col gap-4 md:gap-6">
             <a href="<?php echo esc_url($f_link); ?>"
                 class="block w-full aspect-video relative group overflow-hidden rounded-2xl shadow-sm border border-gray-100 bg-gray-100">
                 <?php if (has_post_thumbnail($featured_post->ID)): ?>
@@ -124,9 +115,10 @@ $f_link = get_permalink($featured_post->ID);
             </div>
         </div>
 
-        <!-- Trending only -->
-        <div class="min-[1360px]:col-span-5 flex flex-col min-h-0 min-[1360px]:h-full">
-            <div class="flex flex-col flex-1 justify-between gap-2 min-[1360px]:min-h-0">
+        <!-- Trending -->
+        <div class="min-[1360px]:col-span-5 flex flex-col">
+            <div
+                class="flex flex-col gap-1 sm:gap-2 min-[1360px]:flex-1 min-[1360px]:justify-between min-[1360px]:gap-2">
                 <?php
                 foreach ($trending as $t_post) {
                     get_template_part('template-parts/cards/card', 'hero-trending', ['post' => $t_post]);

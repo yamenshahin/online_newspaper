@@ -1,7 +1,8 @@
 <?php
 /**
- * Card: Hero Trending (List Row)
- * Minimalist Pure White Theme
+ * Card: Hero Trending
+ * Mobile / tablet: ONE column — image on top, title under
+ * ≥1360px: row — thumb + text (side panel)
  */
 $t_post = $args['post'] ?? null;
 if (!$t_post instanceof WP_Post) {
@@ -9,39 +10,39 @@ if (!$t_post instanceof WP_Post) {
 }
 
 $pt = $t_post->post_type;
-
-// 1. Fetch dynamic title from centralized function
 $cpt_labels = get_dynamic_cpt_labels($pt);
-$dynamic_meta = $cpt_labels['title'];
-$t_meta = $dynamic_meta;
+$t_meta = $cpt_labels['title'];
 
-// ── Department Label Logic ──
 $departments = get_the_terms($t_post->ID, 'department');
 if (!empty($departments) && !is_wp_error($departments)) {
-    $dept_name = $departments[0]->name; // Grab first department if multiple exist
-    $t_meta = $dynamic_meta . ' ' . $dept_name; // Dynamically combines post type + dept
+    $t_meta = $cpt_labels['title'] . ' ' . $departments[0]->name;
 }
 
 $t_link = get_permalink($t_post->ID);
 $is_video = in_array($pt, ['interview', 'program', 'video'], true);
-
 $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg';
 ?>
+
 <div
-    class="flex items-center justify-between gap-4 py-5 group bg-white hover:bg-gray-50/50 transition-colors -mx-4 px-4 rounded-xl">
+    class="flex flex-col w-full gap-3 py-3 group
+        min-[1360px]:flex-row min-[1360px]:items-center min-[1360px]:gap-4 min-[1360px]:py-4 min-[1360px]:flex-1 min-[1360px]:min-h-0">
 
-    <!-- Trending Image Thumbnail (Right in RTL) -->
-    <a href="<?php echo esc_url($t_link); ?>"
-        class="shrink-0 w-32 md:w-40 aspect-video rounded-xl overflow-hidden relative bg-gray-50 border border-gray-100 shadow-sm">
+    <!-- IMAGE first = on top in a column -->
+    <a href="<?php echo esc_url($t_link); ?>" class="block w-full aspect-video rounded-xl overflow-hidden relative bg-gray-50 border border-gray-100 shadow-sm
+            min-[1360px]:w-40 min-[1360px]:shrink-0">
         <?php if (has_post_thumbnail($t_post->ID)): ?>
-            <?php echo get_the_post_thumbnail($t_post->ID, 'medium', [
-                'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
-            ]); ?>
+            <?php
+            echo get_the_post_thumbnail(
+                $t_post->ID,
+                'medium',
+                [
+                    'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                ]
+            );
+            ?>
         <?php endif; ?>
-
         <?php if ($is_video): ?>
-            <div
-                class="absolute inset-0 flex items-center justify-center bg-black/5 group-hover:bg-transparent transition-colors">
+            <div class="absolute inset-0 flex items-center justify-center bg-black/5">
                 <div
                     class="w-8 h-8 rounded-full bg-white/95 flex items-center justify-center shadow-sm border border-gray-100">
                     <span class="material-symbols-outlined text-primary text-[18px]">play_arrow</span>
@@ -50,25 +51,24 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
         <?php endif; ?>
     </a>
 
-    <!-- Trending Text (Left in RTL) -->
-    <div class="flex-1 min-w-0 text-start">
-        <div class="flex items-center gap-1.5 mb-2 text-primary">
+    <!-- TITLE under image when flex-col -->
+    <div class="w-full min-w-0 text-start">
+        <div class="flex items-center gap-1.5 mb-1 text-primary">
             <div
-                class="w-3.5 h-3.5 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current">
+                class="w-3.5 h-3.5 flex items-center justify-center [&>svg]:w-full [&>svg]:h-full [&>svg]:fill-current shrink-0">
                 <?php
                 if (file_exists($helper_icon_path)) {
-                    echo file_get_contents($helper_icon_path);
+                    echo file_get_contents($helper_icon_path); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped
                 }
                 ?>
             </div>
-            <span class="font-label-caps text-xs font-bold mt-0.5">
+            <span class="font-label-caps text-xs font-bold line-clamp-1">
                 <?php echo esc_html($t_meta); ?>
             </span>
         </div>
-
         <a href="<?php echo esc_url($t_link); ?>" class="block">
             <h3
-                class="text-lg md:text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
+                class="text-base md:text-lg min-[1360px]:text-xl font-bold text-gray-900 group-hover:text-primary transition-colors leading-snug line-clamp-2">
                 <?php echo esc_html(get_the_title($t_post->ID)); ?>
             </h3>
         </a>
