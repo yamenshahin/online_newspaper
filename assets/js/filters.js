@@ -400,7 +400,7 @@ function initCarsAjaxFilters() {
         body.append('base_url', CarsFilter.baseUrl);
 
         const currentPath = window.location.pathname.replace(/\/+$/, '');
-        const isCarDirectory = currentPath.endsWith('/car-directory');
+        const isCarDirectory = /(?:^|\/)car-directory(?:\/|$)/.test(currentPath);
 
         body.append('is_car_archive', isCarDirectory ? '1' : '0');
 
@@ -471,27 +471,79 @@ function initCarsAjaxFilters() {
             return;
         }
 
-        // Handle individual filter removal chips (e.g. clicking the 'X' or pill to remove a single filter)
-        const chipRemove = e.target.closest('a[href], button, [data-filter-remove], .cars-chip');
+        // Handle individual filter chip removal
+        const chipRemove = e.target.closest(
+            'a[href], button, [data-filter-remove], .cars-chip'
+        );
+
         if (chipRemove && chipsEl.contains(chipRemove)) {
-            // Check if this is a filter removal action link/button
             const href = chipRemove.getAttribute('href');
+
             if (href && href !== '#' && !href.includes('javascript')) {
                 e.preventDefault();
 
-                // If the chip link points to a specific URL/state, extract parameters or clear corresponding field
-                // Alternatively, inspect URL parameters or data attributes to reset the form field:
                 try {
                     const url = new URL(href, window.location.origin);
-                    // Reset fields that are no longer in the new chip URL parameters, or parse parameters
-                    section.querySelectorAll('select').forEach(sel => {
-                        const paramName = sel.name;
-                        if (paramName && !url.searchParams.has(paramName) && !url.searchParams.has('filters[' + paramName + ']')) {
-                            sel.value = '';
+
+                    // Normalize a form field name to its URL parameter candidates.
+                    function getParamNames(field) {
+                        let name = field.name;
+                        if (!name) return [];
+
+                        const originalName = name;
+
+                        // Support names such as filters[car_maker].
+                        const match = name.match(/^filters\[([^\]]+)\]$/);
+                        if (match) {
+                            name = match[1];
+                        }
+
+                        // Support array-style names such as car_maker[].
+                        name = name.replace(/\[\]$/, '');
+
+                        const names = [
+                            originalName,
+                            name,
+                            'filters[' + name + ']'
+                        ];
+
+                        // Search fields may use different URL parameter names.
+                        if (['s', 'search', 'car_s'].includes(name)) {
+                            names.push('s', 'search', 'car_s');
+                        }
+
+                        return [...new Set(names)];
+                    }
+
+                    // Reset every field whose filter is absent from the target URL.
+                    section.querySelectorAll(
+                        'select, textarea, input:not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="hidden"])'
+                    ).forEach(function (field) {
+                        const paramNames = getParamNames(field);
+
+                        if (!paramNames.length) return;
+
+                        const filterStillActive = paramNames.some(function (param) {
+                            return url.searchParams.has(param);
+                        });
+
+                        if (filterStillActive) return;
+
+                        if (
+                            field.type === 'checkbox' ||
+                            field.type === 'radio'
+                        ) {
+                            field.checked = false;
+                        } else if (field.tagName === 'SELECT' && field.multiple) {
+                            Array.from(field.options).forEach(function (option) {
+                                option.selected = false;
+                            });
+                        } else {
+                            field.value = '';
                         }
                     });
                 } catch (err) {
-                    // Fallback: clear search if clicked
+                    console.error('Could not reset the removed car filter:', err);
                 }
 
                 runFilter();
