@@ -206,6 +206,88 @@ function query_cars_directory(array $args = []): WP_Query
     return new WP_Query($query_args);
 }
 
+/**
+ * Number of cars for one facet term given the rest of the current filter state.
+ */
+function get_car_facet_term_count(string $taxonomy, string $term_slug): int
+{
+    $state = get_car_filter_state();
+
+    $tax_query = ['relation' => 'AND'];
+    foreach ($state['taxes'] as $tax => $slug) {
+        if ($tax === $taxonomy) {
+            continue; // replace with the candidate term
+        }
+        $tax_query[] = [
+            'taxonomy' => $tax,
+            'field' => 'slug',
+            'terms' => $slug,
+        ];
+    }
+    $tax_query[] = [
+        'taxonomy' => $taxonomy,
+        'field' => 'slug',
+        'terms' => $term_slug,
+    ];
+
+    $meta_query = ['relation' => 'AND'];
+    foreach ($state['ranges'] as $range) {
+        $min = $range['min'];
+        $max = $range['max'];
+        $key = $range['meta'];
+        if ($min !== null && $max !== null) {
+            $meta_query[] = [
+                'key' => $key,
+                'value' => [$min, $max],
+                'type' => 'NUMERIC',
+                'compare' => 'BETWEEN',
+            ];
+        } elseif ($min !== null) {
+            $meta_query[] = [
+                'key' => $key,
+                'value' => $min,
+                'type' => 'NUMERIC',
+                'compare' => '>=',
+            ];
+        } elseif ($max !== null) {
+            $meta_query[] = [
+                'key' => $key,
+                'value' => $max,
+                'type' => 'NUMERIC',
+                'compare' => '<=',
+            ];
+        }
+    }
+    $text_map = get_car_text_filter_map();
+    foreach ($state['text'] as $param => $value) {
+        $meta_query[] = [
+            'key' => $text_map[$param],
+            'value' => $value,
+            'compare' => '=',
+        ];
+    }
+
+    $args = [
+        'post_type' => 'car',
+        'post_status' => 'publish',
+        'posts_per_page' => 1,
+        'fields' => 'ids',
+        'no_found_rows' => false,
+        'update_post_meta_cache' => false,
+        'update_post_term_cache' => false,
+        'tax_query' => $tax_query,
+    ];
+    if (($state['search'] ?? '') !== '') {
+        $args['s'] = $state['search'];
+    }
+    if (count($meta_query) > 1) {
+        $args['meta_query'] = $meta_query;
+    }
+
+    $q = new WP_Query($args);
+    return (int) $q->found_posts;
+}
+
 /** Base URL for filter links. */
 function get_cars_filter_base_url(): string
 {
