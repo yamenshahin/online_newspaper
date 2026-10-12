@@ -738,6 +738,58 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_6acbefaefbd3e": {
+                    "key": "layout_6acbefaefbd3e",
+                    "name": "cars_section",
+                    "label": "Cars Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6acbefaefbd3f",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "السيارات",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6acbefaefbd40",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "البحث عن سيارة",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa824d08379e": {
                     "key": "layout_6aa824d08379e",
                     "name": "ad_banner_section",
@@ -857,5 +909,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1791618143
+    "modified": 1791750161
 }

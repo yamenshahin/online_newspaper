@@ -20,6 +20,14 @@ function get_context_department(): ?WP_Term
         }
     }
 
+    // Cars CPT screens → always brand as cars department.
+    if (is_singular('car') || is_post_type_archive('car')) {
+        $cars_dept = get_cars_department();
+        if ($cars_dept instanceof WP_Term) {
+            return $cars_dept;
+        }
+    }
+
     return null;
 }
 
