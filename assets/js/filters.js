@@ -81,13 +81,13 @@ function initFilterWrappers() {
 
 function normalizeArabic(text) {
     if (!text) return '';
+
     return text
         .toLowerCase()
         .replace(/[\u064B-\u0652]/g, '')
         .replace(/[أإآ]/g, 'ا')
         .replace(/ة/g, 'ه')
         .replace(/ى/g, 'ي')
-        .replace(/^ال/g, '')
         .trim();
 }
 
