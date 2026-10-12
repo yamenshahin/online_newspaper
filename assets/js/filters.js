@@ -5,6 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     initFilterWrappers();
     initEntityMainTabs();
     initEntitySearch();
+    initCarsAjaxFilters();
 });
 
 /**
@@ -313,13 +314,10 @@ function initEntitySearch() {
 
             section.classList.add('is-entity-searching');
 
-            // Keep L1 type tabs (الجهات الحكومية | القطاع الخاص) — do NOT hide them
-            // Hide only deeper tab rows so results stay readable
             section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
                 el.classList.add('hidden');
             });
 
-            // Show both gov + private panels
             section.querySelectorAll('.entity-type-panel').forEach(function (panel) {
                 panel.classList.remove('hidden');
             });
@@ -327,7 +325,6 @@ function initEntitySearch() {
                 p.classList.remove('hidden');
             });
 
-            // Filter all pills
             section.querySelectorAll('.entity-pill').forEach(function (pill) {
                 const name = normalizeArabic(
                     pill.getAttribute('data-entity-name') || pill.textContent
@@ -337,7 +334,6 @@ function initEntitySearch() {
                 pill.classList.toggle('hidden', !match);
             });
 
-            // Hide empty groups only
             section.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
                 sub.classList.toggle('hidden', !sub.querySelector('.entity-pill:not(.hidden)'));
             });
@@ -357,122 +353,6 @@ function initEntitySearch() {
 /**
  * Cars Directory – AJAX filters
  */
-document.addEventListener('DOMContentLoaded', function () {
-    // … your existing inits …
-    initCarsAjaxFilters();
-});
-
-function initCarsAjaxFilters() {
-    const section = document.getElementById('cars-directory');
-    if (!section || typeof CarsFilter === 'undefined') return;
-
-    const chipsEl = document.getElementById('cars-chips');
-    const resultsEl = document.getElementById('cars-results');
-    const loadingEl = document.getElementById('cars-loading');
-
-    if (!chipsEl || !resultsEl) return;
-
-    // Collect all current filter values from every form inside the section
-    function collectFilters() {
-        const data = {};
-
-        section.querySelectorAll('form').forEach(function (form) {
-            const fd = new FormData(form);
-            fd.forEach(function (value, key) {
-                if (value !== '') {
-                    data[key] = value;
-                }
-            });
-        });
-
-        return data;
-    }
-
-    function showLoading() {
-        if (loadingEl) {
-            loadingEl.classList.remove('hidden');
-            loadingEl.classList.add('flex');
-        }
-        resultsEl.style.opacity = '0.45';
-        resultsEl.style.pointerEvents = 'none';
-    }
-
-    function hideLoading() {
-        if (loadingEl) {
-            loadingEl.classList.add('hidden');
-            loadingEl.classList.remove('flex');
-        }
-        resultsEl.style.opacity = '';
-        resultsEl.style.pointerEvents = '';
-    }
-
-    function runFilter() {
-        showLoading();
-
-        const body = new FormData();
-        body.append('action', 'cars_filter');
-        body.append('nonce', CarsFilter.nonce);
-        body.append('base_url', CarsFilter.baseUrl);   // ← add this
-
-        const filters = collectFilters();
-        Object.keys(filters).forEach(function (key) {
-            body.append('filters[' + key + ']', filters[key]);
-        });
-
-        fetch(CarsFilter.ajaxUrl, {
-            method: 'POST',
-            body: body,
-            credentials: 'same-origin'
-        })
-            .then(function (res) { return res.json(); })
-            .then(function (json) {
-                if (json.success) {
-                    chipsEl.innerHTML = json.data.chips;
-                    // Keep the loading overlay, replace only the results content
-                    const temp = document.createElement('div');
-                    temp.innerHTML = json.data.results;
-                    // Remove old results children except the loading div
-                    Array.from(resultsEl.children).forEach(function (child) {
-                        if (child.id !== 'cars-loading') {
-                            child.remove();
-                        }
-                    });
-                    // Append new results
-                    while (temp.firstChild) {
-                        resultsEl.appendChild(temp.firstChild);
-                    }
-                }
-            })
-            .catch(function (err) {
-                console.error('Cars filter error:', err);
-            })
-            .finally(function () {
-                hideLoading();
-            });
-    }
-
-    // Listen to all changes inside the section
-    section.addEventListener('change', function (e) {
-        if (e.target.matches('select, input[type="number"], input[type="search"]')) {
-            // Small debounce for the search input
-            if (e.target.type === 'search') {
-                clearTimeout(section._searchTimer);
-                section._searchTimer = setTimeout(runFilter, 400);
-            } else {
-                runFilter();
-            }
-        }
-    });
-
-    // Also catch the “تطبيق” button
-    section.addEventListener('submit', function (e) {
-        if (e.target.closest('#cars-directory')) {
-            e.preventDefault();
-            runFilter();
-        }
-    });
-}
-
 function initCarsAjaxFilters() {
     const section = document.getElementById('cars-directory');
     if (!section || typeof CarsFilter === 'undefined') return;
@@ -537,7 +417,6 @@ function initCarsAjaxFilters() {
 
                 chipsEl.innerHTML = json.data.chips;
 
-                // Replace results but keep the loading overlay
                 Array.from(resultsEl.children).forEach(child => {
                     if (child.id !== 'cars-loading') child.remove();
                 });
@@ -571,20 +450,47 @@ function initCarsAjaxFilters() {
         runFilter();
     });
 
-    // ===== Clear all =====
+    // ===== Clear all & Individual filter chip removal =====
     section.addEventListener('click', function (e) {
+        // Handle "Clear All" button
         const clearBtn = e.target.closest('[data-cars-clear]');
-        if (!clearBtn) return;
+        if (clearBtn) {
+            e.preventDefault();
+            e.stopImmediatePropagation();
 
-        e.preventDefault();
-        e.stopImmediatePropagation();
+            section.querySelectorAll('select, input[type="search"], input[type="number"]').forEach(el => {
+                el.value = '';
+            });
 
-        // Reset all fields visually
-        section.querySelectorAll('select, input[type="search"], input[type="number"]').forEach(el => {
-            el.value = '';
-        });
+            runFilter(true);
+            return;
+        }
 
-        runFilter(true); // true = send empty filters
+        // Handle individual filter removal chips (e.g. clicking the 'X' or pill to remove a single filter)
+        const chipRemove = e.target.closest('a[href], button, [data-filter-remove], .cars-chip');
+        if (chipRemove && chipsEl.contains(chipRemove)) {
+            // Check if this is a filter removal action link/button
+            const href = chipRemove.getAttribute('href');
+            if (href && href !== '#' && !href.includes('javascript')) {
+                e.preventDefault();
+
+                // If the chip link points to a specific URL/state, extract parameters or clear corresponding field
+                // Alternatively, inspect URL parameters or data attributes to reset the form field:
+                try {
+                    const url = new URL(href, window.location.origin);
+                    // Reset fields that are no longer in the new chip URL parameters, or parse parameters
+                    section.querySelectorAll('select').forEach(sel => {
+                        const paramName = sel.name;
+                        if (paramName && !url.searchParams.has(paramName) && !url.searchParams.has('filters[' + paramName + ']')) {
+                            sel.value = '';
+                        }
+                    });
+                } catch (err) {
+                    // Fallback: clear search if clicked
+                }
+
+                runFilter();
+            }
+        }
     });
 }
-
