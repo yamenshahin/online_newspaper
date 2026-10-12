@@ -30,7 +30,7 @@ $render_select = static function (string $tax, string $label) use ($state, $face
         </span>
         <div class="relative w-full">
             <select name="<?php echo esc_attr($tax); ?>"
-                class="w-full h-10 rounded-full border border-white/20 bg-white text-on-background text-sm font-medium px-4 pe-10 focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer shadow-xs appearance-none"
+                class="w-full h-10 rounded-full border border-white/20 bg-white text-on-background text-sm font-medium px-4 focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer shadow-xs"
                 onchange="this.form.submit()">
                 <option value=""><?php esc_html_e('الكل', 'hello-elementor-child'); ?></option>
                 <?php foreach ($terms as $term): ?>
@@ -39,10 +39,6 @@ $render_select = static function (string $tax, string $label) use ($state, $face
                     </option>
                 <?php endforeach; ?>
             </select>
-            <span
-                class="material-symbols-outlined absolute end-4 top-1/2 -translate-y-1/2 text-on-surface-variant/70 text-[18px] pointer-events-none select-none">
-                expand_more
-            </span>
         </div>
     </div>
     <?php
