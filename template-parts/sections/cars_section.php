@@ -36,6 +36,19 @@ $ctx = [
 
 <section class="cars-directory w-full px-margin-mobile lg:px-margin py-space-xl" id="cars-directory">
 
+    <div class="flex flex-col items-start gap-space-xs mb-6 text-start">
+        <?php if ($section_title): ?>
+            <span class="font-label-caps text-label-caps text-primary uppercase tracking-widest">
+                <?php echo esc_html($section_title); ?>
+            </span>
+        <?php endif; ?>
+        <?php if ($subtitle): ?>
+            <h2 class="font-headline-sm text-headline-sm md:font-headline-lg md:text-headline-lg text-on-background">
+                <?php echo esc_html($subtitle); ?>
+            </h2>
+        <?php endif; ?>
+    </div>
+
     <?php get_template_part('template-parts/cars/filter', 'chips', $ctx); ?>
     <?php get_template_part('template-parts/cars/filter', 'taxonomies', $ctx); ?>
     <?php get_template_part('template-parts/cars/filter', 'more', $ctx); ?>
