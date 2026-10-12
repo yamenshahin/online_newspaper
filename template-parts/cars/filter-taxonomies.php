@@ -1,96 +1,84 @@
 <?php
 /**
- * Cars directory — taxonomy facet rows (Phase 1 + Phase 3 counts / pill search).
+ * Cars directory — taxonomy filters as compact selects.
+ * Change select → submit (keeps search + meta via hidden fields).
  */
 $state = $args['state'] ?? get_car_filter_state();
+$base_url = $args['base_url'] ?? get_cars_filter_base_url();
 $facets = get_car_filter_taxonomies();
 
+$primary_taxes = ['car_maker', 'car_year', 'car_fuel_type', 'car_body_type'];
+$more_taxes = ['car_model', 'car_origin'];
+
 $facet_limits = [
-    'car_model' => 80,
-    'car_body_type' => 60,
+    'car_model' => 0,
+    'car_body_type' => 0,
     'car_maker' => 0,
     'car_year' => 0,
     'car_origin' => 0,
     'car_fuel_type' => 0,
 ];
 
-/** Facets that get a client-side search box above the pills. */
-$searchable_facets = ['car_model', 'car_body_type', 'car_maker'];
-
-/**
- * True when filters other than this taxonomy row are active
- * (so we recompute counts instead of using global term->count).
- */
-$has_contextual_filters = static function (string $current_tax) use ($state): bool {
-    if (($state['search'] ?? '') !== '') {
-        return true;
+$render_select = static function (string $tax, string $label) use ($state, $facet_limits): void {
+    $terms = get_car_facet_terms($tax, (int) ($facet_limits[$tax] ?? 0));
+    $active = $state['taxes'][$tax] ?? '';
+    if (empty($terms) && $active === '') {
+        return;
     }
-    if (!empty($state['ranges']) || !empty($state['text'])) {
-        return true;
-    }
-    $taxes = $state['taxes'] ?? [];
-    foreach ($taxes as $tax => $slug) {
-        if ($tax !== $current_tax) {
-            return true;
-        }
-    }
-    return false;
+    ?>
+    <label class="flex flex-col gap-1 text-start min-w-0">
+        <span class="text-xs font-bold text-on-surface-variant"><?php echo esc_html($label); ?></span>
+        <select name="<?php echo esc_attr($tax); ?>"
+            class="w-full rounded-xl border border-surface-container-highest bg-surface-container-lowest px-3 py-2.5 text-sm text-on-background focus:outline-none focus:ring-2 focus:ring-primary"
+            onchange="this.form.submit()">
+            <option value=""><?php esc_html_e('الكل', 'hello-elementor-child'); ?></option>
+            <?php foreach ($terms as $term): ?>
+                <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($active, $term->slug); ?>>
+                    <?php
+                    echo esc_html(
+                        sprintf('%s (%s)', $term->name, (string) (int) $term->count)
+                    );
+                    ?>
+                </option>
+            <?php endforeach; ?>
+        </select>
+    </label>
+    <?php
 };
 ?>
 
-<div class="flex flex-col gap-5 mb-8">
+<form method="get" action="<?php echo esc_url($base_url); ?>" class="mb-6">
     <?php
-    foreach ($facets as $tax => $label):
-        $terms = get_car_facet_terms($tax, (int) ($facet_limits[$tax] ?? 0));
-        if (empty($terms)) {
-            continue;
+    // Keep search + ranges + text; do not mirror taxes (selects control them).
+    cars_render_hidden_filter_fields(array_keys(get_car_filter_taxonomies()));
+    ?>
+
+    <div
+        class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-4 rounded-2xl bg-surface-container-low border border-surface-container-highest">
+        <?php
+        foreach ($primary_taxes as $tax) {
+            if (isset($facets[$tax])) {
+                $render_select($tax, $facets[$tax]);
+            }
         }
-
-        $active = $state['taxes'][$tax] ?? '';
-        $searchable = in_array($tax, $searchable_facets, true);
-        $use_context = $has_contextual_filters($tax);
         ?>
-        <div class="text-start car-facet" data-facet="<?php echo esc_attr($tax); ?>">
-            <div class="flex flex-wrap items-center justify-between gap-2 mb-2">
-                <div class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">
-                    <?php echo esc_html($label); ?>
-                </div>
-                <?php if ($searchable): ?>
-                    <input type="search"
-                        class="car-facet-search rounded-full border border-surface-container-highest bg-surface-container-lowest px-3 py-1.5 text-sm max-w-[220px] focus:outline-none focus:ring-2 focus:ring-primary"
-                        placeholder="<?php esc_attr_e('تصفية…', 'hello-elementor-child'); ?>"
-                        data-facet-search="<?php echo esc_attr($tax); ?>" autocomplete="off" />
-                <?php endif; ?>
-            </div>
+    </div>
 
-            <div class="flex flex-wrap gap-2 car-facet-pills">
-                <a href="<?php echo esc_url(get_cars_filter_url([$tax => null])); ?>"
-                    class="inline-flex rounded-full px-3 py-1.5 text-sm font-semibold border transition-colors <?php echo $active === '' ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-low text-on-surface border-surface-container-highest hover:border-primary'; ?>">
-                    <?php esc_html_e('الكل', 'hello-elementor-child'); ?>
-                </a>
-
-                <?php
-                foreach ($terms as $term):
-                    $is_on = ($active === $term->slug);
-
-                    if ($use_context && function_exists('get_car_facet_term_count')) {
-                        $count = get_car_facet_term_count($tax, $term->slug);
-                        // Hide zero matches unless this term is the active filter.
-                        if ($count < 1 && !$is_on) {
-                            continue;
-                        }
-                    } else {
-                        $count = (int) $term->count;
-                    }
-                    ?>
-                    <a href="<?php echo esc_url(get_cars_filter_url([$tax => $is_on ? null : $term->slug])); ?>"
-                        data-name="<?php echo esc_attr(mb_strtolower($term->name)); ?>"
-                        class="inline-flex items-center gap-1 rounded-full px-3 py-1.5 text-sm font-semibold border transition-colors <?php echo $is_on ? 'bg-primary text-on-primary border-primary' : 'bg-surface-container-lowest text-on-surface border-surface-container-highest hover:border-primary'; ?>">
-                        <?php echo esc_html($term->name); ?>
-                        <span class="text-[11px] opacity-70">(<?php echo esc_html((string) $count); ?>)</span>
-                    </a>
-                <?php endforeach; ?>
-            </div>
+    <details class="mt-3 group">
+        <summary class="cursor-pointer text-sm font-bold text-primary flex items-center gap-1 list-none py-2">
+            <?php esc_html_e('المزيد من التصنيفات', 'hello-elementor-child'); ?>
+            <span
+                class="material-symbols-outlined text-[18px] transition-transform group-open:rotate-180">expand_more</span>
+        </summary>
+        <div
+            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 p-4 mt-1 rounded-2xl border border-surface-container-highest bg-surface-container-lowest">
+            <?php
+            foreach ($more_taxes as $tax) {
+                if (isset($facets[$tax])) {
+                    $render_select($tax, $facets[$tax]);
+                }
+            }
+            ?>
         </div>
-    <?php endforeach; ?>
-</div>
+    </details>
+</form>
