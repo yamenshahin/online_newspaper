@@ -57,7 +57,7 @@ function hello_elementor_child_scripts_styles()
 		filemtime(get_stylesheet_directory() . '/assets/css/tailwind.css')
 	);
 
-	// ADDED: Enqueue the custom filters JS file in the footer
+	// Filters JS (entity browse + cars AJAX)
 	$filters_js_path = '/assets/js/filters.js';
 	if (file_exists(get_stylesheet_directory() . $filters_js_path)) {
 		wp_enqueue_script(
@@ -67,11 +67,24 @@ function hello_elementor_child_scripts_styles()
 			filemtime(get_stylesheet_directory() . $filters_js_path),
 			true
 		);
+
+		// Existing entity search
 		wp_localize_script(
 			'hello-elementor-child-filters',
 			'helloEntityNav',
 			[
 				'searchUrl' => esc_url_raw(rest_url('hello/v1/entity-search')),
+			]
+		);
+
+		// Cars directory AJAX
+		wp_localize_script(
+			'hello-elementor-child-filters',
+			'CarsFilter',
+			[
+				'ajaxUrl' => admin_url('admin-ajax.php'),
+				'nonce' => wp_create_nonce('cars_filter_nonce'),
+				'baseUrl' => esc_url_raw(get_cars_filter_base_url()), // ← add this
 			]
 		);
 	}
@@ -916,4 +929,49 @@ function hello_admin_format_post_terms(int $post_id, string $taxonomy): string
 	}
 
 	return implode(', ', $links);
+}
+
+/**
+ * AJAX: Cars directory filter
+ */
+add_action('wp_ajax_cars_filter', 'cars_ajax_filter');
+add_action('wp_ajax_nopriv_cars_filter', 'cars_ajax_filter');
+
+function cars_ajax_filter()
+{
+	check_ajax_referer('cars_filter_nonce', 'nonce');
+
+	// Force the correct base URL (never trust the AJAX request URL)
+	$base_url = isset($_POST['base_url'])
+		? esc_url_raw(wp_unslash($_POST['base_url']))
+		: get_cars_filter_base_url();
+
+	// Put received filters into $_GET so existing helpers work
+	$filters = isset($_POST['filters']) ? wp_unslash($_POST['filters']) : [];
+	$_GET = array_merge($_GET, $filters);
+
+	$state = get_car_filter_state();
+	$query = query_cars_directory([
+		'posts_per_page' => 12,
+		'paged' => $state['paged'] ?: 1,
+	]);
+
+	$ctx = [
+		'state' => $state,
+		'base_url' => $base_url,   // ← use the real one
+		'query' => $query,
+	];
+
+	ob_start();
+	get_template_part('template-parts/cars/filter', 'chips', $ctx);
+	$chips_html = ob_get_clean();
+
+	ob_start();
+	get_template_part('template-parts/cars/results', null, $ctx);
+	$results_html = ob_get_clean();
+
+	wp_send_json_success([
+		'chips' => $chips_html,
+		'results' => $results_html,
+	]);
 }

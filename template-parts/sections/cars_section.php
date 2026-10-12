@@ -50,16 +50,27 @@ $ctx = [
         <?php endif; ?>
     </div>
 
-    <!-- 1. Primary filter bar (maker / year / fuel / body + search) -->
+    <!-- 1. Primary filter bar -->
     <?php get_template_part('template-parts/cars/filter', 'taxonomies', $ctx); ?>
 
     <!-- 2. Active filter chips -->
-    <?php get_template_part('template-parts/cars/filter', 'chips', $ctx); ?>
+    <div id="cars-chips">
+        <?php get_template_part('template-parts/cars/filter', 'chips', $ctx); ?>
+    </div>
 
-    <!-- 3. More filters (collapsed by default) -->
+    <!-- 3. More filters -->
     <?php get_template_part('template-parts/cars/filter', 'more', $ctx); ?>
 
-    <!-- 4. Results -->
-    <?php get_template_part('template-parts/cars/results', null, $ctx); ?>
+    <!-- 4. Results + loading overlay -->
+    <div id="cars-results" class="relative">
+        <div id="cars-loading" class="absolute inset-0 z-10 hidden items-center justify-center bg-white/70 rounded-2xl">
+            <div class="flex flex-col items-center gap-3">
+                <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                <span class="text-sm font-medium text-on-surface-variant">جاري التحميل…</span>
+            </div>
+        </div>
+
+        <?php get_template_part('template-parts/cars/results', null, $ctx); ?>
+    </div>
 
 </section>

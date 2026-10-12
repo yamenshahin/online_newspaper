@@ -353,3 +353,237 @@ function initEntitySearch() {
         });
     });
 }
+
+/**
+ * Cars Directory – AJAX filters
+ */
+document.addEventListener('DOMContentLoaded', function () {
+    // … your existing inits …
+    initCarsAjaxFilters();
+});
+
+function initCarsAjaxFilters() {
+    const section = document.getElementById('cars-directory');
+    if (!section || typeof CarsFilter === 'undefined') return;
+
+    const chipsEl = document.getElementById('cars-chips');
+    const resultsEl = document.getElementById('cars-results');
+    const loadingEl = document.getElementById('cars-loading');
+
+    if (!chipsEl || !resultsEl) return;
+
+    // Collect all current filter values from every form inside the section
+    function collectFilters() {
+        const data = {};
+
+        section.querySelectorAll('form').forEach(function (form) {
+            const fd = new FormData(form);
+            fd.forEach(function (value, key) {
+                if (value !== '') {
+                    data[key] = value;
+                }
+            });
+        });
+
+        return data;
+    }
+
+    function showLoading() {
+        if (loadingEl) {
+            loadingEl.classList.remove('hidden');
+            loadingEl.classList.add('flex');
+        }
+        resultsEl.style.opacity = '0.45';
+        resultsEl.style.pointerEvents = 'none';
+    }
+
+    function hideLoading() {
+        if (loadingEl) {
+            loadingEl.classList.add('hidden');
+            loadingEl.classList.remove('flex');
+        }
+        resultsEl.style.opacity = '';
+        resultsEl.style.pointerEvents = '';
+    }
+
+    function runFilter() {
+        showLoading();
+
+        const body = new FormData();
+        body.append('action', 'cars_filter');
+        body.append('nonce', CarsFilter.nonce);
+        body.append('base_url', CarsFilter.baseUrl);   // ← add this
+
+        const filters = collectFilters();
+        Object.keys(filters).forEach(function (key) {
+            body.append('filters[' + key + ']', filters[key]);
+        });
+
+        fetch(CarsFilter.ajaxUrl, {
+            method: 'POST',
+            body: body,
+            credentials: 'same-origin'
+        })
+            .then(function (res) { return res.json(); })
+            .then(function (json) {
+                if (json.success) {
+                    chipsEl.innerHTML = json.data.chips;
+                    // Keep the loading overlay, replace only the results content
+                    const temp = document.createElement('div');
+                    temp.innerHTML = json.data.results;
+                    // Remove old results children except the loading div
+                    Array.from(resultsEl.children).forEach(function (child) {
+                        if (child.id !== 'cars-loading') {
+                            child.remove();
+                        }
+                    });
+                    // Append new results
+                    while (temp.firstChild) {
+                        resultsEl.appendChild(temp.firstChild);
+                    }
+                }
+            })
+            .catch(function (err) {
+                console.error('Cars filter error:', err);
+            })
+            .finally(function () {
+                hideLoading();
+            });
+    }
+
+    // Listen to all changes inside the section
+    section.addEventListener('change', function (e) {
+        if (e.target.matches('select, input[type="number"], input[type="search"]')) {
+            // Small debounce for the search input
+            if (e.target.type === 'search') {
+                clearTimeout(section._searchTimer);
+                section._searchTimer = setTimeout(runFilter, 400);
+            } else {
+                runFilter();
+            }
+        }
+    });
+
+    // Also catch the “تطبيق” button
+    section.addEventListener('submit', function (e) {
+        if (e.target.closest('#cars-directory')) {
+            e.preventDefault();
+            runFilter();
+        }
+    });
+}
+
+function initCarsAjaxFilters() {
+    const section = document.getElementById('cars-directory');
+    if (!section || typeof CarsFilter === 'undefined') return;
+
+    const chipsEl = document.getElementById('cars-chips');
+    const resultsEl = document.getElementById('cars-results');
+    const loadingEl = document.getElementById('cars-loading');
+
+    if (!chipsEl || !resultsEl) return;
+
+    function collectFilters() {
+        const data = {};
+        section.querySelectorAll('form').forEach(function (form) {
+            new FormData(form).forEach(function (value, key) {
+                if (value !== '') data[key] = value;
+            });
+        });
+        return data;
+    }
+
+    function showLoading() {
+        if (loadingEl) {
+            loadingEl.classList.remove('hidden');
+            loadingEl.classList.add('flex');
+        }
+        resultsEl.style.opacity = '0.4';
+        resultsEl.style.pointerEvents = 'none';
+    }
+
+    function hideLoading() {
+        if (loadingEl) {
+            loadingEl.classList.add('hidden');
+            loadingEl.classList.remove('flex');
+        }
+        resultsEl.style.opacity = '';
+        resultsEl.style.pointerEvents = '';
+    }
+
+    function runFilter(clear = false) {
+        showLoading();
+
+        const body = new FormData();
+        body.append('action', 'cars_filter');
+        body.append('nonce', CarsFilter.nonce);
+        body.append('base_url', CarsFilter.baseUrl);
+
+        if (!clear) {
+            const filters = collectFilters();
+            Object.keys(filters).forEach(function (key) {
+                body.append('filters[' + key + ']', filters[key]);
+            });
+        }
+
+        fetch(CarsFilter.ajaxUrl, {
+            method: 'POST',
+            body: body,
+            credentials: 'same-origin'
+        })
+            .then(r => r.json())
+            .then(json => {
+                if (!json.success) return;
+
+                chipsEl.innerHTML = json.data.chips;
+
+                // Replace results but keep the loading overlay
+                Array.from(resultsEl.children).forEach(child => {
+                    if (child.id !== 'cars-loading') child.remove();
+                });
+                const temp = document.createElement('div');
+                temp.innerHTML = json.data.results;
+                while (temp.firstChild) {
+                    resultsEl.appendChild(temp.firstChild);
+                }
+            })
+            .catch(console.error)
+            .finally(hideLoading);
+    }
+
+    // ===== Change / input =====
+    section.addEventListener('change', function (e) {
+        if (e.target.matches('select, input[type="number"]')) {
+            runFilter();
+        }
+    });
+
+    section.addEventListener('input', function (e) {
+        if (e.target.matches('input[type="search"]')) {
+            clearTimeout(section._searchTimer);
+            section._searchTimer = setTimeout(() => runFilter(), 400);
+        }
+    });
+
+    // ===== Form submit (تطبيق button) =====
+    section.addEventListener('submit', function (e) {
+        e.preventDefault();
+        runFilter();
+    });
+
+    // ===== Clear all =====
+    section.addEventListener('click', function (e) {
+        const clearBtn = e.target.closest('[data-cars-clear]');
+        if (!clearBtn) return;
+
+        e.preventDefault();
+        e.stopImmediatePropagation();
+
+        // Reset all fields visually
+        section.querySelectorAll('select, input[type="search"], input[type="number"]').forEach(el => {
+            el.value = '';
+        });
+
+        runFilter(true); // true = send empty filters
+    });
+}

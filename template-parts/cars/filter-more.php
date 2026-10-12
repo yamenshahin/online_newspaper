@@ -42,7 +42,7 @@ $render_select = static function (string $tax, string $label) use ($state, $face
         <span class="text-xs font-bold text-on-surface-variant"><?php echo esc_html($label); ?></span>
         <select name="<?php echo esc_attr($tax); ?>"
             class="w-full h-10 appearance-none rounded-full border border-surface-container-highest bg-white text-on-background text-sm font-medium px-4 focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer shadow-xs"
-            style="<?php echo esc_attr($select_style); ?>" onchange="this.form.submit()">
+            style="<?php echo esc_attr($select_style); ?>">
             <option value=""><?php esc_html_e('الكل', 'hello-elementor-child'); ?></option>
             <?php foreach ($terms as $term): ?>
                 <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($active, $term->slug); ?>>
@@ -122,7 +122,7 @@ $open = (
                     </span>
                     <select name="<?php echo esc_attr($param); ?>"
                         class="w-full h-10 appearance-none rounded-full border border-surface-container-highest bg-white text-on-background text-sm font-medium px-4 focus:outline-none focus:ring-2 focus:ring-primary/30 cursor-pointer shadow-xs"
-                        style="<?php echo esc_attr($select_style); ?>" onchange="this.form.submit()">
+                        style="<?php echo esc_attr($select_style); ?>">
                         <option value=""><?php esc_html_e('الكل', 'hello-elementor-child'); ?></option>
                         <?php foreach ($values as $val): ?>
                             <option value="<?php echo esc_attr($val); ?>" <?php selected($active, $val); ?>>
@@ -157,7 +157,8 @@ $open = (
                 <!-- Price -->
                 <div class="flex flex-col gap-1">
                     <div class="text-xs font-bold text-on-surface-variant">
-                        <?php esc_html_e('السعر (ر.س)', 'hello-elementor-child'); ?></div>
+                        <?php esc_html_e('السعر (ر.س)', 'hello-elementor-child'); ?>
+                    </div>
                     <input type="number" name="price_min" min="0" step="1"
                         placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
                         value="<?php echo $price['min'] !== null ? esc_attr((string) $price['min']) : ''; ?>"
@@ -171,7 +172,8 @@ $open = (
                 <!-- Power -->
                 <div class="flex flex-col gap-1">
                     <div class="text-xs font-bold text-on-surface-variant">
-                        <?php esc_html_e('القوة', 'hello-elementor-child'); ?></div>
+                        <?php esc_html_e('القوة', 'hello-elementor-child'); ?>
+                    </div>
                     <input type="number" name="power_min" min="0" step="1"
                         placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
                         value="<?php echo $power['min'] !== null ? esc_attr((string) $power['min']) : ''; ?>"
@@ -185,7 +187,8 @@ $open = (
                 <!-- Torque -->
                 <div class="flex flex-col gap-1">
                     <div class="text-xs font-bold text-on-surface-variant">
-                        <?php esc_html_e('العزم', 'hello-elementor-child'); ?></div>
+                        <?php esc_html_e('العزم', 'hello-elementor-child'); ?>
+                    </div>
                     <input type="number" name="torque_min" min="0" step="1"
                         placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
                         value="<?php echo $torque['min'] !== null ? esc_attr((string) $torque['min']) : ''; ?>"
@@ -199,7 +202,8 @@ $open = (
                 <!-- Engine -->
                 <div class="flex flex-col gap-1">
                     <div class="text-xs font-bold text-on-surface-variant">
-                        <?php esc_html_e('سعة المحرك', 'hello-elementor-child'); ?></div>
+                        <?php esc_html_e('سعة المحرك', 'hello-elementor-child'); ?>
+                    </div>
                     <input type="number" name="engine_min" min="0" step="0.1"
                         placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
                         value="<?php echo $engine['min'] !== null ? esc_attr((string) $engine['min']) : ''; ?>"
@@ -213,7 +217,8 @@ $open = (
                 <!-- Seats -->
                 <div class="flex flex-col gap-1">
                     <div class="text-xs font-bold text-on-surface-variant">
-                        <?php esc_html_e('المقاعد', 'hello-elementor-child'); ?></div>
+                        <?php esc_html_e('المقاعد', 'hello-elementor-child'); ?>
+                    </div>
                     <input type="number" name="seats_min" min="0" step="1"
                         placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
                         value="<?php echo $seats['min'] !== null ? esc_attr((string) $seats['min']) : ''; ?>"

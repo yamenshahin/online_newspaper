@@ -32,8 +32,7 @@ $render_select = static function (string $tax, string $label) use ($state, $face
         <div class="relative w-full">
             <select name="<?php echo esc_attr($tax); ?>"
                 class="block w-full h-10 appearance-none rounded-full border border-white/20 bg-white text-on-background text-sm font-medium px-4 focus:outline-none focus:ring-2 focus:ring-white/40 cursor-pointer shadow-xs"
-                style="appearance:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 12%22 fill=%22none%22%3E%3Cpath d=%22m3 4.5 3 3 3-3%22 stroke=%22%231f2937%22 stroke-width=%221.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E'); background-repeat:no-repeat; background-position:10px center; background-size:12px 12px; padding-left:2rem;"
-                onchange="this.form.submit()">
+                style="appearance:none !important; -webkit-appearance:none !important; -moz-appearance:none !important; background-image:url('data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 12 12%22 fill=%22none%22%3E%3Cpath d=%22m3 4.5 3 3 3-3%22 stroke=%22%231f2937%22 stroke-width=%221.5%22 stroke-linecap=%22round%22 stroke-linejoin=%22round%22/%3E%3C/svg%3E'); background-repeat:no-repeat; background-position:10px center; background-size:12px 12px; padding-left:2rem;">
                 <option value=""><?php esc_html_e('الكل', 'hello-elementor-child'); ?></option>
                 <?php foreach ($terms as $term): ?>
                     <option value="<?php echo esc_attr($term->slug); ?>" <?php selected($active, $term->slug); ?>>

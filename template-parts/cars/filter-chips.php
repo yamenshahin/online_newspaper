@@ -72,7 +72,7 @@ if (!$has_active) {
         </a>
     <?php endforeach; ?>
 
-    <a href="<?php echo esc_url($base_url); ?>"
+    <a href="<?php echo esc_url($base_url); ?>" data-cars-clear
         class="text-sm text-primary font-semibold underline-offset-2 hover:underline self-center">
         <?php esc_html_e('مسح الكل', 'hello-elementor-child'); ?>
     </a>
