@@ -5,6 +5,9 @@ $query = $args['query'] ?? null;
 if (!$query instanceof WP_Query) {
     return;
 }
+
+// Check if we are currently on the Car CPT Archive page
+$is_car_archive = is_post_type_archive('car') || is_page('car-directory');
 ?>
 
 <?php if ($query->have_posts()): ?>
@@ -87,38 +90,53 @@ if (!$query instanceof WP_Query) {
         <?php endwhile; ?>
     </div>
 
-    <!-- Pagination -->
-    <?php if ((int) $query->max_num_pages > 1): ?>
-        <nav class="flex justify-center" aria-label="<?php esc_attr_e('Pagination', 'hello-elementor-child'); ?>">
-            <?php
-            $add_args = $state['taxes'];
-            if ($state['search'] !== '') {
-                $add_args['car_s'] = $state['search'];
-            }
-            foreach ($state['ranges'] as $prefix => $range) {
-                if ($range['min'] !== null) {
-                    $add_args[$prefix . '_min'] = $range['min'];
-                }
-                if ($range['max'] !== null) {
-                    $add_args[$prefix . '_max'] = $range['max'];
-                }
-            }
-            foreach ($state['text'] as $param => $value) {
-                $add_args[$param] = $value;
-            }
+    <!-- Navigation Block: Pagination vs Show More -->
+    <?php if ($is_car_archive): ?>
+        <?php if ((int) $query->max_num_pages > 1): ?>
+            <!-- Full Styled Pagination for Archive Page -->
+            <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('Pagination', 'hello-elementor-child'); ?>">
+                <div
+                    class="inline-flex items-center gap-2 flex-wrap justify-center [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.current]:bg-primary [&_.current]:text-on-primary">
+                    <?php
+                    $add_args = $state['taxes'];
+                    if ($state['search'] !== '') {
+                        $add_args['car_s'] = $state['search'];
+                    }
+                    foreach ($state['ranges'] as $prefix => $range) {
+                        if ($range['min'] !== null) {
+                            $add_args[$prefix . '_min'] = $range['min'];
+                        }
+                        if ($range['max'] !== null) {
+                            $add_args[$prefix . '_max'] = $range['max'];
+                        }
+                    }
+                    foreach ($state['text'] as $param => $value) {
+                        $add_args[$param] = $value;
+                    }
 
-            echo paginate_links(
-                [
-                    'total' => (int) $query->max_num_pages,
-                    'current' => $state['paged'],
-                    'prev_text' => '«',
-                    'next_text' => '»',
-                    'add_args' => $add_args ?: false,
-                ]
-            );
-            ?>
-        </nav>
+                    echo paginate_links(
+                        [
+                            'total' => (int) $query->max_num_pages,
+                            'current' => $state['paged'],
+                            'prev_text' => '«',
+                            'next_text' => '»',
+                            'add_args' => $add_args ?: false,
+                        ]
+                    );
+                    ?>
+                </div>
+            </nav>
+        <?php endif; ?>
+    <?php else: ?>
+        <!-- Show More Button redirecting to /car-directory/ for non-archive contexts -->
+        <div class="flex justify-center mt-8">
+            <a href="<?php echo esc_url(home_url('/car-directory/')); ?>"
+                class="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold text-sm bg-primary text-white hover:opacity-90 shadow-sm transition-all">
+                <?php esc_html_e('عرض المزيد من السيارات', 'hello-elementor-child'); ?>
+            </a>
+        </div>
     <?php endif; ?>
+
     <?php wp_reset_postdata(); ?>
 <?php else: ?>
     <div class="text-center py-16 rounded-2xl border border-dashed border-gray-300">
