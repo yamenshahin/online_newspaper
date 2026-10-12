@@ -587,3 +587,4 @@ function initCarsAjaxFilters() {
         runFilter(true); // true = send empty filters
     });
 }
+
