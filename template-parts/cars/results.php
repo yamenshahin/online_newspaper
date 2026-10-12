@@ -6,7 +6,15 @@ if (!$query instanceof WP_Query) {
     return;
 }
 
-$is_car_archive = is_post_type_archive('car') || is_page('car-directory');
+$is_car_archive = array_key_exists('is_car_archive', $args)
+    ? (bool) $args['is_car_archive']
+    : (
+        isset($_POST['is_car_archive'])
+        ? '1' === sanitize_text_field(
+            wp_unslash($_POST['is_car_archive'])
+        )
+        : (is_post_type_archive('car') || is_page('car-directory'))
+    );
 ?>
 
 <?php if ($query->have_posts()): ?>
@@ -109,8 +117,10 @@ $is_car_archive = is_post_type_archive('car') || is_page('car-directory');
                     }
 
                     echo paginate_links([
+                        'base' => trailingslashit(home_url('/car-directory/')) . '%_%',
+                        'format' => 'page/%#%/',
                         'total' => (int) $query->max_num_pages,
-                        'current' => $state['paged'],
+                        'current' => max(1, (int) $state['paged']),
                         'prev_text' => '«',
                         'next_text' => '»',
                         'add_args' => $add_args ?: false,

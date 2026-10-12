@@ -19,6 +19,8 @@ $section_title = $section_title ?: __('دليل السيارات', 'hello-elemen
 $state = get_car_filter_state();
 $base_url = get_cars_filter_base_url();
 
+$is_car_archive = is_post_type_archive('car') || is_page('car-directory');
+
 $query = query_cars_directory([
     'posts_per_page' => absint($posts_limit),
     'paged' => $state['paged'],
@@ -30,6 +32,7 @@ $ctx = [
     'section_title' => $section_title,
     'subtitle' => $subtitle,
     'query' => $query,
+    'is_car_archive' => $is_car_archive,
 ];
 ?>
 

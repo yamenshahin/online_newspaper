@@ -399,6 +399,11 @@ function initCarsAjaxFilters() {
         body.append('nonce', CarsFilter.nonce);
         body.append('base_url', CarsFilter.baseUrl);
 
+        const currentPath = window.location.pathname.replace(/\/+$/, '');
+        const isCarDirectory = currentPath.endsWith('/car-directory');
+
+        body.append('is_car_archive', isCarDirectory ? '1' : '0');
+
         if (!clear) {
             const filters = collectFilters();
             Object.keys(filters).forEach(function (key) {
