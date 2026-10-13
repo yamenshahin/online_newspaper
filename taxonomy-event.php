@@ -17,10 +17,7 @@ $_GET[$term->taxonomy] = $term->slug;
 
 $home_id = (int) get_option('page_on_front');
 
-$skip_layouts = [
-    'hero_lead_section',
-    'events_section', // full events directory — not on a single event
-];
+
 ?>
 <main id="primary" class="site-main">
     <?php
@@ -42,7 +39,7 @@ $skip_layouts = [
     if (!empty($sections)):
         foreach ($sections as $section):
             $layout = $section['acf_fc_layout'] ?? '';
-            if (!$layout || in_array($layout, $skip_layouts, true)) {
+            if (should_skip_term_archive_layout($layout)) {
                 continue;
             }
             get_template_part(

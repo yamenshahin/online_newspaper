@@ -441,3 +441,22 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
 
     return $tree;
 }
+
+/**
+ * Flexible layouts to skip on single-term filter archives
+ * (speaker, entity, event, geographic, … — not department, not home).
+ */
+function get_term_archive_skip_layouts(): array
+{
+    return [
+        'hero_lead_section',
+    ];
+}
+
+/**
+ * Whether a layout should be skipped on a term archive.
+ */
+function should_skip_term_archive_layout(string $layout): bool
+{
+    return $layout === '' || in_array($layout, get_term_archive_skip_layouts(), true);
+}

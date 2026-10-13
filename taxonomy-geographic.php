@@ -24,14 +24,7 @@ $_GET[$term->taxonomy] = $term->slug;
 // Home page ID (Layout Engine lives on the front page)
 $home_id = (int) get_option('page_on_front');
 
-// Layouts that do not belong on a single-speaker archive
-$skip_layouts = [
-    'hero_lead_section',
-    'speakers_section', // list of all speakers
-    // 'social_section',
-    // 'ad_banner_section',
-    // 'ad_code_section',
-];
+
 ?>
 
 <main id="primary" class="site-main ">
@@ -58,7 +51,7 @@ $skip_layouts = [
         foreach ($sections as $section):
             $layout = $section['acf_fc_layout'] ?? '';
 
-            if (!$layout || in_array($layout, $skip_layouts, true)) {
+            if (should_skip_term_archive_layout($layout)) {
                 continue;
             }
 

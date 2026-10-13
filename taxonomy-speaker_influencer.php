@@ -59,7 +59,7 @@ $skip_layouts = [
         foreach ($sections as $section):
             $layout = $section['acf_fc_layout'] ?? '';
 
-            if (!$layout || in_array($layout, $skip_layouts, true)) {
+            if (should_skip_term_archive_layout($layout)) {
                 continue;
             }
 
