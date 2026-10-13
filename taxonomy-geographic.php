@@ -38,7 +38,6 @@ $skip_layouts = [
 
     <?php
     // 1. Profile header (your existing template part)
-    // 1. Profile header (your existing template part)
     get_template_part('template-parts/profiles/term-profile', null, [
         'term' => $term,
         'back_url' => home_url('/'),

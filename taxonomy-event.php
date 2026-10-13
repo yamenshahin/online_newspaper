@@ -1,7 +1,8 @@
 <?php
 /**
  * Taxonomy Archive: Event
- * /event/{slug}/  + home sections filtered via $_GET['event']
+ * /event/{slug}/ — profile + department nav + home Layout Engine
+ * filtered via $_GET['event'].
  */
 get_header();
 
@@ -11,13 +12,14 @@ if (!$term instanceof WP_Term || is_wp_error($term)) {
     return;
 }
 
+// Section templates read $_GET filters the same way as department + ?event=
 $_GET[$term->taxonomy] = $term->slug;
 
 $home_id = (int) get_option('page_on_front');
 
 $skip_layouts = [
     'hero_lead_section',
-    'events_section', // list of all events — not on a single event page
+    'events_section', // full events directory — not on a single event
 ];
 ?>
 <main id="primary" class="site-main">
@@ -30,12 +32,13 @@ $skip_layouts = [
 
     get_template_part('template-parts/profiles/filter-departments-nav', null, [
         'term' => $term,
-        'current_department' => null,
+        'current_department' => null, // "الكل"
     ]);
     ?>
 
     <?php
     $sections = $home_id ? get_field('department_sections', $home_id) : null;
+
     if (!empty($sections)):
         foreach ($sections as $section):
             $layout = $section['acf_fc_layout'] ?? '';
