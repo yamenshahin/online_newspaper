@@ -36,7 +36,11 @@ $helper_icon_path = get_stylesheet_directory() . '/assets/images/helper-icon.svg
                 $t_post->ID,
                 'medium',
                 [
-                    'class' => 'w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                    'class' => 'skip-lazy w-full h-full object-cover transition-transform duration-500 group-hover:scale-105',
+                    'loading' => 'eager',
+                    'fetchpriority' => 'high',
+                    'decoding' => 'async',
+                    'data-skip-lazy' => '1',
                 ]
             );
             ?>

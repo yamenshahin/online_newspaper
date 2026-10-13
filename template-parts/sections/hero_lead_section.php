@@ -94,7 +94,11 @@ $f_link = get_permalink($featured_post->ID);
                         $featured_post->ID,
                         'large',
                         [
-                            'class' => 'absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105',
+                            'class' => 'skip-lazy absolute inset-0 w-full h-full object-cover object-center transition-transform duration-700 group-hover:scale-105',
+                            'loading' => 'eager',
+                            'fetchpriority' => 'high',
+                            'decoding' => 'async',
+                            'data-skip-lazy' => '1',
                         ]
                     );
                     ?>
