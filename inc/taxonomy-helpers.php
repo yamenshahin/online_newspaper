@@ -5,7 +5,7 @@
  */
 function get_entity_taxonomies(): array
 {
-    return ['government_entity', 'private_entity'];
+    return ['government_entity', 'private_entity', 'event'];
 }
 
 function get_term_descendant_ids(int $term_id, string $taxonomy): array
@@ -49,6 +49,7 @@ function get_cached_taxonomy_term_map(string $taxonomy): array
     set_transient($cache_key, $map, DAY_IN_SECONDS);
     return $map;
 }
+
 
 function clear_taxonomy_term_map_cache($term_id = 0, $tt_id = null, $taxonomy = ''): void
 {
@@ -393,3 +394,4 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
 
     return $tree;
 }
+

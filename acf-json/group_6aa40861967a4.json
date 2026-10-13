@@ -654,7 +654,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "الجهات الحكومية والقطاع الخاص",
+                            "default_value": "الجهات الحكومية والقطاع الخاص والفعاليات",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -675,7 +675,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "فرز المحتوى بحسب الجهة",
+                            "default_value": "فرز المحتوى بحسب الجهة أو الفعاليّة",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -909,5 +909,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1791750161
+    "modified": 1791904360
 }
