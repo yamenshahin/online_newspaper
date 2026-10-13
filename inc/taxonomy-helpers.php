@@ -1,6 +1,6 @@
 <?php
 /**
- * Hierarchical entity taxonomies: government_entity, private_entity.
+ * Hierarchical entity taxonomies: government_entity, private_entity, event.
  * All terms are always listed (including count 0), home and departments.
  */
 function get_entity_taxonomies(): array
@@ -28,10 +28,12 @@ function get_cached_taxonomy_term_map(string $taxonomy): array
         return $cached;
     }
 
-    $terms = get_terms([
-        'taxonomy' => $taxonomy,
-        'hide_empty' => false,
-    ]);
+    $terms = get_terms(
+        [
+            'taxonomy' => $taxonomy,
+            'hide_empty' => false,
+        ]
+    );
     if (is_wp_error($terms) || empty($terms)) {
         return [];
     }
@@ -50,18 +52,56 @@ function get_cached_taxonomy_term_map(string $taxonomy): array
     return $map;
 }
 
-
 function clear_taxonomy_term_map_cache($term_id = 0, $tt_id = null, $taxonomy = ''): void
 {
     if (is_string($taxonomy) && $taxonomy !== '') {
         delete_transient('entity_term_map_' . $taxonomy);
     }
 }
+
 add_action('created_term', 'clear_taxonomy_term_map_cache', 10, 3);
 add_action('edited_term', 'clear_taxonomy_term_map_cache', 10, 3);
-add_action('delete_term', function ($term_id, $tt_id, $taxonomy) {
-    clear_taxonomy_term_map_cache($term_id, $tt_id, $taxonomy);
-}, 10, 3);
+add_action(
+    'delete_term',
+    static function ($term_id, $tt_id, $taxonomy) {
+        clear_taxonomy_term_map_cache($term_id, $tt_id, $taxonomy);
+    },
+    10,
+    3
+);
+
+/**
+ * Counts change when posts are tagged — bust the browse map.
+ */
+add_action(
+    'set_object_terms',
+    static function ($object_id, $terms, $tt_ids, $taxonomy): void {
+        if (!is_string($taxonomy) || $taxonomy === '') {
+            return;
+        }
+        if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
+            return;
+        }
+        delete_transient('entity_term_map_' . $taxonomy);
+    },
+    10,
+    4
+);
+
+add_action(
+    'deleted_term_relationships',
+    static function ($object_id, $tt_ids, $taxonomy): void {
+        if (!is_string($taxonomy) || $taxonomy === '') {
+            return;
+        }
+        if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
+            return;
+        }
+        delete_transient('entity_term_map_' . $taxonomy);
+    },
+    10,
+    3
+);
 
 function taxonomy_term_has_children(int $term_id, array $map): bool
 {
@@ -113,7 +153,6 @@ function get_entity_leaf_counts(string $taxonomy, ?WP_Term $department = null): 
 
 /**
  * Category nodes (have children) at a given parent.
- * parent_id = 0 → main categories. Zero counts kept.
  *
  * @return array<int, array{id:int,name:string,slug:string,count:int}>
  */
@@ -261,18 +300,29 @@ function get_hierarchical_entity_tax_clause(string $taxonomy, string $slug): ?ar
 // ---------------------------------------------------------------------------
 // REST
 // ---------------------------------------------------------------------------
-add_action('rest_api_init', function () {
-    register_rest_route('hello/v1', '/entity-nav', [
-        'methods' => 'GET',
-        'permission_callback' => '__return_true',
-        'callback' => 'rest_entity_nav',
-    ]);
-    register_rest_route('hello/v1', '/entity-search', [
-        'methods' => 'GET',
-        'permission_callback' => '__return_true',
-        'callback' => 'rest_entity_search',
-    ]);
-});
+add_action(
+    'rest_api_init',
+    static function () {
+        register_rest_route(
+            'hello/v1',
+            '/entity-nav',
+            [
+                'methods' => 'GET',
+                'permission_callback' => '__return_true',
+                'callback' => 'rest_entity_nav',
+            ]
+        );
+        register_rest_route(
+            'hello/v1',
+            '/entity-search',
+            [
+                'methods' => 'GET',
+                'permission_callback' => '__return_true',
+                'callback' => 'rest_entity_search',
+            ]
+        );
+    }
+);
 
 function rest_entity_nav(WP_REST_Request $request)
 {
@@ -344,8 +394,6 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
             ? (int) ($leaf_counts[$id] ?? 0)
             : (int) ($rolled[$id] ?? 0);
 
-        // Keep empty entities (count 0).
-
         $link = get_term_link($id, $taxonomy);
         if (is_wp_error($link)) {
             $link = '';
@@ -378,7 +426,6 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
         }
     }
 
-    // Only drop category nodes that have no children at all (structure), not for empty counts.
     $prune = static function (array &$list) use (&$prune): void {
         foreach ($list as $id => &$n) {
             if (!empty($n['children'])) {
@@ -394,4 +441,3 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
 
     return $tree;
 }
-
