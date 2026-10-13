@@ -1,8 +1,8 @@
 <?php
 /**
  * Hierarchical entity taxonomies: government_entity, private_entity.
+ * All terms are always listed (including count 0), home and departments.
  */
-
 function get_entity_taxonomies(): array
 {
     return ['government_entity', 'private_entity'];
@@ -92,7 +92,7 @@ function rollup_term_counts(array $leaf_counts, string $taxonomy): array
 }
 
 /**
- * Leaf counts for department intersection, or native counts on home.
+ * Counts for every term (0 allowed). Department ignored for visibility.
  *
  * @return array<int, int>
  */
@@ -103,26 +103,16 @@ function get_entity_leaf_counts(string $taxonomy, ?WP_Term $department = null): 
         return [];
     }
 
-    if ($department instanceof WP_Term) {
-        $leaf_counts = [];
-        foreach (get_department_intersected_terms((int) $department->term_id, $taxonomy) as $row) {
-            $leaf_counts[(int) $row['term']->term_id] = (int) $row['count'];
-        }
-        return $leaf_counts;
-    }
-
     $leaf_counts = [];
     foreach ($map as $id => $row) {
-        if ($row['count'] > 0) {
-            $leaf_counts[$id] = $row['count'];
-        }
+        $leaf_counts[$id] = (int) $row['count'];
     }
     return $leaf_counts;
 }
 
 /**
- * Category nodes (have children) at a given parent, with rolled counts.
- * parent_id = 0 → main categories.
+ * Category nodes (have children) at a given parent.
+ * parent_id = 0 → main categories. Zero counts kept.
  *
  * @return array<int, array{id:int,name:string,slug:string,count:int}>
  */
@@ -134,9 +124,6 @@ function get_entity_category_nav(string $taxonomy, int $parent_id = 0, ?WP_Term 
     }
 
     $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
-    if (empty($leaf_counts)) {
-        return [];
-    }
     $rolled = rollup_term_counts($leaf_counts, $taxonomy);
     $items = [];
 
@@ -147,15 +134,11 @@ function get_entity_category_nav(string $taxonomy, int $parent_id = 0, ?WP_Term 
         if (!taxonomy_term_has_children($id, $map)) {
             continue;
         }
-        $count = (int) ($rolled[$id] ?? 0);
-        if ($count < 1) {
-            continue;
-        }
         $items[] = [
             'id' => $id,
             'name' => $row['name'],
             'slug' => $row['slug'],
-            'count' => $count,
+            'count' => (int) ($rolled[$id] ?? 0),
         ];
     }
 
@@ -164,7 +147,7 @@ function get_entity_category_nav(string $taxonomy, int $parent_id = 0, ?WP_Term 
 }
 
 /**
- * Entity leaves under a parent (subcategory), optional search.
+ * Entity leaves under a parent. Includes count 0.
  *
  * @return array<int, array{id:int,name:string,slug:string,count:int,link:string}>
  */
@@ -183,21 +166,21 @@ function get_entity_leaves_under(string $taxonomy, int $parent_id, string $searc
         if ((int) $row['parent'] !== $parent_id) {
             continue;
         }
-        // leaf only
         if (taxonomy_term_has_children($id, $map)) {
             continue;
         }
+
         $count = (int) ($leaf_counts[$id] ?? $row['count']);
-        if ($department instanceof WP_Term && $count < 1) {
-            continue;
-        }
+
         if ($q !== '' && mb_strpos(mb_strtolower($row['name']), $q) === false) {
             continue;
         }
+
         $link = get_term_link($id, $taxonomy);
         if (is_wp_error($link)) {
             continue;
         }
+
         $items[] = [
             'id' => $id,
             'name' => $row['name'],
@@ -215,7 +198,7 @@ function get_entity_leaves_under(string $taxonomy, int $parent_id, string $searc
 }
 
 /**
- * Global entity search (leaves only).
+ * Global entity search (leaves only). Includes count 0.
  *
  * @return array<int, array{id:int,name:string,slug:string,count:int,link:string}>
  */
@@ -232,19 +215,18 @@ function search_entity_leaves(string $taxonomy, string $search, ?WP_Term $depart
 
     foreach ($map as $id => $row) {
         if (taxonomy_term_has_children($id, $map)) {
-            continue; // entities only
+            continue;
         }
         if (mb_strpos(mb_strtolower($row['name']), $q) === false) {
             continue;
         }
+
         $count = (int) ($leaf_counts[$id] ?? $row['count']);
-        if ($department instanceof WP_Term && $count < 1) {
-            continue;
-        }
         $link = get_term_link($id, $taxonomy);
         if (is_wp_error($link)) {
             continue;
         }
+
         $items[] = [
             'id' => $id,
             'name' => $row['name'],
@@ -296,7 +278,7 @@ function rest_entity_nav(WP_REST_Request $request)
     $taxonomy = sanitize_key((string) $request->get_param('taxonomy'));
     $parent = (int) $request->get_param('parent');
     $dept_id = (int) $request->get_param('department');
-    $mode = sanitize_key((string) $request->get_param('mode')); // categories | entities
+    $mode = sanitize_key((string) $request->get_param('mode'));
 
     if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
         return new WP_Error('invalid_tax', 'Invalid taxonomy', ['status' => 400]);
@@ -309,10 +291,14 @@ function rest_entity_nav(WP_REST_Request $request)
 
     if ($mode === 'entities') {
         $q = sanitize_text_field((string) $request->get_param('q'));
-        return rest_ensure_response(get_entity_leaves_under($taxonomy, $parent, $q, $department instanceof WP_Term ? $department : null));
+        return rest_ensure_response(
+            get_entity_leaves_under($taxonomy, $parent, $q, $department instanceof WP_Term ? $department : null)
+        );
     }
 
-    return rest_ensure_response(get_entity_category_nav($taxonomy, $parent, $department instanceof WP_Term ? $department : null));
+    return rest_ensure_response(
+        get_entity_category_nav($taxonomy, $parent, $department instanceof WP_Term ? $department : null)
+    );
 }
 
 function rest_entity_search(WP_REST_Request $request)
@@ -335,10 +321,8 @@ function rest_entity_search(WP_REST_Request $request)
     );
 }
 
-
 /**
- * Browse tree: Main → Sub → Entity leaves (with content).
- * No click-through; for rendering the full organized UI.
+ * Browse tree: Main → Sub → Entity leaves (all terms, including empty).
  *
  * @return array<int, array{id:int,name:string,slug:string,count:int,link:string,children:array}>
  */
@@ -352,7 +336,6 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
     $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
     $rolled = rollup_term_counts($leaf_counts, $taxonomy);
 
-    // Build nodes
     $nodes = [];
     foreach ($map as $id => $row) {
         $is_leaf = !taxonomy_term_has_children($id, $map);
@@ -360,9 +343,7 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
             ? (int) ($leaf_counts[$id] ?? 0)
             : (int) ($rolled[$id] ?? 0);
 
-        if ($is_leaf && $count < 1) {
-            continue; // skip empty entities
-        }
+        // Keep empty entities (count 0).
 
         $link = get_term_link($id, $taxonomy);
         if (is_wp_error($link)) {
@@ -381,7 +362,6 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
         ];
     }
 
-    // Attach children
     foreach ($nodes as $id => &$node) {
         $pid = $node['parent'];
         if ($pid > 0 && isset($nodes[$pid])) {
@@ -390,7 +370,6 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
     }
     unset($node);
 
-    // Roots (parent = 0)
     $tree = [];
     foreach ($nodes as $id => $node) {
         if ((int) $node['parent'] === 0 && !$node['is_leaf']) {
@@ -398,7 +377,7 @@ function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): 
         }
     }
 
-    // Drop category nodes with no nested entities left
+    // Only drop category nodes that have no children at all (structure), not for empty counts.
     $prune = static function (array &$list) use (&$prune): void {
         foreach ($list as $id => &$n) {
             if (!empty($n['children'])) {
