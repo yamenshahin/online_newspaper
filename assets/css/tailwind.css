@@ -2149,6 +2149,87 @@
 ::-webkit-scrollbar {
   display: none;
 }
+.site-header .custom-logo {
+  max-width: 180px;
+  height: auto;
+  object-fit: contain;
+  transition: all 0.3s ease;
+}
+@media (max-width: 768px) {
+  .site-header .custom-logo {
+    max-width: 130px;
+  }
+}
+.site-header {
+  display: flex;
+  align-items: center;
+  padding: 1rem 6vw;
+  background-color: transparent;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+}
+.site-header .site-branding {
+  display: flex;
+  align-items: center;
+  margin-inline-end: 3rem;
+}
+.site-header .site-branding img {
+  max-height: 120px;
+  width: auto;
+}
+.site-header .site-navigation {
+  flex-grow: 1;
+}
+.site-header .site-navigation ul {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.site-header .site-navigation a {
+  text-decoration: none;
+  color: var(--color-on-background, #1f2937);
+  font-weight: 700;
+  font-size: 1rem;
+  transition: color 0.2s ease-in-out;
+}
+.site-header .site-navigation a:hover {
+  color: var(--color-primary, #0055ff);
+}
+.elementor-element-341994f.bg-primary {
+  background-color: var(--color-primary) !important;
+}
+.elementor-element-183ccf0 .hfe-menu-item, .elementor-element-183ccf0 .hfe-nav-menu a {
+  font-family: "SF Pro AR Display", ui-sans-serif, system-ui, sans-serif !important;
+}
+#site-footer img {
+  padding: 20px;
+  max-width: 220px;
+  height: auto;
+}
+.plain-links-list {
+  display: flex !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  gap: 16px !important;
+  list-style: none !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.plain-links-list li {
+  display: inline-flex !important;
+  margin: 0 !important;
+}
+.plain-links-list li a {
+  text-decoration: none;
+  color: var(--color-on-primary, #fff);
+  transition: opacity 0.2s ease;
+}
+.plain-links-list li a:hover {
+  opacity: 0.8;
+}
 @property --tw-rotate-x {
   syntax: "*";
   inherits: false;

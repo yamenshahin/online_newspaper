@@ -23,31 +23,27 @@ require_once get_stylesheet_directory() . '/inc/cars.php';
 
 function hello_elementor_child_scripts_styles()
 {
-
 	$theme_dir = get_stylesheet_directory();
 	$theme_uri = get_stylesheet_directory_uri();
 
-	// Child theme CSS
-	$style_path = $theme_dir . '/style.css';
-
-	wp_enqueue_style(
-		'hello-elementor-child-style',
-		get_stylesheet_uri(),
-		[],
-		file_exists($style_path) ? filemtime($style_path) : null
-	);
-
-	// Tailwind CSS
-	$tailwind_path = $theme_dir . '/assets/css/tailwind.css';
-
-	if (file_exists($tailwind_path)) {
+	// Single merged, minified CSS file (Tailwind v4 + Font Awesome + Custom Styles)
+	$css_path = $theme_dir . '/assets/css/style.min.css';
+	if (file_exists($css_path)) {
 		wp_enqueue_style(
-			'hello-elementor-child-tailwind',
-			$theme_uri . '/assets/css/tailwind.css',
-			['hello-elementor-child-style'],
-			filemtime($tailwind_path)
+			'hello-elementor-child-main',
+			$theme_uri . '/assets/css/style.min.css',
+			[],
+			filemtime($css_path)
 		);
 	}
+
+	// Google Material Symbols
+	wp_enqueue_style(
+		'hello-elementor-child-icons',
+		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
+		[],
+		null
+	);
 
 	// Font Awesome
 	wp_enqueue_style(
@@ -94,11 +90,7 @@ function hello_elementor_child_scripts_styles()
 		);
 	}
 }
-add_action(
-	'wp_enqueue_scripts',
-	'hello_elementor_child_scripts_styles',
-	20
-);
+add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
 
 // ---------------------------------------------------------------------------
@@ -107,7 +99,6 @@ add_action(
 
 function hello_elementor_child_resource_hints($urls, $relation_type)
 {
-
 	if ('preconnect' === $relation_type) {
 		$urls[] = [
 			'href' => 'https://fonts.googleapis.com',
