@@ -20,8 +20,36 @@ require_once get_stylesheet_directory() . '/inc/cars.php';
 // ---------------------------------------------------------------------------
 // Assets
 // ---------------------------------------------------------------------------
+
 function hello_elementor_child_scripts_styles()
 {
+
+	$theme_dir = get_stylesheet_directory();
+	$theme_uri = get_stylesheet_directory_uri();
+
+	// Child theme CSS
+	$style_path = $theme_dir . '/style.css';
+
+	wp_enqueue_style(
+		'hello-elementor-child-style',
+		get_stylesheet_uri(),
+		[],
+		file_exists($style_path) ? filemtime($style_path) : null
+	);
+
+	// Tailwind CSS
+	$tailwind_path = $theme_dir . '/assets/css/tailwind.css';
+
+	if (file_exists($tailwind_path)) {
+		wp_enqueue_style(
+			'hello-elementor-child-tailwind',
+			$theme_uri . '/assets/css/tailwind.css',
+			['hello-elementor-child-style'],
+			filemtime($tailwind_path)
+		);
+	}
+
+	// Font Awesome
 	wp_enqueue_style(
 		'font-awesome-cdn',
 		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
@@ -29,51 +57,26 @@ function hello_elementor_child_scripts_styles()
 		'6.5.1'
 	);
 
-	wp_enqueue_style(
-		'hello-elementor-child-fonts',
-		'https://fonts.googleapis.com/css2?family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Syne:wght@600;700;800&display=swap',
-		[],
-		null
-	);
+	// Filters JS
+	$filters_path = $theme_dir . '/assets/js/filters.js';
 
-	wp_enqueue_style(
-		'hello-elementor-child-icons',
-		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
-		[],
-		null
-	);
-
-	wp_enqueue_style(
-		'hello-elementor-child-style',
-		get_stylesheet_uri(),
-		['font-awesome-cdn', 'hello-elementor-child-fonts'],
-		filemtime(get_stylesheet_directory() . '/style.css')
-	);
-
-	wp_enqueue_style(
-		'hello-elementor-child-tailwind',
-		get_stylesheet_directory_uri() . '/assets/css/tailwind.css',
-		['hello-elementor-child-style'],
-		filemtime(get_stylesheet_directory() . '/assets/css/tailwind.css')
-	);
-
-	// Filters JS (entity browse + cars AJAX)
-	$filters_js_path = '/assets/js/filters.js';
-	if (file_exists(get_stylesheet_directory() . $filters_js_path)) {
+	if (file_exists($filters_path)) {
 		wp_enqueue_script(
 			'hello-elementor-child-filters',
-			get_stylesheet_directory_uri() . $filters_js_path,
+			$theme_uri . '/assets/js/filters.js',
 			[],
-			filemtime(get_stylesheet_directory() . $filters_js_path),
+			filemtime($filters_path),
 			true
 		);
 
-		// Existing entity search
+		// Entity search
 		wp_localize_script(
 			'hello-elementor-child-filters',
 			'helloEntityNav',
 			[
-				'searchUrl' => esc_url_raw(rest_url('hello/v1/entity-search')),
+				'searchUrl' => esc_url_raw(
+					rest_url('hello/v1/entity-search')
+				),
 			]
 		);
 
@@ -84,12 +87,52 @@ function hello_elementor_child_scripts_styles()
 			[
 				'ajaxUrl' => admin_url('admin-ajax.php'),
 				'nonce' => wp_create_nonce('cars_filter_nonce'),
-				'baseUrl' => esc_url_raw(get_cars_filter_base_url()), // ← add this
+				'baseUrl' => esc_url_raw(
+					get_cars_filter_base_url()
+				),
 			]
 		);
 	}
 }
-add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
+add_action(
+	'wp_enqueue_scripts',
+	'hello_elementor_child_scripts_styles',
+	20
+);
+
+
+// ---------------------------------------------------------------------------
+// External connection hints
+// ---------------------------------------------------------------------------
+
+function hello_elementor_child_resource_hints($urls, $relation_type)
+{
+
+	if ('preconnect' === $relation_type) {
+		$urls[] = [
+			'href' => 'https://fonts.googleapis.com',
+			'crossorigin' => false,
+		];
+
+		$urls[] = [
+			'href' => 'https://fonts.gstatic.com',
+			'crossorigin' => 'anonymous',
+		];
+
+		$urls[] = [
+			'href' => 'https://cdnjs.cloudflare.com',
+			'crossorigin' => false,
+		];
+	}
+
+	return $urls;
+}
+add_filter(
+	'wp_resource_hints',
+	'hello_elementor_child_resource_hints',
+	10,
+	2
+);
 
 // ---------------------------------------------------------------------------
 // Query vars
