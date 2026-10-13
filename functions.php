@@ -125,6 +125,22 @@ add_filter(
 	2
 );
 
+// Completely disable Elementor from printing its default Google Fonts (Roboto / Roboto Slab)
+add_filter('elementor/frontend/print_google_fonts', '__return_false');
+
+// Fallback to ensure any manually registered Google Font handles are removed
+function dequeue_roboto_fonts()
+{
+	wp_dequeue_style('google-fonts-roboto');
+	wp_deregister_style('google-fonts-roboto');
+	wp_dequeue_style('roboto');
+	wp_deregister_style('roboto');
+}
+add_action('wp_enqueue_scripts', 'dequeue_roboto_fonts', 999);
+
+
+
+
 // ---------------------------------------------------------------------------
 // Query vars
 // ---------------------------------------------------------------------------
