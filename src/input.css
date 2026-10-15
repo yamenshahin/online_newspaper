@@ -212,6 +212,7 @@
 
 /* Add your custom styles here */
 
+/** Header CSS **/
 .site-header {
     display: flex;
     flex-wrap: wrap;
@@ -747,4 +748,15 @@ footer .site-navigation ul.menu a {
 
 .plain-links-list li a:hover {
     opacity: 0.8;
+}
+
+/* Responsive YouTube embeds */
+article iframe[src*="youtube.com/embed"],
+article iframe[src*="youtube-nocookie.com/embed"] {
+    display: block;
+    width: 100%;
+    max-width: 100%;
+    aspect-ratio: 16 / 9;
+    height: auto;
+    border: 0;
 }

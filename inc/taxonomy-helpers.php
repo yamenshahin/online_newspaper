@@ -450,6 +450,7 @@ function get_term_archive_skip_layouts(): array
 {
     return [
         'hero_lead_section',
+        'speakers_section',
     ];
 }
 

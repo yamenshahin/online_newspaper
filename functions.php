@@ -138,8 +138,37 @@ function dequeue_roboto_fonts()
 }
 add_action('wp_enqueue_scripts', 'dequeue_roboto_fonts', 999);
 
+// Remove Block Library RTL styles
+// Completely force-remove all block styles (including RTL and global inline styles)
+add_action('wp_enqueue_scripts', function () {
+	// 1. Dequeue the primary block library sheet
+	wp_dequeue_style('wp-block-library');
+	wp_dequeue_style('wp-block-library-rtl');
+
+	// 2. Deregister it completely so dependencies can't pull it back in
+	wp_deregister_style('wp-block-library');
+	wp_deregister_style('wp-block-library-rtl');
+
+	// 3. Remove Gutenberg core theme styles if present
+	wp_dequeue_style('wp-block-library-theme');
+
+	// 4. Remove modern WordPress inline global styles and classic themes fallback
+	wp_dequeue_style('global-styles');
+	wp_dequeue_style('classic-theme-styles');
+	wp_dequeue_style('core-block-supports');
+}, 999); // Priority 999 ensures this fires dead last, overwriting WordPress defaults
 
 
+// Remove Elementor Post styles for footer and default kit
+function remove_elementor_post_stylesheet()
+{
+	wp_dequeue_style('elementor-post-173742');
+	wp_deregister_style('elementor-post-173742');
+
+	wp_dequeue_style('elementor-post-16');
+	wp_deregister_style('elementor-post-16');
+}
+add_action('wp_enqueue_scripts', 'remove_elementor_post_stylesheet', 100);
 
 // ---------------------------------------------------------------------------
 // Query vars
