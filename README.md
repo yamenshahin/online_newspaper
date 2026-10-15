@@ -1,74 +1,130 @@
-# Sharaka Online Newspaper
+# Sharaka Online Newspaper — Hello Elementor Child Theme
 
 [![WordPress](https://img.shields.io/badge/WordPress-1172B7?style=flat-square&logo=wordpress&logoColor=white)](https://wordpress.org/)
 [![PHP](https://img.shields.io/badge/PHP-777BB4?style=flat-square&logo=php&logoColor=white)](https://www.php.net/)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS_v4-38B2AC?style=flat-square&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![Elementor](https://img.shields.io/badge/Elementor-92003B?style=flat-square&logo=elementor&logoColor=white)](https://elementor.com/)
 [![ACF Pro](https://img.shields.io/badge/ACF_Pro-00E6A1?style=flat-square&logo=wordpress&logoColor=black)](https://www.advancedcustomfields.com/)
-[![MySQL](https://img.shields.io/badge/MySQL-4479A1?style=flat-square&logo=mysql&logoColor=white)](https://www.mysql.com/)
 [![Node.js](https://img.shields.io/badge/Node.js-339933?style=flat-square&logo=nodedotjs&logoColor=white)](https://nodejs.org/)
 [![WP-CLI](https://img.shields.io/badge/WP_CLI-000000?style=flat-square&logo=wordpress&logoColor=white)](https://wp-cli.org/)
 
-Child theme developed for Sharaka Online Newspaper on top of the `hello-elementor` base theme. The codebase provides a flexible layout engine driven by Advanced Custom Fields (ACF), custom multi-media post types, taxonomy systems, and dynamic RTL styling.
+An Arabic (RTL) news theme for Sharaka Online Newspaper, built as a child of `hello-elementor`. Each page is assembled from ACF Flexible Content sections. Departments brand their own pages with a logo, color and footer. The theme also includes directories for public entities, speakers, events and cars.
 
 ---
 
-## Technical Stack
+## Requirements
 
-| Component            | Technology                                                     |
-| :------------------- | :------------------------------------------------------------- |
-| **Core CMS**         | WordPress Core, Hello Elementor Parent Theme                   |
-| **Backend**          | PHP 8.x, Advanced Custom Fields Pro, WP-CLI                    |
-| **Frontend Styling** | Tailwind CSS, PostCSS, Custom Utility Engine (`src/input.css`) |
-| **Typography**       | Noto Naskh Arabic, SF Pro AR Display                           |
-| **Page Building**    | Elementor Integration, Native PHP Shortcodes                   |
+| Dependency           | Notes                                                                                   |
+| :------------------- | :-------------------------------------------------------------------------------------- |
+| WordPress + PHP 8.x  | Code uses typed signatures and nullable return types.                                   |
+| Hello Elementor      | Parent theme (`Template: hello-elementor`).                                             |
+| Elementor            | Used for header/footer; the theme exposes shortcodes for those templates.               |
+| ACF Pro              | **Required.** Post types, taxonomies and field groups are all defined in `acf-json/`.   |
+| Node.js              | Only needed to rebuild CSS (Tailwind CSS v4 via `@tailwindcss/cli`).                    |
+| WP-CLI (optional)    | For flushing rewrites/cache after deploys.                                              |
 
----
-
-## Custom Post Types
-
-- **Podcasts (`podcasts`)**: Single episode rendering and card components (`single-podcast.php`, `card-podcast.php`).
-- **Reels (`reels`)**: Vertical short-form media templates (`single-reel.php`, `card-reel.php`).
-- **Videos (`videos`)**: Video archiving and dedicated section templates (`videos_section.php`, `card-video.php`).
-- **Programs (`programs`)**: Show listing, series tracking, and episode structure (`program_series_section.php`, `card-program.php`).
-- **Infographics (`infographics`)**: Visual content cards with dynamic aspect ratio handling (`infographics_section.php`, `card-infographic.php`).
-- **Interviews (`interviews`)**: Editorial profile and Q&A layouts (`interviews_section.php`, `card-interview.php`).
-- **Standard Articles (`posts`)**: Main editorial content supporting hero lead, featured, and trending layouts.
+> Custom post types and taxonomies are **not** registered in PHP. ACF Pro loads them from `acf-json/`. If ACF is inactive, these post types and taxonomies are not registered and their templates have nothing to show.
 
 ---
 
-## Taxonomy System
+## Content Model
 
-- **Departments (`department`)**: Contextual department engine handling theme color injection, custom icons, dynamic footers, and isolated CPT views.
-- **Geographic (`geographic`)**: Hierarchical grouping for regions, countries, and cities.
-- **Government Entities (`government_entity`)**: Profiles and sector-specific metadata repeaters.
-- **Private Entities (`private_entity`)**: Corporate entity archives and metadata cards.
-- **Speakers & Influencers (`speaker_influencer`)**: Public figure profiles and commentary archives.
-- **Editors (`editors`)**: Custom taxonomy managing multi-editor publication attribution.
-- **Program Series (`program_series`)**: Term mapping for grouping episodic content across post types.
+### Post types
+
+| Slug          | Label        | Permalink               | Notes                                                    |
+| :------------ | :----------- | :---------------------- | :------------------------------------------------------- |
+| `post`        | Articles     | `/news/{id}/`           | Hero lead, featured and trending layouts.                |
+| `program`     | Programs     | `/program/{id}/`        | Grouped by `program_series`.                             |
+| `infographic` | Infographics | `/infographic/{id}/`    |                                                          |
+| `interview`   | Interviews   | `/interview/{id}/`      |                                                          |
+| `video`       | Videos       | `/video/{id}/`          |                                                          |
+| `podcast`     | Podcasts     | `/podcast/{id}/`        | `podcast_reels` relationship → reels.                    |
+| `reel`        | Reels        | `/reel/{id}/`           | `parent_podcast` relationship → podcast.                 |
+| `car`         | Cars         | `/car-directory/…`      | Spec fields (power, torque, price in SAR, …) + filters.  |
+
+ID-based permalinks are registered in `functions.php` (rewrite rules + `post_link` / `post_type_link` filters).
+
+### Taxonomies
+
+| Slug                 | Applies to             | Purpose                                                                  |
+| :------------------- | :--------------------- | :----------------------------------------------------------------------- |
+| `department`         | All content types      | Sections of the paper; each has its own logo, color, icon, footer and layout. |
+| `geographic`         | All content types      | Regions → countries → cities.                                            |
+| `government_entity`  | All content types      | Government bodies (profile, socials, extra info).                       |
+| `private_entity`     | All content types      | Private sector companies.                                               |
+| `speaker_influencer` | All content types      | Public figures.                                                         |
+| `event`              | All content types      | Events with organizer and location groups.                              |
+| `post_editor`        | All content types      | Editor attribution.                                                     |
+| `program_series`     | `program`              | Groups programs into series.                                            |
+| `car_maker`, `car_model`, `car_year`, `car_origin`, `car_body_type`, `car_fuel_type` | `car` | Car directory facets. |
+
+The built-in `category` and `post_tag` are unregistered for every post type.
 
 ---
 
-## Core System Architecture
+## How Pages Are Built
 
-### ACF Flexible Content Layout Engine
+### Layout Engine (ACF Flexible Content)
 
-Sections are modularly rendered across front page (`front-page.php`) and department (`taxonomy-department.php`) views:
+The `department_sections` field ("Department Layout Engine") is attached to **the front page** and to **every department term**. Each row renders `template-parts/sections/{layout}.php`:
 
-- **Hero Lead Section**: Editorial split view for top stories, breaking badges, and trending queues.
-- **Ad Banner & Code Sections**: Ad handling supporting both raw code insertion and responsive image banners.
-- **Media Sections**: Grid views supporting up to 4 columns on desktop viewports for Podcasts, Reels, Videos, Infographics, and Program Series.
-- **Social Section**: Department-specific follower counts, descriptions, and social media links.
+`hero_lead_section` · `posts_section` · `programs_section` · `program_series_section` · `infographics_section` · `interviews_section` · `videos_section` · `podcasts_section` · `speakers_section` · `geographic_section` · `filter_section` · `cars_section` · `social_section` · `ad_banner_section` · `ad_code_section`
 
-### Dynamic Label Resolution
+- `social_section` is hidden in the editor when you edit a regular page.
+- Section titles and subtitles defined on the homepage are reused as labels across the site (`get_dynamic_cpt_labels()`, `get_dynamic_taxonomy_labels()`), so UI strings aren't hardcoded.
 
-- Taxonomy labels are retrieved dynamically from homepage ACF configurations to eliminate hardcoded UI strings.
-- Centralized Arabic post-type mapping array provides translated UI badges across loop cards and archive templates.
+### Templates
 
-### Contextual Department Theming
+| Template                         | Behavior                                                                                         |
+| :------------------------------- | :----------------------------------------------------------------------------------------------- |
+| `front-page.php`                 | Renders the homepage Layout Engine.                                                              |
+| `taxonomy-department.php`        | Renders the department's Layout Engine. `?view={post_type}` switches to one post type, paginated. Taxonomy query args (`?geographic=…`) filter the sections. |
+| `taxonomy-{entity}.php`          | `geographic`, `government_entity`, `private_entity`, `speaker_influencer`, `event`: a profile header followed by the **homepage** Layout Engine, filtered to that term. Layouts in `get_term_archive_skip_layouts()` are skipped. |
+| `single.php`, `single-podcast.php`, `single-reel.php`, `single-car.php` | Single views.                                          |
+| `archive-car.php`                | Cars directory (wraps `cars_section`).                                                           |
 
-- Theme colors are injected programmatically via `inc/department-context.php` to customize border accents and primary UI colors per department.
-- Elementor shortcode integration via `[department_footer]`.
+### Department context & branding (`inc/department-context.php`)
+
+`get_context_department()` works out which department the current request belongs to: the department archive, the first department of a single post, or the `cars` department on car screens. The site then uses that department for:
+
+- the **custom logo** (`theme_mod_custom_logo` filter),
+- the **theme color**, injected as CSS variables in `wp_head`,
+- the **footer**, via shortcodes.
+
+If a department leaves a field empty, `get_department_field_with_fallback()` uses the value from the fallback department instead.
+
+### Entity browsing (`inc/taxonomy-helpers.php`)
+
+Tabbed, searchable browsers for hierarchical entity taxonomies (`template-parts/entities/entity-browse-section.php`). Term trees are cached and the cache is cleared whenever a term changes. Post counts from child terms are added up into their parents.
+
+### Cars directory (`inc/cars.php`)
+
+- Taxonomy facets, numeric range filters (`price`, `power`, `torque`, `engine`, `seats`), exact-match text filters (`transmission`, `drive`), plus a text search.
+- Filters live in the URL as GET parameters. `assets/js/filters.js` updates the results over AJAX, without a full page reload.
+- The `cars` department term (slug `cars`) supplies the logo and accent color for all car screens.
+
+---
+
+## Shortcodes
+
+| Shortcode                         | Use                                                          |
+| :-------------------------------- | :----------------------------------------------------------- |
+| `[department_footer_branding]`    | Footer logo + label for the current department.             |
+| `[department_footer_social]`      | Social links for the current department.                    |
+| `[plain_menu name="…"]` / `[plain_menu location="…"]` | Flat, single-level menu links (optional `class`). |
+
+---
+
+## Endpoints
+
+| Endpoint                                         | Method | Purpose                                     |
+| :----------------------------------------------- | :----- | :------------------------------------------ |
+| `/wp-json/hello/v1/entity-nav`                   | GET    | Child nodes for the entity browser.         |
+| `/wp-json/hello/v1/entity-search`                | GET    | Entity search (used by `filters.js`).       |
+| `/wp-json/newspapersite/v1/track-view/{id}`      | POST   | Page-cache-safe view counter (`post_views_count` meta). |
+| `admin-ajax.php?action=cars_filter`              | POST   | Car results + filter chips HTML (nonce-protected). |
+
+View counts are shown in a read-only meta box and a sortable **Views** column in the admin.
 
 ---
 
@@ -76,92 +132,82 @@ Sections are modularly rendered across front page (`front-page.php`) and departm
 
 ```text
 hello-elementor-child/
-├── acf-json/                     # Synced ACF field group JSON files
+├── acf-json/                  # ACF Local JSON: post types, taxonomies, field groups (source of truth)
 ├── assets/
-│   ├── css/                      # Compiled CSS files (tailwind.css)
-│   ├── fonts/                    # Font assets (SFProARDisplay, Noto Naskh)
-│   ├── images/                   # Fallback assets and images
-│   └── js/                       # Theme JavaScript scripts
+│   ├── css/style.min.css      # Compiled Tailwind output (committed, enqueued)
+│   ├── fonts/                 # SF Pro AR Display (woff/woff2)
+│   ├── images/                # Fallback images and icons
+│   └── js/filters.js          # Show-more, entity tabs/search, cars AJAX filters
 ├── inc/
-│   ├── shortcodes/               # Shortcode registration (department-footer.php)
-│   └── department-context.php    # Department theme color handling
-├── src/
-│   └── input.css                 # Primary Tailwind input file and root variables
+│   ├── cars.php               # Cars directory: filter state, queries, facet counts, URLs
+│   ├── department-context.php # Current department + field fallback + theme color
+│   ├── taxonomy-helpers.php   # Entity trees, caching, REST routes, term-archive skip list
+│   └── shortcodes/
+│       └── department-footer.php
+├── src/input.css              # Tailwind v4 entry (@theme tokens, fonts, custom CSS)
 ├── template-parts/
-│   ├── archive/                  # Shared archive header and loop templates
-│   ├── cards/                    # Modular card component files
-│   ├── profiles/                 # Taxonomy profile templates
-│   └── sections/                 # Flexible content section modules
-├── taxonomy-department.php       # Department archive engine
-├── taxonomy-geographic.php       # Geographic archive template
-├── taxonomy-government_entity.php# Government entity template
-├── taxonomy-private_entity.php   # Private sector entity template
-├── taxonomy-speaker_influencer.php# Speaker archive template
-├── single-podcast.php            # Single Podcast entry point
-├── single-reel.php               # Single Reel entry point
-├── single.php                    # Universal single template for custom post types
-├── functions.php                 # Core theme hooks, taxonomy, and CPT definitions
-├── package.json                  # NPM build scripts and dependencies
-└── style.css                     # Theme header file
+│   ├── archive/               # Shared CPT loop
+│   ├── cards/                 # One card per content type
+│   ├── cars/                  # Filter chips, taxonomy selects, "more" filters, results
+│   ├── entities/              # Entity browse section
+│   ├── profiles/              # Term profile headers, organizer, department nav
+│   ├── sections/              # Layout Engine sections (one file per layout)
+│   └── department-single-cpt.php
+├── front-page.php
+├── taxonomy-*.php
+├── single*.php / archive*.php
+├── functions.php              # Assets, permalinks, admin UI, labels, views, AJAX
+└── style.css                  # Theme header only
 ```
 
-## Development Setup & CSS Compilation
+`html/` (design references) and `commits.txt` are git-ignored local files.
 
-### 1. Installation
+---
 
-Clone the repository into the WordPress child themes directory:
+## Development
+
+### Setup
 
 ```bash
 cd wp-content/themes/
 git clone <repository-url> hello-elementor-child
 cd hello-elementor-child
 npm install
-
 ```
 
-### 2. Compiling Tailwind CSS
+Activate **Hello Elementor** (parent) and this child theme, and make sure **ACF Pro** is active. ACF loads the post types, taxonomies and field groups from `acf-json/` automatically. To copy them into the database or edit them, use **ACF → Field Groups → Sync available**.
 
-The source styles are defined in `src/input.css` and compiled into `assets/css/tailwind.css`.
+### Building CSS
 
-- **Watch Mode (Development)**
-  To monitor source files and recompile CSS automatically during development:
+`src/input.css` compiles to `assets/css/style.min.css`, which is the only stylesheet the theme enqueues. Tailwind scans every `.php` file in the theme for class names. `package.json` has no npm scripts yet, so run the CLI directly:
 
 ```bash
-npm run watch
+# Development (watch)
+npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.min.css --watch
 
+# Production
+npx @tailwindcss/cli -i ./src/input.css -o ./assets/css/style.min.css --minify
 ```
 
-_Alternative CLI command:_
+Commit the rebuilt `style.min.css`. The enqueue uses `filemtime()` for its version string, so browsers fetch the new file without manual cache busting.
 
-```bash
-npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --watch
+### After deploying
 
-```
-
-- **Production Build (Minified)**
-  To generate the optimized and minified stylesheet for deployment:
-
-```bash
-npm run build
-
-```
-
-_Alternative CLI command:_
-
-```bash
-npx tailwindcss -i ./src/input.css -o ./assets/css/tailwind.css --minify
-
-```
-
-### 3. Deployment Post-Steps
-
-After making changes to taxonomies, post types, or stylesheets, clear system caches and flush rewrite rules:
+Flush rewrites after changing post types, taxonomies or permalink rules, then clear caches:
 
 ```bash
 wp rewrite flush
 wp cache flush
-
 ```
+
+---
+
+## Gotchas
+
+- **Hardcoded Elementor post IDs.** `remove_elementor_post_stylesheet()` dequeues `elementor-post-173742` and `elementor-post-16`, which are specific to this site. Update both IDs if the footer template or default kit changes.
+- **Performance tweaks.** The theme dequeues the block library, global styles and Elementor's Google Fonts (Roboto). Font Awesome 6.5.1 and Material Symbols load from CDNs, and their hosts get preconnect hints.
+- **Rank Math's virtual `robots.txt` is turned off**, so serve a physical `robots.txt` instead.
+- **Cars branding** requires a `department` term with the slug `cars`.
 
 ---
 
