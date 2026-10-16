@@ -787,13 +787,24 @@ footer .site-navigation ul.menu a {
     opacity: 0.8;
 }
 
-/* Responsive YouTube embeds */
+/*
+ * Responsive YouTube embeds. The lazy-loader (EWWW) moves the URL into
+ * data-src until the video nears the viewport, so match both attributes;
+ * otherwise the iframe keeps its 800x450 width/height until then.
+ */
 article iframe[src*="youtube.com/embed"],
-article iframe[src*="youtube-nocookie.com/embed"] {
+article iframe[data-src*="youtube.com/embed"],
+article iframe[src*="youtube-nocookie.com/embed"],
+article iframe[data-src*="youtube-nocookie.com/embed"] {
     display: block;
     width: 100%;
     max-width: 100%;
     aspect-ratio: 16 / 9;
     height: auto;
     border: 0;
+}
+
+/* Any other embed: never wider than the content column. */
+article iframe {
+    max-width: 100%;
 }
