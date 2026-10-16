@@ -135,7 +135,8 @@ hello-elementor-child/
 ├── acf-json/                  # ACF Local JSON: post types, taxonomies, field groups (source of truth)
 ├── assets/
 │   ├── css/style.min.css      # Compiled Tailwind output (committed, enqueued)
-│   ├── fonts/                 # SF Pro AR Display (woff/woff2)
+│   ├── fonts/                 # SF Pro AR Display + Material Symbols subset (woff2)
+│   ├── webfonts/              # Font Awesome solid + brands (woff2)
 │   ├── images/                # Fallback images and icons
 │   └── js/filters.js          # Show-more, entity tabs/search, cars AJAX filters
 ├── inc/
@@ -205,7 +206,9 @@ wp cache flush
 ## Gotchas
 
 - **Hardcoded Elementor post IDs.** `remove_elementor_post_stylesheet()` dequeues `elementor-post-173742` and `elementor-post-16`, which are specific to this site. Update both IDs if the footer template or default kit changes.
-- **Performance tweaks.** The theme dequeues the block library, global styles and Elementor's Google Fonts (Roboto). Font Awesome 6.5.1 and Material Symbols load from CDNs, and their hosts get preconnect hints.
+- **Performance tweaks.** The theme dequeues the block library, global styles and Elementor's Google Fonts (Roboto). Icons are self-hosted and compiled into `style.min.css`. Font Awesome 6.5.1 comes from the npm package and includes only the solid and brands sets. Material Symbols is preloaded.
+- **Material Symbols is a subset.** `assets/fonts/material-symbols-outlined.woff2` contains only the icons the theme uses: close, corporate_fare, expand_more, graphic_eq, movie, person, play_arrow, podcasts, search, search_off, share, timer, tv, videocam. A new icon renders as plain text until you re-download the font. Open `https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=<comma-separated, alphabetical>&display=block` in Chrome and save the woff2 file it links to. Also, only the FILL 0 style is included, so `font-variation-settings: 'FILL' 1` has no effect.
+- **Font Awesome icons need the `fas` or `fab` prefix.** `far` (regular) isn't loaded.
 - **Rank Math's virtual `robots.txt` is turned off**, so serve a physical `robots.txt` instead.
 - **Cars branding** requires a `department` term with the slug `cars`.
 

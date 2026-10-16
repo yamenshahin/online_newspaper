@@ -1,7 +1,43 @@
 @import "tailwindcss";
 
+/* Font Awesome (self-hosted, solid + brands only). Fonts live in assets/webfonts/. */
+@import "@fortawesome/fontawesome-free/css/fontawesome.css";
+@import "@fortawesome/fontawesome-free/css/solid.css";
+@import "@fortawesome/fontawesome-free/css/brands.css";
+
 @source "../**/*.php";
 @source "../template-parts/**/*.php";
+
+/*
+ * Material Symbols Outlined (self-hosted subset).
+ * The font only contains the icons used by the theme. To add an icon, re-download
+ * assets/fonts/material-symbols-outlined.woff2 from Google Fonts with an updated
+ * &icon_names= list (see README).
+ */
+@font-face {
+    font-family: 'Material Symbols Outlined';
+    font-style: normal;
+    font-weight: 400;
+    font-display: block;
+    src: url('../fonts/material-symbols-outlined.woff2') format('woff2');
+}
+
+.material-symbols-outlined {
+    font-family: 'Material Symbols Outlined';
+    font-weight: normal;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 1;
+    letter-spacing: normal;
+    text-transform: none;
+    display: inline-block;
+    white-space: nowrap;
+    word-wrap: normal;
+    direction: ltr;
+    -webkit-font-feature-settings: 'liga';
+    font-feature-settings: 'liga';
+    -webkit-font-smoothing: antialiased;
+}
 
 @font-face {
     font-family: 'SF Pro AR Display';

@@ -37,21 +37,7 @@ function hello_elementor_child_scripts_styles()
 		);
 	}
 
-	// Google Material Symbols
-	wp_enqueue_style(
-		'hello-elementor-child-icons',
-		'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0',
-		[],
-		null
-	);
-
-	// Font Awesome
-	wp_enqueue_style(
-		'font-awesome-cdn',
-		'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css',
-		[],
-		'6.5.1'
-	);
+	// Material Symbols and Font Awesome are self-hosted and compiled into style.min.css.
 
 	// Filters JS
 	$filters_path = $theme_dir . '/assets/js/filters.js';
@@ -94,36 +80,20 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 
 
 // ---------------------------------------------------------------------------
-// External connection hints
+// Font preloads
 // ---------------------------------------------------------------------------
 
-function hello_elementor_child_resource_hints($urls, $relation_type)
+// Preload the icon font so ligature icons don't stay invisible (font-display: block)
+// while style.min.css is parsed. The URL must match the url() in style.min.css exactly
+// (no ?ver=), otherwise the browser downloads the font twice.
+function hello_elementor_child_preload_fonts()
 {
-	if ('preconnect' === $relation_type) {
-		$urls[] = [
-			'href' => 'https://fonts.googleapis.com',
-			'crossorigin' => false,
-		];
-
-		$urls[] = [
-			'href' => 'https://fonts.gstatic.com',
-			'crossorigin' => 'anonymous',
-		];
-
-		$urls[] = [
-			'href' => 'https://cdnjs.cloudflare.com',
-			'crossorigin' => false,
-		];
-	}
-
-	return $urls;
+	printf(
+		'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
+		esc_url(get_stylesheet_directory_uri() . '/assets/fonts/material-symbols-outlined.woff2')
+	);
 }
-add_filter(
-	'wp_resource_hints',
-	'hello_elementor_child_resource_hints',
-	10,
-	2
-);
+add_action('wp_head', 'hello_elementor_child_preload_fonts', 1);
 
 // Completely disable Elementor from printing its default Google Fonts (Roboto / Roboto Slab)
 add_filter('elementor/frontend/print_google_fonts', '__return_false');
