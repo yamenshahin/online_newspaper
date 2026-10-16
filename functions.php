@@ -51,14 +51,13 @@ function hello_elementor_child_scripts_styles()
 			true
 		);
 
-		// Entity search
+		// Entity browse: groups load on demand, search runs on the server
 		wp_localize_script(
 			'hello-elementor-child-filters',
 			'helloEntityNav',
 			[
-				'searchUrl' => esc_url_raw(
-					rest_url('hello/v1/entity-search')
-				),
+				'navUrl' => esc_url_raw(rest_url('hello/v1/entity-nav')),
+				'searchUrl' => esc_url_raw(rest_url('hello/v1/entity-search')),
 			]
 		);
 

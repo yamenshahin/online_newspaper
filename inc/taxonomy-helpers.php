@@ -1,7 +1,12 @@
 <?php
 /**
  * Hierarchical entity taxonomies: government_entity, private_entity, event.
- * All terms are always listed (including count 0), home and departments.
+ * All terms are always listed (including empty ones), home and departments.
+ *
+ * The browse section renders only the group tabs on the server. Entities
+ * (leaf terms) are fetched through the REST routes below when a group is
+ * opened, and search runs on the server too. No post counts are shown, so
+ * the cached term map only changes when a term is created, edited or deleted.
  */
 function get_entity_taxonomies(): array
 {
@@ -18,13 +23,37 @@ function get_term_descendant_ids(int $term_id, string $taxonomy): array
 }
 
 /**
- * @return array<int, array{id:int,name:string,slug:string,parent:int,count:int}>
+ * Lower-case and fold Arabic variants so search and sorting match the way
+ * normalizeArabic() in assets/js/filters.js does: strip tashkeel, unify
+ * alef forms (أ إ آ → ا), ة → ه, ى → ي.
+ */
+function normalize_entity_text(string $text): string
+{
+    $text = mb_strtolower(trim($text));
+    $text = (string) preg_replace('/[\x{064B}-\x{0652}]/u', '', $text);
+    return str_replace(['أ', 'إ', 'آ', 'ة', 'ى'], ['ا', 'ا', 'ا', 'ه', 'ي'], $text);
+}
+
+/**
+ * Flat term map for one taxonomy, sorted alphabetically, cached for a day.
+ *
+ * Links are stored in the map so rendering never calls get_term_link() per
+ * term — that was one DB query per term (≈3,000 on the homepage).
+ *
+ * @return array<int, array{id:int,name:string,parent:int,link:string,key:string}>
  */
 function get_cached_taxonomy_term_map(string $taxonomy): array
 {
-    $cache_key = 'entity_term_map_' . $taxonomy;
+    $cache_key = 'entity_term_map_v2_' . $taxonomy;
+
+    $memo = wp_cache_get($cache_key, 'hello_entity');
+    if (is_array($memo)) {
+        return $memo;
+    }
+
     $cached = get_transient($cache_key);
-    if (false !== $cached && is_array($cached)) {
+    if (is_array($cached)) {
+        wp_cache_set($cache_key, $cached, 'hello_entity');
         return $cached;
     }
 
@@ -40,23 +69,46 @@ function get_cached_taxonomy_term_map(string $taxonomy): array
 
     $map = [];
     foreach ($terms as $term) {
+        // Pass the object, not the ID, so no extra term lookup happens.
+        $link = get_term_link($term, $taxonomy);
         $map[(int) $term->term_id] = [
             'id' => (int) $term->term_id,
             'name' => $term->name,
-            'slug' => $term->slug,
             'parent' => (int) $term->parent,
-            'count' => (int) $term->count,
+            'link' => is_wp_error($link) ? '' : $link,
+            'key' => normalize_entity_text($term->name),
         ];
     }
+
+    // Byte order of UTF-8 equals code point order, which is alphabetical for Arabic.
+    uasort($map, static fn(array $a, array $b): int => strcmp($a['key'], $b['key']));
+
     set_transient($cache_key, $map, DAY_IN_SECONDS);
+    wp_cache_set($cache_key, $map, 'hello_entity');
     return $map;
+}
+
+/**
+ * parent id => child ids, in the map's (alphabetical) order.
+ *
+ * @return array<int, int[]>
+ */
+function get_taxonomy_children_index(string $taxonomy): array
+{
+    $index = [];
+    foreach (get_cached_taxonomy_term_map($taxonomy) as $id => $row) {
+        $index[$row['parent']][] = $id;
+    }
+    return $index;
 }
 
 function clear_taxonomy_term_map_cache($term_id = 0, $tt_id = null, $taxonomy = ''): void
 {
-    if (is_string($taxonomy) && $taxonomy !== '') {
-        delete_transient('entity_term_map_' . $taxonomy);
+    if (!is_string($taxonomy) || $taxonomy === '') {
+        return;
     }
+    delete_transient('entity_term_map_v2_' . $taxonomy);
+    wp_cache_delete('entity_term_map_v2_' . $taxonomy, 'hello_entity');
 }
 
 add_action('created_term', 'clear_taxonomy_term_map_cache', 10, 3);
@@ -71,214 +123,69 @@ add_action(
 );
 
 /**
- * Counts change when posts are tagged — bust the browse map.
- */
-add_action(
-    'set_object_terms',
-    static function ($object_id, $terms, $tt_ids, $taxonomy): void {
-        if (!is_string($taxonomy) || $taxonomy === '') {
-            return;
-        }
-        if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
-            return;
-        }
-        delete_transient('entity_term_map_' . $taxonomy);
-    },
-    10,
-    4
-);
-
-add_action(
-    'deleted_term_relationships',
-    static function ($object_id, $tt_ids, $taxonomy): void {
-        if (!is_string($taxonomy) || $taxonomy === '') {
-            return;
-        }
-        if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
-            return;
-        }
-        delete_transient('entity_term_map_' . $taxonomy);
-    },
-    10,
-    3
-);
-
-function taxonomy_term_has_children(int $term_id, array $map): bool
-{
-    foreach ($map as $row) {
-        if ((int) $row['parent'] === $term_id) {
-            return true;
-        }
-    }
-    return false;
-}
-
-function rollup_term_counts(array $leaf_counts, string $taxonomy): array
-{
-    $map = get_cached_taxonomy_term_map($taxonomy);
-    $rolled = $leaf_counts;
-    foreach ($leaf_counts as $term_id => $count) {
-        $current = (int) $term_id;
-        $guard = 0;
-        while ($guard++ < 20 && isset($map[$current])) {
-            $parent = (int) $map[$current]['parent'];
-            if ($parent <= 0) {
-                break;
-            }
-            $rolled[$parent] = ($rolled[$parent] ?? 0) + (int) $count;
-            $current = $parent;
-        }
-    }
-    return $rolled;
-}
-
-/**
- * Counts for every term (0 allowed). Department ignored for visibility.
+ * Entity leaves (terms without children) directly under a parent.
+ * Parent 0 returns top-level leaves.
  *
- * @return array<int, int>
+ * @return array<int, array{id:int,name:string,link:string}>
  */
-function get_entity_leaf_counts(string $taxonomy, ?WP_Term $department = null): array
+function get_entity_leaves_under(string $taxonomy, int $parent_id): array
 {
     $map = get_cached_taxonomy_term_map($taxonomy);
-    if (empty($map)) {
+    if (empty($map) || $parent_id < 0) {
         return [];
     }
+    $index = get_taxonomy_children_index($taxonomy);
 
-    $leaf_counts = [];
-    foreach ($map as $id => $row) {
-        $leaf_counts[$id] = (int) $row['count'];
-    }
-    return $leaf_counts;
-}
-
-/**
- * Category nodes (have children) at a given parent.
- *
- * @return array<int, array{id:int,name:string,slug:string,count:int}>
- */
-function get_entity_category_nav(string $taxonomy, int $parent_id = 0, ?WP_Term $department = null): array
-{
-    $map = get_cached_taxonomy_term_map($taxonomy);
-    if (empty($map)) {
-        return [];
-    }
-
-    $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
-    $rolled = rollup_term_counts($leaf_counts, $taxonomy);
     $items = [];
-
-    foreach ($map as $id => $row) {
-        if ((int) $row['parent'] !== $parent_id) {
-            continue;
-        }
-        if (!taxonomy_term_has_children($id, $map)) {
+    foreach ($index[$parent_id] ?? [] as $id) {
+        if (!empty($index[$id]) || $map[$id]['link'] === '') {
             continue;
         }
         $items[] = [
             'id' => $id,
-            'name' => $row['name'],
-            'slug' => $row['slug'],
-            'count' => (int) ($rolled[$id] ?? 0),
+            'name' => $map[$id]['name'],
+            'link' => $map[$id]['link'],
         ];
     }
-
-    usort($items, static fn($a, $b) => $b['count'] <=> $a['count']);
     return $items;
 }
 
 /**
- * Entity leaves under a parent. Includes count 0.
+ * Search entity leaves of one taxonomy by (normalized) name.
  *
- * @return array<int, array{id:int,name:string,slug:string,count:int,link:string}>
+ * @return array<int, array{id:int,name:string,link:string,taxonomy:string}>
  */
-function get_entity_leaves_under(string $taxonomy, int $parent_id, string $search = '', ?WP_Term $department = null, int $limit = 50): array
+function search_entity_leaves(string $taxonomy, string $search, int $limit = 50): array
 {
-    $map = get_cached_taxonomy_term_map($taxonomy);
-    if (empty($map) || $parent_id < 1) {
+    $q = normalize_entity_text($search);
+    if (mb_strlen($q) < 2) {
         return [];
     }
+    $map = get_cached_taxonomy_term_map($taxonomy);
+    if (empty($map)) {
+        return [];
+    }
+    $index = get_taxonomy_children_index($taxonomy);
 
-    $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
-    $q = mb_strtolower(trim($search));
     $items = [];
-
     foreach ($map as $id => $row) {
-        if ((int) $row['parent'] !== $parent_id) {
+        if (!empty($index[$id]) || $row['link'] === '') {
             continue;
         }
-        if (taxonomy_term_has_children($id, $map)) {
+        // Both sides are normalized UTF-8, so a byte search can only match on character boundaries.
+        if (strpos($row['key'], $q) === false) {
             continue;
         }
-
-        $count = (int) ($leaf_counts[$id] ?? $row['count']);
-
-        if ($q !== '' && mb_strpos(mb_strtolower($row['name']), $q) === false) {
-            continue;
-        }
-
-        $link = get_term_link($id, $taxonomy);
-        if (is_wp_error($link)) {
-            continue;
-        }
-
         $items[] = [
             'id' => $id,
             'name' => $row['name'],
-            'slug' => $row['slug'],
-            'count' => $count,
-            'link' => $link,
+            'link' => $row['link'],
+            'taxonomy' => $taxonomy,
         ];
         if (count($items) >= $limit) {
             break;
         }
     }
-
-    usort($items, static fn($a, $b) => $b['count'] <=> $a['count']);
-    return $items;
-}
-
-/**
- * Global entity search (leaves only). Includes count 0.
- *
- * @return array<int, array{id:int,name:string,slug:string,count:int,link:string}>
- */
-function search_entity_leaves(string $taxonomy, string $search, ?WP_Term $department = null, int $limit = 20): array
-{
-    $map = get_cached_taxonomy_term_map($taxonomy);
-    $q = mb_strtolower(trim($search));
-    if ($q === '' || mb_strlen($q) < 2 || empty($map)) {
-        return [];
-    }
-
-    $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
-    $items = [];
-
-    foreach ($map as $id => $row) {
-        if (taxonomy_term_has_children($id, $map)) {
-            continue;
-        }
-        if (mb_strpos(mb_strtolower($row['name']), $q) === false) {
-            continue;
-        }
-
-        $count = (int) ($leaf_counts[$id] ?? $row['count']);
-        $link = get_term_link($id, $taxonomy);
-        if (is_wp_error($link)) {
-            continue;
-        }
-
-        $items[] = [
-            'id' => $id,
-            'name' => $row['name'],
-            'slug' => $row['slug'],
-            'count' => $count,
-            'link' => $link,
-        ];
-        if (count($items) >= $limit) {
-            break;
-        }
-    }
-
     return $items;
 }
 
@@ -310,6 +217,10 @@ add_action(
                 'methods' => 'GET',
                 'permission_callback' => '__return_true',
                 'callback' => 'rest_entity_nav',
+                'args' => [
+                    'taxonomy' => ['type' => 'string', 'required' => true],
+                    'parent' => ['type' => 'integer', 'default' => 0],
+                ],
             ]
         );
         register_rest_route(
@@ -319,127 +230,104 @@ add_action(
                 'methods' => 'GET',
                 'permission_callback' => '__return_true',
                 'callback' => 'rest_entity_search',
+                'args' => [
+                    'q' => ['type' => 'string', 'required' => true],
+                    'taxonomy' => ['type' => 'string', 'default' => 'all'],
+                ],
             ]
         );
     }
 );
 
+/**
+ * GET /hello/v1/entity-nav?taxonomy=private_entity&parent=123
+ * Leaves directly under a group. Used when a tab is opened.
+ */
 function rest_entity_nav(WP_REST_Request $request)
 {
     $taxonomy = sanitize_key((string) $request->get_param('taxonomy'));
     $parent = (int) $request->get_param('parent');
-    $dept_id = (int) $request->get_param('department');
-    $mode = sanitize_key((string) $request->get_param('mode'));
 
     if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
         return new WP_Error('invalid_tax', 'Invalid taxonomy', ['status' => 400]);
     }
 
-    $department = $dept_id ? get_term($dept_id, 'department') : null;
-    if ($department && is_wp_error($department)) {
-        $department = null;
-    }
-
-    if ($mode === 'entities') {
-        $q = sanitize_text_field((string) $request->get_param('q'));
-        return rest_ensure_response(
-            get_entity_leaves_under($taxonomy, $parent, $q, $department instanceof WP_Term ? $department : null)
-        );
-    }
-
-    return rest_ensure_response(
-        get_entity_category_nav($taxonomy, $parent, $department instanceof WP_Term ? $department : null)
-    );
+    $response = rest_ensure_response(get_entity_leaves_under($taxonomy, $parent));
+    // Entity lists only change when terms are edited; let browsers keep them briefly.
+    $response->header('Cache-Control', 'public, max-age=300');
+    return $response;
 }
 
+/**
+ * GET /hello/v1/entity-search?q=...&taxonomy=all|government_entity|private_entity|event
+ * Flat list across the requested taxonomies, each capped separately.
+ */
 function rest_entity_search(WP_REST_Request $request)
 {
     $taxonomy = sanitize_key((string) $request->get_param('taxonomy'));
     $q = sanitize_text_field((string) $request->get_param('q'));
-    $dept_id = (int) $request->get_param('department');
 
-    if (!in_array($taxonomy, get_entity_taxonomies(), true)) {
+    if ($taxonomy === '' || $taxonomy === 'all') {
+        $taxonomies = get_entity_taxonomies();
+    } elseif (in_array($taxonomy, get_entity_taxonomies(), true)) {
+        $taxonomies = [$taxonomy];
+    } else {
         return new WP_Error('invalid_tax', 'Invalid taxonomy', ['status' => 400]);
     }
 
-    $department = $dept_id ? get_term($dept_id, 'department') : null;
-    if ($department && is_wp_error($department)) {
-        $department = null;
+    $items = [];
+    foreach ($taxonomies as $tax) {
+        $items = array_merge($items, search_entity_leaves($tax, $q));
     }
-
-    return rest_ensure_response(
-        search_entity_leaves($taxonomy, $q, $department instanceof WP_Term ? $department : null)
-    );
+    return rest_ensure_response($items);
 }
 
 /**
- * Browse tree: Main → Sub → Entity leaves (all terms, including empty).
+ * Group tree: terms that have children, nested. Leaves are not included;
+ * fetch them with get_entity_leaves_under() when a group is opened.
  *
- * @return array<int, array{id:int,name:string,slug:string,count:int,link:string,children:array}>
+ * @return array<int, array{id:int,name:string,has_leaves:bool,children:array}>
  */
-function get_entity_browse_tree(string $taxonomy, ?WP_Term $department = null): array
+function get_entity_browse_tree(string $taxonomy): array
 {
     $map = get_cached_taxonomy_term_map($taxonomy);
     if (empty($map)) {
         return [];
     }
+    $index = get_taxonomy_children_index($taxonomy);
 
-    $leaf_counts = get_entity_leaf_counts($taxonomy, $department);
-    $rolled = rollup_term_counts($leaf_counts, $taxonomy);
-
-    $nodes = [];
-    foreach ($map as $id => $row) {
-        $is_leaf = !taxonomy_term_has_children($id, $map);
-        $count = $is_leaf
-            ? (int) ($leaf_counts[$id] ?? 0)
-            : (int) ($rolled[$id] ?? 0);
-
-        $link = get_term_link($id, $taxonomy);
-        if (is_wp_error($link)) {
-            $link = '';
-        }
-
-        $nodes[$id] = [
-            'id' => $id,
-            'name' => $row['name'],
-            'slug' => $row['slug'],
-            'parent' => (int) $row['parent'],
-            'count' => $count,
-            'link' => $link,
-            'is_leaf' => $is_leaf,
-            'children' => [],
-        ];
-    }
-
-    foreach ($nodes as $id => &$node) {
-        $pid = $node['parent'];
-        if ($pid > 0 && isset($nodes[$pid])) {
-            $nodes[$pid]['children'][$id] = &$node;
-        }
-    }
-    unset($node);
-
-    $tree = [];
-    foreach ($nodes as $id => $node) {
-        if ((int) $node['parent'] === 0 && !$node['is_leaf']) {
-            $tree[$id] = $node;
-        }
-    }
-
-    $prune = static function (array &$list) use (&$prune): void {
-        foreach ($list as $id => &$n) {
-            if (!empty($n['children'])) {
-                $prune($n['children']);
+    $build = static function (int $parent) use (&$build, $map, $index): array {
+        $groups = [];
+        foreach ($index[$parent] ?? [] as $id) {
+            if (empty($index[$id])) {
+                continue; // leaf
             }
-            if (!$n['is_leaf'] && empty($n['children'])) {
-                unset($list[$id]);
+            $has_leaves = false;
+            foreach ($index[$id] as $child) {
+                if (empty($index[$child])) {
+                    $has_leaves = true;
+                    break;
+                }
             }
+            $groups[$id] = [
+                'id' => $id,
+                'name' => $map[$id]['name'],
+                'has_leaves' => $has_leaves,
+                'children' => $build($id),
+            ];
         }
-        unset($n);
+        return $groups;
     };
-    $prune($tree);
 
-    return $tree;
+    return $build(0);
+}
+
+/**
+ * Whether a taxonomy has leaves at the top level (terms with no parent and no children).
+ */
+function entity_taxonomy_has_root_leaves(string $taxonomy): bool
+{
+    return !empty(get_entity_leaves_under($taxonomy, 0));
 }
 
 /**

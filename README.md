@@ -95,7 +95,9 @@ If a department leaves a field empty, `get_department_field_with_fallback()` use
 
 ### Entity browsing (`inc/taxonomy-helpers.php`)
 
-Tabbed, searchable browsers for hierarchical entity taxonomies (`template-parts/entities/entity-browse-section.php`). Term trees are cached and the cache is cleared whenever a term changes. Post counts from child terms are added up into their parents.
+Tabbed, searchable browser for hierarchical entity taxonomies (`template-parts/entities/entity-browse-section.php`). The server renders only the tabs; each group's entities are fetched from `/hello/v1/entity-nav` the first time its tab is opened (the first visible group is preloaded), and the search box queries `/hello/v1/entity-search` across all three taxonomies. Entities are listed alphabetically; no post counts are shown.
+
+Each taxonomy's term map (id, name, parent, link, normalized name) is cached in a transient for a day and cleared when a term is created, edited or deleted. Links are stored in the map, so rendering never calls `get_term_link()` per term. `normalize_entity_text()` in PHP and `normalizeArabic()` in `assets/js/filters.js` must stay identical.
 
 ### Cars directory (`inc/cars.php`)
 
@@ -119,8 +121,8 @@ Tabbed, searchable browsers for hierarchical entity taxonomies (`template-parts/
 
 | Endpoint                                         | Method | Purpose                                     |
 | :----------------------------------------------- | :----- | :------------------------------------------ |
-| `/wp-json/hello/v1/entity-nav`                   | GET    | Child nodes for the entity browser.         |
-| `/wp-json/hello/v1/entity-search`                | GET    | Entity search (used by `filters.js`).       |
+| `/wp-json/hello/v1/entity-nav`                   | GET    | `?taxonomy=&parent=` → entities under a group (id, name, link). |
+| `/wp-json/hello/v1/entity-search`                | GET    | `?q=&taxonomy=all` → matching entities across taxonomies (min. 2 chars). |
 | `/wp-json/newspapersite/v1/track-view/{id}`      | POST   | Page-cache-safe view counter (`post_views_count` meta). |
 | `admin-ajax.php?action=cars_filter`              | POST   | Car results + filter chips HTML (nonce-protected). |
 

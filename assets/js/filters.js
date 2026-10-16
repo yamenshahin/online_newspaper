@@ -3,8 +3,7 @@
  */
 document.addEventListener('DOMContentLoaded', function () {
     initFilterWrappers();
-    initEntityMainTabs();
-    initEntitySearch();
+    initEntityBrowse();
     initCarsAjaxFilters();
 });
 
@@ -92,13 +91,126 @@ function normalizeArabic(text) {
 }
 
 /**
- * Combined UI:
- * L1 type (gov|private)
- * Gov:  L2 sub → L3 entities
- * Priv: L2 main → L3 sub → L4 entities
+ * Combined entity browse:
+ * L1 type (government | private | event)
+ * Gov:   L2 sub → entities
+ * Priv:  L2 main → L3 sub → entities
+ * Event: L2 category → entities
+ *
+ * The server renders the tabs only. Each .entity-sub-panel carries
+ * data-taxonomy + data-parent and is filled from /hello/v1/entity-nav the
+ * first time it becomes visible (the first panel arrives preloaded).
+ * Search calls /hello/v1/entity-search and replaces the panels with results.
  */
-function initEntityMainTabs() {
+function initEntityBrowse() {
+    const cfg = window.helloEntityNav || {};
+
     document.querySelectorAll('.entity-browse--combined').forEach(function (section) {
+        let i18n = {};
+        try {
+            i18n = JSON.parse(section.getAttribute('data-i18n') || '{}');
+        } catch (err) {
+            i18n = {};
+        }
+        const labels = i18n.labels || {};
+        const pillClass = section.getAttribute('data-pill-class') || 'entity-pill';
+        const searchInput = section.querySelector('.entity-search-input');
+        const resultsEl = section.querySelector('.entity-search-results');
+        const loaded = {}; // "taxonomy:parent" -> Promise<items>
+
+        function restUrl(base, params) {
+            // rest_url() may be pretty (/wp-json/...) or ?rest_route=..., so build with URL.
+            const url = new URL(base, window.location.href);
+            Object.keys(params).forEach(function (key) {
+                url.searchParams.set(key, params[key]);
+            });
+            return url.toString();
+        }
+
+        function fetchJson(url, signal) {
+            return fetch(url, { headers: { Accept: 'application/json' }, signal: signal }).then(function (res) {
+                if (!res.ok) throw new Error('HTTP ' + res.status);
+                return res.json();
+            });
+        }
+
+        function makePill(item) {
+            const a = document.createElement('a');
+            a.href = item.link;
+            a.className = pillClass;
+            a.textContent = item.name;
+            return a;
+        }
+
+        function makeNote(text, extraClass) {
+            const span = document.createElement('span');
+            span.className = 'text-sm ' + (extraClass || 'text-on-primary/80');
+            span.textContent = text;
+            return span;
+        }
+
+        function isShown(el) {
+            return !el.closest('.hidden');
+        }
+
+        function fetchLeaves(taxonomy, parent) {
+            const key = taxonomy + ':' + parent;
+            if (!loaded[key]) {
+                loaded[key] = fetchJson(restUrl(cfg.navUrl, { taxonomy: taxonomy, parent: parent })).catch(function (err) {
+                    delete loaded[key]; // allow a retry
+                    throw err;
+                });
+            }
+            return loaded[key];
+        }
+
+        /** Fill a leaf panel the first time it is shown. */
+        function ensureLoaded(panel) {
+            if (!panel || !cfg.navUrl) return;
+            if (panel.getAttribute('data-loaded') === '1' || panel.getAttribute('data-loading') === '1') return;
+
+            const taxonomy = panel.getAttribute('data-taxonomy');
+            const parent = panel.getAttribute('data-parent') || '0';
+            if (!taxonomy) return;
+
+            panel.setAttribute('data-loading', '1');
+            panel.replaceChildren(makeNote(i18n.loading || '…'));
+
+            fetchLeaves(taxonomy, parent)
+                .then(function (items) {
+                    panel.replaceChildren();
+                    if (!Array.isArray(items) || !items.length) {
+                        panel.appendChild(makeNote(i18n.empty || ''));
+                    } else {
+                        items.forEach(function (item) {
+                            panel.appendChild(makePill(item));
+                        });
+                    }
+                    panel.setAttribute('data-loaded', '1');
+                })
+                .catch(function () {
+                    const retry = document.createElement('button');
+                    retry.type = 'button';
+                    retry.className = 'text-sm text-on-primary underline';
+                    retry.textContent = i18n.error || 'Error';
+                    retry.addEventListener('click', function () {
+                        ensureLoaded(panel);
+                    });
+                    panel.replaceChildren(retry);
+                })
+                .finally(function () {
+                    panel.removeAttribute('data-loading');
+                });
+        }
+
+        function loadVisiblePanels() {
+            section.querySelectorAll('.entity-sub-panel').forEach(function (panel) {
+                if (isShown(panel)) ensureLoaded(panel);
+            });
+        }
+
+        // ---- Tabs -------------------------------------------------------
+
         function setType(type) {
             section.querySelectorAll('.entity-type-tab').forEach(function (t) {
                 const on = t.getAttribute('data-entity-type') === type;
@@ -120,13 +232,17 @@ function initEntityMainTabs() {
                 const firstMain = panel.querySelector('.entity-main-tab');
                 if (firstMain) {
                     setPrivateMain(panel, firstMain.getAttribute('data-main-id'));
+                    return;
                 }
             } else {
                 const firstSub = panel.querySelector('.entity-sub-tab');
                 if (firstSub) {
                     setSub(panel, firstSub.getAttribute('data-sub-id'), null);
+                    return;
                 }
             }
+            // No tabs at this level: the panel holds a single leaf list.
+            loadVisiblePanels();
         }
 
         function setPrivateMain(typePanel, mainId) {
@@ -142,15 +258,16 @@ function initEntityMainTabs() {
             typePanel.querySelectorAll('.entity-main-panel').forEach(function (p) {
                 const on = p.getAttribute('data-main-id') === mainId;
                 p.classList.toggle('hidden', !on);
-                if (on) {
-                    const firstSub = p.querySelector('.entity-sub-tab');
-                    if (firstSub) {
-                        setSub(p, firstSub.getAttribute('data-sub-id'), mainId);
-                    } else {
-                        p.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
-                            sub.classList.remove('hidden');
-                        });
-                    }
+                if (!on) return;
+
+                const firstSub = p.querySelector('.entity-sub-tab');
+                if (firstSub) {
+                    setSub(p, firstSub.getAttribute('data-sub-id'), mainId);
+                } else {
+                    p.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                        sub.classList.remove('hidden');
+                        ensureLoaded(sub);
+                    });
                 }
             });
         }
@@ -174,21 +291,13 @@ function initEntityMainTabs() {
                     on = on && p.getAttribute('data-main-id') === mainId;
                 }
                 p.classList.toggle('hidden', !on);
+                if (on) ensureLoaded(p);
             });
         }
 
         section.querySelectorAll('.entity-type-tab').forEach(function (tab) {
             tab.addEventListener('click', function () {
-                section.classList.remove('is-entity-searching');
-                const search = section.querySelector('.entity-search-input');
-                if (search) search.value = '';
-                section.querySelectorAll('.entity-pill').forEach(function (p) {
-                    p.style.display = '';
-                    p.classList.remove('hidden');
-                });
-                section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
-                    el.classList.remove('hidden');
-                });
+                exitSearch();
                 setType(tab.getAttribute('data-entity-type'));
             });
         });
@@ -219,134 +328,123 @@ function initEntityMainTabs() {
                 }
             });
         });
-    });
 
-    // Legacy single-taxonomy browse (if any left)
-    document.querySelectorAll('.entity-browse:not(.entity-browse--combined)').forEach(function (section) {
-        const mainTabs = section.querySelectorAll('.entity-main-tab');
-        const mainPanels = section.querySelectorAll('.entity-main-panel');
+        // ---- Search (all types together) --------------------------------
 
-        function activateMain(mainId) {
-            mainTabs.forEach(function (t) {
-                const on = t.getAttribute('data-main-id') === mainId;
-                t.setAttribute('aria-selected', on ? 'true' : 'false');
-                t.classList.toggle('bg-primary', on);
-                t.classList.toggle('text-on-primary', on);
-                t.classList.toggle('bg-surface-container', !on);
-                t.classList.toggle('text-on-surface', !on);
-            });
-            mainPanels.forEach(function (panel) {
-                const on = panel.getAttribute('data-main-id') === mainId;
-                panel.classList.toggle('hidden', !on);
-                if (on) {
-                    const firstSub = panel.querySelector('.entity-sub-tab');
-                    if (firstSub) {
-                        activateSub(panel, firstSub.getAttribute('data-sub-id'));
-                    }
+        let searchTimer = null;
+        let searchController = null;
+
+        function showResults(show) {
+            section.classList.toggle('is-entity-searching', show);
+            if (resultsEl) resultsEl.classList.toggle('hidden', !show);
+            section.querySelectorAll('.entity-type-panel').forEach(function (p) {
+                if (show) {
+                    p.classList.add('hidden');
                 }
             });
         }
 
-        function activateSub(mainPanel, subId) {
-            mainPanel.querySelectorAll('.entity-sub-tab').forEach(function (t) {
-                const on = t.getAttribute('data-sub-id') === subId;
-                t.setAttribute('aria-selected', on ? 'true' : 'false');
-                t.classList.toggle('bg-primary-container', on);
-                t.classList.toggle('text-on-primary-container', on);
-                t.classList.toggle('bg-surface-container-low', !on);
-                t.classList.toggle('text-on-surface-variant', !on);
-            });
-            mainPanel.querySelectorAll('.entity-sub-panel').forEach(function (p) {
-                p.classList.toggle('hidden', p.getAttribute('data-sub-id') !== subId);
-            });
+        function exitSearch() {
+            clearTimeout(searchTimer);
+            if (searchController) {
+                searchController.abort();
+                searchController = null;
+            }
+            if (searchInput) searchInput.value = '';
+            if (resultsEl) resultsEl.replaceChildren();
+            showResults(false);
         }
-
-        mainTabs.forEach(function (tab) {
-            tab.addEventListener('click', function () {
-                activateMain(tab.getAttribute('data-main-id'));
-            });
-        });
-        section.querySelectorAll('.entity-sub-tab').forEach(function (tab) {
-            tab.addEventListener('click', function () {
-                const mainId = tab.getAttribute('data-main-id');
-                const mainPanel = section.querySelector('.entity-main-panel[data-main-id="' + mainId + '"]');
-                if (mainPanel) {
-                    activateSub(mainPanel, tab.getAttribute('data-sub-id'));
-                }
-            });
-        });
-    });
-}
-
-/**
- * Search gov + private together — keep type tabs visible
- */
-function initEntitySearch() {
-    document.querySelectorAll('.entity-browse--combined .entity-search-input').forEach(function (searchInput) {
-        const section = searchInput.closest('.entity-browse');
-        if (!section) return;
 
         function restoreFromTabs() {
-            section.classList.remove('is-entity-searching');
-
-            section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
-                el.classList.remove('hidden');
-            });
-
-            section.querySelectorAll('.entity-pill').forEach(function (p) {
-                p.style.display = '';
-                p.classList.remove('hidden');
-            });
-
+            exitSearch();
             const activeType = section.querySelector('.entity-type-tab[aria-selected="true"]');
             if (activeType) {
-                activeType.click();
+                setType(activeType.getAttribute('data-entity-type'));
             }
         }
 
-        searchInput.addEventListener('input', function () {
-            const query = normalizeArabic(searchInput.value.trim());
+        function renderResults(items) {
+            if (!resultsEl) return;
+            resultsEl.replaceChildren();
 
-            if (!query) {
-                restoreFromTabs();
+            if (!Array.isArray(items) || !items.length) {
+                resultsEl.appendChild(makeNote(i18n.no_results || '', 'text-on-surface-variant'));
                 return;
             }
 
-            section.classList.add('is-entity-searching');
-
-            section.querySelectorAll('.entity-main-tabs, .entity-sub-tabs').forEach(function (el) {
-                el.classList.add('hidden');
+            const groups = {};
+            const order = [];
+            items.forEach(function (item) {
+                if (!groups[item.taxonomy]) {
+                    groups[item.taxonomy] = [];
+                    order.push(item.taxonomy);
+                }
+                groups[item.taxonomy].push(item);
             });
 
-            section.querySelectorAll('.entity-type-panel').forEach(function (panel) {
-                panel.classList.remove('hidden');
-            });
-            section.querySelectorAll('.entity-main-panel, .entity-sub-panel').forEach(function (p) {
-                p.classList.remove('hidden');
-            });
+            order.forEach(function (taxonomy) {
+                const wrap = document.createElement('div');
+                wrap.className = 'flex flex-col gap-2';
 
-            section.querySelectorAll('.entity-pill').forEach(function (pill) {
-                const name = normalizeArabic(
-                    pill.getAttribute('data-entity-name') || pill.textContent
-                );
-                const match = name.includes(query);
-                pill.style.display = match ? 'inline-flex' : 'none';
-                pill.classList.toggle('hidden', !match);
-            });
+                const heading = document.createElement('div');
+                heading.className = 'text-sm font-semibold text-on-surface-variant';
+                heading.textContent = labels[taxonomy] || taxonomy;
+                wrap.appendChild(heading);
 
-            section.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
-                sub.classList.toggle('hidden', !sub.querySelector('.entity-pill:not(.hidden)'));
+                const panel = document.createElement('div');
+                panel.className = 'flex flex-wrap gap-2 p-4 md:p-5 rounded-2xl bg-primary';
+                groups[taxonomy].forEach(function (item) {
+                    panel.appendChild(makePill(item));
+                });
+                wrap.appendChild(panel);
+
+                resultsEl.appendChild(wrap);
             });
-            section.querySelectorAll('.entity-main-panel').forEach(function (main) {
-                main.classList.toggle('hidden', !main.querySelector('.entity-pill:not(.hidden)'));
+        }
+
+        function runSearch(query) {
+            if (!cfg.searchUrl || !resultsEl) return;
+
+            if (searchController) searchController.abort();
+            searchController = new AbortController();
+            const controller = searchController;
+
+            showResults(true);
+            resultsEl.replaceChildren(makeNote(i18n.loading || '…', 'text-on-surface-variant'));
+
+            fetchJson(restUrl(cfg.searchUrl, { q: query, taxonomy: 'all' }), controller.signal)
+                .then(function (items) {
+                    if (controller !== searchController) return; // superseded
+                    renderResults(items);
+                })
+                .catch(function (err) {
+                    if (err && err.name === 'AbortError') return;
+                    if (controller !== searchController) return;
+                    resultsEl.replaceChildren(makeNote(i18n.error || 'Error', 'text-on-surface-variant'));
+                });
+        }
+
+        if (searchInput) {
+            searchInput.addEventListener('input', function () {
+                const raw = searchInput.value.trim();
+                clearTimeout(searchTimer);
+
+                if (!raw) {
+                    restoreFromTabs();
+                    return;
+                }
+                // Same minimum as the server (2 characters after normalization).
+                if (normalizeArabic(raw).length < 2) {
+                    return;
+                }
+                searchTimer = setTimeout(function () {
+                    runSearch(raw);
+                }, 250);
             });
-            section.querySelectorAll('.entity-type-panel').forEach(function (typePanel) {
-                typePanel.classList.toggle(
-                    'hidden',
-                    !typePanel.querySelector('.entity-pill:not(.hidden)')
-                );
-            });
-        });
+        }
+
+        // The first visible panel is preloaded by PHP; this covers any other case.
+        loadVisiblePanels();
     });
 }
 
