@@ -130,9 +130,12 @@ if (empty($active_terms)) {
 }
 
 if ($department instanceof WP_Term) {
-    $archive_link = add_query_arg(['view' => 'program'], get_term_link($department));
+    $archive_link = add_query_arg(array_merge(['view' => 'program'], $active_filters), get_term_link($department));
 } else {
     $archive_link = get_post_type_archive_link('program') ?: home_url('/');
+    if (!empty($active_filters)) {
+        $archive_link = add_query_arg($active_filters, $archive_link);
+    }
 }
 
 $total_terms = count($active_terms);
