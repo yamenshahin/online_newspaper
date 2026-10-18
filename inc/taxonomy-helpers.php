@@ -40,11 +40,20 @@ function normalize_entity_text(string $text): string
  * Links are stored in the map so rendering never calls get_term_link() per
  * term — that was one DB query per term (≈3,000 on the homepage).
  *
+ * The key includes the site URL and permalink structure, so a migration or a
+ * permalink change never serves stored links from the old setup.
+ *
  * @return array<int, array{id:int,name:string,parent:int,link:string,key:string}>
  */
+function get_entity_term_map_cache_key(string $taxonomy): string
+{
+    $url_state = substr(md5(home_url('/') . '|' . (string) get_option('permalink_structure')), 0, 8);
+    return 'entity_term_map_v3_' . $taxonomy . '_' . $url_state;
+}
+
 function get_cached_taxonomy_term_map(string $taxonomy): array
 {
-    $cache_key = 'entity_term_map_v2_' . $taxonomy;
+    $cache_key = get_entity_term_map_cache_key($taxonomy);
 
     $memo = wp_cache_get($cache_key, 'hello_entity');
     if (is_array($memo)) {
@@ -71,12 +80,15 @@ function get_cached_taxonomy_term_map(string $taxonomy): array
     foreach ($terms as $term) {
         // Pass the object, not the ID, so no extra term lookup happens.
         $link = get_term_link($term, $taxonomy);
+        // WordPress stores "&" as "&amp;". Keep plain text here: PHP output is
+        // escaped with esc_html(), and the JS inserts names with textContent.
+        $name = wp_specialchars_decode($term->name, ENT_QUOTES);
         $map[(int) $term->term_id] = [
             'id' => (int) $term->term_id,
-            'name' => $term->name,
+            'name' => $name,
             'parent' => (int) $term->parent,
             'link' => is_wp_error($link) ? '' : $link,
-            'key' => normalize_entity_text($term->name),
+            'key' => normalize_entity_text($name),
         ];
     }
 
@@ -104,11 +116,17 @@ function get_taxonomy_children_index(string $taxonomy): array
 
 function clear_taxonomy_term_map_cache($term_id = 0, $tt_id = null, $taxonomy = ''): void
 {
-    if (!is_string($taxonomy) || $taxonomy === '') {
+    if (!is_string($taxonomy) || !in_array($taxonomy, get_entity_taxonomies(), true)) {
         return;
     }
-    delete_transient('entity_term_map_v2_' . $taxonomy);
-    wp_cache_delete('entity_term_map_v2_' . $taxonomy, 'hello_entity');
+    $cache_key = get_entity_term_map_cache_key($taxonomy);
+    delete_transient($cache_key);
+    wp_cache_delete($cache_key, 'hello_entity');
+
+    // The homepage tabs and the cached /entity-nav and /entity-search responses
+    // depend on this map. Term edits are rare, so purging everything is fine.
+    // No-op when LiteSpeed Cache is inactive.
+    do_action('litespeed_purge_all');
 }
 
 add_action('created_term', 'clear_taxonomy_term_map_cache', 10, 3);
@@ -260,8 +278,12 @@ function rest_entity_nav(WP_REST_Request $request)
 
 /**
  * GET /hello/v1/entity-search?q=...&taxonomy=all|government_entity|private_entity|event
- * Flat list across the requested taxonomies, each capped separately.
+ * Returns {items, truncated}: matches across the requested taxonomies, each
+ * capped at ENTITY_SEARCH_LIMIT. truncated is true when any taxonomy had more,
+ * so the UI can ask for a more specific query.
  */
+const ENTITY_SEARCH_LIMIT = 100;
+
 function rest_entity_search(WP_REST_Request $request)
 {
     $taxonomy = sanitize_key((string) $request->get_param('taxonomy'));
@@ -276,10 +298,17 @@ function rest_entity_search(WP_REST_Request $request)
     }
 
     $items = [];
+    $truncated = false;
     foreach ($taxonomies as $tax) {
-        $items = array_merge($items, search_entity_leaves($tax, $q));
+        // Ask for one extra to know whether the list was cut.
+        $found = search_entity_leaves($tax, $q, ENTITY_SEARCH_LIMIT + 1);
+        if (count($found) > ENTITY_SEARCH_LIMIT) {
+            $truncated = true;
+            $found = array_slice($found, 0, ENTITY_SEARCH_LIMIT);
+        }
+        $items = array_merge($items, $found);
     }
-    return rest_ensure_response($items);
+    return rest_ensure_response(['items' => $items, 'truncated' => $truncated]);
 }
 
 /**
@@ -320,6 +349,20 @@ function get_entity_browse_tree(string $taxonomy): array
     };
 
     return $build(0);
+}
+
+/**
+ * True the first time it is called in a request, false afterwards.
+ * (A `static` at file scope in a template part resets on every include.)
+ */
+function entity_browse_claim_render(): bool
+{
+    static $claimed = false;
+    if ($claimed) {
+        return false;
+    }
+    $claimed = true;
+    return true;
 }
 
 /**

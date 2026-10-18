@@ -17,11 +17,10 @@ $section_title = $args['section_title'] ?? '';
 $subtitle = $args['subtitle'] ?? '';
 $department = $args['department'] ?? null;
 
-static $entity_browse_rendered = false;
-if ($entity_browse_rendered) {
+// Render once per page: the JS and the search box assume a single instance.
+if (!entity_browse_claim_render()) {
     return;
 }
-$entity_browse_rendered = true;
 
 $dept_term = $department instanceof WP_Term ? $department : null;
 $dept_id = $dept_term ? (int) $dept_term->term_id : 0;
@@ -77,6 +76,7 @@ $i18n = [
     'empty' => __('لا توجد جهات في هذه المجموعة', 'hello-elementor-child'),
     'error' => __('تعذر التحميل، اضغط لإعادة المحاولة', 'hello-elementor-child'),
     'no_results' => __('لا توجد نتائج', 'hello-elementor-child'),
+    'truncated' => __('النتائج كثيرة، اكتب كلمة أدق لتضييق البحث', 'hello-elementor-child'),
     'labels' => [
         'government_entity' => __('الجهات الحكومية', 'hello-elementor-child'),
         'private_entity' => __('القطاع الخاص', 'hello-elementor-child'),

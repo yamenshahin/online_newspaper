@@ -59,6 +59,9 @@ if ($department instanceof WP_Term) {
     $more_link = add_query_arg(array_merge(['view' => 'program'], $more_link_args), get_term_link($department));
 } else {
     $more_link = get_post_type_archive_link('program');
+    if (!empty($more_link_args)) {
+        $more_link = add_query_arg($more_link_args, $more_link);
+    }
 }
 
 $more_icon_path = get_stylesheet_directory() . '/assets/images/more-icon.svg';

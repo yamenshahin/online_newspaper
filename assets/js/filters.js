@@ -211,14 +211,38 @@ function initEntityBrowse() {
 
         // ---- Tabs -------------------------------------------------------
 
-        function setType(type) {
-            section.querySelectorAll('.entity-type-tab').forEach(function (t) {
-                const on = t.getAttribute('data-entity-type') === type;
-                t.setAttribute('aria-selected', on ? 'true' : 'false');
+        // Mirrors the classes the template puts on active/inactive tabs,
+        // including the hover class that only inactive tabs carry.
+        function styleTab(t, on, level) {
+            t.setAttribute('aria-selected', on ? 'true' : 'false');
+            if (level === 'sub') {
+                t.classList.toggle('bg-primary-container', on);
+                t.classList.toggle('text-on-primary-container', on);
+                t.classList.toggle('bg-surface-container-low', !on);
+                t.classList.toggle('text-on-surface-variant', !on);
+                t.classList.toggle('hover:bg-surface-container', !on);
+            } else {
                 t.classList.toggle('bg-primary', on);
                 t.classList.toggle('text-on-primary', on);
                 t.classList.toggle('bg-surface-container', !on);
                 t.classList.toggle('text-on-surface', !on);
+                t.classList.toggle('hover:bg-surface-container-high', !on);
+            }
+        }
+
+        // The selected tab in a tab list, or the first one.
+        function pickTab(scope, selector) {
+            return scope.querySelector(selector + '[aria-selected="true"]') || scope.querySelector(selector);
+        }
+
+        /**
+         * Show a type panel. With keep=true, return to the main/sub tabs that
+         * were selected before (used when a search is cleared); otherwise
+         * start from the first ones.
+         */
+        function setType(type, keep) {
+            section.querySelectorAll('.entity-type-tab').forEach(function (t) {
+                styleTab(t, t.getAttribute('data-entity-type') === type, 'type');
             });
 
             section.querySelectorAll('.entity-type-panel').forEach(function (p) {
@@ -229,30 +253,28 @@ function initEntityBrowse() {
             if (!panel) return;
 
             if (type === 'private') {
-                const firstMain = panel.querySelector('.entity-main-tab');
-                if (firstMain) {
-                    setPrivateMain(panel, firstMain.getAttribute('data-main-id'));
+                const main = keep ? pickTab(panel, '.entity-main-tab') : panel.querySelector('.entity-main-tab');
+                if (main) {
+                    setPrivateMain(panel, main.getAttribute('data-main-id'), keep);
                     return;
                 }
             } else {
-                const firstSub = panel.querySelector('.entity-sub-tab');
-                if (firstSub) {
-                    setSub(panel, firstSub.getAttribute('data-sub-id'), null);
+                const sub = keep ? pickTab(panel, '.entity-sub-tab') : panel.querySelector('.entity-sub-tab');
+                if (sub) {
+                    setSub(panel, sub.getAttribute('data-sub-id'), null);
                     return;
                 }
             }
             // No tabs at this level: the panel holds a single leaf list.
-            loadVisiblePanels();
+            panel.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
+                sub.classList.remove('hidden');
+                ensureLoaded(sub);
+            });
         }
 
-        function setPrivateMain(typePanel, mainId) {
+        function setPrivateMain(typePanel, mainId, keep) {
             typePanel.querySelectorAll('.entity-main-tab').forEach(function (t) {
-                const on = t.getAttribute('data-main-id') === mainId;
-                t.setAttribute('aria-selected', on ? 'true' : 'false');
-                t.classList.toggle('bg-primary', on);
-                t.classList.toggle('text-on-primary', on);
-                t.classList.toggle('bg-surface-container', !on);
-                t.classList.toggle('text-on-surface', !on);
+                styleTab(t, t.getAttribute('data-main-id') === mainId, 'main');
             });
 
             typePanel.querySelectorAll('.entity-main-panel').forEach(function (p) {
@@ -260,9 +282,9 @@ function initEntityBrowse() {
                 p.classList.toggle('hidden', !on);
                 if (!on) return;
 
-                const firstSub = p.querySelector('.entity-sub-tab');
-                if (firstSub) {
-                    setSub(p, firstSub.getAttribute('data-sub-id'), mainId);
+                const sub = keep ? pickTab(p, '.entity-sub-tab') : p.querySelector('.entity-sub-tab');
+                if (sub) {
+                    setSub(p, sub.getAttribute('data-sub-id'), mainId);
                 } else {
                     p.querySelectorAll('.entity-sub-panel').forEach(function (sub) {
                         sub.classList.remove('hidden');
@@ -278,11 +300,7 @@ function initEntityBrowse() {
                 if (mainId !== null && t.getAttribute('data-main-id')) {
                     on = on && t.getAttribute('data-main-id') === mainId;
                 }
-                t.setAttribute('aria-selected', on ? 'true' : 'false');
-                t.classList.toggle('bg-primary-container', on);
-                t.classList.toggle('text-on-primary-container', on);
-                t.classList.toggle('bg-surface-container-low', !on);
-                t.classList.toggle('text-on-surface-variant', !on);
+                styleTab(t, on, 'sub');
             });
 
             scope.querySelectorAll('.entity-sub-panel').forEach(function (p) {
@@ -344,32 +362,45 @@ function initEntityBrowse() {
             });
         }
 
-        function exitSearch() {
+        function cancelSearch() {
             clearTimeout(searchTimer);
             if (searchController) {
                 searchController.abort();
                 searchController = null;
             }
+        }
+
+        // Leave search mode and clear the box (type-tab click).
+        function exitSearch() {
+            cancelSearch();
             if (searchInput) searchInput.value = '';
             if (resultsEl) resultsEl.replaceChildren();
             showResults(false);
         }
 
+        // Back to the tabs the visitor was on, keeping the text in the box.
         function restoreFromTabs() {
-            exitSearch();
-            const activeType = section.querySelector('.entity-type-tab[aria-selected="true"]');
+            cancelSearch();
+            if (!section.classList.contains('is-entity-searching')) return;
+            if (resultsEl) resultsEl.replaceChildren();
+            showResults(false);
+            const activeType = pickTab(section, '.entity-type-tab');
             if (activeType) {
-                setType(activeType.getAttribute('data-entity-type'));
+                setType(activeType.getAttribute('data-entity-type'), true);
             }
         }
 
-        function renderResults(items) {
+        function renderResults(data) {
             if (!resultsEl) return;
             resultsEl.replaceChildren();
 
-            if (!Array.isArray(items) || !items.length) {
+            const items = data && Array.isArray(data.items) ? data.items : [];
+            if (!items.length) {
                 resultsEl.appendChild(makeNote(i18n.no_results || '', 'text-on-surface-variant'));
                 return;
+            }
+            if (data.truncated) {
+                resultsEl.appendChild(makeNote(i18n.truncated || '', 'text-on-surface-variant'));
             }
 
             const groups = {};
@@ -413,9 +444,9 @@ function initEntityBrowse() {
             resultsEl.replaceChildren(makeNote(i18n.loading || '…', 'text-on-surface-variant'));
 
             fetchJson(restUrl(cfg.searchUrl, { q: query, taxonomy: 'all' }), controller.signal)
-                .then(function (items) {
+                .then(function (data) {
                     if (controller !== searchController) return; // superseded
-                    renderResults(items);
+                    renderResults(data);
                 })
                 .catch(function (err) {
                     if (err && err.name === 'AbortError') return;
@@ -427,16 +458,14 @@ function initEntityBrowse() {
         if (searchInput) {
             searchInput.addEventListener('input', function () {
                 const raw = searchInput.value.trim();
-                clearTimeout(searchTimer);
 
-                if (!raw) {
+                // Empty or shorter than the server's minimum (2 characters after
+                // normalization): drop any pending search and show the tabs again.
+                if (normalizeArabic(raw).length < 2) {
                     restoreFromTabs();
                     return;
                 }
-                // Same minimum as the server (2 characters after normalization).
-                if (normalizeArabic(raw).length < 2) {
-                    return;
-                }
+                clearTimeout(searchTimer);
                 searchTimer = setTimeout(function () {
                     runSearch(raw);
                 }, 250);

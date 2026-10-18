@@ -62,6 +62,9 @@ if ($department instanceof WP_Term) {
 } else {
     $blog_page_id = (int) get_option('page_for_posts');
     $more_link = $blog_page_id ? get_permalink($blog_page_id) : home_url('/news/');
+    if (!empty($more_link_args)) {
+        $more_link = add_query_arg($more_link_args, $more_link);
+    }
 }
 
 $more_icon_path = get_stylesheet_directory() . '/assets/images/more-icon.svg';

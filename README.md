@@ -122,7 +122,7 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 | Endpoint                                         | Method | Purpose                                     |
 | :----------------------------------------------- | :----- | :------------------------------------------ |
 | `/wp-json/hello/v1/entity-nav`                   | GET    | `?taxonomy=&parent=` → entities under a group (id, name, link). |
-| `/wp-json/hello/v1/entity-search`                | GET    | `?q=&taxonomy=all` → matching entities across taxonomies (min. 2 chars). |
+| `/wp-json/hello/v1/entity-search`                | GET    | `?q=&taxonomy=all` → `{items, truncated}`: matching entities across taxonomies, max 100 per taxonomy (min. 2 chars). |
 | `/wp-json/newspapersite/v1/track-view/{id}`      | POST   | Page-cache-safe view counter (`post_views_count` meta). |
 | `admin-ajax.php?action=cars_filter`              | POST   | Car results + filter chips HTML (nonce-protected). |
 
