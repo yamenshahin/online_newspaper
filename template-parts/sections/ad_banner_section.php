@@ -29,22 +29,22 @@ if (!$image_id) {
 }
 ?>
 
-<section class="promo-banner-section py-8 border-b border-gray-100 last:border-0 my-4">
-    <div class="max-w-7xl mx-auto px-6 flex justify-center">
+<section class="promo-banner-section w-full px-margin-mobile lg:px-margin py-space-xl">
+    <div class="flex justify-center">
         <div
-            class="w-full max-w-4xl overflow-hidden rounded-2xl bg-gray-50 border border-gray-100 shadow-sm transition-all duration-300 hover:shadow-md">
+            class="min-w-0 max-w-full overflow-hidden">
 
             <?php if (!empty($ad_link)): ?>
                 <a href="<?php echo esc_url($ad_link); ?>" target="_blank" rel="noopener noreferrer nofollow"
                     class="block group">
                     <?php echo wp_get_attachment_image($image_id, 'full', false, [
-                        'class' => 'w-full h-auto object-cover max-h-48 transition-transform duration-500 group-hover:scale-[1.01]',
+                        'class' => 'block w-auto h-auto max-w-full max-h-[70vh] object-contain transition-transform duration-500 group-hover:scale-[1.01]',
                     ]); ?>
                 </a>
             <?php else: ?>
                 <div class="block">
                     <?php echo wp_get_attachment_image($image_id, 'full', false, [
-                        'class' => 'w-full h-auto object-cover max-h-48',
+                        'class' => 'block w-auto h-auto max-w-full max-h-[70vh] object-contain',
                     ]); ?>
                 </div>
             <?php endif; ?>

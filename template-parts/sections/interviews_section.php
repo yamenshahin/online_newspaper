@@ -126,4 +126,4 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
     </div>
 </section>
 
-<?php wp_reset_postdata(); ?>s
+<?php wp_reset_postdata(); ?>
