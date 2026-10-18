@@ -42,8 +42,8 @@ while (have_posts()):
                 </h1>
 
                 <!-- Meta Data (Date & Editor Taxonomy) -->
-                <div class="flex items-center justify-center gap-4 text-sm font-medium text-gray-500">
-                    <time datetime="<?php echo get_the_date('c'); ?>"><?php echo get_the_date(); ?></time>
+                <div class="flex flex-wrap items-center justify-center gap-4 text-sm font-medium text-gray-500">
+                    <?php render_post_dates(); ?>
                     <span>&bull;</span>
                     <span><?php echo esc_html($display_author); ?></span>
                 </div>

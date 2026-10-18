@@ -464,6 +464,51 @@ add_filter('acf/load_field/name=department_sections', function ($field) {
 
 /**
  * -------------------------------------------------
+ * POST DATES (KSA TIME)
+ * Renders the publish date and, when it falls on a later day, the last
+ * update date. Both are shown in Asia/Riyadh regardless of the site timezone.
+ * -------------------------------------------------
+ */
+function render_post_dates($post = null): void
+{
+	$post = get_post($post);
+	if (!$post) {
+		return;
+	}
+
+	$timezone = new DateTimeZone('Asia/Riyadh');
+	$format = get_option('date_format');
+
+	$published = get_post_timestamp($post, 'date');
+	$modified = get_post_timestamp($post, 'modified');
+	if (!$published) {
+		return;
+	}
+
+	$published_label = wp_date($format, $published, $timezone);
+	?>
+	<time datetime="<?php echo esc_attr(wp_date('c', $published, $timezone)); ?>">
+		<?php echo esc_html(sprintf(__('نُشر في %s', 'hello-elementor-child'), $published_label)); ?>
+	</time>
+	<?php
+	if (!$modified || $modified <= $published) {
+		return;
+	}
+
+	$modified_label = wp_date($format, $modified, $timezone);
+	if ($modified_label === $published_label) {
+		return;
+	}
+	?>
+	<span>&bull;</span>
+	<time datetime="<?php echo esc_attr(wp_date('c', $modified, $timezone)); ?>">
+		<?php echo esc_html(sprintf(__('آخر تحديث %s', 'hello-elementor-child'), $modified_label)); ?>
+	</time>
+	<?php
+}
+
+/**
+ * -------------------------------------------------
  * DYNAMIC CPT LABELS ENGINE
  * Fetches the post type title and subtitle from the 
  * Homepage ACF 'department_sections' flexible content.

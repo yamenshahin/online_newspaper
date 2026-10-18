@@ -27,9 +27,8 @@ while (have_posts()):
 				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
 					<?php the_title(); ?>
 				</h1>
-				<div class="flex items-center justify-center gap-4 text-sm font-medium text-gray-500">
-					<time
-						datetime="<?php echo esc_attr(get_the_date('c')); ?>"><?php echo esc_html(get_the_date()); ?></time>
+				<div class="flex flex-wrap items-center justify-center gap-4 text-sm font-medium text-gray-500">
+					<?php render_post_dates(); ?>
 					<span>&bull;</span>
 					<span><?php echo esc_html($display_author); ?></span>
 				</div>
