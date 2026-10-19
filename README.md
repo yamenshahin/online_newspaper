@@ -18,7 +18,7 @@ An Arabic (RTL) news theme for Sharaka Online Newspaper, built as a child of `he
 | :------------------- | :-------------------------------------------------------------------------------------- |
 | WordPress + PHP 8.x  | Code uses typed signatures and nullable return types.                                   |
 | Hello Elementor      | Parent theme (`Template: hello-elementor`).                                             |
-| Elementor            | Used for header/footer; the theme exposes shortcodes for those templates.               |
+| Elementor            | Footer template, built from the theme's shortcodes. The header is Hello's PHP header, overridden in `template-parts/dynamic-header.php`. |
 | ACF Pro              | **Required.** Post types, taxonomies and field groups are all defined in `acf-json/`.   |
 | Node.js              | Only needed to rebuild CSS (Tailwind CSS v4 via `@tailwindcss/cli`).                    |
 | WP-CLI (optional)    | For flushing rewrites/cache after deploys.                                              |
@@ -82,6 +82,7 @@ The `department_sections` field ("Department Layout Engine") is attached to **th
 | `taxonomy-{entity}.php`          | `geographic`, `government_entity`, `private_entity`, `speaker_influencer`, `event`: a profile header followed by the **homepage** Layout Engine, filtered to that term. Layouts in `get_term_archive_skip_layouts()` are skipped. |
 | `single.php`, `single-podcast.php`, `single-reel.php`, `single-car.php` | Single views.                                          |
 | `archive-car.php`                | Cars directory (wraps `cars_section`).                                                           |
+| `search.php`                     | Results for every `?s=` request, including `?s=…&post_type=…`. See *Site search* below.          |
 
 ### Department context & branding (`inc/department-context.php`)
 
@@ -104,6 +105,14 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 - Taxonomy facets, numeric range filters (`price`, `power`, `torque`, `engine`, `seats`), exact-match text filters (`transmission`, `drive`), plus a text search.
 - Filters live in the URL as GET parameters. `assets/js/filters.js` updates the results over AJAX, without a full page reload.
 - The `cars` department term (slug `cars`) supplies the logo and accent color for all car screens.
+
+### Site search (`inc/site-search.php`)
+
+- `/?s=` searches posts, programs, interviews, infographics, videos, podcasts and reels (`get_site_search_post_types()`). Pages and cars are left out. A `post_type` in the URL narrows the search to one of those types.
+- A term shorter than 2 characters (`SITE_SEARCH_MIN_LENGTH`) skips the database query, and `search.php` shows a prompt instead.
+- `search.php` renders each result with `template-parts/cards/card-{type}.php`, or `card-post` when a type has no card. Reel images start at 16:9 and grow to fill their row.
+- The form lives in `template-parts/search/search-form.php` and sends `s` to `home_url('/')`.
+- Only the front-end main search query changes. Admin searches, feeds, REST and the cars directory's own query (`car_s`) keep core behaviour.
 
 ---
 
@@ -140,10 +149,11 @@ hello-elementor-child/
 │   ├── fonts/                 # SF Pro AR Display + Material Symbols subset (woff2)
 │   ├── webfonts/              # Font Awesome solid + brands (woff2)
 │   ├── images/                # Fallback images and icons
-│   └── js/filters.js          # Show-more, entity tabs/search, cars AJAX filters
+│   └── js/filters.js          # Header search, show-more, entity tabs/search, cars AJAX filters
 ├── inc/
 │   ├── cars.php               # Cars directory: filter state, queries, facet counts, URLs
 │   ├── department-context.php # Current department + field fallback + theme color
+│   ├── site-search.php        # Searchable post types, short-term skip, result count text
 │   ├── taxonomy-helpers.php   # Entity trees, caching, REST routes, term-archive skip list
 │   └── shortcodes/
 │       └── department-footer.php
@@ -154,11 +164,15 @@ hello-elementor-child/
 │   ├── cars/                  # Filter chips, taxonomy selects, "more" filters, results
 │   ├── entities/              # Entity browse section
 │   ├── profiles/              # Term profile headers, organizer, department nav
+│   ├── search/                # Site search form
 │   ├── sections/              # Layout Engine sections (one file per layout)
-│   └── department-single-cpt.php
+│   ├── department-single-cpt.php
+│   ├── dynamic-header.php     # Hello's header + header search (see Gotchas)
+│   └── header-search.php      # Header search toggle + panel
 ├── front-page.php
 ├── taxonomy-*.php
 ├── single*.php / archive*.php
+├── search.php                 # Search results
 ├── functions.php              # Assets, permalinks, admin UI, labels, views, AJAX
 └── style.css                  # Theme header only
 ```
@@ -208,6 +222,7 @@ wp cache flush
 ## Gotchas
 
 - **Hardcoded Elementor post IDs.** `remove_elementor_post_stylesheet()` dequeues `elementor-post-173742` and `elementor-post-16`, which are specific to this site. Update both IDs if the footer template or default kit changes.
+- **The header template is a copy of Hello's.** `template-parts/dynamic-header.php` is Hello Elementor 3.5.1's file plus the commented "Child theme: header search" blocks. After a Hello update, run `diff -u --strip-trailing-cr ../hello-elementor/template-parts/dynamic-header.php template-parts/dynamic-header.php` in this folder; anything besides those blocks is an upstream change to copy in. The override is only used while Elementor's **Header & Footer** feature (Hello Theme, under Elementor settings → Features) is active and Hello's "Disable theme header and footer" is off. Otherwise Hello renders `template-parts/header.php`, which has no search.
 - **Performance tweaks.** The theme dequeues the block library, global styles and Elementor's Google Fonts (Roboto). Icons are self-hosted and compiled into `style.min.css`. Font Awesome 6.5.1 comes from the npm package and includes only the solid and brands sets. Material Symbols is preloaded.
 - **Material Symbols is a subset.** `assets/fonts/material-symbols-outlined.woff2` contains only the icons the theme uses: close, corporate_fare, expand_more, graphic_eq, movie, person, play_arrow, podcasts, search, search_off, share, timer, tv, videocam. A new icon renders as plain text until you re-download the font. Open `https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&icon_names=<comma-separated, alphabetical>&display=block` in Chrome and save the woff2 file it links to. Also, only the FILL 0 style is included, so `font-variation-settings: 'FILL' 1` has no effect.
 - **Font Awesome icons need the `fas` or `fab` prefix.** `far` (regular) isn't loaded.

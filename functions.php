@@ -17,6 +17,7 @@ require_once $theme_inc . '/department-context.php';
 require_once $theme_inc . '/shortcodes/department-footer.php';
 require_once $theme_inc . '/taxonomy-helpers.php';
 require_once get_stylesheet_directory() . '/inc/cars.php';
+require_once $theme_inc . '/site-search.php';
 // ---------------------------------------------------------------------------
 // Assets
 // ---------------------------------------------------------------------------

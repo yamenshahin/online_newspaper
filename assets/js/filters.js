@@ -1,7 +1,9 @@
 /**
- * Filters: Geographic show-more + combined entity tabs + entity search
+ * Header search + filters: Geographic show-more + combined entity tabs + entity search
  */
 document.addEventListener('DOMContentLoaded', function () {
+    initHeaderSearch(); // First: it is on every page, so a page-specific init can't stop it.
+    initSearchProgress();
     initFilterWrappers();
     initEntityBrowse();
     initCarsAjaxFilters();
@@ -676,5 +678,155 @@ function initCarsAjaxFilters() {
                 runFilter();
             }
         }
+    });
+}
+
+/**
+ * Header search (template-parts/header-search.php)
+ *
+ * The toggle opens a panel under the header. Escape, the close button, a press
+ * outside or tabbing away closes it. Opening the search closes Hello's mobile
+ * menu, and opening that menu closes the search.
+ */
+function initHeaderSearch() {
+    const root = document.querySelector('.site-header .header-search');
+    if (!root) return;
+
+    const toggle = root.querySelector('.header-search-toggle');
+    const input = root.querySelector('input[type="search"]');
+    const closeButton = root.querySelector('.header-search-close');
+    if (!toggle || !input) return;
+
+    // Hello's mobile menu. hello-frontend.js owns its state, so it is closed
+    // through its own toggle, which keeps its aria-expanded and inert in sync.
+    const header = root.closest('.site-header');
+    const menuToggle = header.querySelector('.site-navigation-toggle');
+    const menuHolder = header.querySelector('.site-navigation-toggle-holder');
+
+    function isOpen() {
+        return root.classList.contains('is-open');
+    }
+
+    function open() {
+        if (menuToggle && menuHolder && menuHolder.classList.contains('elementor-active')) {
+            menuToggle.click();
+        }
+        root.classList.add('is-open');
+        toggle.setAttribute('aria-expanded', 'true');
+        input.focus();
+        // Caret after a prefilled query (search results pages).
+        input.setSelectionRange(input.value.length, input.value.length);
+    }
+
+    function close(restoreFocus) {
+        if (!isOpen()) return;
+        root.classList.remove('is-open');
+        toggle.setAttribute('aria-expanded', 'false');
+        if (restoreFocus) toggle.focus();
+    }
+
+    toggle.addEventListener('click', function () {
+        if (isOpen()) {
+            close(true);
+        } else {
+            open();
+        }
+    });
+
+    if (closeButton) {
+        closeButton.addEventListener('click', function () {
+            close(true);
+        });
+    }
+
+    if (menuToggle) {
+        menuToggle.addEventListener('click', function () {
+            close(false);
+        });
+    }
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key !== 'Escape' || !isOpen()) return;
+        e.preventDefault(); // Escape would also clear the search field.
+        close(true);
+    });
+
+    // pointerdown, not click: iOS sends no click for taps on plain content, and
+    // selecting the query with the mouse must not close the panel when the drag
+    // ends outside it.
+    document.addEventListener('pointerdown', function (e) {
+        if (isOpen() && !root.contains(e.target)) close(false);
+    });
+
+    // Tabbing out closes the panel, so it never covers the element that gets focus.
+    root.addEventListener('focusout', function (e) {
+        if (isOpen() && e.relatedTarget && !root.contains(e.relatedTarget)) close(false);
+    });
+}
+
+/**
+ * Search in progress (header search + results-page form)
+ *
+ * A search loads a new page and takes a couple of seconds, so on submit the
+ * button shows a spinner and its data-loading-text, repeat submits are
+ * ignored, and the current results (results page) fade. Coming back with the
+ * Back button restores a page from the bfcache, so pageshow resets it.
+ */
+function initSearchProgress() {
+    const forms = document.querySelectorAll('.header-search form, .site-search-form');
+    if (!forms.length) return;
+
+    function start(form) {
+        const button = form.querySelector('button[type="submit"][data-loading-text]');
+        const input = form.querySelector('input[name="s"]');
+
+        form.setAttribute('aria-busy', 'true');
+        if (input) input.readOnly = true; // Not disabled: a disabled field isn't submitted.
+
+        if (button) {
+            button.dataset.idleText = button.textContent.trim();
+            const spinner = document.createElement('span');
+            spinner.className = 'inline-block size-4 shrink-0 rounded-full border-2 border-current border-t-transparent animate-spin motion-reduce:animate-none';
+            spinner.setAttribute('aria-hidden', 'true');
+            const label = document.createElement('span');
+            label.textContent = button.dataset.loadingText;
+            button.replaceChildren(spinner, label);
+            button.classList.add('gap-2', 'cursor-wait');
+        }
+
+        document.querySelectorAll('.search-results-grid').forEach(function (grid) {
+            grid.classList.add('opacity-50', 'pointer-events-none');
+        });
+    }
+
+    function reset(form) {
+        const button = form.querySelector('button[type="submit"][data-loading-text]');
+        const input = form.querySelector('input[name="s"]');
+
+        form.removeAttribute('aria-busy');
+        if (input) input.readOnly = false;
+        if (button && button.dataset.idleText) {
+            button.textContent = button.dataset.idleText;
+            button.classList.remove('gap-2', 'cursor-wait');
+        }
+    }
+
+    forms.forEach(function (form) {
+        // Runs only for valid submits: required/minlength block the event first.
+        form.addEventListener('submit', function (e) {
+            if (form.getAttribute('aria-busy') === 'true') {
+                e.preventDefault(); // Already searching.
+                return;
+            }
+            start(form);
+        });
+    });
+
+    window.addEventListener('pageshow', function (e) {
+        if (!e.persisted) return;
+        forms.forEach(reset);
+        document.querySelectorAll('.search-results-grid').forEach(function (grid) {
+            grid.classList.remove('opacity-50', 'pointer-events-none');
+        });
     });
 }

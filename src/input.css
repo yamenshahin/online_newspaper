@@ -742,6 +742,139 @@ footer .site-navigation ul.menu a {
     color: var(--color-primary, #0055ff);
 }
 
+/* ==========================================================================
+   Header search
+   Markup: template-parts/header-search.php, rendered by the child's
+   template-parts/dynamic-header.php. Behaviour: initHeaderSearch() in
+   assets/js/filters.js. Plain CSS on purpose: these rules have to beat the
+   un-layered Hello header rules above, which Tailwind utilities can't.
+   ========================================================================== */
+
+/* Let .header-inner span the bar (Hello's theme.css does this, but it is
+   deregistered here) so the toggles can sit at the far edge. */
+.site-header .header-inner {
+    flex: 1 1 100%;
+}
+
+/* Desktop menu + search toggle as one flex item, so they wrap under the logo
+   together. When the menu is hidden (tablet/mobile) only the search toggle is
+   left, at the end, next to Hello's menu toggle. */
+.site-header .header-actions {
+    display: flex;
+    flex: 1 1 auto;
+    align-items: center;
+    justify-content: flex-end;
+}
+
+/* Narrower link spacing (was 1.25rem) so logo, menu and search toggle still
+   fit on one row at 1440px. */
+.site-header .site-navigation ul {
+    column-gap: 0.875rem;
+}
+
+/* Same box and colours as Hello's menu toggle, so the two read as a pair. */
+.site-header .header-search-toggle {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.25rem;
+    height: 1.875rem;
+    padding: 0;
+    border: 0;
+    border-radius: 3px;
+    background-color: rgba(0, 0, 0, 0.05);
+    color: #494c4f;
+    cursor: pointer;
+    transition: color 0.2s ease-in-out;
+}
+
+.site-header .header-search-toggle:hover,
+.site-header .header-search-toggle[aria-expanded="true"] {
+    color: var(--color-primary);
+}
+
+.site-header .header-search-toggle:focus-visible,
+.site-header .header-search-panel button:focus-visible {
+    outline: 2px solid var(--color-primary);
+    outline-offset: 2px;
+}
+
+.site-header .header-search-toggle[aria-expanded="false"] .header-search-icon-close,
+.site-header .header-search-toggle[aria-expanded="true"] .header-search-icon-open {
+    display: none;
+}
+
+/* Icon sizes are set here because the un-layered .material-symbols-outlined
+   rule (24px) wins over text-[Npx] utilities. */
+.site-header .header-search-toggle .material-symbols-outlined {
+    font-size: 22px;
+}
+
+.site-header .header-search-panel .material-symbols-outlined {
+    font-size: 20px;
+}
+
+/* The panel: a full-width band under the header, like Hello's mobile menu. */
+.site-header .header-search-panel {
+    display: none;
+    position: absolute;
+    inset-inline: 0;
+    top: 100%;
+    z-index: 10000;
+    padding: 0.75rem 6vw;
+    background-color: var(--color-surface-container-lowest);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.05);
+    box-shadow: 0 12px 16px -12px rgba(0, 0, 0, 0.18);
+}
+
+.site-header .header-search.is-open .header-search-panel {
+    display: block;
+}
+
+.site-header .header-search-panel button {
+    cursor: pointer;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+    .site-header .header-search-panel {
+        transition: opacity 0.15s ease-out, translate 0.15s ease-out;
+    }
+
+    @starting-style {
+        .site-header .header-search.is-open .header-search-panel {
+            opacity: 0;
+            translate: 0 -0.5rem;
+        }
+    }
+}
+
+/* Without JavaScript the toggle can't open the panel: hide it and show the
+   form as its own row under the bar instead. */
+@media (scripting: none) {
+    .site-header .header-actions {
+        display: contents;
+    }
+
+    .site-header .header-search {
+        flex-basis: 100%;
+        order: 1;
+    }
+
+    .site-header .header-search-toggle,
+    .site-header .header-search-close {
+        display: none;
+    }
+
+    .site-header .header-search-panel {
+        display: block;
+        position: static;
+        padding: 0.5rem 0 0;
+        background: none;
+        border: 0;
+        box-shadow: none;
+    }
+}
+
 .elementor-element-341994f.bg-primary {
     background-color: var(--color-primary) !important;
 }
