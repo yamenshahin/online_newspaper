@@ -29,7 +29,7 @@ if (!$image_id) {
 }
 ?>
 
-<section class="promo-banner-section w-full px-margin-mobile lg:px-margin py-space-xl">
+<section class="promo-banner-section w-full px-margin-mobile md:px-24 py-space-xl">
     <div class="flex justify-center">
         <div
             class="min-w-0 max-w-full overflow-hidden">
