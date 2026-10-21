@@ -1069,3 +1069,7 @@ function cars_ajax_filter()
 		'results' => $results_html,
 	]);
 }
+
+
+//  Disable WordPress 404 text-slug guessing completely
+add_filter( 'do_redirect_guess_404_permalink', '__return_false' );
