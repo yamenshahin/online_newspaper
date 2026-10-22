@@ -61,12 +61,27 @@ while (have_posts()):
                 $wrapper_classes = 'max-w-2xl';
                 $image_classes .= ' aspect-[9/16] object-contain bg-gray-50';
             }
+
+            // Image text from the media library: title, then description, then alt text.
+            $thumbnail_id = get_post_thumbnail_id();
+            $image_description = trim(wp_strip_all_tags(get_the_title($thumbnail_id)));
+            if ('' === $image_description) {
+                $image_description = trim(wp_strip_all_tags(get_post_field('post_content', $thumbnail_id)));
+            }
+            if ('' === $image_description) {
+                $image_description = trim(get_post_meta($thumbnail_id, '_wp_attachment_image_alt', true));
+            }
             ?>
             <div
                 class="<?php echo esc_attr($wrapper_classes); ?> mx-auto px-margin-mobile lg:px-margin mb-16 -mt-24 relative z-10">
-                <div class="rounded-3xl overflow-hidden shadow-2xl shadow-gray-200/50 bg-white p-2">
+                <figure class="rounded-3xl overflow-hidden shadow-2xl shadow-gray-200/50 bg-white p-2">
                     <?php the_post_thumbnail('full', ['class' => $image_classes]); ?>
-                </div>
+                    <?php if ('' !== $image_description): ?>
+                        <figcaption class="px-4 pt-3 pb-2 text-base text-gray-500 leading-relaxed text-center">
+                            <?php echo esc_html($image_description); ?>
+                        </figcaption>
+                    <?php endif; ?>
+                </figure>
             </div>
         <?php endif; ?>
 
