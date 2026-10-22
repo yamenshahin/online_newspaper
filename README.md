@@ -114,6 +114,15 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 - The form lives in `template-parts/search/search-form.php` and sends `s` to `home_url('/')`.
 - Only the front-end main search query changes. Admin searches, feeds, REST and the cars directory's own query (`car_s`) keep core behaviour.
 
+### Related content (`inc/related-content.php`)
+
+`single.php` shows two rows of up to 4 cards under posts, programs, interviews, infographics and videos. Podcasts, reels and cars have no related section. Reels and cars never appear as related items, but podcasts can.
+
+- **Main row (قد يهمك أيضًا):** always full. Editor picks come first, from the optional ACF `related_posts` field (up to 4, any content type). Items of the same post type ranked by shared terms come next. The newest items of the same department, then of the whole type, fill any remaining slots.
+- **Strip (تغطيات أخرى حول الموضوع):** other content types, shown only when they share a specific term. Department filler is never used here, and the row is hidden when nothing qualifies.
+- **Weights per shared term:** `program_series` 8, `speaker_influencer` / `event` 5, `government_entity` / `private_entity` 4, `geographic` 2. A shared department, or a place used on 200+ items (`RELATED_BROAD_PLACE_COUNT`, e.g. السعودية), counts 1 and only breaks ties. Ties go to the newest item. There's no age limit.
+- **Caching:** the ranked candidates are cached in a transient per post for 12 hours and cleared when the post is saved. The editor picks are read live, so editing them shows up at once.
+
 ---
 
 ## Shortcodes
@@ -153,6 +162,7 @@ hello-elementor-child/
 ├── inc/
 │   ├── cars.php               # Cars directory: filter state, queries, facet counts, URLs
 │   ├── department-context.php # Current department + field fallback + theme color
+│   ├── related-content.php    # Related rows under single items: picks, ranking, cache
 │   ├── site-search.php        # Searchable post types, short-term skip, result count text
 │   ├── taxonomy-helpers.php   # Entity trees, caching, REST routes, term-archive skip list
 │   └── shortcodes/
@@ -164,6 +174,7 @@ hello-elementor-child/
 │   ├── cars/                  # Filter chips, taxonomy selects, "more" filters, results
 │   ├── entities/              # Entity browse section
 │   ├── profiles/              # Term profile headers, organizer, department nav
+│   ├── related/               # Related content rows (single.php)
 │   ├── search/                # Site search form
 │   ├── sections/              # Layout Engine sections (one file per layout)
 │   ├── department-single-cpt.php

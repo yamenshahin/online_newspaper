@@ -88,6 +88,8 @@ while (have_posts()):
             </div>
         </article>
 
+        <?php get_template_part('template-parts/related/related-content'); ?>
+
     </main>
     <?php
 endwhile;
