@@ -1,6 +1,6 @@
 <?php
 /**
- * Hierarchical entity taxonomies: government_entity, private_entity, event.
+ * Hierarchical entity taxonomies: government_entity, private_entity, event, international_entity.
  * All terms are always listed (including empty ones), home and departments.
  *
  * The browse section renders only the group tabs on the server. Entities
@@ -10,7 +10,7 @@
  */
 function get_entity_taxonomies(): array
 {
-    return ['government_entity', 'private_entity', 'event'];
+    return ['government_entity', 'private_entity', 'event', 'international_entity'];
 }
 
 function get_term_descendant_ids(int $term_id, string $taxonomy): array
@@ -277,7 +277,7 @@ function rest_entity_nav(WP_REST_Request $request)
 }
 
 /**
- * GET /hello/v1/entity-search?q=...&taxonomy=all|government_entity|private_entity|event
+ * GET /hello/v1/entity-search?q=...&taxonomy=all|government_entity|private_entity|event|international_entity
  * Returns {items, truncated}: matches across the requested taxonomies, each
  * capped at ENTITY_SEARCH_LIMIT. truncated is true when any taxonomy had more,
  * so the UI can ask for a more specific query.

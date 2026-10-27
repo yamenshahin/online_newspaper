@@ -29,7 +29,7 @@ if (is_array($image_data) && !empty($image_data['ID'])) {
     $image_id = (int) $image_data;
 } elseif (empty($image_data)) {
     // Fallback logic for specific taxonomies if no ACF image is set
-    if ($term->taxonomy === 'government_entity') {
+    if ($term->taxonomy === 'government_entity' || $term->taxonomy === 'international_entity') {
         $fallback_image_url = get_stylesheet_directory_uri() . '/assets/images/government_entity.jpeg';
     } elseif ($term->taxonomy === 'private_entity') {
         $fallback_image_url = get_stylesheet_directory_uri() . '/assets/images/private_entity.jpeg';

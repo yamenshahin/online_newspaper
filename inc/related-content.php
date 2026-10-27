@@ -68,6 +68,7 @@ function get_related_taxonomy_weights(): array
         'event' => 5,
         'government_entity' => 4,
         'private_entity' => 4,
+        'international_entity' => 4,
         'geographic' => 2,
     ];
 }

@@ -50,8 +50,9 @@ ID-based permalinks are registered in `functions.php` (rewrite rules + `post_lin
 | :------------------- | :--------------------- | :----------------------------------------------------------------------- |
 | `department`         | All content types      | Sections of the paper; each has its own logo, color, icon, footer and layout. |
 | `geographic`         | All content types      | Regions → countries → cities.                                            |
-| `government_entity`  | All content types      | Government bodies (profile, socials, extra info).                       |
+| `government_entity`  | All content types      | Saudi government bodies (profile, socials, extra info).                 |
 | `private_entity`     | All content types      | Private sector companies.                                               |
+| `international_entity` | All content types    | International bodies (same metadata as government). Flat for now: no groups. |
 | `speaker_influencer` | All content types      | Public figures.                                                         |
 | `event`              | All content types      | Events with organizer and location groups.                              |
 | `post_editor`        | All content types      | Editor attribution.                                                     |
@@ -79,7 +80,7 @@ The `department_sections` field ("Department Layout Engine") is attached to **th
 | :------------------------------- | :----------------------------------------------------------------------------------------------- |
 | `front-page.php`                 | Renders the homepage Layout Engine.                                                              |
 | `taxonomy-department.php`        | Renders the department's Layout Engine. `?view={post_type}` switches to one post type, paginated. Taxonomy query args (`?geographic=…`) filter the sections. |
-| `taxonomy-{entity}.php`          | `geographic`, `government_entity`, `private_entity`, `speaker_influencer`, `event`: a profile header followed by the **homepage** Layout Engine, filtered to that term. Layouts in `get_term_archive_skip_layouts()` are skipped. |
+| `taxonomy-{entity}.php`          | `geographic`, `government_entity`, `private_entity`, `international_entity`, `speaker_influencer`, `event`: a profile header followed by the **homepage** Layout Engine, filtered to that term. Layouts in `get_term_archive_skip_layouts()` are skipped. |
 | `single.php`, `single-podcast.php`, `single-reel.php`, `single-car.php` | Single views.                                          |
 | `archive-car.php`                | Cars directory (wraps `cars_section`).                                                           |
 | `search.php`                     | Results for every `?s=` request, including `?s=…&post_type=…`. See *Site search* below.          |
@@ -96,7 +97,7 @@ If a department leaves a field empty, `get_department_field_with_fallback()` use
 
 ### Entity browsing (`inc/taxonomy-helpers.php`)
 
-Tabbed, searchable browser for hierarchical entity taxonomies (`template-parts/entities/entity-browse-section.php`). The server renders only the tabs; each group's entities are fetched from `/hello/v1/entity-nav` the first time its tab is opened (the first visible group is preloaded), and the search box queries `/hello/v1/entity-search` across all three taxonomies. Entities are listed alphabetically; no post counts are shown.
+Tabbed, searchable browser for hierarchical entity taxonomies (`template-parts/entities/entity-browse-section.php`). The server renders only the tabs; each group's entities are fetched from `/hello/v1/entity-nav` the first time its tab is opened (the first visible group is preloaded), and the search box queries `/hello/v1/entity-search` across all four taxonomies (`get_entity_taxonomies()`). Entities are listed alphabetically; no post counts are shown.
 
 Each taxonomy's term map (id, name, parent, link, normalized name) is cached in a transient for a day and cleared when a term is created, edited or deleted. Links are stored in the map, so rendering never calls `get_term_link()` per term. `normalize_entity_text()` in PHP and `normalizeArabic()` in `assets/js/filters.js` must stay identical.
 
@@ -120,7 +121,7 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 
 - **Main row (قد يهمك أيضًا):** always full. Editor picks come first, from the optional ACF `related_posts` field (up to 4, any content type). Items of the same post type ranked by shared terms come next. The newest items of the same department, then of the whole type, fill any remaining slots.
 - **Strip (تغطيات أخرى حول الموضوع):** other content types, shown only when they share a specific term. Department filler is never used here, and the row is hidden when nothing qualifies.
-- **Weights per shared term:** `program_series` 8, `speaker_influencer` / `event` 5, `government_entity` / `private_entity` 4, `geographic` 2. A shared department, or a place used on 200+ items (`RELATED_BROAD_PLACE_COUNT`, e.g. السعودية), counts 1 and only breaks ties. Ties go to the newest item. There's no age limit.
+- **Weights per shared term:** `program_series` 8, `speaker_influencer` / `event` 5, `government_entity` / `private_entity` / `international_entity` 4, `geographic` 2. A shared department, or a place used on 200+ items (`RELATED_BROAD_PLACE_COUNT`, e.g. السعودية), counts 1 and only breaks ties. Ties go to the newest item. There's no age limit.
 - **Caching:** the ranked candidates are cached in a transient per post for 12 hours and cleared when the post is saved. The editor picks are read live, so editing them shows up at once.
 
 ---

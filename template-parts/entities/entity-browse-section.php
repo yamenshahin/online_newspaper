@@ -1,10 +1,11 @@
 <?php
 /**
  * Combined entity browse:
- * L1: الجهات الحكومية | القطاع الخاص | الفعاليات
+ * L1: الجهات الحكومية السعودية | القطاع الخاص | الفعاليات | الجهات الدولية
  * Gov:  L2 subs → entities
  * Priv: L2 mains → L3 subs → entities
  * Event: L2 categories → entities
+ * Intl: entities (L2 categories → entities once groups are added)
  *
  * Only the tabs are rendered here. Entities are fetched from
  * /hello/v1/entity-nav when a group is opened (the first visible group is
@@ -28,16 +29,19 @@ $dept_id = $dept_term ? (int) $dept_term->term_id : 0;
 $gov_tree = get_entity_browse_tree('government_entity');
 $prv_tree = get_entity_browse_tree('private_entity');
 $evt_tree = get_entity_browse_tree('event');
+$intl_tree = get_entity_browse_tree('international_entity');
 
 $gov_root_leaves = empty($gov_tree) && entity_taxonomy_has_root_leaves('government_entity');
 $prv_root_leaves = empty($prv_tree) && entity_taxonomy_has_root_leaves('private_entity');
 $evt_root_leaves = empty($evt_tree) && entity_taxonomy_has_root_leaves('event');
+$intl_root_leaves = empty($intl_tree) && entity_taxonomy_has_root_leaves('international_entity');
 
 $has_gov = !empty($gov_tree) || $gov_root_leaves;
 $has_prv = !empty($prv_tree) || $prv_root_leaves;
 $has_evt = !empty($evt_tree) || $evt_root_leaves;
+$has_intl = !empty($intl_tree) || $intl_root_leaves;
 
-if (!$has_gov && !$has_prv && !$has_evt) {
+if (!$has_gov && !$has_prv && !$has_evt && !$has_intl) {
     return;
 }
 
@@ -58,13 +62,16 @@ $gov_default_sub = array_key_first($gov_subs) ?? 0;
 
 $prv_default_main = array_key_first($prv_tree) ?? 0;
 $evt_default_id = array_key_first($evt_tree) ?? 0;
+$intl_default_id = array_key_first($intl_tree) ?? 0;
 
 if ($has_gov) {
     $default_type = 'government';
 } elseif ($has_prv) {
     $default_type = 'private';
-} else {
+} elseif ($has_evt) {
     $default_type = 'event';
+} else {
+    $default_type = 'international';
 }
 
 $section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
@@ -78,9 +85,10 @@ $i18n = [
     'no_results' => __('لا توجد نتائج', 'hello-elementor-child'),
     'truncated' => __('النتائج كثيرة، اكتب كلمة أدق لتضييق البحث', 'hello-elementor-child'),
     'labels' => [
-        'government_entity' => __('الجهات الحكومية', 'hello-elementor-child'),
+        'government_entity' => __('الجهات الحكومية السعودية', 'hello-elementor-child'),
         'private_entity' => __('القطاع الخاص', 'hello-elementor-child'),
         'event' => __('الفعاليات', 'hello-elementor-child'),
+        'international_entity' => __('الجهات الدولية', 'hello-elementor-child'),
     ],
 ];
 
@@ -176,6 +184,14 @@ $render_sub_tabs = static function (array $groups, int $default_id, string $type
                         data-entity-type="event"
                         aria-selected="<?php echo $default_type === 'event' ? 'true' : 'false'; ?>">
                         <?php echo esc_html($i18n['labels']['event']); ?>
+                    </button>
+                <?php endif; ?>
+                <?php if ($has_intl): ?>
+                    <button type="button"
+                        class="entity-type-tab px-space-md py-space-xs rounded-full font-label-pill text-label-pill transition-colors <?php echo $default_type === 'international' ? 'bg-primary text-on-primary' : 'bg-surface-container text-on-surface hover:bg-surface-container-high'; ?>"
+                        data-entity-type="international"
+                        aria-selected="<?php echo $default_type === 'international' ? 'true' : 'false'; ?>">
+                        <?php echo esc_html($i18n['labels']['international_entity']); ?>
                     </button>
                 <?php endif; ?>
             </div>
@@ -277,6 +293,27 @@ $render_sub_tabs = static function (array $groups, int $default_id, string $type
                     <?php endforeach; ?>
                 <?php else: ?>
                     <?php $render_leaf_panel('event', 0, 'event', $default_type === 'event'); ?>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+        <?php if ($has_intl): ?>
+            <div class="entity-type-panel <?php echo $default_type === 'international' ? '' : 'hidden'; ?>"
+                data-entity-type="international">
+                <?php if (!empty($intl_tree)): ?>
+                    <?php $render_sub_tabs($intl_tree, (int) $intl_default_id, 'international'); ?>
+                    <?php foreach ($intl_tree as $cat_id => $cat): ?>
+                        <?php $render_leaf_panel(
+                            'international_entity',
+                            (int) $cat_id,
+                            'international',
+                            $default_type === 'international' && (int) $cat_id === (int) $intl_default_id,
+                            0,
+                            (int) $cat_id
+                        ); ?>
+                    <?php endforeach; ?>
+                <?php else: ?>
+                    <?php $render_leaf_panel('international_entity', 0, 'international', $default_type === 'international'); ?>
                 <?php endif; ?>
             </div>
         <?php endif; ?>

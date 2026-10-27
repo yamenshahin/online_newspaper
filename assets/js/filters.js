@@ -94,10 +94,11 @@ function normalizeArabic(text) {
 
 /**
  * Combined entity browse:
- * L1 type (government | private | event)
+ * L1 type (government | private | event | international)
  * Gov:   L2 sub → entities
  * Priv:  L2 main → L3 sub → entities
  * Event: L2 category → entities
+ * Intl:  entities (L2 category → entities once groups are added)
  *
  * The server renders the tabs only. Each .entity-sub-panel carries
  * data-taxonomy + data-parent and is filled from /hello/v1/entity-nav the

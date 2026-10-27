@@ -24,6 +24,7 @@ $series_filter_taxonomies = [
     'speaker_influencer',
     'geographic',
     'event', // taxonomy archives set $_GET['event']
+    'international_entity',
 ];
 
 $active_filters = [];

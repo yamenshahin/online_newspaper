@@ -227,6 +227,7 @@ function get_filterable_taxonomies(): array
 		'geographic',
 		'program_series',
 		'event',
+		'international_entity',
 	];
 }
 
@@ -574,7 +575,7 @@ function get_dynamic_cpt_labels(string $post_type): array
 
 /**
  * DYNAMIC TAXONOMY LABELS ENGINE
- * Uses hardcoded labels for core taxonomies (event, government_entity, private_entity),
+ * Uses hardcoded labels for core taxonomies (event, government_entity, private_entity, international_entity),
  * and dynamically fetches titles/subtitles from Homepage ACF for all others.
  */
 function get_dynamic_taxonomy_labels(string $taxonomy): array
@@ -589,7 +590,7 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 	// Hardcoded overrides
 	$hardcoded_map = [
 		'government_entity' => [
-			'title' => 'الجهات الحكومية',
+			'title' => 'الجهات الحكومية السعودية',
 			'subtitle' => 'فرز المحتوى بحسب الجهة الحكومية',
 		],
 		'private_entity' => [
@@ -599,6 +600,10 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 		'event' => [
 			'title' => 'الفعاليات',
 			'subtitle' => 'فرز المحتوى بحسب الفعالية',
+		],
+		'international_entity' => [
+			'title' => 'الجهات الدولية',
+			'subtitle' => 'فرز المحتوى بحسب الجهة الدولية',
 		],
 	];
 

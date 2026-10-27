@@ -27,6 +27,7 @@ if ($department instanceof WP_Term) {
     $active_filters = [
         'government_entity',
         'private_entity',
+        'international_entity',
         'speaker_influencer',
         'geographic',
         'country',
