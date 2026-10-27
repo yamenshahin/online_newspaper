@@ -162,10 +162,8 @@ if (empty($active_terms)) {
                     </div>
 
                     <div class="mt-3 pt-2 flex items-center justify-between border-t border-white/20 text-xs text-white/90">
-                        <span class="flex items-center gap-1 transition-all">
-                            <?php esc_html_e('عرض الملف والمقالات', 'hello-elementor-child'); ?>
-                            <span class="material-symbols-outlined text-[14px] rtl:rotate-180">←</span>
-                        </span>
+                        <span><?php esc_html_e('عرض الملف والمقالات', 'hello-elementor-child'); ?></span>
+                        <span class="material-symbols-outlined text-[14px] group-hover:-translate-x-1 transition-transform" aria-hidden="true">←</span>
                     </div>
                 </div>
             </a>

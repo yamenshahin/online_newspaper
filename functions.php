@@ -85,13 +85,14 @@ add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
 // ---------------------------------------------------------------------------
 
 // Preload the icon font so ligature icons don't stay invisible (font-display: block)
-// while style.min.css is parsed. The URL must match the url() in style.min.css exactly
-// (no ?ver=), otherwise the browser downloads the font twice.
+// while style.min.css is parsed. The URL must match the url() in src/input.css exactly,
+// otherwise the browser downloads the font twice. Bump ?v= in both places whenever the
+// font file is replaced, or browsers keep the old cached subset (icons show as words).
 function hello_elementor_child_preload_fonts()
 {
 	printf(
 		'<link rel="preload" href="%s" as="font" type="font/woff2" crossorigin>' . "\n",
-		esc_url(get_stylesheet_directory_uri() . '/assets/fonts/material-symbols-outlined.woff2')
+		esc_url(get_stylesheet_directory_uri() . '/assets/fonts/material-symbols-outlined.woff2?v=2')
 	);
 }
 add_action('wp_head', 'hello_elementor_child_preload_fonts', 1);

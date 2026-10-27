@@ -13,14 +13,15 @@
  * Material Symbols Outlined (self-hosted subset).
  * The font only contains the icons used by the theme. To add an icon, re-download
  * assets/fonts/material-symbols-outlined.woff2 from Google Fonts with an updated
- * &icon_names= list (see README).
+ * &icon_names= list (see README), then bump ?v= here and in the preload in
+ * functions.php (the two URLs must match).
  */
 @font-face {
     font-family: 'Material Symbols Outlined';
     font-style: normal;
     font-weight: 400;
     font-display: block;
-    src: url('../fonts/material-symbols-outlined.woff2') format('woff2');
+    src: url('../fonts/material-symbols-outlined.woff2?v=2') format('woff2');
 }
 
 .material-symbols-outlined {
