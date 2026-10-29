@@ -171,6 +171,7 @@ final class Car_Directory_CLI
             }
         }
 
+        $this->line("{$tag} taxonomies...");
         $terms_total = 0;
         foreach (self::OLD_TAXONOMIES as $tax) {
             $terms = (int) $wpdb->get_var($wpdb->prepare("SELECT COUNT(*) FROM {$wpdb->term_taxonomy} WHERE taxonomy = %s", $tax));
@@ -192,6 +193,7 @@ final class Car_Directory_CLI
             $terms_total += $terms;
         }
 
+        $this->line("{$tag} ACF definitions, options, plugin tables...");
         $defs = 0;
         foreach ($this->old_acf_definitions() as $d) {
             if ($d['shared']) {
@@ -305,6 +307,11 @@ final class Car_Directory_CLI
         if (!$cars) {
             return [[], []];
         }
+        $t0 = microtime(true);
+        $step = function (string $what) use (&$t0): void {
+            $this->line(sprintf('[Purge] images: %s (%.0f s)', $what, microtime(true) - $t0));
+            $t0 = microtime(true);
+        };
         $ids = [];
         foreach (array_chunk($cars, 500) as $chunk) {
             $in = implode(',', $chunk);
@@ -313,41 +320,50 @@ final class Car_Directory_CLI
                 WHERE m.meta_key = '_thumbnail_id' AND m.post_id IN ({$in})"));
         }
         $ids = array_values(array_unique(array_map('intval', $ids)));
+        $step(count($ids) . ' candidate images of the old cars collected');
         if (!$ids) {
             return [[], []];
         }
-        $car_set = array_flip($cars);
+        $in = implode(',', $ids);
+        $cars_in = implode(',', $cars);
         $keep = [];
         foreach ([get_option('custom_logo'), get_option('site_icon')] as $opt) {
             if ((int) $opt) {
                 $keep[(int) $opt] = true;
             }
         }
-        $cars_in = implode(',', $cars);
-        $chunks = array_chunk($ids, 200);
-        $this->line(sprintf('[Purge] checking %d car images against the rest of the site (%d steps)...', count($ids), count($chunks)));
-        foreach ($chunks as $step => $chunk) {
-            $in = implode(',', $chunk);
-            $this->line(sprintf('[Purge] image check %d / %d', $step + 1, count($chunks)));
-            foreach ($wpdb->get_col("SELECT DISTINCT m.meta_value FROM {$wpdb->postmeta} m WHERE m.meta_value IN ({$in}) AND m.post_id NOT IN ({$cars_in})
-                AND m.post_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment')") as $used) {
-                $keep[(int) $used] = true;
+        // 1/4: any meta value of something that is not a car (featured image, ACF image, SEO social image...)
+        $this->line('[Purge] images: 1/4 looking for them in the meta of other content (one pass over postmeta)...');
+        foreach ($wpdb->get_results("SELECT m.meta_value, p.post_type FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id
+            WHERE m.meta_value IN ({$in}) AND m.post_id NOT IN ({$cars_in}) AND p.post_type <> 'attachment'") as $r) {
+            $keep[(int) $r->meta_value] = true;
+        }
+        $step('1/4 done');
+        $this->line('[Purge] images: 2/4 term meta...');
+        foreach ($wpdb->get_col("SELECT DISTINCT meta_value FROM {$wpdb->termmeta} WHERE meta_value IN ({$in})") as $used) {
+            $keep[(int) $used] = true;
+        }
+        $step('2/4 done');
+        $this->line('[Purge] images: 3/4 attachments that belong to other posts...');
+        $car_set = array_flip($cars);
+        foreach ($wpdb->get_results("SELECT ID, post_parent FROM {$wpdb->posts} WHERE ID IN ({$in})") as $a) {
+            if ($a->post_parent && !isset($car_set[(int) $a->post_parent])) {
+                $keep[(int) $a->ID] = true;
             }
-            foreach ($wpdb->get_col("SELECT DISTINCT meta_value FROM {$wpdb->termmeta} WHERE meta_value IN ({$in})") as $used) {
-                $keep[(int) $used] = true;
-            }
-            foreach ($wpdb->get_results("SELECT ID, post_parent FROM {$wpdb->posts} WHERE ID IN ({$in})") as $a) {
-                if ($a->post_parent && !isset($car_set[(int) $a->post_parent])) {
-                    $keep[(int) $a->ID] = true;
-                }
-            }
-            $files = [];
-            foreach ($wpdb->get_results("SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND post_id IN ({$in})") as $f) {
-                $files[(int) $f->post_id] = wp_basename($f->meta_value);
-            }
+        }
+        $step('3/4 done');
+        // 4/4: embedded in the content of something that is not a car (wp-image-<id> class, or the file name): one pass
+        $this->line('[Purge] images: 4/4 looking for them inside article contents (one pass over the posts)...');
+        $files = [];
+        foreach ($wpdb->get_results("SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_wp_attached_file' AND post_id IN ({$in})") as $f) {
+            $files[(int) $f->post_id] = wp_basename($f->meta_value);
+        }
+        foreach (array_chunk($ids, 500) as $chunk) {
             $alts = ['wp-image-(' . implode('|', $chunk) . ')([^0-9]|$)'];
-            foreach ($files as $name) {
-                $alts[] = preg_replace('/[.\\\\+*?\[^\]$(){}=!<>|:#-]/', '\\\\$0', $name);
+            foreach ($chunk as $att_id) {
+                if (isset($files[$att_id])) {
+                    $alts[] = preg_replace('/[.\\\\+*?\[^\]$(){}=!<>|:#-]/', '\\\\$0', $files[$att_id]);
+                }
             }
             $hits = $wpdb->get_results($wpdb->prepare("SELECT ID, post_content FROM {$wpdb->posts} WHERE post_type NOT IN ('car', 'attachment', 'revision')
                 AND post_status <> 'auto-draft' AND post_content REGEXP %s", '(' . implode('|', $alts) . ')'));
@@ -359,6 +375,7 @@ final class Car_Directory_CLI
                 }
             }
         }
+        $step('4/4 done');
         return [
             array_values(array_filter($ids, fn(int $id) => !isset($keep[$id]))),
             array_values(array_filter($ids, fn(int $id) => isset($keep[$id]))),
