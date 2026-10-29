@@ -302,6 +302,20 @@ add_action('template_redirect', function (): void {
     }
 });
 
+// `wp cars visibility --mode=images`: a term page without published cars is a 404 (its cars are drafts)
+add_action('template_redirect', function (): void {
+    if (!car_visibility_images() || !is_tax(array_keys(car_directory_taxonomies()))) {
+        return;
+    }
+    $term = get_queried_object();
+    if ($term instanceof WP_Term && car_term_count($term) === 0) {
+        global $wp_query;
+        $wp_query->set_404();
+        status_header(404);
+        nocache_headers();
+    }
+});
+
 /** Document title of the directory's front door (the car archive), without WordPress' "Archive" suffix. */
 function car_directory_archive_title(string $title): string
 {

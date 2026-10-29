@@ -26,6 +26,7 @@ final class Car_Directory_CLI
     const SOURCE_URL = '_car_source_url';
     const IMAGE_URL = '_car_image_url';
     const KEEP_FLAG = '_car_keep_applied';
+    const HIDDEN_FLAG = '_car_hidden'; // set by `visibility --mode=images` on the posts it drafted
     const TYPES = ['car', 'car_model_year'];
     const LIST_KEYS = ['parent_model_year', 'trims', 'gallery', 'design_wheel_designs']; // serialized lists of post ids
     const INT_KEYS = ['_thumbnail_id', '_car_parent_year'];                        // one post id
@@ -604,6 +605,9 @@ final class Car_Directory_CLI
         $this->commit($dry);
         if (!$dry) {
             $this->finish();
+            if (get_option('car_visibility') === 'images') {
+                $this->apply_visibility('images', false); // publishes what now has photos
+            }
         }
         $this->report($dry ? 'DRY RUN' : 'COMPLETED', 'import-pack', 'next: wp cars apply-keep <keep-file> --redirects-out=<csv>');
     }
@@ -986,13 +990,7 @@ final class Car_Directory_CLI
         wp_defer_term_counting(false);
         $t0 = microtime(true);
         $this->line('[Pack] finishing 1/3: term counts...');
-        foreach (array_keys(car_directory_taxonomies()) as $tax) {
-            clean_taxonomy_cache($tax);
-            $ids = get_terms(['taxonomy' => $tax, 'hide_empty' => false, 'fields' => 'tt_ids']);
-            if ($ids && !is_wp_error($ids)) {
-                wp_update_term_count_now($ids, $tax);
-            }
-        }
+        $this->recount_terms();
         $this->line(sprintf('[Pack] finishing 2/3: nested URLs... (counts took %.0f s)', microtime(true) - $t0));
         $t0 = microtime(true);
         $paths = build_car_paths();
@@ -1497,6 +1495,172 @@ final class Car_Directory_CLI
             $q("SELECT COUNT(*) FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id AND p.post_type = 'car' WHERE m.meta_key = 'gallery' AND m.meta_value NOT IN ('', 'a:0:{}')"),
             $q("SELECT COUNT(*) FROM {$wpdb->termmeta} WHERE meta_key = 'logo' AND meta_value <> ''")));
         $this->line(sprintf('old-URL redirects: %d | data version: %s', count((array) get_option('car_redirects', [])), (string) get_option('car_directory_data_version', '-')));
+        $this->line(sprintf('visibility: %s | hidden by it: %d cars, %d model years',
+            (string) get_option('car_visibility', 'all'),
+            $q("SELECT COUNT(*) FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id AND p.post_type = 'car' WHERE m.meta_key = '" . self::HIDDEN_FLAG . "'"),
+            $q("SELECT COUNT(*) FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id AND p.post_type = 'car_model_year' WHERE m.meta_key = '" . self::HIDDEN_FLAG . "'")));
+    }
+
+    // ===================================================================== visibility
+
+    /**
+     * Temporary publishing rule while the photos arrive brand by brand: `--mode=images` drafts every car
+     * without a photo (featured image or gallery) and every model year without a published trim, and
+     * publishes them again as soon as they have one; the theme then hides terms without published cars
+     * and answers 404 on their pages. `--mode=all` publishes everything this command hid and switches the
+     * theme back to showing everything. Idempotent, direct SQL (seconds), safe to re-run at any time;
+     * `wp cars import-pack` re-applies the rule by itself while the mode is `images`.
+     *
+     * ## OPTIONS
+     *
+     * --mode=<mode>
+     * : `images` (hide what has no photo) or `all` (show everything again).
+     *
+     * [--dry-run]
+     * : Count and report only.
+     *
+     * @when after_wp_load
+     */
+    public function visibility($args, $assoc): void
+    {
+        $this->unbuffer();
+        $mode = (string) ($assoc['mode'] ?? '');
+        if (!in_array($mode, ['images', 'all'], true)) {
+            WP_CLI::error('--mode must be images or all');
+        }
+        $dry = (bool) WP_CLI\Utils\get_flag_value($assoc, 'dry-run', false);
+        $this->speed_up();
+        $this->apply_visibility($mode, $dry);
+        $this->report($dry ? 'DRY RUN' : 'COMPLETED', 'visibility', $dry ? '' : 'next: wp litespeed-purge all');
+    }
+
+    /** The rule of visibility(): computes the wanted status of every car / model year and applies the difference. */
+    private function apply_visibility(string $mode, bool $dry): void
+    {
+        global $wpdb;
+        $this->line("[Visibility] mode {$mode}: reading cars, model years, photos and markers...");
+        $status = []; // id => post_status
+        $type = [];   // id => post_type
+        foreach ($wpdb->get_results("SELECT ID, post_type, post_status FROM {$wpdb->posts} WHERE post_type IN ('car', 'car_model_year')") as $p) {
+            $status[(int) $p->ID] = $p->post_status;
+            $type[(int) $p->ID] = $p->post_type;
+        }
+        $hidden = array_fill_keys(array_map('intval', $wpdb->get_col($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s", self::HIDDEN_FLAG))), true);
+        $want = []; // id => 'publish' | 'draft' (only ids this rule has an opinion about)
+        if ($mode === 'all') {
+            foreach (array_keys($hidden) as $id) {
+                if (isset($status[$id])) {
+                    $want[$id] = 'publish';
+                }
+            }
+        } else {
+            $photo = array_fill_keys(array_map('intval', $wpdb->get_col(
+                "SELECT m.post_id FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} a ON a.ID = m.meta_value AND a.post_type = 'attachment' WHERE m.meta_key = '_thumbnail_id'
+                 UNION SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'gallery' AND meta_value NOT IN ('', 'a:0:{}')"
+            )), true);
+            $parent_year = []; // car => model year (`parent_model_year`: a serialized one-item list or a plain id)
+            foreach ($wpdb->get_results("SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = 'parent_model_year' AND meta_value <> ''") as $r) {
+                $v = maybe_unserialize($r->meta_value);
+                $id = (int) (is_array($v) ? reset($v) : $v);
+                if ($id > 0) {
+                    $parent_year[(int) $r->post_id] = $id;
+                }
+            }
+            $sub_of = []; // sub-family model year => its model year
+            foreach ($wpdb->get_results("SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = '_car_parent_year' AND meta_value <> '' AND meta_value <> '0'") as $r) {
+                $sub_of[(int) $r->post_id] = (int) $r->meta_value;
+            }
+            // cars: a photo decides
+            $alive = []; // model year => has a published trim or a live sub-family
+            foreach ($status as $id => $st) {
+                if ($type[$id] !== 'car' || !in_array($st, ['publish', 'draft'], true)) {
+                    continue;
+                }
+                $publish = isset($photo[$id]);
+                $want[$id] = $publish ? 'publish' : 'draft';
+                if ($publish && isset($parent_year[$id])) {
+                    $alive[$parent_year[$id]] = true;
+                }
+            }
+            // model years: a live sub-family keeps its parent (a few levels at most)
+            for ($i = 0; $i < 5; $i++) {
+                $changed = false;
+                foreach ($sub_of as $sub => $year) {
+                    if (isset($alive[$sub]) && !isset($alive[$year])) {
+                        $alive[$year] = $changed = true;
+                    }
+                }
+                if (!$changed) {
+                    break;
+                }
+            }
+            foreach ($status as $id => $st) {
+                if ($type[$id] === 'car_model_year' && in_array($st, ['publish', 'draft'], true)) {
+                    $want[$id] = isset($alive[$id]) ? 'publish' : 'draft';
+                }
+            }
+        }
+        // the difference: publish only what this rule hid (an editor's own drafts stay drafts), draft only published posts
+        $to_draft = [];
+        $to_publish = [];
+        $unmark = [];
+        foreach ($want as $id => $w) {
+            $label = $type[$id] === 'car' ? 'cars' : 'model_years';
+            if ($w === 'draft' && $status[$id] === 'publish') {
+                $to_draft[] = $id;
+                $this->bump("{$label}_hidden");
+            } elseif ($w === 'publish' && $status[$id] === 'draft' && isset($hidden[$id])) {
+                $to_publish[] = $id;
+                $this->bump("{$label}_published");
+            } elseif ($w === 'publish' && $status[$id] === 'publish' && isset($hidden[$id])) {
+                $unmark[] = $id; // published by an import while hidden: just drop the marker
+            }
+        }
+        $this->stats['cars_hidden'] = $this->stats['cars_hidden'] ?? 0;
+        $this->stats['model_years_hidden'] = $this->stats['model_years_hidden'] ?? 0;
+        $this->line(sprintf('[Visibility] to draft: %s | to publish: %s | markers to drop: %s%s', number_format(count($to_draft)), number_format(count($to_publish)),
+            number_format(count($unmark) + count($to_publish)), $dry ? ' (dry run: nothing written)' : ''));
+        if ($dry) {
+            return;
+        }
+        foreach (array_chunk($to_draft, 500) as $chunk) {
+            $in = implode(',', $chunk);
+            $wpdb->query("UPDATE {$wpdb->posts} SET post_status = 'draft' WHERE ID IN ({$in})");
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id IN ({$in})", self::HIDDEN_FLAG));
+            $wpdb->query("INSERT INTO {$wpdb->postmeta} (post_id, meta_key, meta_value) VALUES " . implode(',', array_map(fn(int $id) => $wpdb->prepare('(%d, %s, %s)', $id, self::HIDDEN_FLAG, '1'), $chunk)));
+        }
+        foreach (array_chunk($to_publish, 500) as $chunk) {
+            $wpdb->query("UPDATE {$wpdb->posts} SET post_status = 'publish' WHERE ID IN (" . implode(',', $chunk) . ')');
+        }
+        foreach (array_chunk(array_merge($to_publish, $unmark), 500) as $chunk) {
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s AND post_id IN (" . implode(',', $chunk) . ')', self::HIDDEN_FLAG));
+        }
+        if ($mode === 'all') {
+            $wpdb->query($wpdb->prepare("DELETE FROM {$wpdb->postmeta} WHERE meta_key = %s", self::HIDDEN_FLAG)); // nothing hidden any more
+        }
+        wp_cache_flush_runtime();
+        $t0 = microtime(true);
+        $this->line('[Visibility] term counts...');
+        $this->recount_terms();
+        $this->line(sprintf('[Visibility] caches... (counts took %.0f s)', microtime(true) - $t0));
+        update_option('car_visibility', $mode, false);
+        update_option('car_directory_data_version', (string) time());
+        if (class_exists('\RankMath\Sitemap\Cache') && method_exists('\RankMath\Sitemap\Cache', 'invalidate_storage')) {
+            \RankMath\Sitemap\Cache::invalidate_storage();
+        }
+        wp_cache_flush();
+    }
+
+    /** Recount every term of the car taxonomies (published cars and model years, like WordPress itself). */
+    private function recount_terms(): void
+    {
+        foreach (array_keys(car_directory_taxonomies()) as $tax) {
+            clean_taxonomy_cache($tax);
+            $ids = get_terms(['taxonomy' => $tax, 'hide_empty' => false, 'fields' => 'tt_ids']);
+            if ($ids && !is_wp_error($ids)) {
+                wp_update_term_count_now($ids, $tax);
+            }
+        }
     }
 
     // ===================================================================== paths

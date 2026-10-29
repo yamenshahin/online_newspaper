@@ -37,6 +37,18 @@ function car_directory_data_version(): string
     return sanitize_key((string) get_option('car_directory_data_version', '1')) ?: '1';
 }
 
+/** `wp cars visibility --mode=images` is on: cars without photos are drafts and terms without published cars are hidden. */
+function car_visibility_images(): bool
+{
+    return get_option('car_visibility', 'all') === 'images';
+}
+
+/** The terms that have published cars, when car_visibility_images(); all of them otherwise. @param WP_Term[] $terms @return WP_Term[] */
+function car_visible_terms(array $terms): array
+{
+    return car_visibility_images() ? array_values(array_filter($terms, static fn(WP_Term $t) => car_term_count($t) > 0)) : $terms;
+}
+
 /** Shared placeholder (16:9 car silhouette) for every missing car / term image. */
 function car_placeholder_url(): string
 {
@@ -118,14 +130,14 @@ function car_origin_makes(WP_Term $origin): array
         'meta_key' => '_car_origin',
         'meta_value' => $origin->slug,
     ]);
-    return is_wp_error($makes) ? [] : car_sort_by_count($makes);
+    return is_wp_error($makes) ? [] : car_visible_terms(car_sort_by_count($makes));
 }
 
 /** Models of a make, most cars first. @return WP_Term[] */
 function car_make_models(WP_Term $make): array
 {
     $models = get_terms(['taxonomy' => 'car_make', 'parent' => $make->term_id, 'hide_empty' => false]);
-    return is_wp_error($models) ? [] : car_sort_by_count($models);
+    return is_wp_error($models) ? [] : car_visible_terms(car_sort_by_count($models));
 }
 
 /** Terms of one taxonomy by published-car count (desc), then name. @param WP_Term[] $terms @return WP_Term[] */
@@ -134,7 +146,7 @@ function car_sort_by_count(array $terms): array
     if (!$terms) {
         return [];
     }
-    $counts = car_term_counts($terms[0]->taxonomy);
+    $counts = car_term_counts(reset($terms)->taxonomy); // get_terms() with hide_empty can leave gaps in the keys
     usort($terms, static fn(WP_Term $a, WP_Term $b) => (($counts[$b->term_id] ?? 0) <=> ($counts[$a->term_id] ?? 0)) ?: strcmp($a->name, $b->name));
     return $terms;
 }
