@@ -269,7 +269,7 @@ final class Car_Directory_CLI
             $meta = [];
             foreach (self::OLD_KEEP_META as $k) {
                 $v = get_post_meta($id, $k, true);
-                if ((string) $v !== '' && $v !== null) {
+                if (is_array($v) ? $v !== [] : ((string) $v !== '' && $v !== null)) { // rank_math_robots is a list
                     $meta[$k] = $v;
                 }
             }
