@@ -292,7 +292,8 @@ final class Car_Directory_CLI
             $write([
                 'type' => 'car', 'id' => $id, 'path' => $slug ? '/car-directory/' . strtolower(rawurldecode($slug)) . '/' : '', 'slug' => $p->post_name,
                 'title' => $p->post_title, 'status' => $p->post_status, 'date' => $p->post_date, 'modified' => $p->post_modified,
-                'source_url' => (string) get_post_meta($id, self::SOURCE_URL, true), 'content' => $p->post_content, 'excerpt' => $p->post_excerpt,
+                'source_url' => (string) ($wpdb->get_var($wpdb->prepare("SELECT meta_value FROM {$wpdb->postmeta} WHERE post_id = %d AND meta_key LIKE %s AND meta_value <> '' LIMIT 1", $id, '%' . $wpdb->esc_like('_source_url'))) ?? ''), // the old site stored it under its own prefix
+                'content' => $p->post_content, 'excerpt' => $p->post_excerpt,
                 'meta' => $meta, 'terms' => $terms, 'thumbnail' => $thumb ? (string) get_post_meta($thumb, '_wp_attached_file', true) : '',
             ]);
         }
