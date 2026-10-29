@@ -942,3 +942,483 @@ article iframe[data-src*="youtube-nocookie.com/embed"] {
 article iframe {
     max-width: 100%;
 }
+
+/* ==========================================================================
+   Car directory
+   Markup: inc/cars/helpers.php + inc/cars/fields.php; behaviour: assets/js/car-directory.js.
+   Scoped under .car-directory (the class the car templates put on <main>).
+   Only what utilities cannot express: strips with arrows, tile grids and image
+   boxes, the read-more clamp, gallery + full-screen viewer, sticky spec tabs
+   (the live header is not sticky, so they stick to the viewport top, under the
+   admin bar when it is there), wide / transposed tables. Tokens only.
+   ========================================================================== */
+@layer components {
+    .car-directory .car-ltr {
+        direction: ltr;
+        unicode-bidi: isolate;
+    }
+
+    /* ---- tiles: image boxes and variants (flex, not grid: the image's max-height must resolve against the box) */
+    .car-directory .car-tile-img {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+        width: 100%;
+        height: 4rem;
+    }
+
+    .car-directory .car-tile-pic {
+        max-width: 100%;
+        max-height: 100%;
+        width: auto;
+        object-fit: contain;
+    }
+
+    .car-directory .car-tile-big .car-tile-img {
+        height: 6rem;
+    }
+
+    .car-directory .car-tile-logo .car-tile-img {
+        height: 3.5rem;
+    }
+
+    .car-directory .car-tile-body .car-tile-pic {
+        max-width: 7rem;
+    }
+
+    .car-directory .car-tile-text {
+        min-height: 7.5rem;
+        line-height: 1.9;
+    }
+
+    .car-directory .car-tile-badge {
+        position: absolute;
+        top: 0.5rem;
+        inset-inline-start: 0.5rem;
+        line-height: 1.25rem;
+    }
+
+    .car-directory .car-img-placeholder {
+        background: var(--color-surface-container);
+        object-fit: contain;
+    }
+
+    /* ---- grids (210 / 280 / 130px columns) and the centered grid of short strips */
+    .car-directory .car-grid {
+        display: grid;
+        gap: var(--spacing-gutter-mobile);
+        grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+    }
+
+    .car-directory .car-grid-wide {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    }
+
+    .car-directory .car-grid-logos {
+        grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
+    }
+
+    .car-directory .car-grid-center {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: var(--spacing-gutter-mobile);
+    }
+
+    .car-directory .car-grid-center > * {
+        width: 118px;
+    }
+
+    /* ---- horizontal strips with prev / next arrows (the source sliders) */
+    .car-directory .car-strip {
+        display: flex;
+        gap: 0.75rem;
+        overflow-x: auto;
+        scroll-snap-type: x mandatory;
+        scrollbar-width: none;
+        padding: 2px 2px 6px;
+    }
+
+    .car-directory .car-strip > * {
+        flex: none;
+        width: 118px;
+        scroll-snap-align: start;
+    }
+
+    .car-directory .car-strip-wide > * {
+        width: 150px;
+    }
+
+    .car-directory .car-strip-arrow {
+        position: absolute;
+        top: 50%;
+        z-index: 2;
+        display: grid;
+        place-items: center;
+        width: 2.75rem;
+        height: 2.75rem;
+        translate: 0 -50%;
+        border: 1px solid var(--color-surface-container-high);
+        border-radius: var(--radius-full);
+        background: var(--color-surface-container-lowest);
+        color: var(--color-on-surface);
+        box-shadow: 0 2px 8px color-mix(in srgb, var(--color-on-surface) 18%, transparent);
+        cursor: pointer;
+        transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .car-directory .car-strip-arrow:hover,
+    .car-directory .car-strip-arrow:focus-visible {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    .car-directory .car-strip-arrow-prev {
+        inset-inline-start: 0.25rem;
+    }
+
+    .car-directory .car-strip-arrow-next {
+        inset-inline-end: 0.25rem;
+    }
+
+    /* ---- read more */
+    .car-directory .car-clamp:not(.is-open) {
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+    }
+
+    /* ---- highlights */
+    .car-directory .car-highlights {
+        display: grid;
+        gap: 0.75rem;
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+
+    /* ---- trim hero: gallery + price box side by side from lg */
+    .car-directory .car-hero {
+        display: grid;
+        align-items: start;
+        gap: var(--spacing-gutter);
+    }
+
+    @media (min-width: 1024px) {
+        .car-directory .car-hero {
+            grid-template-columns: 1.3fr 1fr;
+        }
+    }
+
+    /* ---- gallery */
+    .car-directory .car-gallery-zoom {
+        cursor: zoom-in;
+    }
+
+    .car-directory .car-gallery-count,
+    .car-directory .car-gallery-expand {
+        position: absolute;
+        background: color-mix(in srgb, var(--color-inverse-surface) 75%, transparent);
+        color: var(--color-inverse-on-surface);
+    }
+
+    .car-directory .car-gallery-count {
+        bottom: 0.625rem;
+        inset-inline-end: 0.625rem;
+        padding: 0.125rem 0.75rem;
+        border-radius: var(--radius-full);
+        font-size: 0.85rem;
+    }
+
+    .car-directory .car-gallery-expand {
+        top: 0.625rem;
+        inset-inline-end: 0.625rem;
+        display: grid;
+        place-items: center;
+        width: 2.4rem;
+        height: 2.4rem;
+        border: 0;
+        border-radius: var(--radius-full);
+        cursor: pointer;
+    }
+
+    .car-directory .car-gallery-expand:hover,
+    .car-directory .car-gallery-expand:focus-visible {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    .car-directory .car-thumbs {
+        display: grid;
+        gap: 0.5rem;
+        grid-template-columns: repeat(6, 1fr);
+        max-height: 236px; /* about four rows, then it scrolls */
+        margin-top: 0.5rem;
+        overflow-y: auto;
+    }
+
+    .car-directory .car-thumbs-inline {
+        display: flex;
+        flex-wrap: wrap;
+        max-height: none;
+        margin-top: 0;
+    }
+
+    .car-directory .car-thumbs-inline .car-thumb {
+        width: 7rem;
+    }
+
+    .car-directory .car-thumb {
+        display: block;
+        overflow: hidden;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-lg);
+        background: var(--color-surface-container);
+        aspect-ratio: 4 / 3;
+        cursor: pointer;
+    }
+
+    .car-directory .car-thumb-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .car-directory .car-thumb.is-active,
+    .car-directory .car-thumb:focus-visible {
+        outline: 3px solid var(--color-primary);
+        outline-offset: -3px;
+    }
+
+    /* ---- full-screen viewer (built by the JS inside .car-directory) */
+    .car-directory .car-lightbox {
+        position: fixed;
+        inset: 0;
+        z-index: 100000;
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+        background: color-mix(in srgb, var(--color-inverse-surface) 94%, transparent);
+        color: var(--color-inverse-on-surface);
+    }
+
+    .car-directory .car-lightbox[hidden] {
+        display: none;
+    }
+
+    .car-directory .car-lb-top {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 0.75rem;
+        padding: 0.625rem 1rem;
+    }
+
+    .car-directory .car-lb-title {
+        overflow: hidden;
+        font-weight: 600;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .car-directory .car-lb-count {
+        padding: 0.125rem 0.875rem;
+        border-radius: var(--radius-full);
+        background: color-mix(in srgb, var(--color-inverse-on-surface) 12%, transparent);
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+    .car-directory .car-lb-stage {
+        position: relative;
+        display: grid;
+        place-items: center;
+        min-height: 0;
+        padding: 0 4rem;
+    }
+
+    .car-directory .car-lb-pic {
+        max-width: 100%;
+        max-height: calc(100vh - 140px);
+        object-fit: contain;
+        user-select: none;
+    }
+
+    .car-directory .car-lb-btn {
+        display: grid;
+        place-items: center;
+        border: 0;
+        border-radius: var(--radius-full);
+        background: color-mix(in srgb, var(--color-inverse-on-surface) 12%, transparent);
+        color: var(--color-inverse-on-surface);
+        cursor: pointer;
+    }
+
+    .car-directory .car-lb-btn:hover,
+    .car-directory .car-lb-btn:focus-visible {
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    .car-directory .car-lb-close {
+        width: 2.625rem;
+        height: 2.625rem;
+        font-size: 1.25rem;
+    }
+
+    .car-directory .car-lb-prev,
+    .car-directory .car-lb-next {
+        position: absolute;
+        top: 50%;
+        width: 3.25rem;
+        height: 3.25rem;
+        translate: 0 -50%;
+        font-size: 1.25rem;
+    }
+
+    .car-directory .car-lb-prev {
+        inset-inline-start: 0.5rem; /* RTL: previous on the right */
+    }
+
+    .car-directory .car-lb-next {
+        inset-inline-end: 0.5rem; /* RTL: next on the left */
+    }
+
+    .car-directory .car-lb-strip {
+        display: flex;
+        gap: 0.375rem;
+        overflow-x: auto;
+        padding: 0.5rem 1rem 0.875rem;
+        scrollbar-width: none;
+    }
+
+    .car-directory .car-lb-thumb {
+        flex: none;
+        width: 5rem;
+        height: 3.5rem;
+        overflow: hidden;
+        padding: 0;
+        border: 0;
+        border-radius: var(--radius-DEFAULT);
+        background: transparent;
+        opacity: 0.55;
+        cursor: pointer;
+    }
+
+    .car-directory .car-lb-thumb-pic {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+    }
+
+    .car-directory .car-lb-thumb.is-active {
+        outline: 2px solid var(--color-primary);
+        opacity: 1;
+    }
+
+    .car-lightbox-open {
+        overflow: hidden;
+    }
+
+    @media (max-width: 782px) {
+        .car-directory .car-lb-stage {
+            padding: 0 0.5rem;
+        }
+
+        .car-directory .car-lb-prev,
+        .car-directory .car-lb-next {
+            width: 2.625rem;
+            height: 2.625rem;
+            background: color-mix(in srgb, var(--color-inverse-surface) 45%, transparent);
+        }
+    }
+
+    /* ---- sticky spec tabs + sections (the header is not sticky: stick to the viewport top) */
+    .car-directory .car-spec-tabs {
+        position: sticky;
+        top: 0;
+        z-index: 30;
+        display: flex;
+        gap: 0.375rem;
+        margin-bottom: 1rem;
+        padding: 0.5rem 0;
+        overflow-x: auto;
+        border-bottom: 1px solid var(--color-surface-container-high);
+        background: var(--color-surface-container-lowest);
+        scrollbar-width: none;
+    }
+
+    .admin-bar .car-directory .car-spec-tabs {
+        top: 32px;
+    }
+
+    .car-directory .car-spec-tab {
+        flex: none;
+        padding: 0.2rem 0.9rem;
+        border: 1px solid var(--color-surface-container-highest);
+        border-radius: var(--radius-full);
+        color: var(--color-on-surface-variant);
+        font-size: 0.9rem;
+        font-weight: 600;
+        white-space: nowrap;
+        transition: background-color 0.15s, color 0.15s, border-color 0.15s;
+    }
+
+    .car-directory .car-spec-tab:hover,
+    .car-directory .car-spec-tab:focus-visible,
+    .car-directory .car-spec-tab.is-active {
+        border-color: var(--color-primary);
+        background: var(--color-primary);
+        color: var(--color-on-primary);
+    }
+
+    .car-directory .car-spec-section {
+        margin-bottom: 2rem;
+        scroll-margin-top: 4rem;
+    }
+
+    .admin-bar .car-directory .car-spec-section {
+        scroll-margin-top: 6rem;
+    }
+
+    .car-directory .car-spec-heading {
+        padding-inline-start: 0.75rem;
+        border-inline-start: 4px solid var(--color-primary);
+    }
+
+    @media (max-width: 782px) {
+        .admin-bar .car-directory .car-spec-tabs {
+            top: 46px;
+        }
+    }
+
+    /* ---- tables */
+    .car-directory .car-spec-th {
+        width: 40%;
+    }
+
+    .car-directory .car-table-scroll {
+        overflow-x: auto;
+    }
+
+    .car-directory .car-sort.is-asc .fa-sort,
+    .car-directory .car-sort.is-desc .fa-sort {
+        color: var(--color-primary);
+    }
+
+    .car-directory .car-swatch {
+        display: inline-block;
+        width: 1.25rem;
+        height: 1.25rem;
+        border: 1px solid color-mix(in srgb, var(--color-on-surface) 15%, transparent);
+        border-radius: var(--radius-full);
+        vertical-align: middle;
+    }
+
+    @media (max-width: 782px) {
+        .car-directory .car-spec-th {
+            width: 45%;
+        }
+    }
+}

@@ -20,8 +20,11 @@ function get_context_department(): ?WP_Term
         }
     }
 
-    // Cars CPT screens → always brand as cars department.
-    if (is_singular('car') || is_post_type_archive('car')) {
+    // Car directory screens (trim, model year, archive, its taxonomies, price pages) → cars department.
+    $car_screen = function_exists('is_car_directory_screen')
+        ? is_car_directory_screen()
+        : (is_singular(['car', 'car_model_year']) || is_post_type_archive('car'));
+    if ($car_screen) {
         $cars_dept = get_cars_department();
         if ($cars_dept instanceof WP_Term) {
             return $cars_dept;

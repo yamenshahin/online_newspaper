@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="">
+  <!-- Shared placeholder for missing car / term images (16:9). Colours = design tokens:
+       surface-container #edf2ee, outline-variant #c2c9c3, outline #737a74 (src/input.css @theme). -->
+  <rect width="640" height="360" fill="#edf2ee"/>
+  <path fill="#c2c9c3" d="M96 232c-8 0-14-6-14-14v-28c0-12 9-22 21-24l75-12 58-50c10-8 22-13 35-13h118c14 0 27 6 36 17l42 46 86 17c14 3 24 15 24 29v18c0 8-6 14-14 14H96z"/>
+  <path fill="#edf2ee" d="M245 108h-18l-50 44h68zM268 108h100c9 0 18 4 24 11l28 33H268z"/>
+  <circle cx="186" cy="236" r="36" fill="#737a74"/>
+  <circle cx="186" cy="236" r="15" fill="#edf2ee"/>
+  <circle cx="454" cy="236" r="36" fill="#737a74"/>
+  <circle cx="454" cy="236" r="15" fill="#edf2ee"/>
+</svg>

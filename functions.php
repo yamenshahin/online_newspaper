@@ -16,7 +16,13 @@ $theme_inc = get_stylesheet_directory() . '/inc';
 require_once $theme_inc . '/department-context.php';
 require_once $theme_inc . '/shortcodes/department-footer.php';
 require_once $theme_inc . '/taxonomy-helpers.php';
+require_once $theme_inc . '/cars/directory.php'; // car directory: nested URLs, price pages, body-type order
+require_once $theme_inc . '/cars/helpers.php'; // car directory: display helpers (tiles, strips, prices, counts, gallery)
+require_once $theme_inc . '/cars/fields.php'; // car directory: Car_Spec_Renderer (ACF group -> spec sections)
 require_once get_stylesheet_directory() . '/inc/cars.php';
+if (defined('WP_CLI') && WP_CLI) {
+	require_once $theme_inc . '/cars/cli.php'; // wp cars purge | import-pack | apply-keep | paths
+}
 require_once $theme_inc . '/site-search.php';
 require_once $theme_inc . '/related-content.php';
 // ---------------------------------------------------------------------------
@@ -78,6 +84,25 @@ function hello_elementor_child_scripts_styles()
 	}
 }
 add_action('wp_enqueue_scripts', 'hello_elementor_child_scripts_styles', 20);
+
+/** Car directory behaviour (gallery, lightbox, strips, sortable tables): car screens only. */
+function enqueue_car_directory_script()
+{
+	if (!function_exists('is_car_directory_screen') || !is_car_directory_screen()) {
+		return;
+	}
+	$path = get_stylesheet_directory() . '/assets/js/car-directory.js';
+	if (file_exists($path)) {
+		wp_enqueue_script(
+			'hello-elementor-child-car-directory',
+			get_stylesheet_directory_uri() . '/assets/js/car-directory.js',
+			[],
+			filemtime($path),
+			true
+		);
+	}
+}
+add_action('wp_enqueue_scripts', 'enqueue_car_directory_script', 20);
 
 
 // ---------------------------------------------------------------------------
@@ -154,7 +179,9 @@ add_filter('query_vars', function ($vars) {
 // Admin UI
 // ---------------------------------------------------------------------------
 add_action('admin_head', function () {
-	if (isset($_GET['taxonomy'])) {
+	// The car directory taxonomies keep their (imported) description field.
+	$taxonomy = isset($_GET['taxonomy']) ? sanitize_key((string) $_GET['taxonomy']) : '';
+	if ($taxonomy !== '' && !array_key_exists($taxonomy, car_directory_taxonomies())) {
 		echo '<style>.term-description-wrap { display: none !important; }</style>';
 	}
 });
@@ -846,6 +873,9 @@ add_action('admin_init', function () {
 	// $taxonomies = [ 'department', 'government_entity', 'private_entity', 'speaker_influencer', 'geographic', 'program_series', 'event' ];
 
 	foreach ($taxonomies as $taxonomy) {
+		if (array_key_exists($taxonomy, car_directory_taxonomies())) {
+			continue; // car directory terms show their imported description
+		}
 		add_filter("manage_edit-{$taxonomy}_columns", 'hello_replace_term_description_column');
 		add_filter("manage_{$taxonomy}_custom_column", 'hello_render_term_detailed_description_column', 10, 3);
 	}
@@ -1048,12 +1078,12 @@ function cars_ajax_filter()
 		: get_cars_filter_base_url();
 
 	// Put received filters into $_GET so existing helpers work
-	$filters = isset($_POST['filters']) ? wp_unslash($_POST['filters']) : [];
+	$filters = isset($_POST['filters']) && is_array($_POST['filters']) ? wp_unslash($_POST['filters']) : [];
 	$_GET = array_merge($_GET, $filters);
 
 	$state = get_car_filter_state();
 	$query = query_cars_directory([
-		'posts_per_page' => 12,
+		'posts_per_page' => min(48, max(1, absint($_POST['per_page'] ?? 0) ?: CAR_FILTER_PER_PAGE)),
 		'paged' => $state['paged'] ?: 1,
 	]);
 

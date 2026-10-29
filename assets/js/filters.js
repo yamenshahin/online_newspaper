@@ -481,26 +481,81 @@ function initEntityBrowse() {
 }
 
 /**
- * Cars Directory – AJAX filters
+ * Cars directory – AJAX filters (template-parts/sections/cars_section.php)
+ *
+ * One GET form holds every filter; this refreshes #cars-chips and #cars-results through
+ * admin-ajax (action cars_filter) instead of reloading, mirrors the filters in the URL so the
+ * view is shareable, fills the model select from the make without a request, and turns the
+ * chips, "clear all" and pagination links into AJAX calls. Without JS the form and links still
+ * work as plain GET requests.
  */
 function initCarsAjaxFilters() {
     const section = document.getElementById('cars-directory');
     if (!section || typeof CarsFilter === 'undefined') return;
 
+    const form = section.querySelector('form.cars-filter-form');
     const chipsEl = document.getElementById('cars-chips');
     const resultsEl = document.getElementById('cars-results');
     const loadingEl = document.getElementById('cars-loading');
+    if (!form || !chipsEl || !resultsEl) return;
 
-    if (!chipsEl || !resultsEl) return;
+    const baseUrl = (section.dataset.baseUrl || CarsFilter.baseUrl || '').replace(/\/?$/, '/');
+    const isArchive = section.dataset.isArchive === '1';
+    const modelSelect = form.querySelector('select[name="f_model"]');
+    let modelsMap = {};
+    try {
+        const node = document.getElementById('cars-models-map');
+        modelsMap = node ? JSON.parse(node.textContent) || {} : {};
+    } catch (err) {
+        modelsMap = {};
+    }
+    let searchTimer = null;
+    let controller = null; // in-flight request; a newer one aborts it
 
-    function collectFilters() {
-        const data = {};
-        section.querySelectorAll('form').forEach(function (form) {
-            new FormData(form).forEach(function (value, key) {
-                if (value !== '') data[key] = value;
-            });
+    // Model options of one make; disabled until a make is chosen.
+    function fillModels(makeSlug, selected) {
+        if (!modelSelect) return;
+        const models = (makeSlug && modelsMap[makeSlug]) || [];
+        modelSelect.innerHTML = '';
+        modelSelect.appendChild(new Option(makeSlug ? modelSelect.dataset.allLabel : modelSelect.dataset.emptyLabel, ''));
+        models.forEach(function (model) {
+            modelSelect.appendChild(new Option(model[1], model[0], false, model[0] === selected));
         });
-        return data;
+        modelSelect.disabled = !makeSlug;
+    }
+
+    // [name, value] pairs of the filled-in fields; list fields keep their [] suffix.
+    function collectFilters() {
+        const pairs = [];
+        new FormData(form).forEach(function (value, key) {
+            if (value !== '') pairs.push([key, value]);
+        });
+        return pairs;
+    }
+
+    function pageUrl(pairs, paged) {
+        const params = new URLSearchParams();
+        pairs.forEach(function (pair) {
+            params.append(pair[0], pair[1]);
+        });
+        const query = params.toString();
+        return baseUrl + (paged > 1 ? 'page/' + paged + '/' : '') + (query ? '?' + query : '');
+    }
+
+    function requestBody(pairs, paged) {
+        const body = new FormData();
+        body.append('action', 'cars_filter');
+        body.append('nonce', CarsFilter.nonce);
+        body.append('base_url', baseUrl);
+        body.append('is_car_archive', isArchive ? '1' : '0');
+        pairs.forEach(function (pair) {
+            const multi = pair[0].endsWith('[]');
+            const name = multi ? pair[0].slice(0, -2) : pair[0];
+            body.append('filters[' + name + ']' + (multi ? '[]' : ''), pair[1]);
+        });
+        if (paged > 1) body.append('filters[paged]', String(paged));
+        if (section.dataset.perPage) body.append('per_page', section.dataset.perPage); // the section's own page size
+        return body;
     }
 
     function showLoading() {
@@ -521,165 +576,111 @@ function initCarsAjaxFilters() {
         resultsEl.style.pointerEvents = '';
     }
 
-    function runFilter(clear = false) {
+    function replaceResults(html) {
+        Array.from(resultsEl.children).forEach(function (child) {
+            if (child.id !== 'cars-loading') child.remove();
+        });
+        const temp = document.createElement('div');
+        temp.innerHTML = html;
+        while (temp.firstChild) resultsEl.appendChild(temp.firstChild);
+    }
+
+    function runFilter(paged) {
+        paged = paged > 1 ? paged : 1;
+        const pairs = collectFilters();
+        if (controller) controller.abort();
+        controller = new AbortController();
+        const signal = controller.signal;
         showLoading();
-
-        const body = new FormData();
-        body.append('action', 'cars_filter');
-        body.append('nonce', CarsFilter.nonce);
-        body.append('base_url', CarsFilter.baseUrl);
-
-        const currentPath = window.location.pathname.replace(/\/+$/, '');
-        const isCarDirectory = /(?:^|\/)car-directory(?:\/|$)/.test(currentPath);
-
-        body.append('is_car_archive', isCarDirectory ? '1' : '0');
-
-        if (!clear) {
-            const filters = collectFilters();
-            Object.keys(filters).forEach(function (key) {
-                body.append('filters[' + key + ']', filters[key]);
-            });
-        }
 
         fetch(CarsFilter.ajaxUrl, {
             method: 'POST',
-            body: body,
-            credentials: 'same-origin'
+            body: requestBody(pairs, paged),
+            credentials: 'same-origin',
+            signal: signal
         })
-            .then(r => r.json())
-            .then(json => {
-                if (!json.success) return;
-
+            .then(function (r) { return r.json(); })
+            .then(function (json) {
+                if (!json || !json.success) return;
                 chipsEl.innerHTML = json.data.chips;
-
-                Array.from(resultsEl.children).forEach(child => {
-                    if (child.id !== 'cars-loading') child.remove();
-                });
-                const temp = document.createElement('div');
-                temp.innerHTML = json.data.results;
-                while (temp.firstChild) {
-                    resultsEl.appendChild(temp.firstChild);
+                replaceResults(json.data.results);
+                try {
+                    window.history.replaceState(null, '', pageUrl(pairs, paged));
+                } catch (err) {
+                    /* unsupported URL: keep the current one */
                 }
             })
-            .catch(console.error)
-            .finally(hideLoading);
+            .catch(function (err) {
+                if (err.name !== 'AbortError') console.error(err);
+            })
+            .finally(function () {
+                if (!signal.aborted) hideLoading();
+            });
     }
 
-    // ===== Change / input =====
-    section.addEventListener('change', function (e) {
-        if (e.target.matches('select, input[type="number"]')) {
-            runFilter();
-        }
-    });
-
-    section.addEventListener('input', function (e) {
-        if (e.target.matches('input[type="search"]')) {
-            clearTimeout(section._searchTimer);
-            section._searchTimer = setTimeout(() => runFilter(), 400);
-        }
-    });
-
-    // ===== Form submit (تطبيق button) =====
-    section.addEventListener('submit', function (e) {
-        e.preventDefault();
-        runFilter();
-    });
-
-    // ===== Clear all & Individual filter chip removal =====
-    section.addEventListener('click', function (e) {
-        // Handle "Clear All" button
-        const clearBtn = e.target.closest('[data-cars-clear]');
-        if (clearBtn) {
-            e.preventDefault();
-            e.stopImmediatePropagation();
-
-            section.querySelectorAll('select, input[type="search"], input[type="number"]').forEach(el => {
-                el.value = '';
-            });
-
-            runFilter(true);
-            return;
-        }
-
-        // Handle individual filter chip removal
-        const chipRemove = e.target.closest(
-            'a[href], button, [data-filter-remove], .cars-chip'
-        );
-
-        if (chipRemove && chipsEl.contains(chipRemove)) {
-            const href = chipRemove.getAttribute('href');
-
-            if (href && href !== '#' && !href.includes('javascript')) {
-                e.preventDefault();
-
-                try {
-                    const url = new URL(href, window.location.origin);
-
-                    // Normalize a form field name to its URL parameter candidates.
-                    function getParamNames(field) {
-                        let name = field.name;
-                        if (!name) return [];
-
-                        const originalName = name;
-
-                        // Support names such as filters[car_maker].
-                        const match = name.match(/^filters\[([^\]]+)\]$/);
-                        if (match) {
-                            name = match[1];
-                        }
-
-                        // Support array-style names such as car_maker[].
-                        name = name.replace(/\[\]$/, '');
-
-                        const names = [
-                            originalName,
-                            name,
-                            'filters[' + name + ']'
-                        ];
-
-                        // Search fields may use different URL parameter names.
-                        if (['s', 'search', 'car_s'].includes(name)) {
-                            names.push('s', 'search', 'car_s');
-                        }
-
-                        return [...new Set(names)];
-                    }
-
-                    // Reset every field whose filter is absent from the target URL.
-                    section.querySelectorAll(
-                        'select, textarea, input:not([type="submit"]):not([type="button"]):not([type="reset"]):not([type="hidden"])'
-                    ).forEach(function (field) {
-                        const paramNames = getParamNames(field);
-
-                        if (!paramNames.length) return;
-
-                        const filterStillActive = paramNames.some(function (param) {
-                            return url.searchParams.has(param);
-                        });
-
-                        if (filterStillActive) return;
-
-                        if (
-                            field.type === 'checkbox' ||
-                            field.type === 'radio'
-                        ) {
-                            field.checked = false;
-                        } else if (field.tagName === 'SELECT' && field.multiple) {
-                            Array.from(field.options).forEach(function (option) {
-                                option.selected = false;
-                            });
-                        } else {
-                            field.value = '';
-                        }
-                    });
-                } catch (err) {
-                    console.error('Could not reset the removed car filter:', err);
-                }
-
-                runFilter();
+    // Set every form field from a filter URL (a chip, "clear all"): fields missing from it are cleared.
+    function applyUrlToForm(href) {
+        const url = new URL(href, window.location.origin);
+        const values = {};
+        url.searchParams.forEach(function (value, key) {
+            const name = key.replace(/\[[^\]]*\]$/, '');
+            (values[name] = values[name] || []).push(value);
+        });
+        fillModels((values.f_make || [''])[0], (values.f_model || [''])[0]);
+        form.querySelectorAll('select, input').forEach(function (field) {
+            if (!field.name || field.type === 'submit' || field.type === 'button' || field.type === 'hidden') return;
+            const list = values[field.name.replace(/\[\]$/, '')] || [];
+            if (field.type === 'checkbox' || field.type === 'radio') {
+                field.checked = list.indexOf(field.value) !== -1;
+            } else {
+                field.value = list[0] || '';
             }
+        });
+    }
+
+    // ===== Field changes =====
+    form.addEventListener('change', function (e) {
+        if (e.target.name === 'f_make') {
+            fillModels(e.target.value, '');
+        }
+        if (e.target.matches('select, input[type="number"], input[type="checkbox"]')) {
+            runFilter(1);
         }
     });
+
+    form.addEventListener('input', function (e) {
+        if (e.target.matches('input[type="search"]')) {
+            clearTimeout(searchTimer);
+            searchTimer = setTimeout(function () { runFilter(1); }, 400);
+        }
+    });
+
+    form.addEventListener('submit', function (e) {
+        e.preventDefault();
+        clearTimeout(searchTimer);
+        runFilter(1);
+    });
+
+    // ===== Chips, "clear all" =====
+    chipsEl.addEventListener('click', function (e) {
+        const link = e.target.closest('a[href]');
+        if (!link) return;
+        e.preventDefault();
+        applyUrlToForm(link.getAttribute('href'));
+        runFilter(1);
+    });
+
+    // ===== Pagination =====
+    resultsEl.addEventListener('click', function (e) {
+        const link = e.target.closest('a.page-numbers[href]');
+        if (!link) return;
+        e.preventDefault();
+        const match = link.getAttribute('href').match(/\/page\/(\d+)\//);
+        runFilter(match ? parseInt(match[1], 10) : 1);
+        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
+
+    section.dataset.carsJs = '1';
 }
 
 /**

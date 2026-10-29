@@ -1,146 +1,101 @@
 <?php
 /**
- * Single car — Phase 1 (specs display can expand in Phase 2).
+ * Trim page (/car-directory/<origin>/<make>/<model>/<year>/<trim>/).
+ *
+ * Breadcrumbs, title row, hero (gallery | price box + taxonomy chips), highlights, the clamped
+ * description, one spec section per ACF tab behind a sticky tab nav, then the sibling trims and
+ * rival cars that exist in the directory.
+ *
+ * Markup comes from inc/cars/helpers.php (builders return html, renderers echo; everything is
+ * escaped there) and inc/cars/fields.php (Car_Spec_Renderer); behaviour from
+ * assets/js/car-directory.js, styles from the .car-directory block in src/input.css.
  */
+
 get_header();
 
 while (have_posts()):
     the_post();
-    $maker = get_the_terms(get_the_ID(), 'car_maker');
-    $year = get_the_terms(get_the_ID(), 'car_year');
+
+    $car_id = get_the_ID();
+    $title = get_the_title();
+    $crumbs = car_post_crumbs($car_id);
+    $model_year = trim((string) get_field('model_year', $car_id));
+    $spec_region = trim((string) get_field('spec_region', $car_id));
+    $price_note = trim((string) get_field('price_note', $car_id));
+    $features = wp_get_object_terms($car_id, 'car_feature');
+    $has_features = !is_wp_error($features) && !empty($features);
+    $has_highlights = (bool) array_filter(
+        (array) get_field('highlights', $car_id),
+        static fn($h) => is_array($h) && trim((string) ($h['value'] ?? '')) !== ''
+    );
+    $description = get_the_content();
+    $has_description = trim(wp_strip_all_tags($description)) !== '';
+
+    // The hero already shows the price, currency, VAT line, "starting from", price note and warranty:
+    // keep them out of the السعر spec section (its price table, financing and maintenance rows stay).
+    $spec_skip = array_merge(
+        Car_Spec_Renderer::HIDDEN_CAR_FIELDS,
+        ['price', 'price_currency', 'vat_included', 'price_is_starting_from', 'price_note', 'warranty']
+    );
+    $specs = (new Car_Spec_Renderer($car_id))->group('group_car_details', $spec_skip);
     ?>
-    <main class="site-main bg-white pb-24">
-        <article class="max-w-4xl mx-auto px-6 pt-12">
-            <?php if (has_post_thumbnail()): ?>
-                <div class="rounded-2xl overflow-hidden aspect-video mb-8 bg-gray-100">
-                    <?php the_post_thumbnail('large', ['class' => 'w-full h-full object-cover']); ?>
-                </div>
-            <?php endif; ?>
-
-            <header class="text-start mb-8">
-                <p class="text-sm font-semibold text-primary mb-2">
-                    <?php
-                    $bits = [];
-                    if (!empty($maker) && !is_wp_error($maker)) {
-                        $bits[] = $maker[0]->name;
-                    }
-                    if (!empty($year) && !is_wp_error($year)) {
-                        $bits[] = $year[0]->name;
-                    }
-                    echo esc_html(implode(' · ', $bits));
-                    ?>
-                </p>
-                <h1 class="text-3xl md:text-4xl font-bold text-gray-900">
-                    <?php the_title(); ?>
-                </h1>
-            </header>
-
-            <div class="prose max-w-none text-start mb-12">
-                <?php the_content(); ?>
-            </div>
+    <main id="primary" class="site-main car-directory bg-white pb-24">
+        <article class="w-full px-margin-mobile lg:px-margin py-space-xl">
 
             <?php
-            // Section header labels map for JSON categories
-            $section_labels = [
-                'engine_performance' => __('أداء المحرك والأولويات', 'hello-elementor-child'),
-                'dimensions_design' => __('الأبعاد والتصميم الخارجي', 'hello-elementor-child'),
-                'interior_tech' => __('المقصورة والتقنيات', 'hello-elementor-child'),
-                'safety_adas' => __('الأمان وأنظمة المساعدة', 'hello-elementor-child'),
-            ];
-
-            // Decode specification JSON field
-            $raw_json = get_field('specification_data_json');
-            $spec_groups = [];
-
-            if (!empty($raw_json)) {
-                if (is_array($raw_json)) {
-                    $spec_groups = $raw_json;
-                } else {
-                    $decoded = json_decode($raw_json, true);
-                    if (json_last_error() === JSON_ERROR_NONE && is_array($decoded)) {
-                        $spec_groups = $decoded;
-                    }
-                }
-            }
+            car_breadcrumbs($crumbs);
+            car_title_row($title, array_slice($crumbs, 0, -1), $model_year !== '' ? 'موديل ' . $model_year : '');
             ?>
 
-            <?php if (!empty($spec_groups)): ?>
-                <!-- JSON Categorized Specifications with proper vertical spacing -->
-                <div class="space-y-8 mb-12">
-                    <?php foreach ($spec_groups as $group_key => $items): ?>
-                        <?php if (empty($items) || !is_array($items))
-                            continue; ?>
-                        <?php $group_title = $section_labels[$group_key] ?? ucfirst(str_replace('_', ' ', $group_key)); ?>
-
-                        <div class="border border-gray-100 rounded-xl overflow-hidden shadow-xs mb-8 last:mb-0">
-                            <div class="bg-gray-50 px-4 py-3 border-b border-gray-100 font-bold text-gray-800 text-sm">
-                                <?php echo esc_html($group_title); ?>
-                            </div>
-                            <table class="w-full text-start">
-                                <tbody>
-                                    <?php
-                                    $row_idx = 0;
-                                    foreach ($items as $item):
-                                        $label = $item['label_ar'] ?? '';
-                                        $value = $item['value_ar'] ?? '';
-                                        if ($label === '' || $value === '')
-                                            continue;
-                                        ?>
-                                        <tr class="<?php echo $row_idx % 2 === 0 ? 'bg-gray-50/50' : 'bg-white'; ?>">
-                                            <th class="px-4 py-3 font-semibold text-gray-600 w-1/3 text-start">
-                                                <?php echo esc_html($label); ?>
-                                            </th>
-                                            <td class="px-4 py-3 text-gray-900">
-                                                <?php echo esc_html($value); ?>
-                                            </td>
-                                        </tr>
-                                        <?php
-                                        $row_idx++;
-                                    endforeach;
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                    <?php endforeach; ?>
+            <!-- Hero: gallery | price box + chips -->
+            <div class="car-hero mb-8">
+                <div class="min-w-0">
+                    <?php car_gallery($car_id, $title); ?>
                 </div>
+                <div class="flex min-w-0 flex-col gap-4">
+                    <?php if ($spec_region !== ''): ?>
+                        <div><?php echo car_pill($spec_region, '', 'dark'); ?></div>
+                    <?php endif; ?>
 
-            <?php else: ?>
-                <!-- Fallback to Legacy Key-Value Fields -->
-                <?php
-                $specs = [
-                    'power' => __('القوة', 'hello-elementor-child'),
-                    'torque' => __('عزم الدوران', 'hello-elementor-child'),
-                    'engine_capacity' => __('سعة المحرك', 'hello-elementor-child'),
-                    'transmission' => __('ناقل الحركة', 'hello-elementor-child'),
-                    'drive_system' => __('نظام الدفع', 'hello-elementor-child'),
-                    'number_of_seats' => __('المقاعد', 'hello-elementor-child'),
-                    'price_in_riyals' => __('السعر (ر.س)', 'hello-elementor-child'),
-                ];
-                $rows = [];
-                foreach ($specs as $key => $label) {
-                    $val = get_field($key);
-                    if ($val !== null && $val !== '' && $val !== false) {
-                        $rows[] = [$label, $val];
-                    }
-                }
-                if ($rows):
-                    ?>
-                    <table class="w-full text-start border border-gray-100 rounded-xl overflow-hidden mb-12">
-                        <tbody>
-                            <?php foreach ($rows as $i => $row): ?>
-                                <tr class="<?php echo $i % 2 === 0 ? 'bg-gray-50' : 'bg-white'; ?>">
-                                    <th class="px-4 py-3 font-semibold text-gray-600 w-1/3">
-                                        <?php echo esc_html($row[0]); ?>
-                                    </th>
-                                    <td class="px-4 py-3">
-                                        <?php echo esc_html((string) $row[1]); ?>
-                                    </td>
-                                </tr>
-                            <?php endforeach; ?>
-                        </tbody>
-                    </table>
-                <?php endif; ?>
+                    <?php car_price_box($car_id); ?>
+
+                    <?php if ($price_note !== '' && car_price_text($car_id) === ''): ?>
+                        <p class="text-body-sm text-on-surface-variant">
+                            <?php echo esc_html($price_note); ?>
+                        </p>
+                    <?php endif; ?>
+
+                    <?php car_chips($car_id, ['car_year', 'body_type', 'fuel_type', 'transmission', 'drivetrain']); ?>
+
+                    <?php if ($has_features): ?>
+                        <div>
+                            <span class="mb-2 block text-body-sm font-semibold text-on-surface-variant">التجهيزات</span>
+                            <?php car_chips($car_id, ['car_feature'], false); ?>
+                        </div>
+                    <?php endif; ?>
+                </div>
+            </div>
+
+            <?php if ($has_highlights): ?>
+                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background">أبرز المواصفات</h2>
+                <?php car_highlights($car_id); ?>
             <?php endif; ?>
+
+            <?php if ($has_description): ?>
+                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background">نظرة عامة</h2>
+                <?php car_description($description); ?>
+            <?php endif; ?>
+
+            <?php if ($specs['html'] !== ''): ?>
+                <div class="car-specs mt-space-xl">
+                    <?php
+                    car_section_header('المواصفات التفصيلية', 'المواصفات الكاملة');
+                    echo Car_Spec_Renderer::nav($specs['nav']) . $specs['html']; // escaped inside the renderer
+                    ?>
+                </div>
+            <?php endif; ?>
+
+            <?php car_siblings($car_id); ?>
 
         </article>
     </main>
