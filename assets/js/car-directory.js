@@ -1,6 +1,6 @@
 /**
  * Car directory: gallery thumbnails -> main image, full-screen lightbox (keyboard + swipe,
- * RTL-aware), strip arrows, numeric sortable tables, "read more" toggle, active spec tab.
+ * RTL-aware), numeric sortable tables, "read more" toggle, active spec tab.
  *
  * Hooks (data-car-*) are printed by inc/cars/helpers.php and inc/cars/fields.php; the styles live
  * in src/input.css (@layer components, scoped under .car-directory). Enqueued on car screens only.
@@ -213,54 +213,6 @@
 		e.preventDefault();
 	});
 
-	// ------------------------------------------------------------------ strips
-
-	const stripOf = (wrap) => (wrap ? wrap.querySelector('[data-car-strip]') : null);
-
-	/** Show an arrow only when there is something to scroll to in its direction (so it never covers the first tile). */
-	function updateArrows(wrap) {
-		const strip = stripOf(wrap);
-		if (!strip) {
-			return;
-		}
-		const max = strip.scrollWidth - strip.clientWidth;
-		const pos = Math.abs(strip.scrollLeft); // RTL: scrollLeft runs from 0 to -max
-		const prev = wrap.querySelector('[data-car-strip-prev]');
-		const next = wrap.querySelector('[data-car-strip-next]');
-		if (prev) {
-			prev.hidden = max <= 4 || pos <= 4;
-		}
-		if (next) {
-			next.hidden = max <= 4 || pos >= max - 4;
-		}
-	}
-
-	function scrollStrip(wrap, dir) {
-		const strip = stripOf(wrap);
-		if (!strip) {
-			return;
-		}
-		const sign = isRtl(strip) ? -1 : 1; // RTL: scrolling forward makes scrollLeft negative
-		strip.scrollBy({ left: strip.clientWidth * 0.8 * dir * sign, behavior: 'smooth' });
-	}
-
-	function initStrips() {
-		const wraps = [...document.querySelectorAll('[data-car-strip-wrap]')];
-		if (!wraps.length) {
-			return;
-		}
-		const updateAll = () => wraps.forEach(updateArrows);
-		wraps.forEach((w) => {
-			const strip = stripOf(w);
-			if (strip) {
-				strip.addEventListener('scroll', () => updateArrows(w), { passive: true });
-			}
-		});
-		updateAll();
-		window.addEventListener('resize', updateAll);
-		window.addEventListener('load', updateAll);
-	}
-
 	// ------------------------------------------------------------------ sortable tables
 
 	function sortBy(th) {
@@ -359,16 +311,6 @@
 			Lightbox.open(items, Math.max(0, items.findIndex((it) => it.el === item)), item.getAttribute('aria-label') || '');
 			return;
 		}
-		const prev = e.target.closest('[data-car-strip-prev]');
-		if (prev) {
-			scrollStrip(prev.closest('[data-car-strip-wrap]'), -1);
-			return;
-		}
-		const next = e.target.closest('[data-car-strip-next]');
-		if (next) {
-			scrollStrip(next.closest('[data-car-strip-wrap]'), 1);
-			return;
-		}
 		const th = e.target.closest('table[data-car-sortable] th[data-sort]');
 		if (th) {
 			sortBy(th);
@@ -399,7 +341,6 @@
 
 	function init() {
 		Gallery.init();
-		initStrips();
 		initSpecTabs();
 	}
 

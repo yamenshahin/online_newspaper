@@ -534,31 +534,20 @@ function car_empty_state(string $text): void
 }
 
 // ---------------------------------------------------------------------------
-// Strips and grids
+// Grids
 // ---------------------------------------------------------------------------
 
 /**
- * Horizontal strip with prev / next arrows, or a centered grid when it fits (<= 8 tiles, like the source).
- * $wide = 150px tiles instead of 118px.
+ * Wrapping grid of small tiles, start-aligned like the rest of the site; every tile is visible, no slider. $wide = 150px tiles instead of 118px.
  */
 function car_strip(array $tiles_html, bool $wide = false): void
 {
-    if (!$tiles_html) {
-        return;
-    }
-    if (count($tiles_html) <= 8) {
-        car_grid($tiles_html, 'center');
-        return;
-    }
-    echo '<div class="car-strip-wrap relative" data-car-strip-wrap>'
-        . '<div class="car-strip' . ($wide ? ' car-strip-wide' : '') . '" data-car-strip>' . implode('', $tiles_html) . '</div>'
-        . '<button type="button" class="car-strip-arrow car-strip-arrow-prev" data-car-strip-prev aria-label="السابق"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>'
-        . '<button type="button" class="car-strip-arrow car-strip-arrow-next" data-car-strip-next aria-label="التالي"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>'
-        . '</div>';
+    car_grid($tiles_html, $wide ? 'tiles-wide' : 'tiles');
 }
 
 /**
- * Tile grid. $variant: 'default' (210px columns), 'wide' (280px), 'logos' (130px), 'center' (centered 118px tiles).
+ * Tile grid. $variant: 'default' (210px columns), 'wide' (280px), 'logos' (130px), 'cols-6' / 'cols-9' (6 / 9 columns on desktop,
+ * 3 on tablets, 2 on phones), 'tiles' / 'tiles-wide' (wrapping 118px / 150px tiles).
  * $empty is shown (dashed) when there are no tiles.
  */
 function car_grid(array $tiles_html, string $variant = 'default', string $empty = ''): void
@@ -569,7 +558,7 @@ function car_grid(array $tiles_html, string $variant = 'default', string $empty 
         }
         return;
     }
-    $classes = ['default' => 'car-grid', 'wide' => 'car-grid car-grid-wide', 'logos' => 'car-grid car-grid-logos', 'center' => 'car-grid-center'];
+    $classes = ['default' => 'car-grid', 'wide' => 'car-grid car-grid-wide', 'logos' => 'car-grid car-grid-logos', 'cols-6' => 'car-grid car-grid-6', 'cols-9' => 'car-grid car-grid-9', 'tiles' => 'car-grid-tiles', 'tiles-wide' => 'car-grid-tiles car-grid-tiles-wide'];
     echo '<div class="' . esc_attr($classes[$variant] ?? $classes['default']) . '">' . implode('', $tiles_html) . '</div>';
 }
 

@@ -947,7 +947,7 @@ article iframe {
    Car directory
    Markup: inc/cars/helpers.php + inc/cars/fields.php; behaviour: assets/js/car-directory.js.
    Scoped under .car-directory (the class the car templates put on <main>).
-   Only what utilities cannot express: strips with arrows, tile grids and image
+   Only what utilities cannot express: tile grids and image
    boxes, the read-more clamp, gallery + full-screen viewer, sticky spec tabs
    (the live header is not sticky, so they stick to the viewport top, under the
    admin bar when it is there), wide / transposed tables. Tokens only.
@@ -1004,7 +1004,7 @@ article iframe {
         object-fit: contain;
     }
 
-    /* ---- grids (210 / 280 / 130px columns) and the centered grid of short strips */
+    /* ---- grids (210 / 280 / 130px columns) and the wrapping, start-aligned grids of small tiles (118 / 150px) */
     .car-directory .car-grid {
         display: grid;
         gap: var(--spacing-gutter-mobile);
@@ -1019,68 +1019,45 @@ article iframe {
         grid-template-columns: repeat(auto-fill, minmax(130px, 1fr));
     }
 
-    .car-directory .car-grid-center {
+    /* fixed column counts (home section: budget 9, body types 6): 2 columns on phones, half on tablets, all on desktop */
+    .car-directory .car-grid-6,
+    .car-directory .car-grid-9 {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    @media (min-width: 640px) {
+        .car-directory .car-grid-6 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+
+        .car-directory .car-grid-9 {
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+        }
+    }
+
+    @media (min-width: 1024px) {
+        .car-directory .car-grid-6 {
+            grid-template-columns: repeat(6, minmax(0, 1fr));
+        }
+
+        .car-directory .car-grid-9 {
+            grid-template-columns: repeat(9, minmax(0, 1fr));
+        }
+    }
+
+    .car-directory .car-grid-tiles {
         display: flex;
         flex-wrap: wrap;
-        justify-content: center;
+        justify-content: flex-start;
         gap: var(--spacing-gutter-mobile);
     }
 
-    .car-directory .car-grid-center > * {
+    .car-directory .car-grid-tiles > * {
         width: 118px;
     }
 
-    /* ---- horizontal strips with prev / next arrows (the source sliders) */
-    .car-directory .car-strip {
-        display: flex;
-        gap: 0.75rem;
-        overflow-x: auto;
-        scroll-snap-type: x mandatory;
-        scrollbar-width: none;
-        padding: 2px 2px 6px;
-    }
-
-    .car-directory .car-strip > * {
-        flex: none;
-        width: 118px;
-        scroll-snap-align: start;
-    }
-
-    .car-directory .car-strip-wide > * {
+    .car-directory .car-grid-tiles-wide > * {
         width: 150px;
-    }
-
-    .car-directory .car-strip-arrow {
-        position: absolute;
-        top: 50%;
-        z-index: 2;
-        display: grid;
-        place-items: center;
-        width: 2.75rem;
-        height: 2.75rem;
-        translate: 0 -50%;
-        border: 1px solid var(--color-surface-container-high);
-        border-radius: var(--radius-full);
-        background: var(--color-surface-container-lowest);
-        color: var(--color-on-surface);
-        box-shadow: 0 2px 8px color-mix(in srgb, var(--color-on-surface) 18%, transparent);
-        cursor: pointer;
-        transition: background-color 0.15s, color 0.15s, border-color 0.15s;
-    }
-
-    .car-directory .car-strip-arrow:hover,
-    .car-directory .car-strip-arrow:focus-visible {
-        border-color: var(--color-primary);
-        background: var(--color-primary);
-        color: var(--color-on-primary);
-    }
-
-    .car-directory .car-strip-arrow-prev {
-        inset-inline-start: 0.25rem;
-    }
-
-    .car-directory .car-strip-arrow-next {
-        inset-inline-end: 0.25rem;
     }
 
     /* ---- read more */

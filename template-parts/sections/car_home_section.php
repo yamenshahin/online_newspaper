@@ -7,7 +7,7 @@
  * tiles, strips, grids, section header; inc/cars/directory.php: price ranges, body-type order, URLs).
  * Offered on the front page and on every department; skipped on entity term archives
  * (get_term_archive_skip_layouts()). The wrapper carries `car-directory`: the component CSS of the
- * strips and tiles is scoped to it, and car-directory.js (strip arrows) is enqueued from here.
+ * tiles and grids is scoped to it (no script is needed).
  */
 
 if (!function_exists('car_section_header') || !function_exists('car_price_ranges')) {
@@ -73,18 +73,6 @@ if (!$show_budget && !$show_body_types && !$top_makes && !$origin_blocks) {
     return;
 }
 
-// Strip arrows live in car-directory.js, which functions.php only enqueues on car screens.
-$script_path = get_stylesheet_directory() . '/assets/js/car-directory.js';
-if (file_exists($script_path) && !wp_script_is('hello-elementor-child-car-directory', 'enqueued')) {
-    wp_enqueue_script(
-        'hello-elementor-child-car-directory',
-        get_stylesheet_directory_uri() . '/assets/js/car-directory.js',
-        [],
-        filemtime($script_path),
-        true
-    );
-}
-
 // Section header recipe (eyebrow + headline): the title is the eyebrow when a subtitle gives the headline.
 $headline = $subtitle !== '' ? $subtitle : $section_title;
 $eyebrow = $subtitle !== '' ? $section_title : '';
@@ -132,7 +120,7 @@ $block_gap = ''; // mt-space-xl from the second visible block on
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
             $block_header(__('سيارات تناسب ميزانيتك', 'hello-elementor-child'));
-            car_grid(car_price_range_tiles(), 'wide'); // filters are grids, never sliders
+            car_grid(car_price_range_tiles(), 'cols-9'); // filters are grids, never sliders
             $block_gap = ' mt-space-xl';
             ?>
         </div>
@@ -142,7 +130,7 @@ $block_gap = ''; // mt-space-xl from the second visible block on
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
             $block_header(__('اختر سيارتك حسب الشكل', 'hello-elementor-child'));
-            car_grid(car_body_type_tiles(true), 'wide');
+            car_grid(car_body_type_tiles(true), 'cols-6');
             $block_gap = ' mt-space-xl';
             ?>
         </div>
