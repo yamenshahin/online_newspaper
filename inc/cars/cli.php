@@ -52,6 +52,8 @@ final class Car_Directory_CLI
     private array $term_map = [];
     private array $new_atts = [];
     private array $new_posts = []; // target IDs created by this run
+    private float $last_line = 0.0; // progress(): last time a line was printed
+    private int $pack_total = 0;    // records in the pack being imported (header)
     private array $tt_of = []; // taxonomy => term_id => term_taxonomy_id
     private string $pack_prefix = ''; // meta-key prefix used in the pack (header), mapped to _car_
     private bool $keep_text = false;
@@ -135,9 +137,7 @@ final class Car_Directory_CLI
             }
             foreach ($atts as $i => $id) {
                 wp_delete_attachment($id, true);
-                if (($i + 1) % 200 === 0) {
-                    $this->line(sprintf('%s attachments deleted %d / %d', $tag, $i + 1, count($atts)));
-                }
+                $this->progress($tag, 'attachments deleted', $i + 1, count($atts), 100);
             }
             $left = $atts ? (int) $wpdb->get_var("SELECT COUNT(*) FROM {$wpdb->posts} WHERE ID IN (" . implode(',', $atts) . ')') : 0;
             $this->stats['attachments'] -= $left;
@@ -160,8 +160,8 @@ final class Car_Directory_CLI
                     wp_cache_flush_runtime();
                     $wpdb->queries = [];
                     $wpdb->query('START TRANSACTION');
-                    $this->line(sprintf('%s cars deleted %d / %d', $tag, $i + 1, count($cars)));
                 }
+                $this->progress($tag, 'cars deleted', $i + 1, count($cars), 250);
             }
             $wpdb->query('COMMIT');
             wp_cache_flush_runtime();
@@ -263,7 +263,8 @@ final class Car_Directory_CLI
         $write(['type' => 'header', 'site' => home_url(), 'exported' => gmdate('c'), 'cars' => count($cars),
             'old_url_shape' => '/car-directory/<decoded, lower-cased slug>/ - compare after rawurldecode + strtolower of the request path']);
         $taxes = "'" . implode("','", self::OLD_TAXONOMIES) . "'";
-        foreach ($cars as $id) {
+        foreach ($cars as $i => $id) {
+            $this->progress('[Purge]', 'keep-file', $i + 1, count($cars), 500);
             $p = get_post($id);
             if (!$p) {
                 continue;
@@ -560,6 +561,7 @@ final class Car_Directory_CLI
             switch ($rec['type']) {
                 case 'header':
                     $header = $rec;
+                    $this->pack_total = (int) ($rec['posts'] ?? 0) + (int) ($rec['terms'] ?? 0) + (int) ($rec['attachments'] ?? 0);
                     $this->pack_prefix = (string) ($rec['meta_prefix'] ?? '');
                     if ($this->pack_prefix === '') {
                         WP_CLI::error('this pack has no meta_prefix in its header - export it again with the current tooling');
@@ -608,6 +610,7 @@ final class Car_Directory_CLI
     private function load_target(): void
     {
         global $wpdb;
+        $this->line('[Pack] reading this site\'s cars, model years, terms and attachments...');
         $types = "'" . implode("','", self::TYPES) . "'";
         $taxes = "'" . implode("','", array_keys(car_directory_taxonomies())) . "'";
         foreach ($wpdb->get_results($wpdb->prepare("SELECT p.ID, p.post_type, m.meta_value FROM {$wpdb->posts} p JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s
@@ -980,6 +983,8 @@ final class Car_Directory_CLI
     {
         wp_suspend_cache_invalidation(false);
         wp_defer_term_counting(false);
+        $t0 = microtime(true);
+        $this->line('[Pack] finishing 1/3: term counts...');
         foreach (array_keys(car_directory_taxonomies()) as $tax) {
             clean_taxonomy_cache($tax);
             $ids = get_terms(['taxonomy' => $tax, 'hide_empty' => false, 'fields' => 'tt_ids']);
@@ -987,12 +992,15 @@ final class Car_Directory_CLI
                 wp_update_term_count_now($ids, $tax);
             }
         }
+        $this->line(sprintf('[Pack] finishing 2/3: nested URLs... (counts took %.0f s)', microtime(true) - $t0));
+        $t0 = microtime(true);
         $paths = build_car_paths();
-        $this->line(sprintf('[Pack] nested URLs: %d written, %d unchanged, %d without parent, %d duplicates',
-            $paths['written'], $paths['unchanged'], count($paths['missing']), count($paths['duplicates'])));
+        $this->line(sprintf('[Pack] nested URLs: %d written, %d unchanged, %d without parent, %d duplicates (%.0f s)',
+            $paths['written'], $paths['unchanged'], count($paths['missing']), count($paths['duplicates']), microtime(true) - $t0));
         foreach (array_slice(array_merge($paths['missing'], $paths['duplicates']), 0, 20) as $w) {
             $this->warn('path: ' . $w);
         }
+        $this->line('[Pack] finishing 3/3: cache and rewrite rules...');
         wp_cache_flush();
         flush_rewrite_rules(false);
     }
@@ -1030,6 +1038,7 @@ final class Car_Directory_CLI
         if (!$dry) {
             $this->speed_up();
         }
+        $this->line('[Keep] reading the new cars by source URL and the make / model terms...');
         $by_url = [];
         foreach ($wpdb->get_results($wpdb->prepare("SELECT p.ID, p.post_type, m.meta_value FROM {$wpdb->posts} p JOIN {$wpdb->postmeta} m ON m.post_id = p.ID AND m.meta_key = %s
             WHERE p.post_type IN ('car', 'car_model_year') AND p.post_status = 'publish'", self::SOURCE_URL)) as $r) {
@@ -1240,7 +1249,10 @@ final class Car_Directory_CLI
 
         $upload = wp_upload_dir();
         $files = [];
+        $written = 0;
         foreach (array_chunk($atts, 200) as $chunk) {
+            $written += count($chunk);
+            $this->progress('[Pack]', 'attachments written', $written, count($atts), 1000);
             $meta = $this->export_meta_rows($wpdb->postmeta, 'post_id', $chunk);
             foreach ($wpdb->get_results("SELECT ID, post_parent, post_title, post_name, post_mime_type, post_date, post_date_gmt, post_excerpt, post_content
                 FROM {$wpdb->posts} WHERE ID IN (" . implode(',', $chunk) . ')') as $a) {
@@ -1269,6 +1281,7 @@ final class Car_Directory_CLI
                     'file' => $file_, 'sizes' => array_slice($paths, $file_ ? 1 : 0), 'exists' => $file_ && is_file($upload['basedir'] . '/' . $file_), 'meta' => $rows]);
             }
         }
+        $this->line(sprintf('[Pack] writing %d terms...', count($terms)));
         foreach (array_chunk($terms, 200) as $chunk) {
             $meta = $this->export_meta_rows($wpdb->termmeta, 'term_id', array_column($chunk, 'term_id'));
             foreach ($chunk as $t) {
@@ -1299,9 +1312,7 @@ final class Car_Directory_CLI
                     'modified_gmt' => $p->post_modified_gmt, 'menu_order' => (int) $p->menu_order, 'meta' => $rows, 'terms' => $rel[(int) $p->ID] ?? []]);
                 ++$n;
             }
-            if ($n % 1000 === 0) {
-                $this->line(sprintf('[Pack] posts written %d / %d', $n, count($posts)));
-            }
+            $this->progress('[Pack]', 'posts written', $n, count($posts), 1000);
         }
         $put(['type' => 'footer', 'posts' => $n]);
         fclose($fh);
@@ -1440,16 +1451,18 @@ final class Car_Directory_CLI
             WP_CLI::error("cannot write {$zip_file}");
         }
         $n = 0;
+        $bytes = 0;
+        $this->line(sprintf('[Pack] zip: %d files to add...', count($paths)));
         foreach ($paths as $i => $pth) {
             if (is_file("{$base}/{$pth}")) {
                 $zip->addFile("{$base}/{$pth}", $pth);
                 $zip->setCompressionName($pth, ZipArchive::CM_STORE);
+                $bytes += (int) filesize("{$base}/{$pth}");
                 ++$n;
             }
-            if (($i + 1) % 2000 === 0) {
-                $this->line(sprintf('[Pack] zip: %d / %d files', $i + 1, count($paths)));
-            }
+            $this->progress('[Pack]', 'zip', $i + 1, count($paths), 500, sprintf(' files, %.0f MB', $bytes / 1048576));
         }
+        $this->line('[Pack] zip: closing the archive (this can take a while for a big one)...');
         $zip->close();
         return $n;
     }
@@ -1495,7 +1508,10 @@ final class Car_Directory_CLI
     public function paths($args, $assoc): void
     {
         $this->unbuffer();
+        $this->line('[Paths] rebuilding the nested URLs of origins, makes, models, model years and cars...');
+        $t0 = microtime(true);
         $r = build_car_paths();
+        $this->line(sprintf('[Paths] built in %.0f s', microtime(true) - $t0));
         update_option('car_directory_data_version', (string) time());
         foreach (array_slice(array_merge($r['missing'], $r['duplicates']), 0, 20) as $w) {
             $this->line('    ' . $w);
@@ -1572,9 +1588,20 @@ final class Car_Directory_CLI
             $wpdb->queries = [];
             $wpdb->query('START TRANSACTION');
         }
-        if ($n % 1000 === 0) {
-            $this->line("{$tag} {$what}: {$n} records");
+        $files = array_intersect_key($this->stats, array_flip(['files_copied', 'files_downloaded', 'files_present', 'files_missing']));
+        $extra = $files ? ' | files ' . implode(', ', array_map(fn($k, $v) => str_replace('files_', '', $k) . ' ' . number_format($v), array_keys($files), $files)) : '';
+        $this->progress($tag, $what, $n, $this->pack_total, 1000, $extra);
+    }
+
+    /** One progress line every $every items or every 15 s, whichever comes first, and always on the last item. */
+    private function progress(string $tag, string $what, int $done, int $total, int $every, string $extra = ''): void
+    {
+        $now = microtime(true);
+        if ($done % $every !== 0 && $now - $this->last_line < 15 && $done !== $total) {
+            return;
         }
+        $this->last_line = $now;
+        $this->line(sprintf('%s %s: %s / %s%s', $tag, $what, number_format($done), $total ? number_format($total) : '?', $extra));
     }
 
     private function report(string $state, string $what, string $next): void
