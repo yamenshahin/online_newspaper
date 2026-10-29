@@ -324,8 +324,11 @@ final class Car_Directory_CLI
             }
         }
         $cars_in = implode(',', $cars);
-        foreach (array_chunk($ids, 200) as $chunk) {
+        $chunks = array_chunk($ids, 200);
+        $this->line(sprintf('[Purge] checking %d car images against the rest of the site (%d steps)...', count($ids), count($chunks)));
+        foreach ($chunks as $step => $chunk) {
             $in = implode(',', $chunk);
+            $this->line(sprintf('[Purge] image check %d / %d', $step + 1, count($chunks)));
             foreach ($wpdb->get_col("SELECT DISTINCT m.meta_value FROM {$wpdb->postmeta} m WHERE m.meta_value IN ({$in}) AND m.post_id NOT IN ({$cars_in})
                 AND m.post_id NOT IN (SELECT ID FROM {$wpdb->posts} WHERE post_type = 'attachment')") as $used) {
                 $keep[(int) $used] = true;
