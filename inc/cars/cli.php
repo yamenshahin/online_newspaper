@@ -57,6 +57,7 @@ final class Car_Directory_CLI
     private int $pack_total = 0;    // records in the pack being imported (header)
     private array $tt_of = []; // taxonomy => term_id => term_taxonomy_id
     private string $pack_prefix = ''; // meta-key prefix used in the pack (header), mapped to _car_
+    private array $pack_header = [];  // the pack's header record (selection, callback, token)
     private bool $keep_text = false;
 
     // ===================================================================== purge
@@ -563,6 +564,7 @@ final class Car_Directory_CLI
             switch ($rec['type']) {
                 case 'header':
                     $header = $rec;
+                    $this->pack_header = $rec;
                     $this->pack_total = (int) ($rec['posts'] ?? 0) + (int) ($rec['terms'] ?? 0) + (int) ($rec['attachments'] ?? 0);
                     $this->pack_prefix = (string) ($rec['meta_prefix'] ?? '');
                     if ($this->pack_prefix === '') {
@@ -608,8 +610,35 @@ final class Car_Directory_CLI
             if (get_option('car_visibility') === 'images') {
                 $this->apply_visibility('images', false); // publishes what now has photos
             }
+            $this->notify_source(basename($file));
         }
         $this->report($dry ? 'DRY RUN' : 'COMPLETED', 'import-pack', 'next: wp cars apply-keep <keep-file> --redirects-out=<csv>');
+    }
+
+    /**
+     * Tell the site the pack came from that it is in: the header's `callback` URL gets the pack's selection
+     * (with its `token`) and marks those makes as uploaded there. Never fails the import.
+     */
+    private function notify_source(string $pack): void
+    {
+        $url = (string) ($this->pack_header['callback'] ?? '');
+        $token = (string) ($this->pack_header['token'] ?? '');
+        if ($url === '' || $token === '') {
+            return;
+        }
+        $res = wp_remote_post($url, [
+            'timeout' => 30,
+            'headers' => ['Content-Type' => 'application/json', 'X-Pack-Token' => $token],
+            'body' => wp_json_encode(['selection' => $this->pack_header['selection'] ?? 'all', 'pack' => $pack, 'site' => home_url(), 'imported' => gmdate('c'), 'stats' => $this->stats]),
+        ]);
+        $code = is_wp_error($res) ? 0 : (int) wp_remote_retrieve_response_code($res);
+        $body = is_wp_error($res) ? null : json_decode((string) wp_remote_retrieve_body($res), true);
+        if ($code === 200 && is_array($body)) {
+            $this->line('[Pack] source site told; marked as uploaded there: ' . (implode(', ', (array) ($body['marked'] ?? [])) ?: 'nothing'));
+            return;
+        }
+        $this->warn(sprintf('source site not told (HTTP %d%s): mark these makes as uploaded there by hand', $code,
+            is_wp_error($res) ? ', ' . $res->get_error_message() : ''));
     }
 
     private function load_target(): void
@@ -664,6 +693,12 @@ final class Car_Directory_CLI
         if ($id) {
             $this->post_map[(int) $rec['id']] = $id;
             $this->bump('attachments_existing');
+            // a re-run with --media-dir / --media-url also completes the files of attachments that are already here
+            if ($dry) {
+                $this->media_check($rec, $opt);
+            } elseif (!$opt['skip-media'] && ($opt['media-dir'] || $opt['media-url'])) {
+                $this->fetch_media($rec, $opt);
+            }
             return;
         }
         $this->bump('attachments_new');
