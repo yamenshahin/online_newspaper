@@ -119,6 +119,9 @@ function submission_template_redirect(): void
         submission_form_request(true);
         acf_form_head();
     }
+    if ($which === 'account' && !is_user_logged_in() && isset($_POST['submission_register'])) {
+        submission_handle_registration();
+    }
 }
 add_action('template_redirect', 'submission_template_redirect', 1);
 
@@ -875,6 +878,13 @@ function render_submission_account_shortcode(): string
     submission_enqueue_script(submission_form_context(), false);
 
     if (!is_user_logged_in()) {
+        if (is_submission_register_view()) {
+            return render_submission_form_wrap(
+                render_submission_account_register(),
+                '',
+                __('أنشئ حساباً لإرسال طلب إضافة ومتابعة طلباتك.', 'hello-elementor-child')
+            );
+        }
         return render_submission_form_wrap(
             render_submission_account_login(),
             '',
@@ -896,6 +906,207 @@ function render_submission_account_shortcode(): string
 add_shortcode('entity_account', 'render_submission_account_shortcode');
 
 /**
+ * Social login buttons (Nextend Social Login: every enabled provider) and an «أو» divider.
+ * Empty until a provider is configured and enabled in Nextend.
+ */
+function render_submission_social_login(): string
+{
+    if (!shortcode_exists('nextend_social_login')) {
+        return '';
+    }
+    $buttons = trim((string) do_shortcode('[nextend_social_login style="fullwidth" redirect="' . esc_url(get_submission_page_url('account')) . '"]'));
+    if ($buttons === '') {
+        return '';
+    }
+    return '<div class="submission-social-login" dir="ltr">' . $buttons . '</div>'
+        . '<div class="flex items-center gap-3 ' . get_submission_form_class('muted') . '">'
+        . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
+        . '<span>' . esc_html__('أو', 'hello-elementor-child') . '</span>'
+        . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
+        . '</div>';
+}
+
+/*
+ * -------------------------------------------------------------------------
+ * Front-end registration (account page ?view=register) instead of wp-login.php?action=register
+ * -------------------------------------------------------------------------
+ */
+
+/** Whether the logged-out account page shows the registration form. */
+function is_submission_register_view(): bool
+{
+    return isset($_GET['view']) && $_GET['view'] === 'register';
+}
+
+/** URL of the front-end registration form. */
+function get_submission_register_url(): string
+{
+    $account_url = get_submission_page_url('account');
+    return $account_url === '' ? '' : add_query_arg('view', 'register', $account_url);
+}
+
+/**
+ * Registration links point to the account page (`register_url` filter), so wp_registration_url()
+ * and every plugin that uses it lead to the front-end form.
+ */
+function submission_register_url(string $url): string
+{
+    $front = get_submission_register_url();
+    return $front !== '' ? $front : $url;
+}
+add_filter('register_url', 'submission_register_url');
+
+/** wp-login.php?action=register redirects to the front-end form (`login_form_register` action). */
+function submission_redirect_core_register(): void
+{
+    $front = get_submission_register_url();
+    if ($front !== '') {
+        wp_safe_redirect($front);
+        exit;
+    }
+}
+add_action('login_form_register', 'submission_redirect_core_register');
+
+/**
+ * Registration errors of the current request (field name => message), or the posted values.
+ *
+ * @param array|null $set Replace the stored state.
+ */
+function submission_register_state(?array $set = null): array
+{
+    static $state = ['errors' => [], 'values' => []];
+    if ($set !== null) {
+        $state = $set;
+    }
+    return $state;
+}
+
+/**
+ * Registration POST: name, e-mail, password. Creates a `submitter`, logs them in and goes back to
+ * the account page. Nonce, honeypot and a per-IP limit (5 per hour) guard it.
+ */
+function submission_handle_registration(): void
+{
+    $values = [
+        'name' => sanitize_text_field(wp_unslash((string) ($_POST['submission_name'] ?? ''))),
+        'email' => sanitize_email(wp_unslash((string) ($_POST['submission_email'] ?? ''))),
+    ];
+    $password = (string) wp_unslash($_POST['submission_password'] ?? '');
+    $errors = [];
+
+    if (!get_option('users_can_register')) {
+        $errors['form'] = __('التسجيل مغلق حالياً.', 'hello-elementor-child');
+    } elseif (!isset($_POST['submission_register_nonce']) || !wp_verify_nonce(sanitize_key(wp_unslash($_POST['submission_register_nonce'])), 'submission_register')) {
+        $errors['form'] = __('انتهت صلاحية الصفحة، أعد المحاولة.', 'hello-elementor-child');
+    } elseif (!empty($_POST['submission_website'])) {
+        $errors['form'] = __('تعذر إنشاء الحساب.', 'hello-elementor-child'); // honeypot
+    }
+
+    $ip = isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
+    $rate_key = 'submission_register_' . md5($ip);
+    if ($errors === [] && (int) get_transient($rate_key) >= 5) {
+        $errors['form'] = __('محاولات كثيرة، حاول لاحقاً.', 'hello-elementor-child');
+    }
+
+    if ($errors === []) {
+        if ($values['name'] === '' || mb_strlen($values['name']) > 60) {
+            $errors['name'] = __('اكتب اسمك (60 حرفاً كحد أقصى).', 'hello-elementor-child');
+        }
+        if (!is_email($values['email'])) {
+            $errors['email'] = __('البريد الإلكتروني غير صالح.', 'hello-elementor-child');
+        } elseif (email_exists($values['email'])) {
+            $errors['email'] = __('هذا البريد مسجل بالفعل، سجّل الدخول.', 'hello-elementor-child');
+        }
+        if (mb_strlen($password) < 8) {
+            $errors['password'] = __('كلمة المرور 8 أحرف على الأقل.', 'hello-elementor-child');
+        }
+    }
+
+    if ($errors === []) {
+        set_transient($rate_key, (int) get_transient($rate_key) + 1, HOUR_IN_SECONDS);
+
+        $base = sanitize_user((string) strstr($values['email'], '@', true), true);
+        $base = $base !== '' ? substr($base, 0, 50) : 'user';
+        $login = $base;
+        for ($i = 2; username_exists($login); $i++) {
+            $login = $base . $i;
+        }
+
+        $user_id = wp_insert_user([
+            'user_login' => $login,
+            'user_email' => $values['email'],
+            'user_pass' => $password,
+            'display_name' => $values['name'],
+            'nickname' => $values['name'],
+            'first_name' => $values['name'],
+            'role' => SUBMISSION_ROLE,
+        ]);
+        if (is_wp_error($user_id)) {
+            $errors['form'] = $user_id->get_error_message();
+        } else {
+            wp_set_current_user((int) $user_id);
+            wp_set_auth_cookie((int) $user_id, true, is_ssl());
+            wp_safe_redirect(get_submission_page_url('account'));
+            exit;
+        }
+    }
+
+    submission_register_state(['errors' => $errors, 'values' => $values]);
+}
+
+/** One labelled input of the registration form, with its error. */
+function render_submission_register_input(string $field, string $type, string $label, string $autocomplete, array $state): string
+{
+    $id = 'submission-register-' . $field;
+    $error = (string) ($state['errors'][$field] ?? '');
+    $value = $type === 'password' ? '' : (string) ($state['values'][$field] ?? '');
+    return '<div class="' . get_submission_form_class('field') . '">'
+        . '<label class="' . get_submission_form_class('label') . '" for="' . esc_attr($id) . '">' . esc_html($label) . '</label>'
+        . '<input type="' . esc_attr($type) . '" name="submission_' . esc_attr($field) . '" id="' . esc_attr($id) . '" value="' . esc_attr($value) . '"'
+        . ' class="' . get_submission_form_class('input') . '" autocomplete="' . esc_attr($autocomplete) . '" required'
+        . ($type === 'password' ? ' minlength="8"' : '')
+        . ($error !== '' ? ' aria-invalid="true"' : '') . '>'
+        . ($error !== '' ? '<p class="' . get_submission_form_class('error') . '">' . esc_html($error) . '</p>' : '')
+        . '</div>';
+}
+
+/** Logged-out account page, ?view=register: social buttons, then name / e-mail / password. */
+function render_submission_account_register(): string
+{
+    $state = submission_register_state();
+    $account_url = get_submission_page_url('account');
+
+    $html = '<div class="' . get_submission_form_class('panel') . ' w-full max-w-xl mx-auto flex flex-col gap-4">';
+    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('إنشاء حساب', 'hello-elementor-child') . '</h2>';
+    $html .= render_submission_social_login();
+
+    if (!empty($state['errors']['form'])) {
+        $html .= '<p class="' . get_submission_form_class('error') . '" role="alert">' . esc_html((string) $state['errors']['form']) . '</p>';
+    }
+
+    if (!get_option('users_can_register')) {
+        $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('التسجيل مغلق حالياً.', 'hello-elementor-child') . '</p>';
+    } else {
+        $html .= '<form method="post" action="' . esc_url(get_submission_register_url()) . '" class="flex flex-col gap-4" novalidate>';
+        $html .= render_submission_register_input('name', 'text', __('الاسم', 'hello-elementor-child'), 'name', $state);
+        $html .= render_submission_register_input('email', 'email', __('البريد الإلكتروني', 'hello-elementor-child'), 'email', $state);
+        $html .= render_submission_register_input('password', 'password', __('كلمة المرور (8 أحرف على الأقل)', 'hello-elementor-child'), 'new-password', $state);
+        // Honeypot: hidden from people, bots fill it.
+        $html .= '<div class="hidden" aria-hidden="true"><input type="text" name="submission_website" tabindex="-1" autocomplete="off"></div>';
+        $html .= wp_nonce_field('submission_register', 'submission_register_nonce', false, false);
+        $html .= '<input type="hidden" name="submission_register" value="1">';
+        $html .= '<div><button type="submit" class="' . get_submission_form_class('button') . '">' . esc_html__('إنشاء الحساب', 'hello-elementor-child') . '</button></div>';
+        $html .= '</form>';
+    }
+
+    $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('لديك حساب؟', 'hello-elementor-child') . ' '
+        . '<a class="' . get_submission_form_class('link') . '" href="' . esc_url($account_url) . '">' . esc_html__('سجّل الدخول', 'hello-elementor-child') . '</a></p>';
+    $html .= '</div>';
+
+    return $html;
+}
+
+/**
  * Logged out: optional Nextend Google button, then our own form posting to wp-login.php
  * (wp_login_form() is not used because Nextend injects its buttons into it).
  */
@@ -906,16 +1117,7 @@ function render_submission_account_login(): string
     $html = '<div class="' . get_submission_form_class('panel') . ' w-full max-w-xl mx-auto flex flex-col gap-4">';
     $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('تسجيل الدخول', 'hello-elementor-child') . '</h2>';
 
-    if (shortcode_exists('nextend_social_login')) {
-        $html .= '<div class="submission-social-login" dir="ltr">'
-            . do_shortcode('[nextend_social_login provider="google" style="fullwidth" redirect="' . esc_url($account_url) . '"]')
-            . '</div>';
-        $html .= '<div class="flex items-center gap-3 ' . get_submission_form_class('muted') . '">'
-            . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
-            . '<span>' . esc_html__('أو', 'hello-elementor-child') . '</span>'
-            . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
-            . '</div>';
-    }
+    $html .= render_submission_social_login();
 
     if (isset($_GET['login']) && $_GET['login'] === 'failed') {
         $html .= '<p class="' . get_submission_form_class('error') . '" role="alert">' . esc_html__('بيانات الدخول غير صحيحة.', 'hello-elementor-child') . '</p>';
