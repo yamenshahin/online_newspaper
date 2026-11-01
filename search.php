@@ -28,7 +28,7 @@ $requested_types = array_values(array_filter((array) get_query_var('post_type'))
 $type_filter = count($requested_types) === 1 ? (string) $requested_types[0] : '';
 $type_label = $type_filter !== '' ? get_site_search_type_label($type_filter) : '';
 /* translators: %s: post type label, e.g. البرامج */
-$remove_type_label = sprintf(__('إزالة التصفية: %s', 'hello-elementor-child'), $type_label);
+$remove_type_label = sprintf(__('Remove filter: %s', 'hello-elementor-child'), $type_label);
 $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
 ?>
 
@@ -40,14 +40,14 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
 
             <!-- Breadcrumb: Home / Search -->
             <nav class="flex items-center gap-2 mb-4"
-                aria-label="<?php esc_attr_e('مسار التنقل', 'hello-elementor-child'); ?>">
+                aria-label="<?php echo esc_attr_x('Breadcrumb', 'search', 'hello-elementor-child'); ?>">
                 <a href="<?php echo esc_url(home_url('/')); ?>"
                     class="text-sm font-semibold text-gray-500 hover:text-primary transition-colors">
-                    <?php esc_html_e('الرئيسية', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Home', 'hello-elementor-child'); ?>
                 </a>
                 <span class="text-gray-400 text-sm" aria-hidden="true">/</span>
                 <span class="text-sm font-semibold text-primary uppercase tracking-widest" aria-current="page">
-                    <?php esc_html_e('البحث', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Search', 'hello-elementor-child'); ?>
                 </span>
             </nav>
 
@@ -55,11 +55,11 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                 class="font-headline-xl text-headline-xl-mobile md:text-headline-xl text-on-background font-bold wrap-break-word">
                 <?php
                 if ($is_prompt) {
-                    esc_html_e('البحث في الموقع', 'hello-elementor-child');
+                    esc_html_e('Site search', 'hello-elementor-child');
                 } else {
                     printf(
                         /* translators: %s: the search query, wrapped in «» */
-                        esc_html__('نتائج البحث عن: %s', 'hello-elementor-child'),
+                        esc_html__('Search results for: %s', 'hello-elementor-child'),
                         '<span class="text-primary">«<bdi>' . esc_html($display_term) . '</bdi>»</span>'
                     );
                 }
@@ -74,7 +74,7 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                         echo ' · ';
                         printf(
                             /* translators: 1: current page number, 2: number of pages */
-                            esc_html__('الصفحة %1$s من %2$s', 'hello-elementor-child'),
+                            esc_html__('Page %1$s of %2$s', 'hello-elementor-child'),
                             esc_html(number_format_i18n($paged)),
                             esc_html(number_format_i18n($max_pages))
                         );
@@ -85,7 +85,7 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
 
             <?php if ($type_filter !== ''): ?>
                 <div class="flex flex-wrap items-center gap-2 mt-4">
-                    <span class="text-sm text-on-surface-variant"><?php esc_html_e('ضمن:', 'hello-elementor-child'); ?></span>
+                    <span class="text-sm text-on-surface-variant"><?php esc_html_e('In:', 'hello-elementor-child'); ?></span>
                     <a href="<?php echo esc_url($all_types_url); ?>"
                         class="inline-flex items-center gap-1 rounded-full bg-primary text-on-primary px-3 py-1 text-sm font-semibold"
                         aria-label="<?php echo esc_attr($remove_type_label); ?>">
@@ -101,7 +101,7 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                     'id' => 'search-page-input',
                     'post_type' => $type_filter,
                     // Named apart from the header's search form, which can be open on this page too.
-                    'label' => $is_prompt ? __('ابحث في محتوى الموقع', 'hello-elementor-child') : __('تعديل البحث', 'hello-elementor-child'),
+                    'label' => $is_prompt ? __('Search the site content', 'hello-elementor-child') : __('Edit search', 'hello-elementor-child'),
                 ]);
                 ?>
             </div>
@@ -115,19 +115,19 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                 <span class="material-symbols-outlined !text-6xl text-gray-300 mb-4" aria-hidden="true">search</span>
                 <?php if ($search_term === ''): ?>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                        <?php esc_html_e('عمّ تبحث؟', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('What are you looking for?', 'hello-elementor-child'); ?>
                     </h2>
                     <p class="text-gray-500 text-lg">
-                        <?php esc_html_e('اكتب كلمة أو أكثر للبحث في الأخبار والبرامج والحوارات وبقية محتوى الموقع.', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('Type one or more words to search the news, programs, interviews and the rest of the site.', 'hello-elementor-child'); ?>
                     </p>
                 <?php else: ?>
                     <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                        <?php esc_html_e('كلمة البحث قصيرة جدًا', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('The search term is too short', 'hello-elementor-child'); ?>
                     </h2>
                     <p class="text-gray-500 text-lg">
                         <?php
                         // "حرفين" (two letters) = SITE_SEARCH_MIN_LENGTH.
-                        esc_html_e('اكتب حرفين على الأقل لبدء البحث.', 'hello-elementor-child');
+                        esc_html_e('Type at least two characters to start searching.', 'hello-elementor-child');
                         ?>
                     </p>
                 <?php endif; ?>
@@ -135,7 +135,7 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
 
         <?php elseif (have_posts()): ?>
 
-            <h2 class="sr-only"><?php esc_html_e('النتائج', 'hello-elementor-child'); ?></h2>
+            <h2 class="sr-only"><?php esc_html_e('Results', 'hello-elementor-child'); ?></h2>
 
             <div class="search-results-grid grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-12 transition-opacity">
                 <?php
@@ -166,7 +166,7 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
 
             <?php if ($max_pages > 1): ?>
                 <nav class="flex justify-center mt-space-xl"
-                    aria-label="<?php esc_attr_e('صفحات نتائج البحث', 'hello-elementor-child'); ?>">
+                    aria-label="<?php esc_attr_e('Search results pages', 'hello-elementor-child'); ?>">
                     <div class="inline-flex items-center gap-2 flex-wrap justify-center
                         [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center
                         [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2
@@ -178,9 +178,9 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                             'total' => $max_pages,
                             'current' => $paged,
                             'prev_text' => '<span aria-hidden="true">&laquo;</span><span class="sr-only">'
-                                . esc_html__('الصفحة السابقة', 'hello-elementor-child') . '</span>',
+                                . esc_html__('Previous page', 'hello-elementor-child') . '</span>',
                             'next_text' => '<span aria-hidden="true">&raquo;</span><span class="sr-only">'
-                                . esc_html__('الصفحة التالية', 'hello-elementor-child') . '</span>',
+                                . esc_html__('Next page', 'hello-elementor-child') . '</span>',
                         ]);
                         ?>
                     </div>
@@ -193,24 +193,24 @@ $all_types_url = add_query_arg('s', rawurlencode($search_term), home_url('/'));
                 class="flex flex-col items-center justify-center py-20 px-space-lg text-center rounded-3xl border border-surface-container-highest/30 shadow-sm">
                 <span class="material-symbols-outlined !text-6xl text-gray-300 mb-4" aria-hidden="true">search_off</span>
                 <h2 class="text-2xl font-bold text-gray-900 mb-2">
-                    <?php esc_html_e('لا توجد نتائج مطابقة', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('No matching results', 'hello-elementor-child'); ?>
                 </h2>
                 <p class="text-gray-500 text-lg">
                     <?php
                     printf(
                         /* translators: %s: the search query, wrapped in «» */
-                        esc_html__('لم نعثر على محتوى يطابق %s. جرّب كلمات أخرى أو أقل، أو تأكد من طريقة الكتابة.', 'hello-elementor-child'),
+                        esc_html__('We found no content matching %s. Try other or fewer words, or check the spelling.', 'hello-elementor-child'),
                         '«<bdi>' . esc_html($display_term) . '</bdi>»'
                     );
                     ?>
                 </p>
                 <p class="text-gray-500 text-base mt-2">
-                    <?php esc_html_e('قد تختلف النتائج باختلاف طريقة كتابة الكلمة، فجرّب مثلًا «إنفوجراف» و«انفوجراف».', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Results may differ with the spelling of a word, so try for example «إنفوجراف» and «انفوجراف».', 'hello-elementor-child'); ?>
                 </p>
                 <?php if ($type_filter !== ''): ?>
                     <a href="<?php echo esc_url($all_types_url); ?>"
                         class="mt-space-lg inline-flex items-center rounded-full bg-primary text-on-primary px-4 py-2 text-sm font-semibold transition-opacity hover:opacity-90">
-                        <?php esc_html_e('ابحث في كل المحتوى', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('Search all content', 'hello-elementor-child'); ?>
                     </a>
                 <?php endif; ?>
             </div>

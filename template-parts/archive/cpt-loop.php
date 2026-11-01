@@ -98,7 +98,7 @@ if ($department instanceof WP_Term) {
                     echo esc_html(
                         sprintf(
                             /* translators: %s: department name */
-                            __('العودة إلى %s', 'hello-elementor-child'),
+                            __('Back to %s', 'hello-elementor-child'),
                             $department->name
                         )
                     );
@@ -110,7 +110,7 @@ if ($department instanceof WP_Term) {
             <div class="flex items-center gap-2 mb-4">
                 <a href="<?php echo esc_url(home_url('/')); ?>"
                     class="text-sm font-semibold text-gray-500 hover:text-primary transition-colors">
-                    <?php esc_html_e('الرئيسية', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Home', 'hello-elementor-child'); ?>
                 </a>
                 <span class="text-gray-400 text-sm">/</span>
                 <span class="text-sm font-semibold text-primary uppercase tracking-widest">
@@ -186,10 +186,10 @@ if ($department instanceof WP_Term) {
             class="flex flex-col items-center justify-center py-20 text-center rounded-3xl border border-surface-container-highest/30 shadow-sm">
             <span class="material-symbols-outlined text-6xl text-gray-300 mb-4">search_off</span>
             <h3 class="text-2xl font-bold text-gray-900 mb-2">
-                <?php esc_html_e('لا توجد محتويات بعد', 'hello-elementor-child'); ?>
+                <?php esc_html_e('No content yet', 'hello-elementor-child'); ?>
             </h3>
             <p class="text-gray-500 text-lg">
-                <?php esc_html_e('لم يتم نشر أي محتوى في هذا القسم حتى الآن.', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Nothing has been published in this section yet.', 'hello-elementor-child'); ?>
             </p>
         </div>
 

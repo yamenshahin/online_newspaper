@@ -11,14 +11,14 @@ get_header();
         null,
         [
             'section' => [
-                'section_title' => __('دليل السيارات', 'hello-elementor-child'),
-                'subtitle' => __('ابحث عن سيارتك بحسب الشركة والموديل والسنة والسعر والمواصفات', 'hello-elementor-child'),
+                'section_title' => __('Car Directory', 'hello-elementor-child'),
+                'subtitle' => __('Find your car by make, model, year, price and specifications', 'hello-elementor-child'),
                 'posts_limit' => CAR_FILTER_PER_PAGE,
             ],
         ]
     );
     // under the filter: budget, body types, brands, origins (same layout as on the cars department)
-    get_template_part('template-parts/sections/car_home_section', null, ['section' => ['section_title' => __('دليل السيارات', 'hello-elementor-child'), 'hide_header' => true]]);
+    get_template_part('template-parts/sections/car_home_section', null, ['section' => ['section_title' => __('Car Directory', 'hello-elementor-child'), 'hide_header' => true]]);
     ?>
 </main>
 <?php

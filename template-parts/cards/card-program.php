@@ -6,11 +6,11 @@
 $card_label = '';
 if (is_tax('department')) {
     $editors = get_the_terms(get_the_ID(), 'post_editor');
-    $card_label = (!empty($editors) && !is_wp_error($editors)) ? implode(' و ', wp_list_pluck($editors, 'name')) : __('تفاعل السعودية', 'hello-elementor-child');
+    $card_label = (!empty($editors) && !is_wp_error($editors)) ? implode(_x(' and ', 'between names', 'hello-elementor-child'), wp_list_pluck($editors, 'name')) : __('Tafaol Saudi', 'hello-elementor-child');
 } elseif (is_archive() || is_home() || is_front_page() || is_search()) {
     $departments = get_the_terms(get_the_ID(), 'department');
     if (!empty($departments) && !is_wp_error($departments)) {
-        $card_label = implode(' و ', wp_list_pluck($departments, 'name'));
+        $card_label = implode(_x(' and ', 'between names', 'hello-elementor-child'), wp_list_pluck($departments, 'name'));
     }
 }
 
@@ -20,7 +20,7 @@ if (empty($card_label)) {
         $cpt_data = get_dynamic_cpt_labels($pt);
         $card_label = !empty($cpt_data['title']) ? $cpt_data['title'] : $pt;
     } else {
-        $card_label = __('برامجنا', 'hello-elementor-child');
+        $card_label = __('Our programs', 'hello-elementor-child');
     }
 }
 ?>
@@ -49,7 +49,7 @@ if (empty($card_label)) {
                 if (!empty($series) && !is_wp_error($series)) {
                     echo esc_html($series[0]->name);
                 } else {
-                    echo esc_html__('برامجنا', 'hello-elementor-child');
+                    echo esc_html__('Our programs', 'hello-elementor-child');
                 }
                 ?>
             </span>

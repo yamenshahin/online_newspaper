@@ -18,7 +18,7 @@ get_template_part(
     'template-parts/entities/entity-browse-section',
     null,
     [
-        'section_title' => $section_title ?: __('الجهات', 'hello-elementor-child'),
+        'section_title' => $section_title ?: __('Entities', 'hello-elementor-child'),
         'subtitle' => $subtitle,
         'department' => $department,
     ]

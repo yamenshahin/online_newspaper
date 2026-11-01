@@ -11,7 +11,7 @@ if (!empty($section)) {
 } else {
     $section_title = get_sub_field('section_title');
 }
-$section_title = $section_title ?: __('صناع الأثر • VOICES & SPEAKERS', 'hello-elementor-child');
+$section_title = $section_title ?: __('Change makers • VOICES & SPEAKERS', 'hello-elementor-child');
 $target_taxonomy = 'speaker_influencer';
 $query_var = 'speaker_influencer';
 
@@ -49,14 +49,14 @@ if (empty($active_terms)) {
                 </h2>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                شخصيات قيادية وصناع محتوى يشاركون رؤاهم وتحليلاتهم الحصرية عبر المنصة
+                <?php esc_html_e('Leaders and content creators sharing their views and exclusive analysis on the platform', 'hello-elementor-child'); ?>
             </p>
         </div>
 
         <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
             <a href="<?php echo esc_url(get_term_link($department)); ?>"
                 class="px-space-md py-space-xs rounded-full hover:bg-surface-container-high text-on-surface font-label-pill text-label-pill transition-colors shadow-sm flex items-center gap-1 self-start md:self-auto border border-surface-container-high">
-                <span><?php esc_html_e('كل الخبراء', 'hello-elementor-child'); ?></span>
+                <span><?php esc_html_e('All experts', 'hello-elementor-child'); ?></span>
                 <span class="material-symbols-outlined text-[16px]">close</span>
             </a>
         <?php endif; ?>
@@ -113,7 +113,7 @@ if (empty($active_terms)) {
                     <span
                         class="absolute top-3 right-3 px-2.5 py-0.5 rounded-full bg-primary text-white backdrop-blur-md font-label-caps text-[11px] shadow-sm z-10 border border-white/20">
                         <?php echo esc_html($count); ?>
-                        <?php esc_html_e('مادة منشورة', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('published items', 'hello-elementor-child'); ?>
                     </span>
                 </div>
 
@@ -145,8 +145,8 @@ if (empty($active_terms)) {
                                     }
                                 }
                             }
-                            $dept_string = !empty($dept_names) ? implode(' و ', $dept_names) : 'تفاعل السعودية';
-                            echo esc_html__('خبير وصانع أثر في', 'hello-elementor-child') . ' ' . esc_html($dept_string);
+                            $dept_string = !empty($dept_names) ? implode(_x(' and ', 'between names', 'hello-elementor-child'), $dept_names) : __('Tafaol Saudi', 'hello-elementor-child');
+                            echo esc_html__('Expert and change maker in', 'hello-elementor-child') . ' ' . esc_html($dept_string);
                             ?>
                         </span>
 
@@ -162,7 +162,7 @@ if (empty($active_terms)) {
                     </div>
 
                     <div class="mt-3 pt-2 flex items-center justify-between border-t border-white/20 text-xs text-white/90">
-                        <span><?php esc_html_e('عرض الملف والمقالات', 'hello-elementor-child'); ?></span>
+                        <span><?php esc_html_e('View profile and articles', 'hello-elementor-child'); ?></span>
                         <span class="material-symbols-outlined text-[14px] group-hover:-translate-x-1 transition-transform" aria-hidden="true">←</span>
                     </div>
                 </div>

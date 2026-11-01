@@ -44,7 +44,7 @@ while (have_posts()):
 
             <?php
             car_breadcrumbs($crumbs);
-            car_title_row($title, array_slice($crumbs, 0, -1), $model_year !== '' ? 'موديل ' . $model_year : '');
+            car_title_row($title, array_slice($crumbs, 0, -1), $model_year !== '' ? sprintf(__('Model %s', 'hello-elementor-child'), $model_year) : ''); // translators: %s: model year
             ?>
 
             <!-- Hero: gallery | price box + chips -->
@@ -69,7 +69,7 @@ while (have_posts()):
 
                     <?php if ($has_features): ?>
                         <div>
-                            <span class="mb-2 block text-body-sm font-semibold text-on-surface-variant">التجهيزات</span>
+                            <span class="mb-2 block text-body-sm font-semibold text-on-surface-variant"><?php esc_html_e('Features', 'hello-elementor-child'); ?></span>
                             <?php car_chips($car_id, ['car_feature'], false); ?>
                         </div>
                     <?php endif; ?>
@@ -77,19 +77,19 @@ while (have_posts()):
             </div>
 
             <?php if ($has_highlights): ?>
-                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background">أبرز المواصفات</h2>
+                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background"><?php esc_html_e('Key specifications', 'hello-elementor-child'); ?></h2>
                 <?php car_highlights($car_id); ?>
             <?php endif; ?>
 
             <?php if ($has_description): ?>
-                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background">نظرة عامة</h2>
+                <h2 class="mb-3 font-title-editorial text-title-editorial text-on-background"><?php esc_html_e('Overview', 'hello-elementor-child'); ?></h2>
                 <?php car_description($description); ?>
             <?php endif; ?>
 
             <?php if ($specs['html'] !== ''): ?>
                 <div class="car-specs mt-space-xl">
                     <?php
-                    car_section_header('المواصفات التفصيلية', 'المواصفات الكاملة');
+                    car_section_header(__('Detailed specifications', 'hello-elementor-child'), __('Full specifications', 'hello-elementor-child'));
                     echo Car_Spec_Renderer::nav($specs['nav']) . $specs['html']; // escaped inside the renderer
                     ?>
                 </div>

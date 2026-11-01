@@ -18,15 +18,15 @@ const CAR_SECTION_PER_PAGE = 5;
 function get_car_filter_taxonomies(): array
 {
     return [
-        'f_make' => ['taxonomy' => 'car_make', 'label' => __('الشركة', 'hello-elementor-child'), 'multi' => false],
-        'f_model' => ['taxonomy' => 'car_make', 'label' => __('الموديل', 'hello-elementor-child'), 'multi' => false],
-        'f_year' => ['taxonomy' => 'car_year', 'label' => __('السنة', 'hello-elementor-child'), 'multi' => false],
-        'f_origin' => ['taxonomy' => 'car_origin', 'label' => __('المنشأ', 'hello-elementor-child'), 'multi' => false],
-        'f_body' => ['taxonomy' => 'body_type', 'label' => __('الهيكل', 'hello-elementor-child'), 'multi' => false],
-        'f_fuel' => ['taxonomy' => 'fuel_type', 'label' => __('الوقود', 'hello-elementor-child'), 'multi' => false],
-        'f_transmission' => ['taxonomy' => 'transmission', 'label' => __('ناقل الحركة', 'hello-elementor-child'), 'multi' => false],
-        'f_drivetrain' => ['taxonomy' => 'drivetrain', 'label' => __('نظام الدفع', 'hello-elementor-child'), 'multi' => false],
-        'f_feature' => ['taxonomy' => 'car_feature', 'label' => __('التجهيزات', 'hello-elementor-child'), 'multi' => true],
+        'f_make' => ['taxonomy' => 'car_make', 'label' => __('Make', 'hello-elementor-child'), 'multi' => false],
+        'f_model' => ['taxonomy' => 'car_make', 'label' => __('Model', 'hello-elementor-child'), 'multi' => false],
+        'f_year' => ['taxonomy' => 'car_year', 'label' => __('Year', 'hello-elementor-child'), 'multi' => false],
+        'f_origin' => ['taxonomy' => 'car_origin', 'label' => __('Origin', 'hello-elementor-child'), 'multi' => false],
+        'f_body' => ['taxonomy' => 'body_type', 'label' => __('Body', 'hello-elementor-child'), 'multi' => false],
+        'f_fuel' => ['taxonomy' => 'fuel_type', 'label' => __('Fuel', 'hello-elementor-child'), 'multi' => false],
+        'f_transmission' => ['taxonomy' => 'transmission', 'label' => __('Transmission', 'hello-elementor-child'), 'multi' => false],
+        'f_drivetrain' => ['taxonomy' => 'drivetrain', 'label' => __('Drivetrain', 'hello-elementor-child'), 'multi' => false],
+        'f_feature' => ['taxonomy' => 'car_feature', 'label' => __('Features', 'hello-elementor-child'), 'multi' => true],
     ];
 }
 
@@ -34,11 +34,11 @@ function get_car_filter_taxonomies(): array
 function get_car_range_filters(): array
 {
     return [
-        'price' => ['meta' => 'price', 'label' => __('السعر', 'hello-elementor-child'), 'unit' => __('ر.س', 'hello-elementor-child'), 'step' => 1],
-        'power' => ['meta' => 'engine_hp', 'label' => __('القوة', 'hello-elementor-child'), 'unit' => __('حصان', 'hello-elementor-child'), 'step' => 1],
-        'torque' => ['meta' => 'engine_torque_nm', 'label' => __('العزم', 'hello-elementor-child'), 'unit' => __('نيوتن.متر', 'hello-elementor-child'), 'step' => 1],
-        'engine' => ['meta' => 'engine_displacement_l', 'label' => __('سعة المحرك', 'hello-elementor-child'), 'unit' => __('لتر', 'hello-elementor-child'), 'step' => 0.1],
-        'seats' => ['meta' => 'interior_seats', 'label' => __('المقاعد', 'hello-elementor-child'), 'unit' => '', 'step' => 1],
+        'price' => ['meta' => 'price', 'label' => __('Price', 'hello-elementor-child'), 'unit' => __('SAR', 'hello-elementor-child'), 'step' => 1],
+        'power' => ['meta' => 'engine_hp', 'label' => __('Power', 'hello-elementor-child'), 'unit' => __('hp', 'hello-elementor-child'), 'step' => 1],
+        'torque' => ['meta' => 'engine_torque_nm', 'label' => __('Torque', 'hello-elementor-child'), 'unit' => __('Nm', 'hello-elementor-child'), 'step' => 1],
+        'engine' => ['meta' => 'engine_displacement_l', 'label' => __('Engine size', 'hello-elementor-child'), 'unit' => __('L', 'hello-elementor-child'), 'step' => 0.1],
+        'seats' => ['meta' => 'interior_seats', 'label' => __('Seats', 'hello-elementor-child'), 'unit' => '', 'step' => 1],
     ];
 }
 
@@ -370,22 +370,11 @@ function get_car_models_map(): array
 // Text
 // ---------------------------------------------------------------------------
 
-/** "N سيارة" with Arabic number agreement (none, one, two, 3-10 plural, otherwise singular). */
+/** "N سيارة" (Arabic number agreement comes from the ar plural forms; 0 = "no matching cars"). */
 function car_filter_count_text(int $count): string
 {
-    if ($count <= 0) {
-        return __('لا توجد سيارات مطابقة', 'hello-elementor-child');
-    }
-    if ($count === 1) {
-        return __('سيارة واحدة', 'hello-elementor-child');
-    }
-    if ($count === 2) {
-        return __('سيارتان', 'hello-elementor-child');
-    }
-    $last = $count % 100;
-    /* translators: %s: number of cars */
-    $pattern = ($last >= 3 && $last <= 10) ? __('%s سيارات', 'hello-elementor-child') : __('%s سيارة', 'hello-elementor-child');
-    return sprintf($pattern, number_format_i18n($count));
+    /* translators: %s: number of matching cars */
+    return sprintf(_n('%s matching car', '%s matching cars', max(0, $count), 'hello-elementor-child'), number_format_i18n($count));
 }
 
 /** A range value for display: integers as-is, engine sizes with one decimal when needed. */
@@ -405,14 +394,14 @@ function car_filter_range_text(string $prefix, array $range): string
     $format = static fn(float $value): string => car_filter_number($value, $map['step']) . ($map['unit'] !== '' ? ' ' . $map['unit'] : '');
     if ($range['min'] !== null && $range['max'] !== null) {
         /* translators: 1: facet label, 2: minimum, 3: maximum */
-        return sprintf(__('%1$s: من %2$s إلى %3$s', 'hello-elementor-child'), $map['label'], $format($range['min']), $format($range['max']));
+        return sprintf(__('%1$s: from %2$s to %3$s', 'hello-elementor-child'), $map['label'], $format($range['min']), $format($range['max']));
     }
     if ($range['min'] !== null) {
         /* translators: 1: facet label, 2: minimum */
-        return sprintf(__('%1$s: من %2$s', 'hello-elementor-child'), $map['label'], $format($range['min']));
+        return sprintf(__('%1$s: from %2$s', 'hello-elementor-child'), $map['label'], $format($range['min']));
     }
     /* translators: 1: facet label, 2: maximum */
-    return sprintf(__('%1$s: حتى %2$s', 'hello-elementor-child'), $map['label'], $format($range['max']));
+    return sprintf(__('%1$s: up to %2$s', 'hello-elementor-child'), $map['label'], $format($range['max']));
 }
 
 /** "ابتداءً من 159,448 ر.س" or "159,448 ر.س"; empty when the car has no price. */
@@ -422,10 +411,10 @@ function car_filter_price_text(int $post_id): string
     if ($price <= 0) {
         return '';
     }
-    $text = number_format_i18n($price) . ' ' . __('ر.س', 'hello-elementor-child');
+    $text = number_format_i18n($price) . ' ' . __('SAR', 'hello-elementor-child');
     if (get_post_meta($post_id, 'price_is_starting_from', true)) {
         /* translators: %s: price */
-        $text = sprintf(__('ابتداءً من %s', 'hello-elementor-child'), $text);
+        $text = sprintf(__('Starting from %s', 'hello-elementor-child'), $text);
     }
     return $text;
 }
@@ -485,8 +474,8 @@ function render_car_filter_select(string $param, array $state, string $variant =
         return;
     }
     $id = 'cars-' . str_replace('_', '-', $param);
-    $all_label = __('الكل', 'hello-elementor-child');
-    $empty_label = __('اختر الشركة أولًا', 'hello-elementor-child');
+    $all_label = __('All', 'hello-elementor-child');
+    $empty_label = __('Choose a make first', 'hello-elementor-child');
     $disabled = $is_model && empty($state['taxes']['f_make']);
     $label_class = $variant === 'bar' ? 'text-xs font-bold text-white/90 px-1' : 'text-xs font-bold text-on-surface-variant px-1';
     $select_class = 'block w-full h-10 appearance-none rounded-full border bg-white text-on-background text-sm font-medium px-4 cursor-pointer shadow-xs focus:outline-none focus:ring-2 '

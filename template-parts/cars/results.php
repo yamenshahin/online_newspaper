@@ -58,7 +58,7 @@ if (array_key_exists('is_car_archive', $args)) {
 
     <?php if ($is_car_archive): ?>
         <?php if ((int) $query->max_num_pages > 1): ?>
-            <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('تصفح الصفحات', 'hello-elementor-child'); ?>">
+            <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('Pages', 'hello-elementor-child'); ?>">
                 <div class="inline-flex items-center gap-2 flex-wrap justify-center [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.current]:bg-primary [&_.current]:text-on-primary">
                     <?php
                     $add_args = get_car_filter_params($state);
@@ -81,7 +81,7 @@ if (array_key_exists('is_car_archive', $args)) {
         <div class="flex justify-center mt-8">
             <a href="<?php echo esc_url(get_cars_filter_url([], $state, $archive_url)); ?>"
                 class="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold text-sm bg-primary text-white hover:opacity-90 shadow-sm transition-all">
-                <?php esc_html_e('عرض المزيد من السيارات', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Show more cars', 'hello-elementor-child'); ?>
             </a>
         </div>
     <?php endif; ?>

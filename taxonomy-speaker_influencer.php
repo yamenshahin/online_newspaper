@@ -42,7 +42,7 @@ $skip_layouts = [
     get_template_part('template-parts/profiles/term-profile', null, [
         'term' => $term,
         'back_url' => home_url('/'),
-        'back_label' => __('العودة إلى الرئيسية', 'hello-elementor-child'),
+        'back_label' => __('Back to the homepage', 'hello-elementor-child'),
     ]);
 
     get_template_part('template-parts/profiles/filter-departments-nav', null, [

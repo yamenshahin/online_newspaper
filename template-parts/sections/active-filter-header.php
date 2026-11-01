@@ -38,7 +38,7 @@ get_template_part('template-parts/profiles/term-profile', null, [
     'back_url' => get_term_link($department),
     'back_label' => sprintf(
         /* translators: %s: department name */
-        __('العودة إلى %s', 'hello-elementor-child'),
+        __('Back to %s', 'hello-elementor-child'),
         $department->name
     ),
 ]);

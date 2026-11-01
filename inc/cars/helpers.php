@@ -361,7 +361,21 @@ function format_number($n): string
 /** "185,150 ر.س" ('' when there is no price; the riyal sign is missing from most fonts, so the abbreviation is used). */
 function format_sar($n): string
 {
-    return is_numeric($n) && $n > 0 ? format_number($n) . ' ر.س' : '';
+    return is_numeric($n) && $n > 0 ? sar_text(format_number($n)) : '';
+}
+
+/** An amount (already formatted) followed by the riyal abbreviation. */
+function sar_text(string $amount): string
+{
+    /* translators: %s: amount */
+    return sprintf(__('%s SAR', 'hello-elementor-child'), $amount);
+}
+
+/** "12,500 دولار أمريكي" ('' when there is no price). */
+function format_usd($n): string
+{
+    /* translators: %s: amount */
+    return is_numeric($n) && $n > 0 ? sprintf(__('%s US dollars', 'hello-elementor-child'), format_number($n)) : '';
 }
 
 /** A car's price in its own currency (`price_currency`: SAR, or USD for some imported trims); '' when it has none. */
@@ -371,57 +385,46 @@ function car_price_text(int $post_id): string
     if (!is_numeric($price) || $price <= 0) {
         return '';
     }
-    return get_post_meta($post_id, 'price_currency', true) === 'USD' ? format_number($price) . ' دولار أمريكي' : format_sar($price);
+    return get_post_meta($post_id, 'price_currency', true) === 'USD' ? format_usd($price) : format_sar($price);
 }
 
-/**
- * Arabic number agreement. $forms = [one, two, few (3-10), many (11+)]; the last two take %s.
- * e.g. arabic_count(5, ['سيارة واحدة', 'سيارتان', '%s سيارات', '%s سيارة']) -> "5 سيارات".
+/*
+ * Counts ("N سيارة"). Arabic number agreement comes from the ar plural forms (0, 1, 2, 3-10, 11-99, 100+).
  */
-function arabic_count(int $n, array $forms, string $none = ''): string
-{
-    if ($n <= 0) {
-        return $none;
-    }
-    if ($n === 1) {
-        return (string) $forms[0];
-    }
-    if ($n === 2) {
-        return (string) $forms[1];
-    }
-    $last_two = $n % 100;
-    $form = ($last_two >= 3 && $last_two <= 10) ? $forms[2] : $forms[3];
-    return sprintf((string) $form, number_format_i18n($n));
-}
-
 function n_cars(int $n): string
 {
-    return arabic_count($n, ['سيارة واحدة', 'سيارتان', '%s سيارات', '%s سيارة'], 'لا توجد سيارات');
+    /* translators: %s: number of cars */
+    return sprintf(_n('%s car', '%s cars', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 function n_models(int $n): string
 {
-    return arabic_count($n, ['موديل واحد', 'موديلان', '%s موديلات', '%s موديلاً'], 'لا توجد موديلات');
+    /* translators: %s: number of models */
+    return sprintf(_n('%s model', '%s models', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 function n_makes(int $n): string
 {
-    return arabic_count($n, ['علامة واحدة', 'علامتان', '%s علامات', '%s علامة'], 'لا توجد علامات');
+    /* translators: %s: number of brands */
+    return sprintf(_n('%s brand', '%s brands', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 function n_trims(int $n): string
 {
-    return arabic_count($n, ['فئة واحدة', 'فئتان', '%s فئات', '%s فئة'], 'لا توجد فئات');
+    /* translators: %s: number of trims */
+    return sprintf(_n('%s trim', '%s trims', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 function n_years(int $n): string
 {
-    return arabic_count($n, ['سنة موديل واحدة', 'سنتا موديل', '%s سنوات موديل', '%s سنة موديل'], 'لا توجد سنوات موديل');
+    /* translators: %s: number of model years */
+    return sprintf(_n('%s model year', '%s model years', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 function n_images(int $n): string
 {
-    return arabic_count($n, ['صورة واحدة', 'صورتان', '%s صور', '%s صورة'], 'لا توجد صور');
+    /* translators: %s: number of photos */
+    return sprintf(_n('%s photo', '%s photos', $n, 'hello-elementor-child'), number_format_i18n($n));
 }
 
 // ---------------------------------------------------------------------------
@@ -464,9 +467,9 @@ function car_post_crumbs(int $post_id): array
 /** الرئيسية › دليل السيارات › ...; $items = [[label, url|''], ...], the last one is the current page. */
 function car_breadcrumbs(array $items): void
 {
-    $crumbs = array_merge([['الرئيسية', home_url('/')], ['دليل السيارات', car_directory_url()]], $items);
+    $crumbs = array_merge([[__('Home', 'hello-elementor-child'), home_url('/')], [__('Car Directory', 'hello-elementor-child'), car_directory_url()]], $items);
     $last = count($crumbs) - 1;
-    echo '<nav class="car-crumbs mb-4 flex flex-wrap items-center gap-1 text-body-sm text-on-surface-variant" aria-label="مسار التصفح">';
+    echo '<nav class="car-crumbs mb-4 flex flex-wrap items-center gap-1 text-body-sm text-on-surface-variant" aria-label="' . esc_attr__('Breadcrumb', 'hello-elementor-child') . '">';
     foreach ($crumbs as $i => [$label, $url]) {
         if ($i) {
             echo '<i class="fas fa-angle-left text-xs" aria-hidden="true"></i>';
@@ -518,8 +521,9 @@ function car_section_close(): void
  * Live section header: eyebrow + h2 (+ count pill, + "more" link). $count is already formatted
  * (n_cars(12)); $tag lets a page use h3 for sub-sections.
  */
-function car_section_header(string $title, string $eyebrow = '', string $count = '', string $more_url = '', string $more_label = 'المزيد', string $tag = 'h2'): void
+function car_section_header(string $title, string $eyebrow = '', string $count = '', string $more_url = '', string $more_label = '', string $tag = 'h2'): void
 {
+    $more_label = $more_label !== '' ? $more_label : __('More', 'hello-elementor-child');
     $tag = in_array($tag, ['h2', 'h3', 'h4', 'div'], true) ? $tag : 'h2';
     echo '<div class="car-section-header mb-space-lg flex flex-col justify-between gap-space-md md:flex-row md:items-end">';
     echo '<div class="flex flex-col gap-space-xs text-start">';
@@ -648,18 +652,17 @@ function car_listing_tile(WP_Post $car): string
     $trim = (string) get_field('trim_name', $car->ID);
     $year = (string) get_field('model_year', $car->ID);
     $sub = trim($year !== '' && str_contains($trim, $year) ? $trim : "{$trim} {$year}"); // year-leaf cars: the trim name is the year
-    return car_tile(get_permalink($car), car_img(car_image_url($car->ID, 'medium'), $name, 'car-tile-pic'), $name, $sub, car_price_text($car->ID) ?: 'لا يوجد سعر', 'car-tile-big');
+    return car_tile(get_permalink($car), car_img(car_image_url($car->ID, 'medium'), $name, 'car-tile-pic'), $name, $sub, car_price_text($car->ID) ?: __('No price', 'hello-elementor-child'), 'car-tile-big');
 }
 
 /** One text tile per price range (car_price_ranges()); $current gets the is-current frame. */
 function car_price_range_tiles(string $current = ''): array
 {
     $tiles = [];
-    foreach (car_price_ranges() as $slug => [$label]) {
-        $parts = preg_split('/ إلى /u', $label);
-        $text = count($parts) === 2
-            ? esc_html($parts[0]) . ' ر.س<br><span class="text-body-sm font-normal text-on-surface-variant">إلى</span><br>' . esc_html($parts[1]) . ' ر.س'
-            : esc_html($label) . ' ر.س';
+    foreach (car_price_ranges() as $slug => [$label, $min, $max]) {
+        $text = $min && $max
+            ? esc_html(sar_text(car_thousands($min))) . '<br><span class="text-body-sm font-normal text-on-surface-variant">' . esc_html__('to', 'hello-elementor-child') . '</span><br>' . esc_html(sar_text(car_thousands($max)))
+            : esc_html(sar_text($label));
         $tiles[] = car_text_tile(car_price_range_url($slug), $text, $slug === $current ? 'is-current' : '');
     }
     return $tiles;
@@ -695,7 +698,7 @@ function car_year_tiles(int $year_id): array
     $title = get_the_title($year_id);
     $tiles = [];
     foreach (car_subfamilies($year_id) as $s) {
-        $tiles[] = car_post_tile($s, car_short_title($s, [$title]), 'فئة فرعية');
+        $tiles[] = car_post_tile($s, car_short_title($s, [$title]), __('Sub-family', 'hello-elementor-child'));
     }
     foreach (car_year_trims($year_id) as $car) {
         $tiles[] = car_post_tile($car, (string) get_field('trim_name', $car->ID) ?: get_the_title($car));
@@ -770,7 +773,7 @@ function car_description(string $html, int $limit = 160): void
     echo '<div class="car-desc mb-6 text-body-base text-on-surface ' . esc_attr(car_rich_text_classes()) . ($long ? ' car-clamp' : '') . '" id="' . esc_attr($id) . '"' . ($long ? ' data-car-clamp' : '') . '>'
         . wpautop(wp_kses_post($html)) . '</div>';
     if ($long) {
-        echo '<button type="button" class="car-more -mt-4 mb-6 text-sm font-semibold text-primary transition-opacity hover:opacity-70" data-car-more aria-expanded="false" aria-controls="' . esc_attr($id) . '" data-label-open="إخفاء" data-label-closed="...اقرأ المزيد">...اقرأ المزيد</button>';
+        echo '<button type="button" class="car-more -mt-4 mb-6 text-sm font-semibold text-primary transition-opacity hover:opacity-70" data-car-more aria-expanded="false" aria-controls="' . esc_attr($id) . '" data-label-open="' . esc_attr__('Hide', 'hello-elementor-child') . '" data-label-closed="' . esc_attr__('...Read more', 'hello-elementor-child') . '">' . esc_html__('...Read more', 'hello-elementor-child') . '</button>';
     }
 }
 
@@ -796,16 +799,16 @@ function car_price_box(int $post_id): void
     $price = get_field('price', $post_id);
     $has = is_numeric($price) && $price > 0;
     echo '<div class="car-price-box flex flex-col gap-1 rounded-2xl border border-surface-container-high bg-surface-container-lowest p-6 shadow-sm">';
-    echo '<span class="font-label-caps text-label-caps uppercase tracking-widest text-primary">' . esc_html($has && get_field('price_is_starting_from', $post_id) ? 'السعر يبدأ من' : 'السعر') . '</span>';
+    echo '<span class="font-label-caps text-label-caps uppercase tracking-widest text-primary">' . esc_html($has && get_field('price_is_starting_from', $post_id) ? __('Price starts from', 'hello-elementor-child') : __('Price', 'hello-elementor-child')) . '</span>';
     if ($has) {
         echo '<span class="font-headline-sm text-headline-sm text-primary md:font-headline-lg md:text-headline-lg">' . esc_html(car_price_text($post_id)) . '</span>';
-        echo '<span class="text-body-sm text-on-surface-variant">' . esc_html(get_field('vat_included', $post_id) ? 'شامل ضريبة القيمة المضافة' : 'غير شامل الضريبة') . '</span>';
+        echo '<span class="text-body-sm text-on-surface-variant">' . esc_html(get_field('vat_included', $post_id) ? __('VAT included', 'hello-elementor-child') : __('Excluding VAT', 'hello-elementor-child')) . '</span>';
     } else {
-        echo '<span class="font-title-editorial text-title-editorial text-on-surface-variant">لا يوجد سعر منشور</span>';
+        echo '<span class="font-title-editorial text-title-editorial text-on-surface-variant">' . esc_html__('No published price', 'hello-elementor-child') . '</span>';
     }
     $warranty = trim((string) get_field('warranty', $post_id));
     if ($warranty !== '') {
-        echo '<div class="mt-2 text-body-base text-on-surface"><span class="font-semibold">الضمان:</span> ' . esc_html($warranty) . '</div>';
+        echo '<div class="mt-2 text-body-base text-on-surface"><span class="font-semibold">' . esc_html__('Warranty:', 'hello-elementor-child') . '</span> ' . esc_html($warranty) . '</div>';
     }
     echo '</div>';
 }
@@ -841,7 +844,7 @@ function car_gallery(int $post_id, string $title = ''): void
     $pics = car_gallery_images($post_id);
     $main = $pics[0]['large'] ?? car_placeholder_url();
     echo '<div class="car-gallery" data-car-gallery>';
-    echo '<div class="car-gallery-main relative aspect-video overflow-hidden rounded-2xl bg-surface-container' . ($pics ? ' car-gallery-zoom' : '') . '"' . ($pics ? ' data-car-open title="عرض بالحجم الكامل"' : '') . '>';
+    echo '<div class="car-gallery-main relative aspect-video overflow-hidden rounded-2xl bg-surface-container' . ($pics ? ' car-gallery-zoom' : '') . '"' . ($pics ? ' data-car-open title="' . esc_attr__('View full size', 'hello-elementor-child') . '"' : '') . '>';
     printf(
         '<img class="h-full w-full object-contain%s" src="%s" alt="%s" loading="eager" decoding="async" data-car-main%s>',
         $pics ? '' : ' car-img-placeholder',
@@ -851,7 +854,7 @@ function car_gallery(int $post_id, string $title = ''): void
     );
     if ($pics) {
         echo '<span class="car-gallery-count car-ltr" data-car-count>1 / ' . count($pics) . '</span>';
-        echo '<button type="button" class="car-gallery-expand" data-car-open aria-label="عرض بالحجم الكامل"><i class="fas fa-expand" aria-hidden="true"></i></button>';
+        echo '<button type="button" class="car-gallery-expand" data-car-open aria-label="' . esc_attr__('View full size', 'hello-elementor-child') . '"><i class="fas fa-expand" aria-hidden="true"></i></button>';
     }
     echo '</div>';
     if (count($pics) > 1) {
@@ -863,12 +866,15 @@ function car_gallery(int $post_id, string $title = ''): void
                 esc_url($p['large']),
                 esc_url($p['full']),
                 $i,
-                esc_attr(sprintf('صورة %d من %d', $i + 1, count($pics))),
+                /* translators: 1: photo number, 2: number of photos */
+                esc_attr(sprintf(__('Photo %1$d of %2$d', 'hello-elementor-child'), $i + 1, count($pics))),
                 esc_url($p['thumb']),
                 esc_attr($title . ' - ' . ($i + 1))
             );
         }
-        echo '</div><p class="mt-2 text-body-sm text-on-surface-variant">' . esc_html(n_images(count($pics))) . ' في المعرض - اضغط على الصورة للعرض بالحجم الكامل</p>';
+        /* translators: %s: number of photos ("12 photos") */
+        $hint = sprintf(__('%s in the gallery - click a photo to view it full size', 'hello-elementor-child'), n_images(count($pics)));
+        echo '</div><p class="mt-2 text-body-sm text-on-surface-variant">' . esc_html($hint) . '</p>';
     }
     echo '</div>';
 }
@@ -891,11 +897,12 @@ function car_price_cell(int $post_id): array
  * @param string[] $header
  * @param array<int, array{0: string, 1: string, 2?: mixed}> $rows name, url ('' = plain text), then price cells
  */
-function car_price_table(string $title, array $header, array $rows, string $eyebrow = 'قائمة الأسعار'): void
+function car_price_table(string $title, array $header, array $rows, string $eyebrow = ''): void
 {
     if (!$rows) {
         return;
     }
+    $eyebrow = $eyebrow !== '' ? $eyebrow : __('Price list', 'hello-elementor-child');
     car_section_header($title, $eyebrow);
     echo '<div class="car-table-scroll overflow-hidden rounded-xl border border-surface-container-high bg-surface-container-lowest shadow-xs">';
     echo '<table class="car-price-table w-full text-start" data-car-sortable><thead><tr class="border-b border-surface-container-high bg-surface-container-low">';
@@ -937,8 +944,10 @@ function car_term_price_table(WP_Term $term, array $link_by_name = []): void
     if (!$rows || !array_filter(array_map(static fn($r) => array_filter(array_slice($r, 2), 'is_numeric'), $rows))) {
         return;
     }
-    $header = !empty($data['header']) && is_array($data['header']) ? array_map('strval', $data['header']) : (count($rows[0]) > 3 ? ['الموديل', 'أقل سعر', 'أعلى سعر'] : ['الفئة', 'السعر']);
-    car_price_table(!empty($data['heading']) ? (string) $data['heading'] : 'أحدث قائمة أسعار', $header, $rows);
+    $header = !empty($data['header']) && is_array($data['header']) ? array_map('strval', $data['header']) : (count($rows[0]) > 3
+        ? [__('Model', 'hello-elementor-child'), __('Lowest price', 'hello-elementor-child'), __('Highest price', 'hello-elementor-child')]
+        : [__('Trim', 'hello-elementor-child'), __('Price', 'hello-elementor-child')]);
+    car_price_table(!empty($data['heading']) ? (string) $data['heading'] : __('Latest price list', 'hello-elementor-child'), $header, $rows);
 }
 
 // ---------------------------------------------------------------------------
@@ -1026,13 +1035,17 @@ function car_siblings(int $post_id): void
         return;
     }
     $model = car_post_terms($post_id)['model'];
-    $labels = ['trims' => 'فئات أخرى من ' . ($model ? $model->name : 'الموديل'), 'rivals' => 'سيارات منافسة'];
+    $labels = [
+        /* translators: %s: model name */
+        'trims' => sprintf(__('Other trims of %s', 'hello-elementor-child'), $model ? $model->name : __('the model', 'hello-elementor-child')),
+        'rivals' => __('Rival cars', 'hello-elementor-child'),
+    ];
     foreach ($groups as $k => $tiles) {
         if (!$tiles) {
             continue;
         }
         echo '<div class="car-siblings car-siblings-' . esc_attr($k) . ' mt-space-xl">';
-        car_section_header($labels[$k], 'قد يهمك أيضًا', n_cars(count($tiles)));
+        car_section_header($labels[$k], __('You may also like', 'hello-elementor-child'), n_cars(count($tiles)));
         car_grid(array_values($tiles), 'wide');
         echo '</div>';
     }

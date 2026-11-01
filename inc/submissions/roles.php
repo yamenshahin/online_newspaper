@@ -25,7 +25,7 @@ if (!defined('ABSPATH')) {
 function submission_register_role(): void
 {
     if (get_role(SUBMISSION_ROLE) === null) {
-        add_role(SUBMISSION_ROLE, __('مُرسل', 'hello-elementor-child'), ['read' => true]);
+        add_role(SUBMISSION_ROLE, _x('Submitter', 'user role', 'hello-elementor-child'), ['read' => true]);
     }
 }
 add_action('init', 'submission_register_role');

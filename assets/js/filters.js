@@ -61,13 +61,13 @@ function initFilterWrappers() {
                 container.style.maxHeight = collapsedMax + 'px';
                 container.classList.remove('is-expanded');
                 if (fadeOverlay) fadeOverlay.classList.remove('opacity-0');
-                if (toggleText) toggleText.textContent = 'عرض المزيد';
+                if (toggleText) toggleText.textContent = (window.helloEntityNav || {}).showMore || '';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(0deg)';
             } else {
                 container.style.maxHeight = container.scrollHeight + 'px';
                 container.classList.add('is-expanded');
                 if (fadeOverlay) fadeOverlay.classList.add('opacity-0');
-                if (toggleText) toggleText.textContent = 'عرض أقل';
+                if (toggleText) toggleText.textContent = (window.helloEntityNav || {}).showLess || '';
                 if (toggleIcon) toggleIcon.style.transform = 'rotate(180deg)';
             }
         });

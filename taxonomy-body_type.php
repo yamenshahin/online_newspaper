@@ -18,30 +18,33 @@ $tax_label = car_directory_taxonomies()['body_type'][0];
     car_section_open();
     if (!$term) {
         car_breadcrumbs([[$tax_label, '']]);
-        car_empty_state('نوع الهيكل هذا غير موجود.');
+        car_empty_state(__('This body type does not exist.', 'hello-elementor-child'));
         car_section_close();
         get_footer();
         return;
     }
     car_breadcrumbs([[$tax_label, ''], [$term->name, '']]);
-    car_title_row('سيارات ' . $term->name . ' جديدة', [], 'نوع الهيكل');
+    /* translators: %s: body type */
+    car_title_row(sprintf(__('New %s cars', 'hello-elementor-child'), $term->name), [], __('Body type', 'hello-elementor-child'));
     car_description($term->description);
     if ($cars) {
         echo '<p class="mb-6 text-body-base text-on-surface-variant">'
-            . esc_html(sprintf('%s من فئة %s بموديلات %d و%d، بأقل سعر لكل موديل.', n_models(count($cars)), $term->name, $year - 1, $year)) . '</p>';
+            /* translators: 1: number of models ("12 models"), 2: body type, 3: last year, 4: this year */
+            . esc_html(sprintf(__('%1$s in the %2$s class, %3$d and %4$d models, at the lowest price per model.', 'hello-elementor-child'), n_models(count($cars)), $term->name, $year - 1, $year)) . '</p>';
     }
-    car_section_header('الموديلات المتوفرة', 'أقل سعر لكل موديل', $cars ? n_models(count($cars)) : '');
+    car_section_header(__('Available models', 'hello-elementor-child'), __('Lowest price per model', 'hello-elementor-child'), $cars ? n_models(count($cars)) : '');
     get_template_part('template-parts/cars/model-listing', null, [
         'cars' => $cars,
         'base_url' => car_term_url($term),
         'paged' => $paged,
         'per_page' => 24,
-        'empty' => $cars ? 'لا توجد سيارات في هذه الصفحة.' : 'لا توجد سيارات ' . $term->name . ' بموديلات ' . ($year - 1) . ' و' . $year . ' حالياً.',
+        /* translators: 1: body type, 2: last year, 3: this year */
+        'empty' => $cars ? __('No cars on this page.', 'hello-elementor-child') : sprintf(__('No %1$s cars with %2$d and %3$d models at the moment.', 'hello-elementor-child'), $term->name, $year - 1, $year),
     ]);
     car_section_close();
 
     car_section_open('pt-0');
-    car_section_header('أشكال أخرى', $tax_label);
+    car_section_header(__('Other shapes', 'hello-elementor-child'), $tax_label);
     car_strip(car_body_type_tiles(true, $term->slug), true);
     car_section_close();
     ?>

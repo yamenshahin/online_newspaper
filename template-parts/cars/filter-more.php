@@ -19,7 +19,7 @@ $input_class = 'w-full min-w-0 h-10 rounded-full border border-surface-container
 ?>
 <details class="mt-4 group" <?php echo $open ? 'open' : ''; ?>>
     <summary class="cursor-pointer text-sm font-bold text-primary inline-flex items-center gap-1 list-none py-2 select-none">
-        <?php esc_html_e('المزيد من الفلاتر', 'hello-elementor-child'); ?>
+        <?php esc_html_e('More filters', 'hello-elementor-child'); ?>
         <span class="material-symbols-outlined text-[18px] transition-transform group-open:rotate-180" aria-hidden="true">expand_more</span>
     </summary>
 
@@ -60,13 +60,13 @@ $input_class = 'w-full min-w-0 h-10 rounded-full border border-surface-container
                     <div class="flex gap-2">
                         <input type="number" name="<?php echo esc_attr($prefix . '_min'); ?>" min="0" step="<?php echo esc_attr((string) $range['step']); ?>"
                             inputmode="<?php echo $range['step'] < 1 ? 'decimal' : 'numeric'; ?>"
-                            aria-label="<?php echo esc_attr($range['label'] . ' – ' . __('من', 'hello-elementor-child')); ?>"
-                            placeholder="<?php esc_attr_e('من', 'hello-elementor-child'); ?>"
+                            aria-label="<?php echo esc_attr($range['label'] . ' – ' . __('From', 'hello-elementor-child')); ?>"
+                            placeholder="<?php esc_attr_e('From', 'hello-elementor-child'); ?>"
                             value="<?php echo $min !== null ? esc_attr((string) $min) : ''; ?>" class="<?php echo esc_attr($input_class); ?>" />
                         <input type="number" name="<?php echo esc_attr($prefix . '_max'); ?>" min="0" step="<?php echo esc_attr((string) $range['step']); ?>"
                             inputmode="<?php echo $range['step'] < 1 ? 'decimal' : 'numeric'; ?>"
-                            aria-label="<?php echo esc_attr($range['label'] . ' – ' . __('إلى', 'hello-elementor-child')); ?>"
-                            placeholder="<?php esc_attr_e('إلى', 'hello-elementor-child'); ?>"
+                            aria-label="<?php echo esc_attr($range['label'] . ' – ' . __('to', 'hello-elementor-child')); ?>"
+                            placeholder="<?php esc_attr_e('to', 'hello-elementor-child'); ?>"
                             value="<?php echo $max !== null ? esc_attr((string) $max) : ''; ?>" class="<?php echo esc_attr($input_class); ?>" />
                     </div>
                 </fieldset>
@@ -75,7 +75,7 @@ $input_class = 'w-full min-w-0 h-10 rounded-full border border-surface-container
 
         <div class="flex justify-end">
             <button type="submit" class="inline-flex items-center justify-center rounded-full bg-primary text-on-primary px-6 py-2 text-sm font-bold hover:opacity-90 transition-all">
-                <?php esc_html_e('تطبيق', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Apply', 'hello-elementor-child'); ?>
             </button>
         </div>
 

@@ -19,7 +19,7 @@ $cars = array_values(array_filter((array) ($args['cars'] ?? []), static fn($c) =
 $per_page = max(1, (int) ($args['per_page'] ?? 24));
 $paged = max(1, (int) ($args['paged'] ?? 1));
 $base_url = (string) ($args['base_url'] ?? '');
-$empty = (string) ($args['empty'] ?? 'لا توجد سيارات في هذه القائمة حالياً.');
+$empty = (string) ($args['empty'] ?? __('No cars in this list at the moment.', 'hello-elementor-child'));
 $total_pages = (int) ceil(count($cars) / $per_page);
 $page_cars = array_slice($cars, ($paged - 1) * $per_page, $per_page);
 
@@ -31,7 +31,7 @@ if ($page_cars) {
 car_grid(array_map('car_listing_tile', $page_cars), 'wide', $empty);
 
 if ($total_pages > 1 && $base_url !== '') : ?>
-    <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('تصفح الصفحات', 'hello-elementor-child'); ?>">
+    <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('Pages', 'hello-elementor-child'); ?>">
         <div class="inline-flex items-center gap-2 flex-wrap justify-center [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.current]:bg-primary [&_.current]:text-on-primary">
             <?php
             echo paginate_links([ // phpcs:ignore WordPress.Security.EscapeOutput -- paginate_links escapes its output

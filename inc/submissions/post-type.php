@@ -46,17 +46,17 @@ if (!defined('ABSPATH')) {
 function submission_register_post_type(): void
 {
     $labels = [
-        'name' => __('طلبات الإضافة', 'hello-elementor-child'),
-        'singular_name' => __('طلب إضافة', 'hello-elementor-child'),
-        'menu_name' => __('طلبات الإضافة', 'hello-elementor-child'),
-        'add_new' => __('إضافة طلب', 'hello-elementor-child'),
-        'add_new_item' => __('إضافة طلب', 'hello-elementor-child'),
-        'edit_item' => __('مراجعة الطلب', 'hello-elementor-child'),
-        'view_item' => __('عرض الطلب', 'hello-elementor-child'),
-        'search_items' => __('بحث في الطلبات', 'hello-elementor-child'),
-        'not_found' => __('لا توجد طلبات', 'hello-elementor-child'),
-        'not_found_in_trash' => __('لا توجد طلبات في سلة المهملات', 'hello-elementor-child'),
-        'all_items' => __('كل الطلبات', 'hello-elementor-child'),
+        'name' => __('Add requests', 'hello-elementor-child'),
+        'singular_name' => __('Add request', 'hello-elementor-child'),
+        'menu_name' => __('Add requests', 'hello-elementor-child'),
+        'add_new' => __('New request', 'hello-elementor-child'),
+        'add_new_item' => __('New request', 'hello-elementor-child'),
+        'edit_item' => __('Review request', 'hello-elementor-child'),
+        'view_item' => __('View request', 'hello-elementor-child'),
+        'search_items' => __('Search requests', 'hello-elementor-child'),
+        'not_found' => __('No requests', 'hello-elementor-child'),
+        'not_found_in_trash' => __('No requests in the trash', 'hello-elementor-child'),
+        'all_items' => __('All requests', 'hello-elementor-child'),
     ];
 
     register_post_type(
@@ -112,7 +112,7 @@ add_action('init', 'submission_register_post_type');
 function submission_enter_title_here($text, $post)
 {
     if ($post instanceof WP_Post && $post->post_type === SUBMISSION_POST_TYPE) {
-        return __('اسم الجهة / الفعالية بالعربية', 'hello-elementor-child');
+        return __('Entity / event name in Arabic', 'hello-elementor-child');
     }
 
     return $text;
@@ -132,10 +132,10 @@ add_filter('enter_title_here', 'submission_enter_title_here', 10, 2);
 function submission_post_updated_messages(array $messages): array
 {
     $messages[SUBMISSION_POST_TYPE] = [
-        1 => __('تم حفظ الطلب.', 'hello-elementor-child'),
-        6 => __('تم نشر الطلب وإنشاء الصفحة.', 'hello-elementor-child'),
-        8 => __('تم حفظ الطلب (قيد المراجعة).', 'hello-elementor-child'),
-        10 => __('تم حفظ الطلب (قيد المراجعة).', 'hello-elementor-child'),
+        1 => __('Request saved.', 'hello-elementor-child'),
+        6 => __('Request published and page created.', 'hello-elementor-child'),
+        8 => __('Request saved (under review).', 'hello-elementor-child'),
+        10 => __('Request saved (under review).', 'hello-elementor-child'),
     ];
 
     return $messages;
@@ -217,13 +217,13 @@ function submission_admin_columns(array $columns): array
 {
     return [
         'cb' => $columns['cb'] ?? '<input type="checkbox" />',
-        'title' => $columns['title'] ?? __('الاسم', 'hello-elementor-child'),
-        'submission_type' => __('النوع', 'hello-elementor-child'),
-        'submission_parent' => __('التصنيف الرئيسي', 'hello-elementor-child'),
-        'submission_english' => __('الاسم بالإنجليزية', 'hello-elementor-child'),
-        'submission_user' => __('المُرسل', 'hello-elementor-child'),
-        'submission_result' => __('النتيجة', 'hello-elementor-child'),
-        'date' => $columns['date'] ?? __('التاريخ', 'hello-elementor-child'),
+        'title' => $columns['title'] ?? __('Name', 'hello-elementor-child'),
+        'submission_type' => __('Type', 'hello-elementor-child'),
+        'submission_parent' => __('Parent', 'hello-elementor-child'),
+        'submission_english' => __('English name', 'hello-elementor-child'),
+        'submission_user' => __('Submitter', 'hello-elementor-child'),
+        'submission_result' => __('Result', 'hello-elementor-child'),
+        'date' => $columns['date'] ?? __('Date', 'hello-elementor-child'),
     ];
 }
 add_filter('manage_user_submits_posts_columns', 'submission_admin_columns');
@@ -311,12 +311,12 @@ function get_submission_result_links(int $term_id): string
 
     $view = get_term_link($term);
     if (!is_wp_error($view)) {
-        $parts[] = '<a href="' . esc_url($view) . '">' . esc_html__('عرض الصفحة', 'hello-elementor-child') . '</a>';
+        $parts[] = '<a href="' . esc_url($view) . '">' . esc_html__('View page', 'hello-elementor-child') . '</a>';
     }
 
     $edit = get_edit_term_link($term);
     if (is_string($edit) && $edit !== '') {
-        $parts[] = '<a href="' . esc_url($edit) . '">' . esc_html__('تحرير', 'hello-elementor-child') . '</a>';
+        $parts[] = '<a href="' . esc_url($edit) . '">' . esc_html__('Edit', 'hello-elementor-child') . '</a>';
     }
 
     return implode(' · ', $parts);
@@ -334,14 +334,14 @@ function get_submission_result_html(int $post_id): string
     if ($term_id > 0) {
         $links = get_submission_result_links($term_id);
 
-        return $links !== '' ? $links : esc_html__('منشور', 'hello-elementor-child');
+        return $links !== '' ? $links : esc_html__('Published', 'hello-elementor-child');
     }
 
     if (get_post_status($post_id) === 'trash') {
-        return esc_html__('مرفوض', 'hello-elementor-child');
+        return esc_html__('Rejected', 'hello-elementor-child');
     }
 
-    return esc_html__('قيد المراجعة', 'hello-elementor-child');
+    return esc_html__('Under review', 'hello-elementor-child');
 }
 
 /**
@@ -358,9 +358,9 @@ function submission_admin_type_filter(string $post_type, string $which): void
 
     $current = sanitize_key((string) ($_GET['submission_type'] ?? '')); // phpcs:ignore WordPress.Security.NonceVerification.Recommended -- read-only list filter
 
-    echo '<label class="screen-reader-text" for="submission_type">' . esc_html__('النوع', 'hello-elementor-child') . '</label>';
+    echo '<label class="screen-reader-text" for="submission_type">' . esc_html__('Type', 'hello-elementor-child') . '</label>';
     echo '<select name="submission_type" id="submission_type">';
-    echo '<option value="">' . esc_html__('كل الأنواع', 'hello-elementor-child') . '</option>';
+    echo '<option value="">' . esc_html__('All types', 'hello-elementor-child') . '</option>';
     foreach (submission_taxonomies() as $taxonomy => $info) {
         printf(
             '<option value="%1$s"%2$s>%3$s</option>',
@@ -546,7 +546,7 @@ function submission_add_info_meta_box(string $post_type): void
 
     add_meta_box(
         'submission_info',
-        __('بيانات الطلب', 'hello-elementor-child'),
+        __('Request details', 'hello-elementor-child'),
         'render_submission_info_meta_box',
         SUBMISSION_POST_TYPE,
         'side',
@@ -568,11 +568,11 @@ function render_submission_info_meta_box(WP_Post $post): void
     $taxonomy = (string) get_post_meta($post_id, SUBMISSION_FIELD_TAXONOMY, true);
     $result_term_id = (int) get_post_meta($post_id, SUBMISSION_META_RESULT_TERM, true);
 
-    echo '<p class="description">' . esc_html__('للموافقة: راجع الحقول وتأكد من الرابط ثم اضغط «نشر». للرفض: اكتب سبب الرفض ثم «حفظ بإنتظار المراجعة». «نقل إلى سلة المهملات» يرفض بدون سبب.', 'hello-elementor-child') . '</p>';
+    echo '<p class="description">' . esc_html__('To approve: review the fields, check the slug, then click "Publish". To reject: enter the reason, then "Save as Pending". "Move to Trash" rejects without a reason.', 'hello-elementor-child') . '</p>';
 
     // Submitter.
     $author = (int) $post->post_author > 0 ? get_userdata((int) $post->post_author) : false;
-    echo '<p><strong>' . esc_html__('المُرسل:', 'hello-elementor-child') . '</strong> ';
+    echo '<p><strong>' . esc_html__('Submitter:', 'hello-elementor-child') . '</strong> ';
     if ($author instanceof WP_User) {
         echo esc_html($author->display_name);
         if ((string) $author->user_email !== '') {
@@ -581,14 +581,14 @@ function render_submission_info_meta_box(WP_Post $post): void
         $registered = (string) mysql2date(get_option('date_format'), get_date_from_gmt((string) $author->user_registered));
         if ($registered !== '') {
             /* translators: %s: registration date */
-            echo '<br><small>' . esc_html(sprintf(__('تاريخ التسجيل: %s', 'hello-elementor-child'), $registered)) . '</small>';
+            echo '<br><small>' . esc_html(sprintf(__('Registered: %s', 'hello-elementor-child'), $registered)) . '</small>';
         }
     } else {
         echo '—';
     }
     echo '</p>';
 
-    echo '<p><strong>' . esc_html__('تاريخ الطلب:', 'hello-elementor-child') . '</strong> ' . esc_html((string) get_the_date('', $post)) . '</p>';
+    echo '<p><strong>' . esc_html__('Request date:', 'hello-elementor-child') . '</strong> ' . esc_html((string) get_the_date('', $post)) . '</p>';
 
     // Uploaded files (every attachment parented to the request).
     $uploads = $post_id > 0 ? get_children(
@@ -601,9 +601,9 @@ function render_submission_info_meta_box(WP_Post $post): void
             'order' => 'ASC',
         ]
     ) : [];
-    echo '<p><strong>' . esc_html__('الملفات المرفوعة:', 'hello-elementor-child') . '</strong></p>';
+    echo '<p><strong>' . esc_html__('Uploaded files:', 'hello-elementor-child') . '</strong></p>';
     if ($uploads === []) {
-        echo '<p>' . esc_html__('لا توجد ملفات مرفوعة.', 'hello-elementor-child') . '</p>';
+        echo '<p>' . esc_html__('No uploaded files.', 'hello-elementor-child') . '</p>';
     } else {
         echo '<ul class="submission-info-uploads">';
         foreach ($uploads as $upload) {
@@ -633,7 +633,7 @@ function render_submission_info_meta_box(WP_Post $post): void
     // Why the last «نشر» failed (approval.php stores it, clears it on success / restore).
     $error = (string) get_post_meta($post_id, SUBMISSION_META_ERROR, true);
     if ($error !== '') {
-        echo '<p style="color:#d63638"><strong>' . esc_html__('خطأ النشر الأخير:', 'hello-elementor-child') . '</strong><br>' . nl2br(esc_html($error)) . '</p>';
+        echo '<p style="color:#d63638"><strong>' . esc_html__('Last publishing error:', 'hello-elementor-child') . '</strong><br>' . nl2br(esc_html($error)) . '</p>';
     }
 
     // Possible duplicates: published terms and other requests with the same normalized name.
@@ -680,7 +680,7 @@ function render_submission_info_meta_box(WP_Post $post): void
     }
 
     if ($term_matches !== [] || $other_ids !== []) {
-        echo '<p style="color:#996800"><strong>' . esc_html__('قد تكون موجودة مسبقاً', 'hello-elementor-child') . '</strong></p>';
+        echo '<p style="color:#996800"><strong>' . esc_html__('May already exist', 'hello-elementor-child') . '</strong></p>';
 
         if ($term_matches !== []) {
             echo '<ul>';
@@ -690,7 +690,7 @@ function render_submission_info_meta_box(WP_Post $post): void
                 echo '<li>';
                 echo is_string($edit) && $edit !== '' ? '<a href="' . esc_url($edit) . '">' . $term_name . '</a>' : $term_name; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped above
                 if ((string) ($row['link'] ?? '') !== '') {
-                    echo ' · <a href="' . esc_url((string) $row['link']) . '" target="_blank" rel="noopener">' . esc_html__('عرض الصفحة', 'hello-elementor-child') . '</a>';
+                    echo ' · <a href="' . esc_url((string) $row['link']) . '" target="_blank" rel="noopener">' . esc_html__('View page', 'hello-elementor-child') . '</a>';
                 }
                 echo '</li>';
             }
@@ -698,7 +698,7 @@ function render_submission_info_meta_box(WP_Post $post): void
         }
 
         if ($other_ids !== []) {
-            echo '<p><strong>' . esc_html__('طلبات أخرى بنفس الاسم:', 'hello-elementor-child') . '</strong></p>';
+            echo '<p><strong>' . esc_html__('Other requests with the same name:', 'hello-elementor-child') . '</strong></p>';
             echo '<ul>';
             foreach ($other_ids as $other_id) {
                 $other_name = get_submission_name($other_id);
@@ -717,7 +717,7 @@ function render_submission_info_meta_box(WP_Post $post): void
     // Published: where the page lives.
     if ($result_term_id > 0) {
         $links = get_submission_result_links($result_term_id);
-        echo '<p><strong>' . esc_html__('تم النشر:', 'hello-elementor-child') . '</strong> ' . ($links !== '' ? $links : '—') . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped by the helper
+        echo '<p><strong>' . esc_html__('Published:', 'hello-elementor-child') . '</strong> ' . ($links !== '' ? $links : '—') . '</p>'; // phpcs:ignore WordPress.Security.EscapeOutput -- escaped by the helper
     }
 }
 

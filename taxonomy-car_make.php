@@ -23,21 +23,22 @@ $title = $term ? car_term_title($term) : '';
     car_section_open();
     if (!$term) {
         car_breadcrumbs([[car_directory_taxonomies()['car_make'][0], '']]);
-        car_empty_state('هذه العلامة التجارية غير موجودة.');
+        car_empty_state(__('This brand does not exist.', 'hello-elementor-child'));
         car_section_close();
         get_footer();
         return;
     }
     car_breadcrumbs(array_merge($parents, [[$term->name, '']]));
-    car_title_row($title, $parents, $is_model ? 'الموديل' : 'العلامة التجارية');
+    car_title_row($title, $parents, $is_model ? __('Model', 'hello-elementor-child') : __('Brand', 'hello-elementor-child'));
     car_description($term->description);
 
     $links = []; // name in the stored price list => our page
     $latest_posts = []; // model page: the model-year posts of the newest year
     if ($is_model) {
         $tiles = car_model_year_tiles($term);
-        car_section_header('اختر من بين سيارات ' . $title, car_directory_taxonomies()['car_year'][0], $tiles ? n_models(count($tiles)) : '');
-        $tiles ? car_strip($tiles) : car_empty_state('لا توجد سنوات موديل لهذا الموديل بعد.');
+        /* translators: %s: brand or model name */
+        car_section_header(sprintf(__('Choose from the %s cars', 'hello-elementor-child'), $title), car_directory_taxonomies()['car_year'][0], $tiles ? n_models(count($tiles)) : '');
+        $tiles ? car_strip($tiles) : car_empty_state(__('This model has no model years yet.', 'hello-elementor-child'));
 
         // the stored price list is the newest year's: link its trim names to our trim pages, starting with the
         // year post the list is named after (e.g. "هايلكس غمارتين 2027" when the year also has "غمارة 2027")
@@ -57,8 +58,9 @@ $title = $term ? car_term_title($term) : '';
         }
     } else {
         $models = car_make_models($term);
-        car_section_header('اختر من بين سيارات ' . $term->name, 'الموديلات', $models ? n_models(count($models)) : '');
-        $models ? car_strip(array_map('car_term_tile', $models)) : car_empty_state('لا توجد موديلات لهذه العلامة التجارية بعد.');
+        /* translators: %s: brand or model name */
+        car_section_header(sprintf(__('Choose from the %s cars', 'hello-elementor-child'), $term->name), __('Models', 'hello-elementor-child'), $models ? n_models(count($models)) : '');
+        $models ? car_strip(array_map('car_term_tile', $models)) : car_empty_state(__('This brand has no models yet.', 'hello-elementor-child'));
         foreach ($models as $model) {
             $links[$model->name] = car_term_url($model);
         }
@@ -78,7 +80,8 @@ $title = $term ? car_term_title($term) : '';
             }
         }
         ob_start();
-        car_price_table('أسعار ' . get_the_title($latest_posts[0]), ['الفئة', 'السعر'], $rows);
+        /* translators: %s: model-year title */
+        car_price_table(sprintf(__('%s prices', 'hello-elementor-child'), get_the_title($latest_posts[0])), [__('Trim', 'hello-elementor-child'), __('Price', 'hello-elementor-child')], $rows);
         $table = ob_get_clean();
     }
     if ($table !== '') {

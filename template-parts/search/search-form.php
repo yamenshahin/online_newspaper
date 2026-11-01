@@ -15,13 +15,13 @@
  */
 $input_id = !empty($args['id']) ? (string) $args['id'] : 'search-page-input';
 $type_filter = !empty($args['post_type']) ? sanitize_key((string) $args['post_type']) : '';
-$form_label = !empty($args['label']) ? (string) $args['label'] : __('البحث في الموقع', 'hello-elementor-child');
+$form_label = !empty($args['label']) ? (string) $args['label'] : __('Site search', 'hello-elementor-child');
 ?>
 <form role="search" method="get" action="<?php echo esc_url(home_url('/')); ?>"
     class="site-search-form w-full max-w-2xl"
     aria-label="<?php echo esc_attr($form_label); ?>">
     <label for="<?php echo esc_attr($input_id); ?>" class="sr-only">
-        <?php esc_html_e('كلمات البحث', 'hello-elementor-child'); ?>
+        <?php esc_html_e('Search terms', 'hello-elementor-child'); ?>
     </label>
     <div class="relative flex items-center w-full">
         <span
@@ -31,11 +31,11 @@ $form_label = !empty($args['label']) ? (string) $args['label'] : __('البحث 
             value="<?php echo esc_attr(get_search_query(false)); ?>"
             required minlength="<?php echo (int) SITE_SEARCH_MIN_LENGTH; ?>" enterkeyhint="search"
             class="site-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2.5 !ps-10 !pe-20 text-base text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
-            placeholder="<?php esc_attr_e('ابحث في الأخبار والبرامج والحوارات…', 'hello-elementor-child'); ?>" />
+            placeholder="<?php esc_attr_e('Search the news, programs and interviews…', 'hello-elementor-child'); ?>" />
         <button type="submit"
             class="absolute end-1 top-1 bottom-1 inline-flex items-center rounded-full bg-primary px-4 text-sm font-semibold text-on-primary transition-opacity hover:opacity-90 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-            data-loading-text="<?php esc_attr_e('جارٍ البحث…', 'hello-elementor-child'); ?>">
-            <?php esc_html_e('بحث', 'hello-elementor-child'); ?>
+            data-loading-text="<?php esc_attr_e('Searching…', 'hello-elementor-child'); ?>">
+            <?php echo esc_html_x('Search', 'button', 'hello-elementor-child'); ?>
         </button>
     </div>
     <?php if ($type_filter !== ''): ?>

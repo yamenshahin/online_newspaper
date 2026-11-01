@@ -9,10 +9,10 @@ if (!$post instanceof WP_Post) {
 }
 
 $type_map = [
-    'post' => 'أخبار',
-    'interview' => 'مقابلات',
-    'program' => 'برامج',
-    'infographic' => 'انفوجرافيك',
+    'post' => __('News', 'hello-elementor-child'),
+    'interview' => __('Interviews', 'hello-elementor-child'),
+    'program' => __('Programs', 'hello-elementor-child'),
+    'infographic' => __('Infographic', 'hello-elementor-child'),
 ];
 $pt_obj = get_post_type_object($post->post_type);
 $type_name = $type_map[$post->post_type] ?? ($pt_obj ? $pt_obj->labels->singular_name : '');
@@ -51,7 +51,7 @@ $img = get_post_thumbnail_id($post->ID);
                 <span
                     class="px-space-md py-1 rounded-full bg-primary-container text-on-primary font-label-pill text-label-pill flex items-center gap-1">
                     <span class="w-2 h-2 rounded-full bg-surface-bright animate-ping"></span>
-                    <?php esc_html_e('قصة الغلاف • FEATURED STORY', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Cover story • FEATURED STORY', 'hello-elementor-child'); ?>
                 </span>
                 <span class="px-space-md py-1 rounded-full est/15 text-surface-bright font-label-caps text-label-caps">
                     <?php echo esc_html($type_name); ?>
@@ -60,7 +60,7 @@ $img = get_post_thumbnail_id($post->ID);
             <div
                 class="flex items-center gap-space-xs est/10 px-space-md py-1 rounded-full text-surface-variant font-label-pill text-label-pill">
                 <span class="material-symbols-outlined text-[16px] text-primary-fixed">timer</span>
-                <span><?php echo sprintf(esc_html__('منذ %s', 'hello-elementor-child'), $time); ?></span>
+                <span><?php echo sprintf(esc_html__('%s ago', 'hello-elementor-child'), $time); ?></span>
             </div>
         </div>
 
@@ -88,13 +88,13 @@ $img = get_post_thumbnail_id($post->ID);
                 class="px-space-lg py-space-sm rounded-full bg-primary-container hover:bg-primary text-on-primary font-label-pill text-label-pill inline-flex items-center gap-space-xs shadow-md">
                 <span class="material-symbols-outlined text-[20px]"
                     style="font-variation-settings:'FILL' 1">play_arrow</span>
-                <?php esc_html_e('مشاهدة القصة الكاملة', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Read the full story', 'hello-elementor-child'); ?>
             </a>
             <button type="button"
                 class="px-space-md py-space-sm rounded-full est/15 hover:est/25 text-surface-bright font-label-pill text-label-pill inline-flex items-center gap-space-xs"
                 onclick="navigator.share&&navigator.share({title:'<?php echo esc_js(get_the_title($post->ID)); ?>',url:'<?php echo esc_url($url); ?>'})">
                 <span class="material-symbols-outlined text-[18px]">share</span>
-                <?php esc_html_e('مشاركة', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Share', 'hello-elementor-child'); ?>
             </button>
         </div>
     </div>

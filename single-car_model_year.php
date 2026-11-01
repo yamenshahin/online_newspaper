@@ -21,9 +21,12 @@ while (have_posts()):
     $crumbs = car_post_crumbs($year_id);
     $model_year = trim((string) get_field('model_year', $year_id));
     $is_subfamily = get_post_meta($year_id, '_car_page_type', true) === 'subfamily';
+    /* translators: %s: model year */
+    $model_label = $model_year !== '' ? sprintf(__('Model %s', 'hello-elementor-child'), $model_year) : '';
     $eyebrow = $is_subfamily
-        ? 'فئة فرعية' . ($model_year !== '' ? ' · موديل ' . $model_year : '')
-        : trim('سنة الموديل ' . $model_year);
+        ? __('Sub-family', 'hello-elementor-child') . ($model_label !== '' ? ' · ' . $model_label : '')
+        /* translators: %s: model year */
+        : trim(sprintf(__('Model year %s', 'hello-elementor-child'), $model_year));
     $trims = car_year_trims($year_id);
     $tiles = car_year_tiles($year_id);
     $pics = car_gallery_images($year_id);
@@ -32,12 +35,12 @@ while (have_posts()):
     $price_min = get_field('price_min', $year_id);
     $price_max = get_field('price_max', $year_id);
     $in_usd = $trims && get_post_meta($trims[0]->ID, 'price_currency', true) === 'USD';
-    $format_price = static fn($n): string => $in_usd ? format_number($n) . ' دولار أمريكي' : format_sar($n);
+    $format_price = static fn($n): string => $in_usd ? format_usd($n) : format_sar($n);
     $price_range = '';
     if (is_numeric($price_min) && $price_min > 0 && is_numeric($price_max) && $price_max > $price_min) {
-        $price_range = car_pill(format_number($price_min) . ' – ' . $format_price($price_max), '', 'primary', 'الأسعار من');
+        $price_range = car_pill(format_number($price_min) . ' – ' . $format_price($price_max), '', 'primary', __('Prices from', 'hello-elementor-child'));
     } elseif (is_numeric($price_min) && $price_min > 0) {
-        $price_range = car_pill($format_price($price_min), '', 'primary', 'يبدأ من');
+        $price_range = car_pill($format_price($price_min), '', 'primary', __('Starts from', 'hello-elementor-child'));
     }
 
     // Trim price table: the trims themselves (linked); the hub's own price_table when no trim has a price.
@@ -78,25 +81,27 @@ while (have_posts()):
             <!-- Sub-families and trims -->
             <div class="car-year-trims mt-space-xl">
                 <?php
-                car_section_header('فئات ' . $title, 'اختر من بين الفئات', $tiles ? n_trims(count($tiles)) : '');
+                /* translators: %s: model-year title */
+                car_section_header(sprintf(__('%s trims', 'hello-elementor-child'), $title), __('Choose a trim', 'hello-elementor-child'), $tiles ? n_trims(count($tiles)) : '');
                 if ($tiles) {
                     car_strip($tiles);
                 } else {
-                    car_empty_state('لا توجد فئات مرتبطة بهذه السنة.');
+                    car_empty_state(__('No trims are linked to this year.', 'hello-elementor-child'));
                 }
                 ?>
             </div>
 
             <?php if ($price_rows): ?>
                 <div class="car-year-prices mt-space-xl">
-                    <?php car_price_table('أسعار ' . $title, ['الفئة', 'السعر'], $price_rows); ?>
+                    <?php car_price_table(sprintf(__('%s prices', 'hello-elementor-child'), $title), [__('Trim', 'hello-elementor-child'), __('Price', 'hello-elementor-child')], $price_rows); // translators: %s: model-year title ?>
                 </div>
             <?php endif; ?>
 
             <?php if ($pics): ?>
             <div class="car-year-gallery mt-space-xl">
                 <?php
-                car_section_header('صور ' . $title, 'معرض الصور', $pics ? n_images(count($pics)) : '');
+                /* translators: %s: model-year title */
+                car_section_header(sprintf(__('%s photos', 'hello-elementor-child'), $title), __('Photo gallery', 'hello-elementor-child'), $pics ? n_images(count($pics)) : '');
                 echo '<div class="max-w-4xl">';
                 car_gallery($year_id, $title);
                 echo '</div>';

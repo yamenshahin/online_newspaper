@@ -74,21 +74,21 @@ if ($has_gov) {
     $default_type = 'international';
 }
 
-$section_title = $section_title ?: __('الجهات', 'hello-elementor-child');
+$section_title = $section_title ?: __('Entities', 'hello-elementor-child');
 
 $pill_class = 'entity-pill inline-flex items-center gap-1 px-3 py-1.5 rounded-full text-sm border border-surface-container-highest bg-surface-container-lowest hover:border-primary hover:text-primary transition-colors';
 
 $i18n = [
-    'loading' => __('جارٍ التحميل…', 'hello-elementor-child'),
-    'empty' => __('لا توجد جهات في هذه المجموعة', 'hello-elementor-child'),
-    'error' => __('تعذر التحميل، اضغط لإعادة المحاولة', 'hello-elementor-child'),
-    'no_results' => __('لا توجد نتائج', 'hello-elementor-child'),
-    'truncated' => __('النتائج كثيرة، اكتب كلمة أدق لتضييق البحث', 'hello-elementor-child'),
+    'loading' => __('Loading…', 'hello-elementor-child'),
+    'empty' => __('No entities in this group', 'hello-elementor-child'),
+    'error' => __('Loading failed, click to retry', 'hello-elementor-child'),
+    'no_results' => __('No results', 'hello-elementor-child'),
+    'truncated' => __('Too many results, type a more specific word to narrow the search', 'hello-elementor-child'),
     'labels' => [
-        'government_entity' => __('الجهات الحكومية السعودية', 'hello-elementor-child'),
-        'private_entity' => __('القطاع الخاص', 'hello-elementor-child'),
-        'event' => __('الفعاليات', 'hello-elementor-child'),
-        'international_entity' => __('الجهات الدولية', 'hello-elementor-child'),
+        'government_entity' => __('Saudi Government Entities', 'hello-elementor-child'),
+        'private_entity' => __('Private Sector', 'hello-elementor-child'),
+        'event' => __('Events', 'hello-elementor-child'),
+        'international_entity' => __('International Entities', 'hello-elementor-child'),
     ],
 ];
 
@@ -201,7 +201,7 @@ $render_sub_tabs = static function (array $groups, int $default_id, string $type
                         class="material-symbols-outlined absolute start-3 text-on-surface-variant/70 text-[18px] pointer-events-none select-none">search</span>
                     <input type="search"
                         class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2 !ps-10 !pe-3 text-sm text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
-                        placeholder="<?php esc_attr_e('ابحث…', 'hello-elementor-child'); ?>" autocomplete="off" />
+                        placeholder="<?php esc_attr_e('Search…', 'hello-elementor-child'); ?>" autocomplete="off" />
                 </div>
             </div>
         </div>

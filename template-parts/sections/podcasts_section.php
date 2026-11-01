@@ -76,15 +76,13 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: 'بودكاست'); ?>
+                    <?php echo esc_html($section_title ?: __('Podcast', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">
-                    حلقات
-                </span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Episodes', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                <?php echo esc_html($subtitle ?: 'برامج صوتية ومرئية معمقة'); ?>
+                <?php echo esc_html($subtitle ?: __('In-depth audio and video programs', 'hello-elementor-child')); ?>
             </p>
         </div>
 
@@ -97,7 +95,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <?php else: ?>
                 <img src="<?php echo esc_url($more_icon_uri); ?>" alt="" class="w-5 h-5" width="20" height="20" />
             <?php endif; ?>
-            <span><?php esc_html_e('المزيد', 'hello-elementor-child'); ?></span>
+            <span><?php esc_html_e('More', 'hello-elementor-child'); ?></span>
         </a>
     </div>
 
@@ -106,14 +104,14 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
         while ($query->have_posts()):
             $query->the_post();
             $post_id = get_the_ID();
-            $podcast_label = 'بودكاست';
+            $podcast_label = __('Podcast', 'hello-elementor-child');
 
             if ($is_department_page) {
                 $editors = get_the_terms($post_id, 'post_editor');
                 if (!empty($editors) && !is_wp_error($editors)) {
                     $podcast_label = $editors[0]->name;
                 } else {
-                    $podcast_label = 'تفاعل السعودية';
+                    $podcast_label = __('Tafaol Saudi', 'hello-elementor-child');
                 }
             } else {
                 $departments = get_the_terms($post_id, 'department');

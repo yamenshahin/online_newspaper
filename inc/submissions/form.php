@@ -133,9 +133,9 @@ function render_submission_form_missing_pages(): string
     if (get_submission_page_url('submit') !== '' && get_submission_page_url('account') !== '') {
         return '';
     }
-    $text = esc_html__('الصفحة غير مُعدّة بعد.', 'hello-elementor-child');
+    $text = esc_html__('The page is not set up yet.', 'hello-elementor-child');
     if (current_user_can('manage_options')) {
-        $text .= ' ' . esc_html__('أنشئ صفحتَي submit-entity و my-account.', 'hello-elementor-child');
+        $text .= ' ' . esc_html__('Create the submit-entity and my-account pages.', 'hello-elementor-child');
     }
     return '<p class="' . get_submission_form_class('muted') . '">' . $text . '</p>';
 }
@@ -217,7 +217,7 @@ function render_submission_form_shortcode(): string
     }
     submission_enqueue_script(submission_form_context(), false);
 
-    $intro = __('اختر النوع، ثم أدخل البيانات. يُراجع الطلب قبل النشر.', 'hello-elementor-child');
+    $intro = __('Choose the type, then enter the details. The request is reviewed before publishing.', 'hello-elementor-child');
     if (!is_user_logged_in()) {
         return render_submission_form_wrap(render_submission_form_login_card(), '', $intro);
     }
@@ -227,9 +227,9 @@ function render_submission_form_shortcode(): string
     return render_submission_form_wrap(
         render_submission_form_fields($type),
         /* translators: %s: type label (e.g. الفعاليات) */
-        sprintf(__('إضافة: %s', 'hello-elementor-child'), get_submission_taxonomy_label($type)),
-        __('الاسم بالعربية مطلوب، والاسم بالإنجليزية اختياري ويُستخدم لرابط الصفحة. الصور: jpg أو png أو webp حتى 3 ميغابايت. يُراجع الطلب قبل النشر ويصلك بريد عند النشر.', 'hello-elementor-child'),
-        render_submission_header_link(get_submission_page_url('submit'), __('تغيير النوع', 'hello-elementor-child'))
+        sprintf(__('Add: %s', 'hello-elementor-child'), get_submission_taxonomy_label($type)),
+        __('The Arabic name is required; the English name is optional and is used for the page URL. Images: jpg, png or webp up to 3 MB. The request is reviewed before publishing and you get an email when it is published.', 'hello-elementor-child'),
+        render_submission_header_link(get_submission_page_url('submit'), __('Change type', 'hello-elementor-child'))
     );
 }
 add_shortcode('entity_submit', 'render_submission_form_shortcode');
@@ -240,9 +240,9 @@ add_shortcode('entity_submit', 'render_submission_form_shortcode');
 function render_submission_form_login_card(): string
 {
     return '<div class="' . get_submission_form_class('card') . '">'
-        . '<p class="font-semibold text-on-background">' . esc_html__('سجّل الدخول لإرسال طلب إضافة', 'hello-elementor-child') . '</p>'
+        . '<p class="font-semibold text-on-background">' . esc_html__('Log in to send an add request', 'hello-elementor-child') . '</p>'
         . '<a class="' . get_submission_form_class('button') . '" href="' . esc_url(get_submission_page_url('account')) . '">'
-        . esc_html__('تسجيل الدخول', 'hello-elementor-child') . '</a>'
+        . esc_html__('Log in', 'hello-elementor-child') . '</a>'
         . '</div>';
 }
 
@@ -253,13 +253,13 @@ function render_submission_form_type_cards(): string
 {
     $submit_url = get_submission_page_url('submit');
 
-    $html = '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('ماذا تريد إضافته؟', 'hello-elementor-child') . '</h2>';
+    $html = '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('What would you like to add?', 'hello-elementor-child') . '</h2>';
     $html .= '<div class="grid grid-cols-1 sm:grid-cols-2 gap-4">';
     foreach (array_keys(submission_taxonomies()) as $taxonomy) {
         $taxonomy = (string) $taxonomy;
         $html .= '<a class="' . get_submission_form_class('type_card') . '" href="' . esc_url(add_query_arg('type', $taxonomy, $submit_url)) . '">'
             . '<span class="font-semibold text-on-background">' . esc_html(get_submission_taxonomy_label($taxonomy)) . '</span>'
-            . '<span class="text-sm text-primary font-semibold">' . esc_html__('إضافة ←', 'hello-elementor-child') . '</span>'
+            . '<span class="text-sm text-primary font-semibold">' . esc_html__('Add ←', 'hello-elementor-child') . '</span>'
             . '</a>';
     }
     $html .= '</div>';
@@ -272,12 +272,12 @@ function render_submission_form_type_cards(): string
 function render_submission_form_fields(string $type): string
 {
     if (!function_exists('acf_form')) {
-        return '<p class="' . get_submission_form_class('error') . '">' . esc_html__('الصفحة غير مُعدّة بعد.', 'hello-elementor-child') . '</p>';
+        return '<p class="' . get_submission_form_class('error') . '">' . esc_html__('The page is not set up yet.', 'hello-elementor-child') . '</p>';
     }
 
     $account_url = get_submission_page_url('account');
 
-    $html = '<noscript><p class="text-body-sm text-error">' . esc_html__('يتطلب هذا النموذج تفعيل JavaScript في المتصفح.', 'hello-elementor-child') . '</p></noscript>';
+    $html = '<noscript><p class="text-body-sm text-error">' . esc_html__('This form requires JavaScript to be enabled in the browser.', 'hello-elementor-child') . '</p></noscript>';
 
     ob_start();
     acf_form([
@@ -293,7 +293,7 @@ function render_submission_form_fields(string $type): string
         'html_before_fields' => '<input type="hidden" name="submission_type" value="' . esc_attr($type) . '">',
         // Plain concatenation: add_query_arg() would encode the %post_id% placeholder.
         'return'             => $account_url . (str_contains($account_url, '?') ? '&' : '?') . 'submitted=%post_id%',
-        'submit_value'       => __('إرسال الطلب', 'hello-elementor-child'),
+        'submit_value'       => __('Send request', 'hello-elementor-child'),
         'html_submit_button' => '<button type="submit" class="inline-flex items-center justify-center rounded-full bg-primary text-on-primary px-6 py-3 text-sm font-bold hover:opacity-90 transition-all">%s</button>',
         'updated_message'    => false,
         'label_placement'    => 'top',
@@ -338,8 +338,9 @@ function submission_form_prepare_field_title(array $field): array
     if (submission_form_context() === '') {
         return $field;
     }
-    $field['label'] = __('اسم الجهة / الفعالية بالعربية', 'hello-elementor-child');
-    $field['placeholder'] = __('مثال: وزارة الصحة', 'hello-elementor-child');
+    $field['label'] = __('Entity / event name in Arabic', 'hello-elementor-child');
+    // Not translated: the example matches the language the field asks for (Arabic here, English in name_en).
+    $field['placeholder'] = 'مثال: وزارة الصحة';
     return $field;
 }
 add_filter('acf/prepare_field/key=_post_title', 'submission_form_prepare_field_title');
@@ -356,7 +357,7 @@ add_filter('acf/prepare_field/key=_post_title', 'submission_form_prepare_field_t
 function submission_form_validate_title($valid, $value, array $field, $input)
 {
     if (is_submission_form_request() && (!is_string($value) || trim($value) === '')) {
-        return __('اسم الجهة / الفعالية بالعربية مطلوب.', 'hello-elementor-child');
+        return __('The entity / event name in Arabic is required.', 'hello-elementor-child');
     }
     return $valid;
 }
@@ -448,7 +449,7 @@ add_filter('acf/load_value/name=review_slug', 'submission_form_load_value_review
 function submission_form_validate_review_slug($valid, $value, array $field, $input)
 {
     if (is_array($value)) {
-        return __('الرابط يجب أن يكون بحروف لاتينية صغيرة وأرقام وشرطات فقط.', 'hello-elementor-child');
+        return __('The slug may only contain lowercase Latin letters, numbers and hyphens.', 'hello-elementor-child');
     }
     $value = trim((string) $value);
     if ($value === '') {
@@ -456,7 +457,7 @@ function submission_form_validate_review_slug($valid, $value, array $field, $inp
     }
     $slug = sanitize_title(wp_specialchars_decode($value, ENT_QUOTES));
     if (preg_match(SUBMISSION_SLUG_PATTERN, $slug) !== 1) {
-        return __('الرابط يجب أن يكون بحروف لاتينية صغيرة وأرقام وشرطات فقط.', 'hello-elementor-child');
+        return __('The slug may only contain lowercase Latin letters, numbers and hyphens.', 'hello-elementor-child');
     }
     return $valid;
 }
@@ -473,7 +474,7 @@ add_filter('acf/validate_value/name=review_slug', 'submission_form_validate_revi
 function submission_form_validate_english_title($valid, $value, array $field, $input)
 {
     if (is_array($value) || !is_submission_english_title_valid(wp_unslash((string) $value))) {
-        return __('الاسم بالإنجليزية يجب أن يحتوي حروفاً لاتينية فقط (حتى 120 حرفاً).', 'hello-elementor-child');
+        return __('The English name may only contain Latin characters (up to 120 characters).', 'hello-elementor-child');
     }
     return $valid;
 }
@@ -528,7 +529,7 @@ function submission_form_validate_no_attachment_id($valid, $value, array $field,
         return $valid;
     }
     if (!is_string($value) || is_numeric($value)) {
-        return __('غير مسموح باختيار ملف موجود، ارفع صورة جديدة.', 'hello-elementor-child');
+        return __('Choosing an existing file is not allowed; upload a new image.', 'hello-elementor-child');
     }
     return $valid;
 }
@@ -556,7 +557,7 @@ function submission_form_validate_select_choices($valid, $value, array $field, $
             continue;
         }
         if (!is_scalar($item) || is_bool($item) || !array_key_exists((string) $item, $choices)) {
-            return __('قيمة غير صالحة.', 'hello-elementor-child');
+            return __('Invalid value.', 'hello-elementor-child');
         }
     }
     return $valid;
@@ -579,11 +580,11 @@ function submission_form_validate_attachment(array $errors, array $file, $attach
     }
     $extension = strtolower((string) ($file['type'] ?? ''));
     if (!in_array($extension, SUBMISSION_IMAGE_EXTENSIONS, true)) {
-        $errors['submission_type'] = __('نوع الملف غير مسموح. المسموح: jpg أو png أو webp.', 'hello-elementor-child');
+        $errors['submission_type'] = __('File type not allowed. Allowed: jpg, png or webp.', 'hello-elementor-child');
     }
     $size = isset($file['size']) && is_scalar($file['size']) ? (int) $file['size'] : 0;
     if ($size > SUBMISSION_IMAGE_MAX_BYTES) {
-        $errors['submission_size'] = __('حجم الصورة يتجاوز 3 ميغابايت.', 'hello-elementor-child');
+        $errors['submission_size'] = __('The image is larger than 3 MB.', 'hello-elementor-child');
     }
     return $errors;
 }
@@ -690,29 +691,29 @@ function submission_validate_form(): void
         return;
     }
     if (!is_user_logged_in()) {
-        acf_add_validation_error('', __('يجب تسجيل الدخول لإرسال طلب.', 'hello-elementor-child'));
+        acf_add_validation_error('', __('You must be logged in to send a request.', 'hello-elementor-child'));
         return;
     }
 
     $type = get_submission_form_type();
     if (!is_submission_taxonomy($type)) {
-        acf_add_validation_error('acf[_post_title]', __('النوع غير صالح.', 'hello-elementor-child'));
+        acf_add_validation_error('acf[_post_title]', __('Invalid type.', 'hello-elementor-child'));
         return;
     }
     if (!isset($_POST['acf']) || !is_array($_POST['acf'])) {
-        acf_add_validation_error('', __('بيانات غير متطابقة.', 'hello-elementor-child'));
+        acf_add_validation_error('', __('Mismatched data.', 'hello-elementor-child'));
         return;
     }
     if (isset($_POST['acf'][SUBMISSION_KEY_TAXONOMY])) {
         $posted = $_POST['acf'][SUBMISSION_KEY_TAXONOMY];
         if (!is_string($posted) || sanitize_key(wp_unslash($posted)) !== $type) {
-            acf_add_validation_error('acf[_post_title]', __('بيانات غير متطابقة.', 'hello-elementor-child'));
+            acf_add_validation_error('acf[_post_title]', __('Mismatched data.', 'hello-elementor-child'));
         }
     }
 
     // Read only here; acf/pre_save_post does the check-and-increment.
     if (is_submission_form_rate_limited()) {
-        acf_add_validation_error('', __('لقد أرسلت عدداً كبيراً من الطلبات، حاول لاحقاً.', 'hello-elementor-child'));
+        acf_add_validation_error('', __('You have sent too many requests, try again later.', 'hello-elementor-child'));
     }
 
     // Title: plain text, length cap, then written back slashed (ACF hands it to wp_insert_post).
@@ -720,7 +721,7 @@ function submission_validate_form(): void
     $title = is_string($raw_title) ? sanitize_text_field(wp_unslash($raw_title)) : '';
     // Measure the decoded name: the real POST is kses-encoded ('&' -> '&amp;'), the AJAX pre-validation is not.
     if (mb_strlen(wp_specialchars_decode($title, ENT_QUOTES)) > SUBMISSION_TITLE_MAX) {
-        acf_add_validation_error('acf[_post_title]', __('الاسم طويل جداً.', 'hello-elementor-child'));
+        acf_add_validation_error('acf[_post_title]', __('The name is too long.', 'hello-elementor-child'));
     }
     $_POST['acf']['_post_title'] = wp_slash($title);
     if ($title === '') {
@@ -733,7 +734,7 @@ function submission_validate_form(): void
                 return;
             }
         }
-        acf_add_validation_error('acf[_post_title]', __('الاسم مطلوب.', 'hello-elementor-child'));
+        acf_add_validation_error('acf[_post_title]', __('The name is required.', 'hello-elementor-child'));
         return;
     }
 
@@ -745,7 +746,7 @@ function submission_validate_form(): void
         if ((string) ($row['key'] ?? '') === $normalized) {
             acf_add_validation_error(
                 'acf[_post_title]',
-                __('هذه الجهة موجودة بالفعل: ', 'hello-elementor-child') . esc_html((string) ($row['name'] ?? ''))
+                __('This entity already exists:', 'hello-elementor-child') . esc_html((string) ($row['name'] ?? ''))
             );
             return;
         }
@@ -761,7 +762,7 @@ function submission_validate_form(): void
         'no_found_rows' => true,
     ]);
     if ($pending->have_posts()) {
-        acf_add_validation_error('acf[_post_title]', __('يوجد طلب قيد المراجعة لهذه الجهة.', 'hello-elementor-child'));
+        acf_add_validation_error('acf[_post_title]', __('A request for this entity is already under review.', 'hello-elementor-child'));
     }
 }
 add_action('acf/validate_save_post', 'submission_validate_form', 10);
@@ -783,10 +784,10 @@ function submission_guard_new_post($post_id, $form)
     $groups = is_array($form['field_groups'] ?? null) ? $form['field_groups'] : [];
     $type = get_submission_taxonomy_for_group((string) ($groups[1] ?? ''));
     if (!is_user_logged_in() || $type === '' || get_submission_form_type() !== $type) {
-        wp_die(esc_html__('غير مسموح.', 'hello-elementor-child'), '', ['response' => 403]);
+        wp_die(esc_html__('Not allowed.', 'hello-elementor-child'), '', ['response' => 403]);
     }
     if (!submission_form_bump_rate_limits()) {
-        wp_die(esc_html__('لقد أرسلت عدداً كبيراً من الطلبات، حاول لاحقاً.', 'hello-elementor-child'), '', ['response' => 429]);
+        wp_die(esc_html__('You have sent too many requests, try again later.', 'hello-elementor-child'), '', ['response' => 429]);
     }
     return $post_id;
 }
@@ -882,24 +883,24 @@ function render_submission_account_shortcode(): string
             return render_submission_form_wrap(
                 render_submission_account_register(),
                 '',
-                __('أنشئ حساباً لإرسال طلب إضافة ومتابعة طلباتك.', 'hello-elementor-child')
+                __('Create an account to send add requests and follow your requests.', 'hello-elementor-child')
             );
         }
         return render_submission_form_wrap(
             render_submission_account_login(),
             '',
-            __('سجّل الدخول لإرسال طلب إضافة ومتابعة طلباتك.', 'hello-elementor-child')
+            __('Log in to send add requests and follow your requests.', 'hello-elementor-child')
         );
     }
 
     $user = wp_get_current_user();
-    $action = '<a class="' . get_submission_form_class('button_outline') . '" href="' . esc_url(wp_logout_url(get_submission_page_url('account'))) . '">' . esc_html__('تسجيل الخروج', 'hello-elementor-child') . '</a>'
-        . '<a class="' . get_submission_form_class('button') . '" href="' . esc_url(get_submission_page_url('submit')) . '">' . esc_html__('إرسال طلب جديد', 'hello-elementor-child') . '</a>';
+    $action = '<a class="' . get_submission_form_class('button_outline') . '" href="' . esc_url(wp_logout_url(get_submission_page_url('account'))) . '">' . esc_html__('Log out', 'hello-elementor-child') . '</a>'
+        . '<a class="' . get_submission_form_class('button') . '" href="' . esc_url(get_submission_page_url('submit')) . '">' . esc_html__('Send a new request', 'hello-elementor-child') . '</a>';
     return render_submission_form_wrap(
         render_submission_account_overview(),
         '',
         /* translators: %s: the user's display name */
-        sprintf(__('مرحباً، %s', 'hello-elementor-child'), (string) $user->display_name),
+        sprintf(__('Hello, %s', 'hello-elementor-child'), (string) $user->display_name),
         $action
     );
 }
@@ -921,7 +922,7 @@ function render_submission_social_login(): string
     return '<div class="submission-social-login" dir="ltr">' . $buttons . '</div>'
         . '<div class="flex items-center gap-3 ' . get_submission_form_class('muted') . '">'
         . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
-        . '<span>' . esc_html__('أو', 'hello-elementor-child') . '</span>'
+        . '<span>' . esc_html__('or', 'hello-elementor-child') . '</span>'
         . '<span class="h-px flex-1 bg-surface-container-high" aria-hidden="true"></span>'
         . '</div>';
 }
@@ -995,30 +996,30 @@ function submission_handle_registration(): void
     $errors = [];
 
     if (!get_option('users_can_register')) {
-        $errors['form'] = __('التسجيل مغلق حالياً.', 'hello-elementor-child');
+        $errors['form'] = __('Registration is currently closed.', 'hello-elementor-child');
     } elseif (!isset($_POST['submission_register_nonce']) || !wp_verify_nonce(sanitize_key(wp_unslash($_POST['submission_register_nonce'])), 'submission_register')) {
-        $errors['form'] = __('انتهت صلاحية الصفحة، أعد المحاولة.', 'hello-elementor-child');
+        $errors['form'] = __('The page has expired, please try again.', 'hello-elementor-child');
     } elseif (!empty($_POST['submission_website'])) {
-        $errors['form'] = __('تعذر إنشاء الحساب.', 'hello-elementor-child'); // honeypot
+        $errors['form'] = __('The account could not be created.', 'hello-elementor-child'); // honeypot
     }
 
     $ip = isset($_SERVER['REMOTE_ADDR']) && is_string($_SERVER['REMOTE_ADDR']) ? $_SERVER['REMOTE_ADDR'] : '';
     $rate_key = 'submission_register_' . md5($ip);
     if ($errors === [] && (int) get_transient($rate_key) >= 5) {
-        $errors['form'] = __('محاولات كثيرة، حاول لاحقاً.', 'hello-elementor-child');
+        $errors['form'] = __('Too many attempts, try again later.', 'hello-elementor-child');
     }
 
     if ($errors === []) {
         if ($values['name'] === '' || mb_strlen($values['name']) > 60) {
-            $errors['name'] = __('اكتب اسمك (60 حرفاً كحد أقصى).', 'hello-elementor-child');
+            $errors['name'] = __('Enter your name (60 characters at most).', 'hello-elementor-child');
         }
         if (!is_email($values['email'])) {
-            $errors['email'] = __('البريد الإلكتروني غير صالح.', 'hello-elementor-child');
+            $errors['email'] = __('Invalid email address.', 'hello-elementor-child');
         } elseif (email_exists($values['email'])) {
-            $errors['email'] = __('هذا البريد مسجل بالفعل، سجّل الدخول.', 'hello-elementor-child');
+            $errors['email'] = __('This email is already registered, please log in.', 'hello-elementor-child');
         }
         if (mb_strlen($password) < 8) {
-            $errors['password'] = __('كلمة المرور 8 أحرف على الأقل.', 'hello-elementor-child');
+            $errors['password'] = __('The password must be at least 8 characters.', 'hello-elementor-child');
         }
     }
 
@@ -1077,7 +1078,7 @@ function render_submission_account_register(): string
     $account_url = get_submission_page_url('account');
 
     $html = '<div class="' . get_submission_form_class('panel') . ' w-full max-w-xl mx-auto flex flex-col gap-4">';
-    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('إنشاء حساب', 'hello-elementor-child') . '</h2>';
+    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('Create an account', 'hello-elementor-child') . '</h2>';
     $html .= render_submission_social_login();
 
     if (!empty($state['errors']['form'])) {
@@ -1085,22 +1086,22 @@ function render_submission_account_register(): string
     }
 
     if (!get_option('users_can_register')) {
-        $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('التسجيل مغلق حالياً.', 'hello-elementor-child') . '</p>';
+        $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('Registration is currently closed.', 'hello-elementor-child') . '</p>';
     } else {
         $html .= '<form method="post" action="' . esc_url(get_submission_register_url()) . '" class="flex flex-col gap-4" novalidate>';
-        $html .= render_submission_register_input('name', 'text', __('الاسم', 'hello-elementor-child'), 'name', $state);
-        $html .= render_submission_register_input('email', 'email', __('البريد الإلكتروني', 'hello-elementor-child'), 'email', $state);
-        $html .= render_submission_register_input('password', 'password', __('كلمة المرور (8 أحرف على الأقل)', 'hello-elementor-child'), 'new-password', $state);
+        $html .= render_submission_register_input('name', 'text', __('Name', 'hello-elementor-child'), 'name', $state);
+        $html .= render_submission_register_input('email', 'email', __('Email', 'hello-elementor-child'), 'email', $state);
+        $html .= render_submission_register_input('password', 'password', __('Password (at least 8 characters)', 'hello-elementor-child'), 'new-password', $state);
         // Honeypot: hidden from people, bots fill it.
         $html .= '<div class="hidden" aria-hidden="true"><input type="text" name="submission_website" tabindex="-1" autocomplete="off"></div>';
         $html .= wp_nonce_field('submission_register', 'submission_register_nonce', false, false);
         $html .= '<input type="hidden" name="submission_register" value="1">';
-        $html .= '<div><button type="submit" class="' . get_submission_form_class('button') . '">' . esc_html__('إنشاء الحساب', 'hello-elementor-child') . '</button></div>';
+        $html .= '<div><button type="submit" class="' . get_submission_form_class('button') . '">' . esc_html__('Create account', 'hello-elementor-child') . '</button></div>';
         $html .= '</form>';
     }
 
-    $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('لديك حساب؟', 'hello-elementor-child') . ' '
-        . '<a class="' . get_submission_form_class('link') . '" href="' . esc_url($account_url) . '">' . esc_html__('سجّل الدخول', 'hello-elementor-child') . '</a></p>';
+    $html .= '<p class="' . get_submission_form_class('muted') . '">' . esc_html__('Have an account?', 'hello-elementor-child') . ' '
+        . '<a class="' . get_submission_form_class('link') . '" href="' . esc_url($account_url) . '">' . esc_html_x('Log in', 'link', 'hello-elementor-child') . '</a></p>';
     $html .= '</div>';
 
     return $html;
@@ -1115,40 +1116,40 @@ function render_submission_account_login(): string
     $account_url = get_submission_page_url('account');
 
     $html = '<div class="' . get_submission_form_class('panel') . ' w-full max-w-xl mx-auto flex flex-col gap-4">';
-    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('تسجيل الدخول', 'hello-elementor-child') . '</h2>';
+    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('Log in', 'hello-elementor-child') . '</h2>';
 
     $html .= render_submission_social_login();
 
     if (isset($_GET['login']) && $_GET['login'] === 'failed') {
-        $html .= '<p class="' . get_submission_form_class('error') . '" role="alert">' . esc_html__('بيانات الدخول غير صحيحة.', 'hello-elementor-child') . '</p>';
+        $html .= '<p class="' . get_submission_form_class('error') . '" role="alert">' . esc_html__('Incorrect login details.', 'hello-elementor-child') . '</p>';
     }
     // wp-login.php sends the visitor back here (the lost-password link's redirect_to) once the reset mail is out.
     if (isset($_GET['checkemail']) && $_GET['checkemail'] === 'confirm') {
-        $html .= '<div class="' . get_submission_form_class('info_box') . '" role="status"><p class="' . get_submission_form_class('muted') . '">' . esc_html__('تحقق من بريدك الإلكتروني: أرسلنا إليك رابط إعادة تعيين كلمة المرور، ثم سجّل الدخول من هنا.', 'hello-elementor-child') . '</p></div>';
+        $html .= '<div class="' . get_submission_form_class('info_box') . '" role="status"><p class="' . get_submission_form_class('muted') . '">' . esc_html__('Check your email: we sent you a password reset link, then log in here.', 'hello-elementor-child') . '</p></div>';
     }
 
     $html .= '<form method="post" action="' . esc_url(site_url('wp-login.php', 'login_post')) . '" class="flex flex-col gap-4">';
     $html .= '<div class="' . get_submission_form_class('field') . '">'
-        . '<label class="' . get_submission_form_class('label') . '" for="submission-login-user">' . esc_html__('البريد الإلكتروني أو اسم المستخدم', 'hello-elementor-child') . '</label>'
+        . '<label class="' . get_submission_form_class('label') . '" for="submission-login-user">' . esc_html__('Email or username', 'hello-elementor-child') . '</label>'
         . '<input type="text" name="log" id="submission-login-user" class="' . get_submission_form_class('input') . '" autocomplete="username" required>'
         . '</div>';
     $html .= '<div class="' . get_submission_form_class('field') . '">'
-        . '<label class="' . get_submission_form_class('label') . '" for="submission-login-pass">' . esc_html__('كلمة المرور', 'hello-elementor-child') . '</label>'
+        . '<label class="' . get_submission_form_class('label') . '" for="submission-login-pass">' . esc_html__('Password', 'hello-elementor-child') . '</label>'
         . '<input type="password" name="pwd" id="submission-login-pass" class="' . get_submission_form_class('input') . '" autocomplete="current-password" required>'
         . '</div>';
     $html .= '<label class="inline-flex items-center gap-2 text-sm text-on-surface-variant">'
-        . '<input type="checkbox" name="rememberme" value="forever"> ' . esc_html__('تذكرني', 'hello-elementor-child')
+        . '<input type="checkbox" name="rememberme" value="forever"> ' . esc_html__('Remember me', 'hello-elementor-child')
         . '</label>';
     $html .= '<input type="hidden" name="redirect_to" value="' . esc_attr($account_url) . '">';
     $html .= wp_referer_field(false);
-    $html .= '<div><button type="submit" name="wp-submit" class="' . get_submission_form_class('button') . '">' . esc_html__('دخول', 'hello-elementor-child') . '</button></div>';
+    $html .= '<div><button type="submit" name="wp-submit" class="' . get_submission_form_class('button') . '">' . esc_html__('Sign in', 'hello-elementor-child') . '</button></div>';
     $html .= '</form>';
 
     $links = [];
     if (get_option('users_can_register')) {
-        $links[] = '<a class="' . get_submission_form_class('link') . '" href="' . esc_url(wp_registration_url()) . '">' . esc_html__('إنشاء حساب', 'hello-elementor-child') . '</a>';
+        $links[] = '<a class="' . get_submission_form_class('link') . '" href="' . esc_url(wp_registration_url()) . '">' . esc_html__('Create an account', 'hello-elementor-child') . '</a>';
     }
-    $links[] = '<a class="' . get_submission_form_class('link') . '" href="' . esc_url(wp_lostpassword_url(add_query_arg('checkemail', 'confirm', $account_url))) . '">' . esc_html__('نسيت كلمة المرور؟', 'hello-elementor-child') . '</a>';
+    $links[] = '<a class="' . get_submission_form_class('link') . '" href="' . esc_url(wp_lostpassword_url(add_query_arg('checkemail', 'confirm', $account_url))) . '">' . esc_html__('Forgot your password?', 'hello-elementor-child') . '</a>';
     $html .= '<div class="flex flex-wrap items-center gap-4">' . implode('', $links) . '</div>';
     $html .= '</div>';
 
@@ -1196,11 +1197,11 @@ function render_submission_account_overview(): string
     if ($submitted > 0) {
         $post = get_post($submitted);
         if ($post instanceof WP_Post && $post->post_type === SUBMISSION_POST_TYPE && (int) $post->post_author === get_current_user_id()) {
-            $html .= '<div class="' . get_submission_form_class('success_box') . '" role="status">' . esc_html__('تم استلام طلبك وسيُراجع قريباً.', 'hello-elementor-child') . '</div>';
+            $html .= '<div class="' . get_submission_form_class('success_box') . '" role="status">' . esc_html__('Your request was received and will be reviewed soon.', 'hello-elementor-child') . '</div>';
         }
     }
 
-    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('طلباتي', 'hello-elementor-child') . '</h2>';
+    $html .= '<h2 class="' . get_submission_form_class('heading') . '">' . esc_html__('My requests', 'hello-elementor-child') . '</h2>';
     $html .= render_submission_account_list();
 
     return $html;
@@ -1221,7 +1222,7 @@ function render_submission_account_list(): string
         'no_found_rows' => true,
     ]);
     if (empty($query->posts)) {
-        return '<div class="' . get_submission_form_class('empty') . '">' . esc_html__('لم ترسل أي طلب بعد.', 'hello-elementor-child') . '</div>';
+        return '<div class="' . get_submission_form_class('empty') . '">' . esc_html__('You haven\'t sent any requests yet.', 'hello-elementor-child') . '</div>';
     }
 
     $html = '<ul class="flex flex-col gap-3">';
@@ -1254,20 +1255,20 @@ function render_submission_account_row(WP_Post $post): string
     $extra = '';
     $term_id = (int) get_post_meta($post_id, SUBMISSION_META_RESULT_TERM, true);
     if ($term_id > 0) {
-        $badge = '<span class="' . get_submission_form_class('badge_published') . '">' . esc_html__('منشور', 'hello-elementor-child') . '</span>';
+        $badge = '<span class="' . get_submission_form_class('badge_published') . '">' . esc_html__('Published', 'hello-elementor-child') . '</span>';
         $link = get_term_link($term_id);
         if (!is_wp_error($link)) {
-            $badge .= '<a class="' . get_submission_form_class('link') . '" href="' . esc_url($link) . '">' . esc_html__('عرض الصفحة', 'hello-elementor-child') . '</a>';
+            $badge .= '<a class="' . get_submission_form_class('link') . '" href="' . esc_url($link) . '">' . esc_html__('View page', 'hello-elementor-child') . '</a>';
         }
     } elseif ($post->post_status === 'trash') {
-        $badge = '<span class="' . get_submission_form_class('badge_rejected') . '">' . esc_html__('مرفوض', 'hello-elementor-child') . '</span>';
+        $badge = '<span class="' . get_submission_form_class('badge_rejected') . '">' . esc_html__('Rejected', 'hello-elementor-child') . '</span>';
         $reason = get_post_meta($post_id, SUBMISSION_FIELD_REASON, true);
         $reason = is_string($reason) ? trim($reason) : '';
         if ($reason !== '') {
             $extra = '<p class="' . get_submission_form_class('reason') . '">' . nl2br(esc_html($reason)) . '</p>';
         }
     } else {
-        $badge = '<span class="' . get_submission_form_class('badge_pending') . '">' . esc_html__('قيد المراجعة', 'hello-elementor-child') . '</span>';
+        $badge = '<span class="' . get_submission_form_class('badge_pending') . '">' . esc_html__('Under review', 'hello-elementor-child') . '</span>';
     }
 
     return '<li class="' . get_submission_form_class('row') . '">'

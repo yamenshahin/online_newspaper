@@ -1,0 +1,3443 @@
+# Copyright (C) 2026 Yamen Shahin <yamenshahin@gmail.com>
+# This file is distributed under the GNU General Public License v3 or later..
+msgid ""
+msgstr ""
+"Project-Id-Version: Online Newspaper Theme - Hello Elementor Child 2.0.0\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-01T18:19:53+00:00\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"X-Generator: WP-CLI 2.12.0\n"
+"X-Domain: hello-elementor-child\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Online Newspaper Theme - Hello Elementor Child"
+msgstr ""
+
+#. Theme URI of the theme
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/yamenshahin"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Custom Hello Elementor child theme engineered for the Online Newspaper, featuring dynamic ACF layout engines, custom post types, and directory taxonomies."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Yamen Shahin <yamenshahin@gmail.com>"
+msgstr ""
+
+#: 404.php:30
+msgid "A reporter holds out a microphone to the number 404, which folds its arms and refuses to talk"
+msgstr ""
+
+#: 404.php:35
+msgid "Error 404"
+msgstr ""
+
+#: 404.php:40
+msgid "The only page that didn't interact with us!"
+msgstr ""
+
+#: 404.php:44
+msgid "The page doesn't exist, but the news never stops."
+msgstr ""
+
+#: 404.php:50
+msgid "Back to home"
+msgstr ""
+
+#: 404.php:57
+msgid "Search for what you were looking for"
+msgstr ""
+
+#: 404.php:66
+#: template-parts/cards/card-post.php:24
+msgid "Latest news"
+msgstr ""
+
+#. translators: %d: page number
+#: archive-car.php:14
+#: archive-car.php:21
+#: inc/cars/directory.php:338
+#: inc/cars/helpers.php:470
+#: template-parts/sections/cars_section.php:21
+#: template-parts/sections/car_home_section.php:40
+msgid "Car Directory"
+msgstr ""
+
+#: archive-car.php:15
+msgid "Find your car by make, model, year, price and specifications"
+msgstr ""
+
+#: front-page.php:43
+#: taxonomy-event.php:58
+#: taxonomy-geographic.php:71
+#: taxonomy-government_entity.php:72
+#: taxonomy-international_entity.php:72
+#: taxonomy-private_entity.php:72
+#: taxonomy-speaker_influencer.php:79
+msgid "No sections configured for the homepage."
+msgstr ""
+
+#: functions.php:75
+#: inc/submissions/registry.php:421
+msgid "Choose…"
+msgstr ""
+
+#: functions.php:120
+#: template-parts/sections/geographic_section.php:150
+#: template-parts/sections/geographic_section.php:249
+#: template-parts/sections/program_series_section.php:290
+#: template-parts/sections/program_series_section.php:309
+msgid "Show more"
+msgstr ""
+
+#: functions.php:121
+#: template-parts/sections/program_series_section.php:306
+msgid "Show less"
+msgstr ""
+
+#. translators: %s: model-year title
+#: functions.php:157
+#: single-car_model_year.php:104
+msgid "Photo gallery"
+msgstr ""
+
+#: functions.php:158
+msgid "Close"
+msgstr ""
+
+#: functions.php:159
+msgid "Previous"
+msgstr ""
+
+#: functions.php:160
+msgid "Next"
+msgstr ""
+
+#. translators: %d: photo number
+#: functions.php:162
+#, php-format
+msgid "Photo %d"
+msgstr ""
+
+#: functions.php:583
+#, php-format
+msgid "Published on %s"
+msgstr ""
+
+#: functions.php:597
+#, php-format
+msgid "Last updated %s"
+msgstr ""
+
+#: functions.php:682
+#: inc/submissions/registry.php:71
+#: template-parts/entities/entity-browse-section.php:88
+msgid "Saudi Government Entities"
+msgstr ""
+
+#: functions.php:683
+msgid "Sort content by government entity"
+msgstr ""
+
+#: functions.php:686
+#: inc/submissions/registry.php:72
+#: template-parts/entities/entity-browse-section.php:89
+msgid "Private Sector"
+msgstr ""
+
+#: functions.php:687
+msgid "Sort content by private sector"
+msgstr ""
+
+#: functions.php:690
+#: inc/acf-json-strings.php:371
+#: inc/submissions/registry.php:73
+#: template-parts/entities/entity-browse-section.php:90
+msgid "Events"
+msgstr ""
+
+#: functions.php:691
+msgid "Sort content by event"
+msgstr ""
+
+#: functions.php:694
+#: inc/acf-json-strings.php:390
+#: inc/submissions/registry.php:74
+#: template-parts/entities/entity-browse-section.php:91
+msgid "International Entities"
+msgstr ""
+
+#: functions.php:695
+msgid "Sort content by international entity"
+msgstr ""
+
+#: functions.php:840
+msgid "Post Views"
+msgstr ""
+
+#: functions.php:844
+msgid "Total unique session views by real users."
+msgstr ""
+
+#: functions.php:862
+msgid "Views"
+msgstr ""
+
+#: functions.php:997
+#: functions.php:1013
+#: functions.php:1019
+#: inc/acf-json-strings.php:19
+msgid "Detailed Description"
+msgstr ""
+
+#: functions.php:1096
+#: functions.php:1107
+#: inc/acf-json-strings.php:249
+msgid "Department"
+msgstr ""
+
+#: functions.php:1100
+#: inc/acf-json-strings.php:266
+msgid "Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:14
+msgid "Department Logo"
+msgstr ""
+
+#: inc/acf-json-strings.php:15
+msgid "Please ensure the uploaded image has a maximum width of 1920px."
+msgstr ""
+
+#: inc/acf-json-strings.php:16
+msgid "Department Color Theme"
+msgstr ""
+
+#: inc/acf-json-strings.php:17
+msgid "Department Icon"
+msgstr ""
+
+#: inc/acf-json-strings.php:18
+msgid "Please ensure the uploaded image has a maximum width of 600px."
+msgstr ""
+
+#: inc/acf-json-strings.php:20
+msgid "Social Media Links"
+msgstr ""
+
+#: inc/acf-json-strings.php:21
+msgid "Add Row"
+msgstr ""
+
+#: inc/acf-json-strings.php:22
+msgid "Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:23
+msgid "Platform"
+msgstr ""
+
+#: inc/acf-json-strings.php:24
+msgid "Website"
+msgstr ""
+
+#: inc/acf-json-strings.php:25
+msgid "Follower Count"
+msgstr ""
+
+#: inc/acf-json-strings.php:26
+msgid "Insert formatted numbers like \"10K\" or \"1.2M\""
+msgstr ""
+
+#: inc/acf-json-strings.php:27
+msgid "Extra Info"
+msgstr ""
+
+#: inc/acf-json-strings.php:28
+msgid "Add Extra Info"
+msgstr ""
+
+#: inc/acf-json-strings.php:29
+msgid "Label"
+msgstr ""
+
+#: inc/acf-json-strings.php:30
+msgid "e.g., \"City\", \"Founded\", \"Industry\""
+msgstr ""
+
+#: inc/acf-json-strings.php:31
+msgid "Value"
+msgstr ""
+
+#: inc/acf-json-strings.php:32
+msgid "e.g., \"Cairo\", \"2015\", \"Technology\""
+msgstr ""
+
+#: inc/acf-json-strings.php:33
+msgid "Footer Logo"
+msgstr ""
+
+#: inc/acf-json-strings.php:34
+msgid "Footer Label"
+msgstr ""
+
+#: inc/acf-json-strings.php:35
+msgid "Image"
+msgstr ""
+
+#: inc/acf-json-strings.php:36
+msgid "Please ensure the uploaded image has a 3:4 aspect ratio and a maximum width of 1920px."
+msgstr ""
+
+#: inc/acf-json-strings.php:37
+msgid "Add Social Media Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:38
+msgid "Please ensure the uploaded image has a 1:1 aspect ratio and a maximum width of 512px."
+msgstr ""
+
+#: inc/acf-json-strings.php:39
+msgid "Please ensure the uploaded image has a 9:16 aspect ratio and a maximum width of 1920px."
+msgstr ""
+
+#: inc/acf-json-strings.php:40
+msgid "Department Sections"
+msgstr ""
+
+#: inc/acf-json-strings.php:41
+msgid "Hero Lead Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:42
+msgid "Section Title"
+msgstr ""
+
+#: inc/acf-json-strings.php:43
+msgid "Hero Featured"
+msgstr ""
+
+#: inc/acf-json-strings.php:44
+msgid "Hero Trending"
+msgstr ""
+
+#: inc/acf-json-strings.php:45
+msgid "Posts (News) Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:46
+msgid "Subtitle"
+msgstr ""
+
+#: inc/acf-json-strings.php:47
+msgid "Posts Limit"
+msgstr ""
+
+#: inc/acf-json-strings.php:48
+msgid "Social Media Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:49
+msgid "Infographics Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:50
+msgid "Interviews Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:51
+msgid "Videos Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:52
+msgid "Podcasts Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:53
+msgid "Speakers Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:54
+msgid "Program Series Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:55
+msgid "Filter Government + Private Entities Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:56
+msgid "Geographic Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:57
+msgid "Cars Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:58
+msgid "Show Budget Strip"
+msgstr ""
+
+#: inc/acf-json-strings.php:59
+msgid "Show Body Types"
+msgstr ""
+
+#: inc/acf-json-strings.php:60
+msgid "Show Top Brands"
+msgstr ""
+
+#: inc/acf-json-strings.php:61
+msgid "Brands Limit"
+msgstr ""
+
+#: inc/acf-json-strings.php:62
+msgid "Show Origins"
+msgstr ""
+
+#: inc/acf-json-strings.php:63
+msgid "Ad Banner"
+msgstr ""
+
+#: inc/acf-json-strings.php:64
+msgid "Ad Image"
+msgstr ""
+
+#: inc/acf-json-strings.php:65
+msgid "Ad Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:66
+msgid "Ad Code"
+msgstr ""
+
+#: inc/acf-json-strings.php:67
+msgid "Ad Code / Script"
+msgstr ""
+
+#: inc/acf-json-strings.php:68
+msgid "Add Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:69
+msgid "Resources"
+msgstr ""
+
+#: inc/acf-json-strings.php:70
+msgid "Put all post resources here for review."
+msgstr ""
+
+#: inc/acf-json-strings.php:71
+msgid "Podcast Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:72
+#: template-parts/profiles/sub-profile-organizer.php:73
+msgid "Organizer"
+msgstr ""
+
+#: inc/acf-json-strings.php:73
+msgid "Organizer Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:74
+msgid "Organizer Image"
+msgstr ""
+
+#: inc/acf-json-strings.php:75
+msgid "Organizer Social Media Links"
+msgstr ""
+
+#: inc/acf-json-strings.php:76
+msgid "Organizer Extra Info"
+msgstr ""
+
+#: inc/acf-json-strings.php:77
+msgid "Location"
+msgstr ""
+
+#: inc/acf-json-strings.php:78
+msgid "Latitude"
+msgstr ""
+
+#: inc/acf-json-strings.php:79
+msgid "Longitude"
+msgstr ""
+
+#: inc/acf-json-strings.php:80
+msgid "Related Posts"
+msgstr ""
+
+#: inc/acf-json-strings.php:81
+msgid "Pick up to 4 posts (optional)."
+msgstr ""
+
+#: inc/acf-json-strings.php:82
+#: template-parts/cards/card-hero-featured.php:14
+msgid "Programs"
+msgstr ""
+
+#: inc/acf-json-strings.php:83
+msgid "Programs and Shows."
+msgstr ""
+
+#: inc/acf-json-strings.php:84
+msgid "Program"
+msgstr ""
+
+#: inc/acf-json-strings.php:85
+msgid "All Programs"
+msgstr ""
+
+#: inc/acf-json-strings.php:86
+msgid "Edit Program"
+msgstr ""
+
+#: inc/acf-json-strings.php:87
+msgid "View Program"
+msgstr ""
+
+#: inc/acf-json-strings.php:88
+msgid "View Programs"
+msgstr ""
+
+#: inc/acf-json-strings.php:89
+msgid "Add New Program"
+msgstr ""
+
+#: inc/acf-json-strings.php:90
+msgid "New Program"
+msgstr ""
+
+#: inc/acf-json-strings.php:91
+msgid "Parent Program:"
+msgstr ""
+
+#: inc/acf-json-strings.php:92
+msgid "Search Programs"
+msgstr ""
+
+#: inc/acf-json-strings.php:93
+msgid "No programs found"
+msgstr ""
+
+#: inc/acf-json-strings.php:94
+msgid "No programs found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:95
+msgid "Program Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:96
+msgid "Program Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:97
+msgid "Insert into program"
+msgstr ""
+
+#: inc/acf-json-strings.php:98
+msgid "Uploaded to this program"
+msgstr ""
+
+#: inc/acf-json-strings.php:99
+msgid "Filter programs list"
+msgstr ""
+
+#: inc/acf-json-strings.php:100
+msgid "Filter programs by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:101
+msgid "Programs list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:102
+msgid "Programs list"
+msgstr ""
+
+#: inc/acf-json-strings.php:103
+msgid "Program published."
+msgstr ""
+
+#: inc/acf-json-strings.php:104
+msgid "Program published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:105
+msgid "Program reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:106
+msgid "Program scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:107
+msgid "Program updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:108
+msgid "Program Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:109
+msgid "A link to a program."
+msgstr ""
+
+#: inc/acf-json-strings.php:110
+msgid "Infographics"
+msgstr ""
+
+#: inc/acf-json-strings.php:111
+msgid "Data visualizations."
+msgstr ""
+
+#: inc/acf-json-strings.php:112
+#: template-parts/cards/card-hero-featured.php:15
+msgid "Infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:113
+msgid "All Infographics"
+msgstr ""
+
+#: inc/acf-json-strings.php:114
+msgid "Edit Infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:115
+msgid "View Infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:116
+msgid "View Infographics"
+msgstr ""
+
+#: inc/acf-json-strings.php:117
+msgid "Add New Infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:118
+msgid "New Infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:119
+msgid "Parent Infographic:"
+msgstr ""
+
+#: inc/acf-json-strings.php:120
+msgid "Search Infographics"
+msgstr ""
+
+#: inc/acf-json-strings.php:121
+msgid "No infographics found"
+msgstr ""
+
+#: inc/acf-json-strings.php:122
+msgid "No infographics found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:123
+msgid "Infographic Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:124
+msgid "Infographic Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:125
+msgid "Insert into infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:126
+msgid "Uploaded to this infographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:127
+msgid "Filter infographics list"
+msgstr ""
+
+#: inc/acf-json-strings.php:128
+msgid "Filter infographics by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:129
+msgid "Infographics list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:130
+msgid "Infographics list"
+msgstr ""
+
+#: inc/acf-json-strings.php:131
+msgid "Infographic published."
+msgstr ""
+
+#: inc/acf-json-strings.php:132
+msgid "Infographic published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:133
+msgid "Infographic reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:134
+msgid "Infographic scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:135
+msgid "Infographic updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:136
+msgid "Infographic Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:137
+msgid "A link to a infographic."
+msgstr ""
+
+#: inc/acf-json-strings.php:138
+#: template-parts/cards/card-hero-featured.php:13
+msgid "Interviews"
+msgstr ""
+
+#: inc/acf-json-strings.php:139
+msgid "Media-rich interview content."
+msgstr ""
+
+#: inc/acf-json-strings.php:140
+#: template-parts/cards/card-interview.php:23
+#: template-parts/sections/interviews_section.php:105
+msgid "Interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:141
+msgid "All Interviews"
+msgstr ""
+
+#: inc/acf-json-strings.php:142
+msgid "Edit Interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:143
+msgid "View Interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:144
+msgid "View Interviews"
+msgstr ""
+
+#: inc/acf-json-strings.php:145
+msgid "Add New Interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:146
+msgid "New Interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:147
+msgid "Parent Interview:"
+msgstr ""
+
+#: inc/acf-json-strings.php:148
+msgid "Search Interviews"
+msgstr ""
+
+#: inc/acf-json-strings.php:149
+msgid "No interviews found"
+msgstr ""
+
+#: inc/acf-json-strings.php:150
+msgid "No interviews found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:151
+msgid "Interview Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:152
+msgid "Interview Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:153
+msgid "Insert into interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:154
+msgid "Uploaded to this interview"
+msgstr ""
+
+#: inc/acf-json-strings.php:155
+msgid "Filter interviews list"
+msgstr ""
+
+#: inc/acf-json-strings.php:156
+msgid "Filter interviews by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:157
+msgid "Interviews list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:158
+msgid "Interviews list"
+msgstr ""
+
+#: inc/acf-json-strings.php:159
+msgid "Interview published."
+msgstr ""
+
+#: inc/acf-json-strings.php:160
+msgid "Interview published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:161
+msgid "Interview reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:162
+msgid "Interview scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:163
+msgid "Interview updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:164
+msgid "Interview Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:165
+msgid "A link to a interview."
+msgstr ""
+
+#: inc/acf-json-strings.php:166
+msgid "Videos"
+msgstr ""
+
+#: inc/acf-json-strings.php:167
+#: template-parts/cards/card-video.php:23
+#: template-parts/sections/videos_section.php:105
+msgid "Video"
+msgstr ""
+
+#: inc/acf-json-strings.php:168
+msgid "All Videos"
+msgstr ""
+
+#: inc/acf-json-strings.php:169
+msgid "Edit Video"
+msgstr ""
+
+#: inc/acf-json-strings.php:170
+msgid "View Video"
+msgstr ""
+
+#: inc/acf-json-strings.php:171
+msgid "View Videos"
+msgstr ""
+
+#: inc/acf-json-strings.php:172
+msgid "Add New Video"
+msgstr ""
+
+#: inc/acf-json-strings.php:173
+msgid "New Video"
+msgstr ""
+
+#: inc/acf-json-strings.php:174
+msgid "Parent Video:"
+msgstr ""
+
+#: inc/acf-json-strings.php:175
+msgid "Search Videos"
+msgstr ""
+
+#: inc/acf-json-strings.php:176
+msgid "No videos found"
+msgstr ""
+
+#: inc/acf-json-strings.php:177
+msgid "No videos found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:178
+msgid "Video Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:179
+msgid "Video Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:180
+msgid "Insert into video"
+msgstr ""
+
+#: inc/acf-json-strings.php:181
+msgid "Uploaded to this video"
+msgstr ""
+
+#: inc/acf-json-strings.php:182
+msgid "Filter videos list"
+msgstr ""
+
+#: inc/acf-json-strings.php:183
+msgid "Filter videos by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:184
+msgid "Videos list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:185
+msgid "Videos list"
+msgstr ""
+
+#: inc/acf-json-strings.php:186
+msgid "Video published."
+msgstr ""
+
+#: inc/acf-json-strings.php:187
+msgid "Video published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:188
+msgid "Video reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:189
+msgid "Video scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:190
+msgid "Video updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:191
+msgid "Video Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:192
+msgid "A link to a video."
+msgstr ""
+
+#: inc/acf-json-strings.php:193
+msgid "Podcasts"
+msgstr ""
+
+#: inc/acf-json-strings.php:194
+#: single-podcast.php:25
+#: template-parts/cards/card-podcast.php:23
+#: template-parts/sections/podcasts_section.php:79
+#: template-parts/sections/podcasts_section.php:107
+msgid "Podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:195
+msgid "All Podcasts"
+msgstr ""
+
+#: inc/acf-json-strings.php:196
+msgid "Edit Podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:197
+msgid "View Podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:198
+msgid "View Podcasts"
+msgstr ""
+
+#: inc/acf-json-strings.php:199
+msgid "Add New Podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:200
+msgid "New Podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:201
+msgid "Parent Podcast:"
+msgstr ""
+
+#: inc/acf-json-strings.php:202
+msgid "Search Podcasts"
+msgstr ""
+
+#: inc/acf-json-strings.php:203
+msgid "No podcasts found"
+msgstr ""
+
+#: inc/acf-json-strings.php:204
+msgid "No podcasts found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:205
+msgid "Podcast Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:206
+msgid "Podcast Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:207
+msgid "Insert into podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:208
+msgid "Uploaded to this podcast"
+msgstr ""
+
+#: inc/acf-json-strings.php:209
+msgid "Filter podcasts list"
+msgstr ""
+
+#: inc/acf-json-strings.php:210
+msgid "Filter podcasts by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:211
+msgid "Podcasts list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:212
+msgid "Podcasts list"
+msgstr ""
+
+#: inc/acf-json-strings.php:213
+msgid "Podcast published."
+msgstr ""
+
+#: inc/acf-json-strings.php:214
+msgid "Podcast published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:215
+msgid "Podcast reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:216
+msgid "Podcast scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:217
+msgid "Podcast updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:218
+msgid "Podcast Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:219
+msgid "A link to a podcast."
+msgstr ""
+
+#: inc/acf-json-strings.php:220
+#: inc/site-search.php:150
+msgid "Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:221
+#: single-reel.php:19
+msgid "Reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:222
+msgid "All Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:223
+msgid "Edit Reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:224
+msgid "View Reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:225
+msgid "View Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:226
+msgid "Add New Reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:227
+msgid "New Reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:228
+msgid "Parent Reel:"
+msgstr ""
+
+#: inc/acf-json-strings.php:229
+msgid "Search Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:230
+msgid "No reels found"
+msgstr ""
+
+#: inc/acf-json-strings.php:231
+msgid "No reels found in Trash"
+msgstr ""
+
+#: inc/acf-json-strings.php:232
+msgid "Reel Archives"
+msgstr ""
+
+#: inc/acf-json-strings.php:233
+msgid "Reel Attributes"
+msgstr ""
+
+#: inc/acf-json-strings.php:234
+msgid "Insert into reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:235
+msgid "Uploaded to this reel"
+msgstr ""
+
+#: inc/acf-json-strings.php:236
+msgid "Filter reels list"
+msgstr ""
+
+#: inc/acf-json-strings.php:237
+msgid "Filter reels by date"
+msgstr ""
+
+#: inc/acf-json-strings.php:238
+msgid "Reels list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:239
+msgid "Reels list"
+msgstr ""
+
+#: inc/acf-json-strings.php:240
+msgid "Reel published."
+msgstr ""
+
+#: inc/acf-json-strings.php:241
+msgid "Reel published privately."
+msgstr ""
+
+#: inc/acf-json-strings.php:242
+msgid "Reel reverted to draft."
+msgstr ""
+
+#: inc/acf-json-strings.php:243
+msgid "Reel scheduled."
+msgstr ""
+
+#: inc/acf-json-strings.php:244
+msgid "Reel updated."
+msgstr ""
+
+#: inc/acf-json-strings.php:245
+msgid "Reel Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:246
+msgid "A link to a reel."
+msgstr ""
+
+#: inc/acf-json-strings.php:247
+#: template-parts/profiles/filter-departments-nav.php:32
+msgid "Departments"
+msgstr ""
+
+#: inc/acf-json-strings.php:248
+msgid "Primary navigation axis. The core vertical division of the site."
+msgstr ""
+
+#: inc/acf-json-strings.php:250
+msgid "All department"
+msgstr ""
+
+#: inc/acf-json-strings.php:251
+msgid "Edit Department"
+msgstr ""
+
+#: inc/acf-json-strings.php:252
+msgid "View Department"
+msgstr ""
+
+#: inc/acf-json-strings.php:253
+msgid "Update Department"
+msgstr ""
+
+#: inc/acf-json-strings.php:254
+msgid "Add New Department"
+msgstr ""
+
+#: inc/acf-json-strings.php:255
+msgid "New Department Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:256
+msgid "Search department"
+msgstr ""
+
+#: inc/acf-json-strings.php:257
+msgid "No department found"
+msgstr ""
+
+#: inc/acf-json-strings.php:258
+msgid "No department"
+msgstr ""
+
+#: inc/acf-json-strings.php:259
+msgid "Names can be entered in Arabic or English."
+msgstr ""
+
+#: inc/acf-json-strings.php:260
+msgid "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here."
+msgstr ""
+
+#: inc/acf-json-strings.php:261
+msgid "department list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:262
+msgid "department list"
+msgstr ""
+
+#: inc/acf-json-strings.php:263
+msgid "← Go to department"
+msgstr ""
+
+#: inc/acf-json-strings.php:264
+msgid "Department Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:265
+msgid "A link to a department"
+msgstr ""
+
+#: inc/acf-json-strings.php:267
+msgid "Grouping episodic or related programs."
+msgstr ""
+
+#: inc/acf-json-strings.php:268
+msgid "All Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:269
+msgid "Edit Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:270
+msgid "View Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:271
+msgid "Update Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:272
+msgid "Add New Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:273
+msgid "New Program Series Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:274
+msgid "Search Program Series"
+msgstr ""
+
+#: inc/acf-json-strings.php:275
+msgid "No program series found"
+msgstr ""
+
+#: inc/acf-json-strings.php:276
+msgid "No program series"
+msgstr ""
+
+#: inc/acf-json-strings.php:277
+msgid "Program Series list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:278
+msgid "Program Series list"
+msgstr ""
+
+#: inc/acf-json-strings.php:279
+msgid "← Go to program series"
+msgstr ""
+
+#: inc/acf-json-strings.php:280
+msgid "Program Series Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:281
+msgid "A link to a program series"
+msgstr ""
+
+#: inc/acf-json-strings.php:282
+msgid "Government Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:283
+msgid "Tagging involved government bodies."
+msgstr ""
+
+#: inc/acf-json-strings.php:284
+msgid "Government Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:285
+msgid "All Government Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:286
+msgid "Edit Government Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:287
+msgid "View Government Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:288
+msgid "Update Government Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:289
+msgid "Add New Government Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:290
+msgid "New Government Entity Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:291
+msgid "Search Government Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:292
+msgid "No government entities found"
+msgstr ""
+
+#: inc/acf-json-strings.php:293
+msgid "No government entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:294
+msgid "Government Entities list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:295
+msgid "Government Entities list"
+msgstr ""
+
+#: inc/acf-json-strings.php:296
+msgid "← Go to government entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:297
+msgid "Government Entity Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:298
+msgid "A link to a government entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:299
+msgid "Private Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:300
+msgid "Tagging involved private partners."
+msgstr ""
+
+#: inc/acf-json-strings.php:301
+msgid "Private Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:302
+msgid "All Private Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:303
+msgid "Edit Private Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:304
+msgid "View Private Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:305
+msgid "Update Private Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:306
+msgid "Add New Private Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:307
+msgid "New Private Entity Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:308
+msgid "Search Private Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:309
+msgid "No private entities found"
+msgstr ""
+
+#: inc/acf-json-strings.php:310
+msgid "No private entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:311
+msgid "Private Entities list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:312
+msgid "Private Entities list"
+msgstr ""
+
+#: inc/acf-json-strings.php:313
+msgid "← Go to private entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:314
+msgid "Private Entity Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:315
+msgid "A link to a private entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:316
+msgid "Speakers & Influencers"
+msgstr ""
+
+#: inc/acf-json-strings.php:317
+msgid "Speakers, hosts, or guests."
+msgstr ""
+
+#: inc/acf-json-strings.php:318
+msgid "Speaker/Influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:319
+msgid "All Speakers & Influencers"
+msgstr ""
+
+#: inc/acf-json-strings.php:320
+msgid "Edit speaker_influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:321
+msgid "View speaker_influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:322
+msgid "Update speaker_influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:323
+msgid "Add New speaker_influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:324
+msgid "New speaker_influencer Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:325
+msgid "Search Speakers & Influencers"
+msgstr ""
+
+#: inc/acf-json-strings.php:326
+msgid "No speakers & influencers found"
+msgstr ""
+
+#: inc/acf-json-strings.php:327
+msgid "No speakers & influencers"
+msgstr ""
+
+#: inc/acf-json-strings.php:328
+msgid "Speakers & Influencers list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:329
+msgid "Speakers & Influencers list"
+msgstr ""
+
+#: inc/acf-json-strings.php:330
+msgid "← Go to speakers & influencers"
+msgstr ""
+
+#: inc/acf-json-strings.php:331
+msgid "speaker_influencer Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:332
+msgid "A link to a speaker_influencer"
+msgstr ""
+
+#: inc/acf-json-strings.php:333
+msgid "Geographics"
+msgstr ""
+
+#: inc/acf-json-strings.php:334
+msgid "Location-based filtering."
+msgstr ""
+
+#: inc/acf-json-strings.php:335
+msgid "Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:336
+msgid "All Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:337
+msgid "Edit Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:338
+msgid "View Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:339
+msgid "Update Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:340
+msgid "Add New Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:341
+msgid "New Geographic Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:342
+msgid "Search Geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:343
+msgid "No geographic found"
+msgstr ""
+
+#: inc/acf-json-strings.php:344
+msgid "No geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:345
+msgid "Hierarchical location filter: Country → City."
+msgstr ""
+
+#: inc/acf-json-strings.php:346
+msgid "Geographic list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:347
+msgid "Geographic list"
+msgstr ""
+
+#: inc/acf-json-strings.php:348
+msgid "← Go to geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:349
+msgid "Geographic Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:350
+msgid "A link to a geographic"
+msgstr ""
+
+#: inc/acf-json-strings.php:351
+msgid "Editors"
+msgstr ""
+
+#: inc/acf-json-strings.php:352
+msgid "Editors replace authors."
+msgstr ""
+
+#: inc/acf-json-strings.php:353
+msgid "Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:354
+msgid "All Editors"
+msgstr ""
+
+#: inc/acf-json-strings.php:355
+msgid "Edit Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:356
+msgid "View Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:357
+msgid "Update Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:358
+msgid "Add New Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:359
+msgid "New Editor Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:360
+msgid "Parent Editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:361
+msgid "Parent Editor:"
+msgstr ""
+
+#: inc/acf-json-strings.php:362
+msgid "Search Editors"
+msgstr ""
+
+#: inc/acf-json-strings.php:363
+msgid "No editors found"
+msgstr ""
+
+#: inc/acf-json-strings.php:364
+msgid "No editors"
+msgstr ""
+
+#: inc/acf-json-strings.php:365
+msgid "Filter by editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:366
+msgid "Editors list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:367
+msgid "Editors list"
+msgstr ""
+
+#: inc/acf-json-strings.php:368
+msgid "← Go to editors"
+msgstr ""
+
+#: inc/acf-json-strings.php:369
+msgid "Editor Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:370
+msgid "A link to a editor"
+msgstr ""
+
+#: inc/acf-json-strings.php:372
+msgid "Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:373
+msgid "All Events"
+msgstr ""
+
+#: inc/acf-json-strings.php:374
+msgid "Edit Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:375
+msgid "View Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:376
+msgid "Update Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:377
+msgid "Add New Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:378
+msgid "New Event Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:379
+msgid "Parent Event"
+msgstr ""
+
+#: inc/acf-json-strings.php:380
+msgid "Parent Event:"
+msgstr ""
+
+#: inc/acf-json-strings.php:381
+msgid "Search Events"
+msgstr ""
+
+#: inc/acf-json-strings.php:382
+msgid "No events found"
+msgstr ""
+
+#: inc/acf-json-strings.php:383
+msgid "No events"
+msgstr ""
+
+#: inc/acf-json-strings.php:384
+msgid "Filter by event"
+msgstr ""
+
+#: inc/acf-json-strings.php:385
+msgid "Events list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:386
+msgid "Events list"
+msgstr ""
+
+#: inc/acf-json-strings.php:387
+msgid "← Go to events"
+msgstr ""
+
+#: inc/acf-json-strings.php:388
+msgid "Event Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:389
+msgid "A link to a event"
+msgstr ""
+
+#: inc/acf-json-strings.php:391
+msgid "Tagging involved international bodies."
+msgstr ""
+
+#: inc/acf-json-strings.php:392
+msgid "International Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:393
+msgid "All International Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:394
+msgid "Edit International Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:395
+msgid "View International Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:396
+msgid "Update International Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:397
+msgid "Add New International Entity"
+msgstr ""
+
+#: inc/acf-json-strings.php:398
+msgid "New International Entity Name"
+msgstr ""
+
+#: inc/acf-json-strings.php:399
+msgid "Search International Entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:400
+msgid "No international entities found"
+msgstr ""
+
+#: inc/acf-json-strings.php:401
+msgid "No international entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:402
+msgid "International Entities list navigation"
+msgstr ""
+
+#: inc/acf-json-strings.php:403
+msgid "International Entities list"
+msgstr ""
+
+#: inc/acf-json-strings.php:404
+msgid "← Go to international entities"
+msgstr ""
+
+#: inc/acf-json-strings.php:405
+msgid "International Entity Link"
+msgstr ""
+
+#: inc/acf-json-strings.php:406
+msgid "A link to an international entity"
+msgstr ""
+
+#: inc/cars.php:21
+msgid "Make"
+msgstr ""
+
+#: inc/cars.php:22
+#: inc/cars/helpers.php:948
+#: taxonomy-car_make.php:32
+msgid "Model"
+msgstr ""
+
+#: inc/cars.php:23
+msgid "Year"
+msgstr ""
+
+#: inc/cars.php:24
+#: inc/cars/directory.php:33
+msgid "Origin"
+msgstr ""
+
+#: inc/cars.php:25
+msgid "Body"
+msgstr ""
+
+#: inc/cars.php:26
+msgid "Fuel"
+msgstr ""
+
+#: inc/cars.php:27
+msgid "Transmission"
+msgstr ""
+
+#: inc/cars.php:28
+msgid "Drivetrain"
+msgstr ""
+
+#: inc/cars.php:29
+#: inc/cars/directory.php:39
+#: single-car.php:72
+msgid "Features"
+msgstr ""
+
+#. translators: %s: model-year title
+#: inc/cars.php:37
+#: inc/cars/helpers.php:802
+#: inc/cars/helpers.php:949
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+msgid "Price"
+msgstr ""
+
+#: inc/cars.php:37
+#: inc/cars.php:414
+msgid "SAR"
+msgstr ""
+
+#: inc/cars.php:38
+msgid "Power"
+msgstr ""
+
+#: inc/cars.php:38
+msgid "hp"
+msgstr ""
+
+#: inc/cars.php:39
+msgid "Torque"
+msgstr ""
+
+#: inc/cars.php:39
+msgid "Nm"
+msgstr ""
+
+#: inc/cars.php:40
+msgid "Engine size"
+msgstr ""
+
+#: inc/cars.php:40
+msgid "L"
+msgstr ""
+
+#: inc/cars.php:41
+msgid "Seats"
+msgstr ""
+
+#. translators: %s: number of matching cars
+#: inc/cars.php:377
+#, php-format
+msgid "%s matching car"
+msgid_plural "%s matching cars"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: 1: facet label, 2: minimum, 3: maximum
+#: inc/cars.php:397
+#, php-format
+msgid "%1$s: from %2$s to %3$s"
+msgstr ""
+
+#. translators: 1: facet label, 2: minimum
+#: inc/cars.php:401
+#, php-format
+msgid "%1$s: from %2$s"
+msgstr ""
+
+#. translators: 1: facet label, 2: maximum
+#: inc/cars.php:404
+#, php-format
+msgid "%1$s: up to %2$s"
+msgstr ""
+
+#. translators: %s: price
+#: inc/cars.php:417
+#, php-format
+msgid "Starting from %s"
+msgstr ""
+
+#: inc/cars.php:477
+#: template-parts/profiles/filter-departments-nav.php:39
+msgid "All"
+msgstr ""
+
+#: inc/cars.php:478
+msgid "Choose a make first"
+msgstr ""
+
+#: inc/cars/directory.php:32
+msgid "Brands and models"
+msgstr ""
+
+#: inc/cars/directory.php:34
+msgid "Model years"
+msgstr ""
+
+#: inc/cars/directory.php:35
+msgid "Body types"
+msgstr ""
+
+#: inc/cars/directory.php:36
+msgid "Fuel types"
+msgstr ""
+
+#: inc/cars/directory.php:37
+msgid "Transmission types"
+msgstr ""
+
+#: inc/cars/directory.php:38
+msgid "Drivetrains"
+msgstr ""
+
+#. translators: %s: amount in thousands ("50 ألف")
+#: inc/cars/directory.php:54
+#, php-format
+msgid "Under %s"
+msgstr ""
+
+#. translators: 1: lower amount, 2: upper amount ("50 ألف", "100 ألف")
+#: inc/cars/directory.php:57
+#, php-format
+msgid "%1$s to %2$s"
+msgstr ""
+
+#. translators: %s: amount in thousands ("400 ألف")
+#: inc/cars/directory.php:61
+#, php-format
+msgid "Over %s"
+msgstr ""
+
+#. translators: %s: number of thousands
+#: inc/cars/directory.php:69
+#, php-format
+msgid "%s thousand"
+msgstr ""
+
+#. translators: %d: page number
+#: inc/cars/directory.php:338
+#: price-range.php:21
+#, php-format
+msgid "Page %d"
+msgstr ""
+
+#: inc/cars/fields.php:84
+msgid "General"
+msgstr ""
+
+#: inc/cars/fields.php:135
+msgid "Specification sections"
+msgstr ""
+
+#: inc/cars/fields.php:313
+msgid "Yes"
+msgstr ""
+
+#: inc/cars/fields.php:314
+msgid "No"
+msgstr ""
+
+#: inc/cars/fields.php:328
+#: inc/cars/fields.php:352
+msgctxt "list separator"
+msgid ", "
+msgstr ""
+
+#: inc/cars/fields.php:397
+msgid "Review video"
+msgstr ""
+
+#. translators: %s: amount
+#: inc/cars/helpers.php:371
+#, php-format
+msgid "%s SAR"
+msgstr ""
+
+#. translators: %s: amount
+#: inc/cars/helpers.php:378
+#, php-format
+msgid "%s US dollars"
+msgstr ""
+
+#. translators: %s: number of cars
+#: inc/cars/helpers.php:397
+#, php-format
+msgid "%s car"
+msgid_plural "%s cars"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of models
+#: inc/cars/helpers.php:403
+#, php-format
+msgid "%s model"
+msgid_plural "%s models"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of brands
+#: inc/cars/helpers.php:409
+#, php-format
+msgid "%s brand"
+msgid_plural "%s brands"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of trims
+#: inc/cars/helpers.php:415
+#, php-format
+msgid "%s trim"
+msgid_plural "%s trims"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of model years
+#: inc/cars/helpers.php:421
+#, php-format
+msgid "%s model year"
+msgid_plural "%s model years"
+msgstr[0] ""
+msgstr[1] ""
+
+#. translators: %s: number of photos
+#: inc/cars/helpers.php:427
+#, php-format
+msgid "%s photo"
+msgid_plural "%s photos"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/cars/helpers.php:470
+#: search.php:46
+#: template-parts/archive/cpt-loop.php:113
+msgid "Home"
+msgstr ""
+
+#: inc/cars/helpers.php:472
+msgid "Breadcrumb"
+msgstr ""
+
+#: inc/cars/helpers.php:526
+#: template-parts/sections/infographics_section.php:95
+#: template-parts/sections/interviews_section.php:96
+#: template-parts/sections/podcasts_section.php:98
+#: template-parts/sections/posts_section.php:99
+#: template-parts/sections/programs_section.php:96
+#: template-parts/sections/videos_section.php:96
+msgid "More"
+msgstr ""
+
+#: inc/cars/helpers.php:655
+msgid "No price"
+msgstr ""
+
+#: inc/cars/helpers.php:664
+#: template-parts/cars/filter-more.php:68
+#: template-parts/cars/filter-more.php:69
+msgid "to"
+msgstr ""
+
+#: inc/cars/helpers.php:701
+#: single-car_model_year.php:27
+msgid "Sub-family"
+msgstr ""
+
+#: inc/cars/helpers.php:776
+msgid "Hide"
+msgstr ""
+
+#: inc/cars/helpers.php:776
+msgid "...Read more"
+msgstr ""
+
+#: inc/cars/helpers.php:802
+msgid "Price starts from"
+msgstr ""
+
+#: inc/cars/helpers.php:805
+msgid "VAT included"
+msgstr ""
+
+#: inc/cars/helpers.php:805
+msgid "Excluding VAT"
+msgstr ""
+
+#: inc/cars/helpers.php:807
+msgid "No published price"
+msgstr ""
+
+#: inc/cars/helpers.php:811
+msgid "Warranty:"
+msgstr ""
+
+#: inc/cars/helpers.php:847
+#: inc/cars/helpers.php:857
+msgid "View full size"
+msgstr ""
+
+#. translators: 1: photo number, 2: number of photos
+#: inc/cars/helpers.php:870
+#, php-format
+msgid "Photo %1$d of %2$d"
+msgstr ""
+
+#. translators: %s: number of photos ("12 photos")
+#: inc/cars/helpers.php:876
+#, php-format
+msgid "%s in the gallery - click a photo to view it full size"
+msgstr ""
+
+#: inc/cars/helpers.php:905
+msgid "Price list"
+msgstr ""
+
+#: inc/cars/helpers.php:948
+msgid "Lowest price"
+msgstr ""
+
+#: inc/cars/helpers.php:948
+msgid "Highest price"
+msgstr ""
+
+#. translators: %s: model-year title
+#: inc/cars/helpers.php:949
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+msgid "Trim"
+msgstr ""
+
+#: inc/cars/helpers.php:950
+msgid "Latest price list"
+msgstr ""
+
+#. translators: %s: model name
+#: inc/cars/helpers.php:1040
+#, php-format
+msgid "Other trims of %s"
+msgstr ""
+
+#. translators: %s: model name
+#: inc/cars/helpers.php:1040
+msgid "the model"
+msgstr ""
+
+#: inc/cars/helpers.php:1041
+msgid "Rival cars"
+msgstr ""
+
+#: inc/cars/helpers.php:1048
+#: template-parts/related/related-content.php:16
+msgid "You may also like"
+msgstr ""
+
+#: inc/shortcodes/department-footer.php:81
+msgid "Follow us"
+msgstr ""
+
+#. translators: %s: number of search results
+#: inc/site-search.php:119
+#, php-format
+msgid "%s result"
+msgid_plural "%s results"
+msgstr[0] ""
+msgstr[1] ""
+
+#: inc/site-search.php:153
+msgid "Content"
+msgstr ""
+
+#: inc/submissions/approval.php:113
+msgid "The request was rejected and the submitter notified."
+msgstr ""
+
+#: inc/submissions/approval.php:115
+msgid "The request could not be moved to the trash."
+msgstr ""
+
+#: inc/submissions/approval.php:132
+#: inc/submissions/approval.php:156
+msgid "The request was not published:"
+msgstr ""
+
+#: inc/submissions/approval.php:177
+msgid "Page published:"
+msgstr ""
+
+#: inc/submissions/approval.php:186
+msgid "View"
+msgstr ""
+
+#: inc/submissions/approval.php:190
+#: inc/submissions/post-type.php:319
+msgid "Edit"
+msgstr ""
+
+#: inc/submissions/approval.php:226
+msgid "The type is not set."
+msgstr ""
+
+#: inc/submissions/approval.php:232
+#: inc/submissions/form.php:737
+msgid "The name is required."
+msgstr ""
+
+#: inc/submissions/approval.php:238
+msgid "An English slug is required before publishing."
+msgstr ""
+
+#: inc/submissions/approval.php:256
+msgid "A page with the same slug exists:"
+msgstr ""
+
+#: inc/submissions/approval.php:260
+msgid "A page with the same name exists under the same parent."
+msgstr ""
+
+#: inc/submissions/form.php:136
+#: inc/submissions/form.php:275
+msgid "The page is not set up yet."
+msgstr ""
+
+#: inc/submissions/form.php:138
+msgid "Create the submit-entity and my-account pages."
+msgstr ""
+
+#: inc/submissions/form.php:220
+msgid "Choose the type, then enter the details. The request is reviewed before publishing."
+msgstr ""
+
+#. translators: %s: type label (e.g. الفعاليات)
+#: inc/submissions/form.php:230
+#, php-format
+msgid "Add: %s"
+msgstr ""
+
+#: inc/submissions/form.php:231
+msgid "The Arabic name is required; the English name is optional and is used for the page URL. Images: jpg, png or webp up to 3 MB. The request is reviewed before publishing and you get an email when it is published."
+msgstr ""
+
+#: inc/submissions/form.php:232
+msgid "Change type"
+msgstr ""
+
+#: inc/submissions/form.php:243
+msgid "Log in to send an add request"
+msgstr ""
+
+#: inc/submissions/form.php:245
+#: inc/submissions/form.php:1119
+msgid "Log in"
+msgstr ""
+
+#: inc/submissions/form.php:256
+msgid "What would you like to add?"
+msgstr ""
+
+#: inc/submissions/form.php:262
+msgid "Add ←"
+msgstr ""
+
+#: inc/submissions/form.php:280
+msgid "This form requires JavaScript to be enabled in the browser."
+msgstr ""
+
+#: inc/submissions/form.php:296
+msgid "Send request"
+msgstr ""
+
+#: inc/submissions/form.php:341
+#: inc/submissions/post-type.php:115
+msgid "Entity / event name in Arabic"
+msgstr ""
+
+#: inc/submissions/form.php:360
+msgid "The entity / event name in Arabic is required."
+msgstr ""
+
+#: inc/submissions/form.php:452
+#: inc/submissions/form.php:460
+msgid "The slug may only contain lowercase Latin letters, numbers and hyphens."
+msgstr ""
+
+#: inc/submissions/form.php:477
+msgid "The English name may only contain Latin characters (up to 120 characters)."
+msgstr ""
+
+#: inc/submissions/form.php:532
+msgid "Choosing an existing file is not allowed; upload a new image."
+msgstr ""
+
+#: inc/submissions/form.php:560
+msgid "Invalid value."
+msgstr ""
+
+#: inc/submissions/form.php:583
+msgid "File type not allowed. Allowed: jpg, png or webp."
+msgstr ""
+
+#: inc/submissions/form.php:587
+msgid "The image is larger than 3 MB."
+msgstr ""
+
+#: inc/submissions/form.php:694
+msgid "You must be logged in to send a request."
+msgstr ""
+
+#: inc/submissions/form.php:700
+msgid "Invalid type."
+msgstr ""
+
+#: inc/submissions/form.php:704
+#: inc/submissions/form.php:710
+msgid "Mismatched data."
+msgstr ""
+
+#: inc/submissions/form.php:716
+#: inc/submissions/form.php:790
+msgid "You have sent too many requests, try again later."
+msgstr ""
+
+#: inc/submissions/form.php:724
+msgid "The name is too long."
+msgstr ""
+
+#: inc/submissions/form.php:749
+msgid "This entity already exists:"
+msgstr ""
+
+#: inc/submissions/form.php:765
+msgid "A request for this entity is already under review."
+msgstr ""
+
+#: inc/submissions/form.php:787
+msgid "Not allowed."
+msgstr ""
+
+#: inc/submissions/form.php:886
+msgid "Create an account to send add requests and follow your requests."
+msgstr ""
+
+#: inc/submissions/form.php:892
+msgid "Log in to send add requests and follow your requests."
+msgstr ""
+
+#: inc/submissions/form.php:897
+msgid "Log out"
+msgstr ""
+
+#: inc/submissions/form.php:898
+msgid "Send a new request"
+msgstr ""
+
+#. translators: %s: the user's display name
+#: inc/submissions/form.php:903
+#, php-format
+msgid "Hello, %s"
+msgstr ""
+
+#: inc/submissions/form.php:925
+msgid "or"
+msgstr ""
+
+#: inc/submissions/form.php:999
+#: inc/submissions/form.php:1089
+msgid "Registration is currently closed."
+msgstr ""
+
+#: inc/submissions/form.php:1001
+msgid "The page has expired, please try again."
+msgstr ""
+
+#: inc/submissions/form.php:1003
+msgid "The account could not be created."
+msgstr ""
+
+#: inc/submissions/form.php:1009
+msgid "Too many attempts, try again later."
+msgstr ""
+
+#: inc/submissions/form.php:1014
+msgid "Enter your name (60 characters at most)."
+msgstr ""
+
+#: inc/submissions/form.php:1017
+msgid "Invalid email address."
+msgstr ""
+
+#: inc/submissions/form.php:1019
+msgid "This email is already registered, please log in."
+msgstr ""
+
+#: inc/submissions/form.php:1022
+msgid "The password must be at least 8 characters."
+msgstr ""
+
+#: inc/submissions/form.php:1081
+#: inc/submissions/form.php:1150
+msgid "Create an account"
+msgstr ""
+
+#: inc/submissions/form.php:1092
+#: inc/submissions/post-type.php:220
+msgid "Name"
+msgstr ""
+
+#: inc/submissions/form.php:1093
+msgid "Email"
+msgstr ""
+
+#: inc/submissions/form.php:1094
+msgid "Password (at least 8 characters)"
+msgstr ""
+
+#: inc/submissions/form.php:1099
+msgid "Create account"
+msgstr ""
+
+#: inc/submissions/form.php:1103
+msgid "Have an account?"
+msgstr ""
+
+#: inc/submissions/form.php:1104
+msgctxt "link"
+msgid "Log in"
+msgstr ""
+
+#: inc/submissions/form.php:1124
+msgid "Incorrect login details."
+msgstr ""
+
+#: inc/submissions/form.php:1128
+msgid "Check your email: we sent you a password reset link, then log in here."
+msgstr ""
+
+#: inc/submissions/form.php:1133
+msgid "Email or username"
+msgstr ""
+
+#: inc/submissions/form.php:1137
+msgid "Password"
+msgstr ""
+
+#: inc/submissions/form.php:1141
+msgid "Remember me"
+msgstr ""
+
+#: inc/submissions/form.php:1145
+msgid "Sign in"
+msgstr ""
+
+#: inc/submissions/form.php:1152
+msgid "Forgot your password?"
+msgstr ""
+
+#: inc/submissions/form.php:1200
+msgid "Your request was received and will be reviewed soon."
+msgstr ""
+
+#: inc/submissions/form.php:1204
+msgid "My requests"
+msgstr ""
+
+#: inc/submissions/form.php:1225
+msgid "You haven't sent any requests yet."
+msgstr ""
+
+#: inc/submissions/form.php:1258
+#: inc/submissions/post-type.php:337
+msgid "Published"
+msgstr ""
+
+#: inc/submissions/form.php:1261
+#: inc/submissions/post-type.php:314
+#: inc/submissions/post-type.php:693
+msgid "View page"
+msgstr ""
+
+#: inc/submissions/form.php:1264
+#: inc/submissions/post-type.php:341
+msgid "Rejected"
+msgstr ""
+
+#: inc/submissions/form.php:1271
+#: inc/submissions/post-type.php:344
+msgid "Under review"
+msgstr ""
+
+#. translators: %s: submitter display name
+#: inc/submissions/notifications.php:82
+#: inc/submissions/notifications.php:122
+#, php-format
+msgid "Hello %s,"
+msgstr ""
+
+#. translators: 1: request name, 2: site name
+#: inc/submissions/notifications.php:84
+#, php-format
+msgid "Your request \"%1$s\" was published on %2$s."
+msgstr ""
+
+#: inc/submissions/notifications.php:87
+msgid "Page link:"
+msgstr ""
+
+#: inc/submissions/notifications.php:90
+msgid "Thank you for your contribution."
+msgstr ""
+
+#. translators: %s: site name
+#: inc/submissions/notifications.php:92
+#: inc/submissions/notifications.php:132
+#, php-format
+msgid "— %s"
+msgstr ""
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:97
+#, php-format
+msgid "Your request was published: %s"
+msgstr ""
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:124
+#, php-format
+msgid "About your request \"%s\":"
+msgstr ""
+
+#: inc/submissions/notifications.php:125
+msgid "We could not publish your request."
+msgstr ""
+
+#: inc/submissions/notifications.php:128
+msgid "You can follow your requests or send a new one here:"
+msgstr ""
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:137
+#, php-format
+msgid "About your request: %s"
+msgstr ""
+
+#. translators: 1: request name, 2: type label, 3: submitter display name, 4: edit URL
+#: inc/submissions/notifications.php:215
+#, php-format
+msgid "• %1$s — %2$s — %3$s — %4$s"
+msgstr ""
+
+#. translators: %d: number of requests not listed
+#: inc/submissions/notifications.php:224
+#, php-format
+msgid "and %d more"
+msgstr ""
+
+#. translators: 1: number of new requests, 2: site name
+#: inc/submissions/notifications.php:231
+#, php-format
+msgid "New add requests (%1$d) — %2$s"
+msgstr ""
+
+#: inc/submissions/post-type.php:49
+#: inc/submissions/post-type.php:51
+msgid "Add requests"
+msgstr ""
+
+#: inc/submissions/post-type.php:50
+msgid "Add request"
+msgstr ""
+
+#: inc/submissions/post-type.php:52
+#: inc/submissions/post-type.php:53
+msgid "New request"
+msgstr ""
+
+#: inc/submissions/post-type.php:54
+msgid "Review request"
+msgstr ""
+
+#: inc/submissions/post-type.php:55
+msgid "View request"
+msgstr ""
+
+#: inc/submissions/post-type.php:56
+msgid "Search requests"
+msgstr ""
+
+#: inc/submissions/post-type.php:57
+msgid "No requests"
+msgstr ""
+
+#: inc/submissions/post-type.php:58
+msgid "No requests in the trash"
+msgstr ""
+
+#: inc/submissions/post-type.php:59
+msgid "All requests"
+msgstr ""
+
+#: inc/submissions/post-type.php:135
+msgid "Request saved."
+msgstr ""
+
+#: inc/submissions/post-type.php:136
+msgid "Request published and page created."
+msgstr ""
+
+#: inc/submissions/post-type.php:137
+#: inc/submissions/post-type.php:138
+msgid "Request saved (under review)."
+msgstr ""
+
+#: inc/submissions/post-type.php:221
+#: inc/submissions/post-type.php:361
+msgid "Type"
+msgstr ""
+
+#: inc/submissions/post-type.php:222
+msgid "Parent"
+msgstr ""
+
+#: inc/submissions/post-type.php:223
+msgid "English name"
+msgstr ""
+
+#: inc/submissions/post-type.php:224
+msgid "Submitter"
+msgstr ""
+
+#: inc/submissions/post-type.php:225
+msgid "Result"
+msgstr ""
+
+#: inc/submissions/post-type.php:226
+msgid "Date"
+msgstr ""
+
+#: inc/submissions/post-type.php:363
+msgid "All types"
+msgstr ""
+
+#: inc/submissions/post-type.php:549
+msgid "Request details"
+msgstr ""
+
+#: inc/submissions/post-type.php:571
+msgid "To approve: review the fields, check the slug, then click \"Publish\". To reject: enter the reason, then \"Save as Pending\". \"Move to Trash\" rejects without a reason."
+msgstr ""
+
+#: inc/submissions/post-type.php:575
+msgid "Submitter:"
+msgstr ""
+
+#. translators: %s: registration date
+#: inc/submissions/post-type.php:584
+#, php-format
+msgid "Registered: %s"
+msgstr ""
+
+#: inc/submissions/post-type.php:591
+msgid "Request date:"
+msgstr ""
+
+#: inc/submissions/post-type.php:604
+msgid "Uploaded files:"
+msgstr ""
+
+#: inc/submissions/post-type.php:606
+msgid "No uploaded files."
+msgstr ""
+
+#: inc/submissions/post-type.php:636
+msgid "Last publishing error:"
+msgstr ""
+
+#: inc/submissions/post-type.php:683
+msgid "May already exist"
+msgstr ""
+
+#: inc/submissions/post-type.php:701
+msgid "Other requests with the same name:"
+msgstr ""
+
+#: inc/submissions/post-type.php:720
+msgid "Published:"
+msgstr ""
+
+#: inc/submissions/registry.php:270
+msgid "This type does not need a parent."
+msgstr ""
+
+#: inc/submissions/registry.php:276
+msgid "Please choose the parent down to the last level."
+msgstr ""
+
+#: inc/submissions/registry.php:281
+msgid "The chosen parent does not exist."
+msgstr ""
+
+#. translators: %d: 1-based level number the parent must be picked from
+#: inc/submissions/registry.php:288
+#, php-format
+msgid "Please choose the parent from the last level (level %d)."
+msgstr ""
+
+#: inc/submissions/registry.php:422
+msgid "No parent is needed for this type."
+msgstr ""
+
+#: inc/submissions/registry.php:423
+msgid "No options available"
+msgstr ""
+
+#: inc/submissions/registry.php:424
+#: template-parts/entities/entity-browse-section.php:82
+msgid "Loading…"
+msgstr ""
+
+#: inc/submissions/registry.php:425
+msgid "The options could not be loaded, try again."
+msgstr ""
+
+#. translators: %d: 1-based level number of a parent picker select
+#: inc/submissions/registry.php:427
+#, php-format
+msgid "Level %d"
+msgstr ""
+
+#: inc/submissions/roles.php:28
+msgctxt "user role"
+msgid "Submitter"
+msgstr ""
+
+#: price-range.php:13
+#: template-parts/sections/car_home_section.php:122
+msgid "Cars for your budget"
+msgstr ""
+
+#. translators: %s: price range ("50 ألف إلى 100 ألف")
+#: price-range.php:15
+#, php-format
+msgid "New cars %s Saudi riyals"
+msgstr ""
+
+#: price-range.php:37
+msgid "This price range does not exist."
+msgstr ""
+
+#: price-range.php:43
+msgid "Price range"
+msgstr ""
+
+#. translators: 1: last year, 2: this year, 3: price range, 4: number of models ("12 models")
+#: price-range.php:47
+#, php-format
+msgid "Looking to buy a new %1$d or %2$d model car with a budget of %3$s Saudi riyals? Here are %4$s at the lowest price per model."
+msgstr ""
+
+#: price-range.php:49
+#: taxonomy-body_type.php:35
+msgid "Available models"
+msgstr ""
+
+#: price-range.php:49
+#: taxonomy-body_type.php:35
+msgid "Lowest price per model"
+msgstr ""
+
+#. translators: 1: body type, 2: last year, 3: this year
+#: price-range.php:55
+#: taxonomy-body_type.php:42
+msgid "No cars on this page."
+msgstr ""
+
+#: price-range.php:55
+msgid "No cars in this price range at the moment."
+msgstr ""
+
+#: price-range.php:60
+msgid "Other price ranges"
+msgstr ""
+
+#. translators: %s: post type label, e.g. البرامج
+#: search.php:31
+#, php-format
+msgid "Remove filter: %s"
+msgstr ""
+
+#: search.php:43
+msgctxt "search"
+msgid "Breadcrumb"
+msgstr ""
+
+#: search.php:50
+#: template-parts/cars/filter-taxonomies.php:23
+msgid "Search"
+msgstr ""
+
+#: search.php:58
+#: template-parts/header-search.php:14
+#: template-parts/header-search.php:22
+#: template-parts/search/search-form.php:18
+msgid "Site search"
+msgstr ""
+
+#. translators: %s: the search query, wrapped in «»
+#: search.php:62
+#, php-format
+msgid "Search results for: %s"
+msgstr ""
+
+#. translators: 1: current page number, 2: number of pages
+#: search.php:77
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr ""
+
+#: search.php:88
+msgid "In:"
+msgstr ""
+
+#: search.php:104
+msgid "Search the site content"
+msgstr ""
+
+#: search.php:104
+msgid "Edit search"
+msgstr ""
+
+#: search.php:118
+msgid "What are you looking for?"
+msgstr ""
+
+#: search.php:121
+msgid "Type one or more words to search the news, programs, interviews and the rest of the site."
+msgstr ""
+
+#: search.php:125
+msgid "The search term is too short"
+msgstr ""
+
+#: search.php:130
+msgid "Type at least two characters to start searching."
+msgstr ""
+
+#: search.php:138
+msgid "Results"
+msgstr ""
+
+#: search.php:169
+msgid "Search results pages"
+msgstr ""
+
+#: search.php:181
+msgid "Previous page"
+msgstr ""
+
+#: search.php:183
+msgid "Next page"
+msgstr ""
+
+#: search.php:196
+msgid "No matching results"
+msgstr ""
+
+#. translators: %s: the search query, wrapped in «»
+#: search.php:202
+#, php-format
+msgid "We found no content matching %s. Try other or fewer words, or check the spelling."
+msgstr ""
+
+#: search.php:208
+msgid "Results may differ with the spelling of a word, so try for example «إنفوجراف» and «انفوجراف»."
+msgstr ""
+
+#: search.php:213
+msgid "Search all content"
+msgstr ""
+
+#. translators: %s: model year
+#: single-car.php:47
+#: single-car_model_year.php:25
+#, php-format
+msgid "Model %s"
+msgstr ""
+
+#: single-car.php:80
+msgid "Key specifications"
+msgstr ""
+
+#: single-car.php:85
+msgid "Overview"
+msgstr ""
+
+#: single-car.php:92
+msgid "Detailed specifications"
+msgstr ""
+
+#: single-car.php:92
+msgid "Full specifications"
+msgstr ""
+
+#. translators: %s: model year
+#: single-car_model_year.php:29
+#, php-format
+msgid "Model year %s"
+msgstr ""
+
+#: single-car_model_year.php:41
+msgid "Prices from"
+msgstr ""
+
+#: single-car_model_year.php:43
+msgid "Starts from"
+msgstr ""
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:85
+#, php-format
+msgid "%s trims"
+msgstr ""
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:85
+msgid "Choose a trim"
+msgstr ""
+
+#: single-car_model_year.php:89
+msgid "No trims are linked to this year."
+msgstr ""
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+#, php-format
+msgid "%s prices"
+msgstr ""
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:104
+#, php-format
+msgid "%s photos"
+msgstr ""
+
+#: single-podcast.php:11
+#: single.php:19
+#: template-parts/cards/card-interview.php:9
+#: template-parts/cards/card-podcast.php:9
+#: template-parts/cards/card-post.php:9
+#: template-parts/cards/card-program.php:9
+#: template-parts/cards/card-video.php:9
+#: template-parts/sections/interviews_section.php:113
+#: template-parts/sections/podcasts_section.php:114
+#: template-parts/sections/posts_section.php:115
+#: template-parts/sections/program_series_section.php:245
+#: template-parts/sections/speakers_section.php:148
+#: template-parts/sections/videos_section.php:113
+msgid "Tafaol Saudi"
+msgstr ""
+
+#: single-podcast.php:58
+msgid "Episode reels"
+msgstr ""
+
+#: single-reel.php:26
+msgid "From the podcast"
+msgstr ""
+
+#. translators: %s: podcast title
+#. translators: %s: department name
+#: single-reel.php:59
+#: template-parts/archive/cpt-loop.php:101
+#: template-parts/sections/active-filter-header.php:41
+#, php-format
+msgid "Back to %s"
+msgstr ""
+
+#: taxonomy-body_type.php:21
+msgid "This body type does not exist."
+msgstr ""
+
+#. translators: %s: body type
+#: taxonomy-body_type.php:28
+#, php-format
+msgid "New %s cars"
+msgstr ""
+
+#. translators: %s: body type
+#: taxonomy-body_type.php:28
+msgid "Body type"
+msgstr ""
+
+#. translators: 1: number of models ("12 models"), 2: body type, 3: last year, 4: this year
+#: taxonomy-body_type.php:33
+#, php-format
+msgid "%1$s in the %2$s class, %3$d and %4$d models, at the lowest price per model."
+msgstr ""
+
+#. translators: 1: body type, 2: last year, 3: this year
+#: taxonomy-body_type.php:42
+#, php-format
+msgid "No %1$s cars with %2$d and %3$d models at the moment."
+msgstr ""
+
+#: taxonomy-body_type.php:47
+msgid "Other shapes"
+msgstr ""
+
+#: taxonomy-car_make.php:26
+msgid "This brand does not exist."
+msgstr ""
+
+#: taxonomy-car_make.php:32
+msgid "Brand"
+msgstr ""
+
+#. translators: %s: brand or model name
+#: taxonomy-car_make.php:40
+#: taxonomy-car_make.php:62
+#, php-format
+msgid "Choose from the %s cars"
+msgstr ""
+
+#: taxonomy-car_make.php:41
+msgid "This model has no model years yet."
+msgstr ""
+
+#. translators: %s: brand or model name
+#: taxonomy-car_make.php:62
+msgid "Models"
+msgstr ""
+
+#: taxonomy-car_make.php:63
+msgid "This brand has no models yet."
+msgstr ""
+
+#. translators: %s: origin (country)
+#: taxonomy-car_origin.php:20
+#, php-format
+msgid "Choose from %s"
+msgstr ""
+
+#. translators: %s: origin (country)
+#: taxonomy-car_origin.php:20
+msgid "Brands"
+msgstr ""
+
+#: taxonomy-car_origin.php:24
+msgid "This origin has no brands yet."
+msgstr ""
+
+#: taxonomy-car_origin.php:28
+msgid "This origin does not exist."
+msgstr ""
+
+#: taxonomy-department.php:93
+msgid "No sections have been set up for this entity yet."
+msgstr ""
+
+#: taxonomy-event.php:27
+#: taxonomy-geographic.php:37
+#: taxonomy-government_entity.php:38
+#: taxonomy-international_entity.php:38
+#: taxonomy-private_entity.php:38
+#: taxonomy-speaker_influencer.php:45
+msgid "Back to the homepage"
+msgstr ""
+
+#. translators: 1: department name, 2: post type label
+#: template-parts/archive/cpt-loop.php:75
+#, php-format
+msgid "%1$s — %2$s"
+msgstr ""
+
+#: template-parts/archive/cpt-loop.php:147
+msgid "Pagination"
+msgstr ""
+
+#: template-parts/archive/cpt-loop.php:189
+msgid "No content yet"
+msgstr ""
+
+#: template-parts/archive/cpt-loop.php:192
+msgid "Nothing has been published in this section yet."
+msgstr ""
+
+#: template-parts/cards/card-hero-featured.php:12
+msgid "News"
+msgstr ""
+
+#: template-parts/cards/card-hero-featured.php:54
+msgid "Cover story • FEATURED STORY"
+msgstr ""
+
+#: template-parts/cards/card-hero-featured.php:63
+#, php-format
+msgid "%s ago"
+msgstr ""
+
+#: template-parts/cards/card-hero-featured.php:91
+msgid "Read the full story"
+msgstr ""
+
+#: template-parts/cards/card-hero-featured.php:97
+msgid "Share"
+msgstr ""
+
+#: template-parts/cards/card-infographic.php:13
+#: template-parts/cards/card-interview.php:35
+#: template-parts/cards/card-podcast.php:35
+#: template-parts/cards/card-program.php:35
+#: template-parts/cards/card-video.php:35
+msgid "No Image"
+msgstr ""
+
+#: template-parts/cards/card-interview.php:9
+#: template-parts/cards/card-interview.php:13
+#: template-parts/cards/card-podcast.php:9
+#: template-parts/cards/card-podcast.php:13
+#: template-parts/cards/card-post.php:9
+#: template-parts/cards/card-post.php:13
+#: template-parts/cards/card-program.php:9
+#: template-parts/cards/card-program.php:13
+#: template-parts/cards/card-video.php:9
+#: template-parts/cards/card-video.php:13
+#: template-parts/sections/program_series_section.php:245
+#: template-parts/sections/speakers_section.php:148
+msgctxt "between names"
+msgid " and "
+msgstr ""
+
+#: template-parts/cards/card-program.php:23
+#: template-parts/cards/card-program.php:52
+msgid "Our programs"
+msgstr ""
+
+#. translators: %s: filter text
+#: template-parts/cars/filter-chips.php:42
+#, php-format
+msgctxt "car filter"
+msgid "Remove filter: %s"
+msgstr ""
+
+#: template-parts/cars/filter-chips.php:50
+msgid "Clear all"
+msgstr ""
+
+#: template-parts/cars/filter-more.php:22
+msgid "More filters"
+msgstr ""
+
+#: template-parts/cars/filter-more.php:63
+#: template-parts/cars/filter-more.php:64
+msgid "From"
+msgstr ""
+
+#: template-parts/cars/filter-more.php:78
+msgid "Apply"
+msgstr ""
+
+#: template-parts/cars/filter-taxonomies.php:29
+msgid "Search for a car…"
+msgstr ""
+
+#: template-parts/cars/filter-taxonomies.php:34
+#: template-parts/header-search.php:34
+#: template-parts/search/search-form.php:38
+msgctxt "button"
+msgid "Search"
+msgstr ""
+
+#: template-parts/cars/model-listing.php:22
+msgid "No cars in this list at the moment."
+msgstr ""
+
+#: template-parts/cars/model-listing.php:34
+#: template-parts/cars/results.php:61
+msgid "Pages"
+msgstr ""
+
+#: template-parts/cars/results.php:84
+msgid "Show more cars"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:77
+#: template-parts/sections/filter_section.php:21
+msgid "Entities"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:83
+msgid "No entities in this group"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:84
+msgid "Loading failed, click to retry"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:85
+msgid "No results"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:86
+msgid "Too many results, type a more specific word to narrow the search"
+msgstr ""
+
+#: template-parts/entities/entity-browse-section.php:204
+msgid "Search…"
+msgstr ""
+
+#: template-parts/header-search.php:23
+msgid "Search the site"
+msgstr ""
+
+#: template-parts/header-search.php:30
+msgid "Search the site…"
+msgstr ""
+
+#: template-parts/header-search.php:34
+#: template-parts/search/search-form.php:37
+msgid "Searching…"
+msgstr ""
+
+#: template-parts/header-search.php:37
+msgid "Close search"
+msgstr ""
+
+#: template-parts/profiles/term-profile.php:14
+msgid "Back"
+msgstr ""
+
+#: template-parts/profiles/term-profile.php:58
+msgid "Profile"
+msgstr ""
+
+#: template-parts/related/related-content.php:17
+msgid "More coverage on this topic"
+msgstr ""
+
+#: template-parts/search/search-form.php:24
+msgid "Search terms"
+msgstr ""
+
+#: template-parts/search/search-form.php:34
+msgid "Search the news, programs and interviews…"
+msgstr ""
+
+#: template-parts/sections/cars_section.php:89
+msgctxt "cars"
+msgid "Loading…"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:116
+msgid "All cars"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:132
+msgid "Choose your car by shape"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:142
+msgid "Choose your brand to follow its news and cars"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:146
+msgid "All of the"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:146
+msgid "brands"
+msgstr ""
+
+#: template-parts/sections/car_home_section.php:155
+msgid "All brands by country of origin"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:15
+msgid "Geographic Locations"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:137
+#: template-parts/sections/geographic_section.php:236
+msgid "item"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:177
+msgid "Regions"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:197
+#, php-format
+msgid "All %s"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:203
+msgid "Total"
+msgstr ""
+
+#: template-parts/sections/infographics_section.php:76
+msgid "Data and infographics lab"
+msgstr ""
+
+#: template-parts/sections/infographics_section.php:79
+msgid "Interactive numbers"
+msgstr ""
+
+#: template-parts/sections/infographics_section.php:82
+msgid "Visual micro-analyses and charts tracking the acceleration of technology and digital transformation"
+msgstr ""
+
+#: template-parts/sections/interviews_section.php:77
+msgid "Interviews and conversations"
+msgstr ""
+
+#: template-parts/sections/interviews_section.php:80
+msgid "Long sessions"
+msgstr ""
+
+#: template-parts/sections/interviews_section.php:83
+msgid "In-depth conversations with leaders of technological transformation and Saudi decision makers"
+msgstr ""
+
+#: template-parts/sections/podcasts_section.php:82
+msgid "Episodes"
+msgstr ""
+
+#: template-parts/sections/podcasts_section.php:85
+msgid "In-depth audio and video programs"
+msgstr ""
+
+#: template-parts/sections/posts_section.php:80
+msgid "Latest news • LATEST NEWS"
+msgstr ""
+
+#: template-parts/sections/posts_section.php:83
+msgid "Continuous updates"
+msgstr ""
+
+#: template-parts/sections/posts_section.php:86
+msgid "Comprehensive news coverage of the most important events and changes in Saudi Arabia"
+msgstr ""
+
+#: template-parts/sections/posts_section.php:107
+msgid "News • NEWS"
+msgstr ""
+
+#: template-parts/sections/programs_section.php:77
+msgid "Programs and shows • PROGRAMS (SHOWS)"
+msgstr ""
+
+#: template-parts/sections/programs_section.php:80
+msgid "Productions"
+msgstr ""
+
+#: template-parts/sections/programs_section.php:83
+msgid "Talk shows and in-depth exploratory series documenting the contemporary technical and cultural renaissance"
+msgstr ""
+
+#: template-parts/sections/program_series_section.php:16
+msgid "ORIGINAL SERIES / Our exclusive programs"
+msgstr ""
+
+#: template-parts/sections/program_series_section.php:155
+msgid "In-depth documentary series chronicling a historic transformation"
+msgstr ""
+
+#: template-parts/sections/program_series_section.php:161
+#: template-parts/sections/program_series_section.php:167
+msgid "All seasons guide"
+msgstr ""
+
+#: template-parts/sections/program_series_section.php:252
+msgid "approved episodes"
+msgstr ""
+
+#: template-parts/sections/program_series_section.php:275
+msgid "Browse all episodes"
+msgstr ""
+
+#: template-parts/sections/social_section.php:50
+msgid "Follow us across our digital platforms for the latest updates, programs, and exclusive insights."
+msgstr ""
+
+#: template-parts/sections/social_section.php:60
+msgid "Join the community of"
+msgstr ""
+
+#: template-parts/sections/social_section.php:68
+msgid "Stay Connected"
+msgstr ""
+
+#: template-parts/sections/social_section.php:95
+msgid "Visit"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:14
+msgid "Change makers • VOICES & SPEAKERS"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:52
+msgid "Leaders and content creators sharing their views and exclusive analysis on the platform"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:59
+msgid "All experts"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:116
+msgid "published items"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:149
+msgid "Expert and change maker in"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:165
+msgid "View profile and articles"
+msgstr ""
+
+#: template-parts/sections/videos_section.php:77
+msgid "Video library • VIDEO LIBRARY"
+msgstr ""
+
+#: template-parts/sections/videos_section.php:80
+msgid "Video coverage"
+msgstr ""
+
+#: template-parts/sections/videos_section.php:83
+msgid "A collection of the latest coverage and videos capturing the pulse of Saudi Arabia"
+msgstr ""

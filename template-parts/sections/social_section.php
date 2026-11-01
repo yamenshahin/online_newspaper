@@ -57,7 +57,7 @@ if (!empty($section)) {
     $section_title = get_sub_field('section_title');
 }
 
-$section_title = $section_title ?: __('انضم إلى مجتمع', 'hello-elementor-child');
+$section_title = $section_title ?: __('Join the community of', 'hello-elementor-child');
 $heading_text = trim($section_title . ' ' . $title_name);
 ?>
 

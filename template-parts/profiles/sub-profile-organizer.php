@@ -70,7 +70,7 @@ if ($org_name === '' && $image_url === '' && !$has_extra && !$has_social) {
 
         <div class="flex-1 min-w-0">
             <span class="text-xs font-bold text-primary uppercase tracking-wider block mb-3">
-                <?php esc_html_e('الجهة المنظمة', 'hello-elementor-child'); ?>
+                <?php esc_html_e('Organizer', 'hello-elementor-child'); ?>
             </span>
 
             <?php if ($org_name !== ''): ?>

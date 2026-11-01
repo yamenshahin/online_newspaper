@@ -13,7 +13,7 @@ if (!empty($section)) {
 } else {
     $section_title = get_sub_field('section_title');
 }
-$section_title = $section_title ?: __('ORIGINAL SERIES / برامجنا الحصرية', 'hello-elementor-child');
+$section_title = $section_title ?: __('ORIGINAL SERIES / Our exclusive programs', 'hello-elementor-child');
 
 $target_taxonomy = 'program_series';
 $query_var = 'program_series';
@@ -152,19 +152,19 @@ $has_more = $total_terms > $show_limit;
                     <?php echo esc_html($section_title); ?>
                 </span>
                 <h2 class="font-headline-lg text-headline-lg text-surface-bright">
-                    <?php esc_html_e('سلاسل وثائقية معمقة تؤرخ التحول التاريخي', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('In-depth documentary series chronicling a historic transformation', 'hello-elementor-child'); ?>
                 </h2>
             </div>
             <?php if ($department instanceof WP_Term && isset($_GET[$query_var])): ?>
                 <a href="<?php echo esc_url(get_term_link($department)); ?>"
                     class="px-space-lg py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill self-start md:self-auto transition-all flex items-center gap-1">
-                    <span><?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?></span>
+                    <span><?php esc_html_e('All seasons guide', 'hello-elementor-child'); ?></span>
                     <span class="material-symbols-outlined text-[16px]">close</span>
                 </a>
             <?php else: ?>
                 <a href="<?php echo esc_url($archive_link); ?>"
                     class="px-space-lg py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill self-start md:self-auto transition-all">
-                    <?php esc_html_e('دليل كل المواسم', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('All seasons guide', 'hello-elementor-child'); ?>
                 </a>
             <?php endif; ?>
         </div>
@@ -242,14 +242,14 @@ $has_more = $total_terms > $show_limit;
                                             }
                                         }
                                     }
-                                    $dept_string = !empty($dept_names) ? implode(' و ', $dept_names) : 'تفاعل السعودية';
+                                    $dept_string = !empty($dept_names) ? implode(_x(' and ', 'between names', 'hello-elementor-child'), $dept_names) : __('Tafaol Saudi', 'hello-elementor-child');
                                     echo esc_html($dept_string);
                                     ?>
                                 </span>
                                 <span
                                     class="font-label-pill text-label-pill px-space-sm py-0.5 rounded-full bg-gray-100 text-gray-700">
                                     <?php echo esc_html((string) $count); ?>
-                                    <?php esc_html_e('حلقة معتمدة', 'hello-elementor-child'); ?>
+                                    <?php esc_html_e('approved episodes', 'hello-elementor-child'); ?>
                                 </span>
                             </div>
                             <h3
@@ -272,7 +272,7 @@ $has_more = $total_terms > $show_limit;
                         </div>
                         <div
                             class="flex items-center justify-between text-primary font-label-pill text-label-pill pt-space-sm mt-2 border-t border-gray-100">
-                            <span><?php esc_html_e('تصفح كل الحلقات', 'hello-elementor-child'); ?></span>
+                            <span><?php esc_html_e('Browse all episodes', 'hello-elementor-child'); ?></span>
                             <span
                                 class="material-symbols-outlined text-[16px] group-hover:-translate-x-1 transition-transform">←</span>
                         </div>
@@ -287,7 +287,7 @@ $has_more = $total_terms > $show_limit;
             <div class="flex justify-center z-10 relative mt-2">
                 <button type="button" id="toggle-program-series"
                     class="px-space-xl py-space-sm rounded-full bg-white text-gray-700 border border-gray-200 hover:text-primary hover:bg-gray-50 shadow-sm font-label-pill text-label-pill transition-all flex items-center gap-2 cursor-pointer">
-                    <span class="button-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                    <span class="button-text"><?php esc_html_e('Show more', 'hello-elementor-child'); ?></span>
                     <span class="material-symbols-outlined text-[16px] transition-transform duration-300">expand_more</span>
                 </button>
             </div>
@@ -303,10 +303,10 @@ $has_more = $total_terms > $show_limit;
                         expanded = !expanded;
                         extraItems.forEach(item => item.classList.toggle('hidden', !expanded));
                         if (expanded) {
-                            textSpan.textContent = '<?php echo esc_js(__('عرض أقل', 'hello-elementor-child')); ?>';
+                            textSpan.textContent = '<?php echo esc_js(__('Show less', 'hello-elementor-child')); ?>';
                             icon.style.transform = 'rotate(180deg)';
                         } else {
-                            textSpan.textContent = '<?php echo esc_js(__('عرض المزيد', 'hello-elementor-child')); ?>';
+                            textSpan.textContent = '<?php echo esc_js(__('Show more', 'hello-elementor-child')); ?>';
                             icon.style.transform = 'rotate(0deg)';
                         }
                     });

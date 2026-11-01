@@ -29,14 +29,14 @@ const CAR_PATH_META = '_car_path';
 function car_directory_taxonomies(): array
 {
     return [
-        'car_make' => ['الماركات والموديلات', true, true],
-        'car_origin' => ['المنشأ', false, true],
-        'car_year' => ['سنوات الموديل', false, true],
-        'body_type' => ['أنواع الهيكل', false, true],
-        'fuel_type' => ['أنواع الوقود', false, false],
-        'transmission' => ['أنواع ناقل الحركة', false, false],
-        'drivetrain' => ['أنظمة الدفع', false, false],
-        'car_feature' => ['التجهيزات', false, false],
+        'car_make' => [__('Brands and models', 'hello-elementor-child'), true, true],
+        'car_origin' => [__('Origin', 'hello-elementor-child'), false, true],
+        'car_year' => [__('Model years', 'hello-elementor-child'), false, true],
+        'body_type' => [__('Body types', 'hello-elementor-child'), false, true],
+        'fuel_type' => [__('Fuel types', 'hello-elementor-child'), false, false],
+        'transmission' => [__('Transmission types', 'hello-elementor-child'), false, false],
+        'drivetrain' => [__('Drivetrains', 'hello-elementor-child'), false, false],
+        'car_feature' => [__('Features', 'hello-elementor-child'), false, false],
     ];
 }
 
@@ -50,12 +50,23 @@ function car_directory_url(string $path = ''): string
 /** Price-range pages: slug => [label, min, max] (SAR, max exclusive; 0 = open). The source's own slugs. */
 function car_price_ranges(): array
 {
-    $ranges = ['less-than-50k' => ['أقل من 50 ألف', 0, 50000]];
+    /* translators: %s: amount in thousands ("50 ألف") */
+    $ranges = ['less-than-50k' => [sprintf(__('Under %s', 'hello-elementor-child'), car_thousands(50000)), 0, 50000]];
     for ($k = 50; $k < 400; $k += 50) {
-        $ranges["from-{$k}k-to-" . ($k + 50) . 'k'] = ["{$k} ألف إلى " . ($k + 50) . ' ألف', $k * 1000, ($k + 50) * 1000];
+        /* translators: 1: lower amount, 2: upper amount ("50 ألف", "100 ألف") */
+        $label = sprintf(__('%1$s to %2$s', 'hello-elementor-child'), car_thousands($k * 1000), car_thousands(($k + 50) * 1000));
+        $ranges["from-{$k}k-to-" . ($k + 50) . 'k'] = [$label, $k * 1000, ($k + 50) * 1000];
     }
-    $ranges['more-than-400k'] = ['أكثر من 400 ألف', 400000, 0];
+    /* translators: %s: amount in thousands ("400 ألف") */
+    $ranges['more-than-400k'] = [sprintf(__('Over %s', 'hello-elementor-child'), car_thousands(400000)), 400000, 0];
     return apply_filters('car_price_ranges', $ranges);
+}
+
+/** 50000 -> "50 ألف". */
+function car_thousands(int $amount): string
+{
+    /* translators: %s: number of thousands */
+    return sprintf(__('%s thousand', 'hello-elementor-child'), number_format_i18n($amount / 1000));
 }
 
 function car_price_range_url(string $slug): string
@@ -323,7 +334,8 @@ function car_directory_archive_title(string $title): string
         return $title;
     }
     $paged = max(1, (int) get_query_var('paged'));
-    return 'دليل السيارات' . ($paged > 1 ? ' - صفحة ' . $paged : '') . ' - ' . get_bloginfo('name');
+    /* translators: %d: page number */
+    return __('Car Directory', 'hello-elementor-child') . ($paged > 1 ? ' - ' . sprintf(__('Page %d', 'hello-elementor-child'), $paged) : '') . ' - ' . get_bloginfo('name');
 }
 add_filter('pre_get_document_title', 'car_directory_archive_title', 20);
 add_filter('rank_math/frontend/title', 'car_directory_archive_title', 20);

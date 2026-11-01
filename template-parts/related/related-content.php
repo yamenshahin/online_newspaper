@@ -13,8 +13,8 @@ $related = get_related_content(get_the_ID());
 $department = get_context_department();
 
 $rows = [
-    'main' => __('قد يهمك أيضًا', 'hello-elementor-child'),
-    'strip' => __('تغطيات أخرى حول الموضوع', 'hello-elementor-child'),
+    'main' => __('You may also like', 'hello-elementor-child'),
+    'strip' => __('More coverage on this topic', 'hello-elementor-child'),
 ];
 
 global $post;
