@@ -357,6 +357,10 @@ msgid "Videos Section"
 msgstr "قسم الفيديو"
 
 #: inc/acf-json-strings.php:52
+msgid "Program Episodes Section"
+msgstr "قسم حلقات البرامج"
+
+#: inc/acf-json-strings.php:52
 msgid "Podcasts Section"
 msgstr "قسم البودكاست"
 
@@ -3386,16 +3390,16 @@ msgid "News • NEWS"
 msgstr "أخبار • NEWS"
 
 #: template-parts/sections/programs_section.php:77
-msgid "Programs and shows • PROGRAMS (SHOWS)"
-msgstr "البرامج والعروض • PROGRAMS (SHOWS)"
+msgid "Latest program episodes"
+msgstr "أحدث حلقات البرامج"
 
 #: template-parts/sections/programs_section.php:80
-msgid "Productions"
-msgstr "برامج إنتاجية"
+msgid "New episodes"
+msgstr "حلقات جديدة"
 
 #: template-parts/sections/programs_section.php:83
-msgid "Talk shows and in-depth exploratory series documenting the contemporary technical and cultural renaissance"
-msgstr "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة"
+msgid "The newest episodes from our programs and series"
+msgstr "أحدث الحلقات من برامجنا وسلاسلنا"
 
 #: template-parts/sections/program_series_section.php:16
 msgid "ORIGINAL SERIES / Our exclusive programs"

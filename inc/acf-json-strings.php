@@ -49,6 +49,7 @@ return [
     __('Infographics Section', 'hello-elementor-child'),
     __('Interviews Section', 'hello-elementor-child'),
     __('Videos Section', 'hello-elementor-child'),
+    __('Program Episodes Section', 'hello-elementor-child'),
     __('Podcasts Section', 'hello-elementor-child'),
     __('Speakers Section', 'hello-elementor-child'),
     __('Program Series Section', 'hello-elementor-child'),
