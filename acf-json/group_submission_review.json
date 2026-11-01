@@ -1,0 +1,91 @@
+{
+    "key": "group_submission_review",
+    "title": "مراجعة الطلب",
+    "fields": [
+        {
+            "key": "field_submission_review_slug",
+            "label": "الرابط (slug) بالإنجليزية",
+            "name": "review_slug",
+            "aria-label": "",
+            "type": "text",
+            "instructions": "حروف لاتينية صغيرة وأرقام وشرطات فقط. يُملأ تلقائياً من الاسم بالإنجليزية إن وُجد. مطلوب قبل النشر.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "submission-ltr",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": 120,
+            "allow_in_bindings": 0,
+            "placeholder": "",
+            "prepend": "",
+            "append": ""
+        },
+        {
+            "key": "field_submission_rejection_reason",
+            "label": "سبب الرفض",
+            "name": "rejection_reason",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "اكتب السبب ثم اضغط «حفظ بإنتظار المراجعة»: يُنقل الطلب إلى سلة المهملات وتُحذف صوره ويُرسل السبب إلى المُرسل بالبريد. لاستعادة طلب مرفوض استخدم «استعادة» من سلة المهملات؛ يُمسح السبب ويعود الطلب إلى قيد المراجعة.",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        },
+        {
+            "key": "field_submission_review_notes",
+            "label": "ملاحظات داخلية",
+            "name": "review_notes",
+            "aria-label": "",
+            "type": "textarea",
+            "instructions": "",
+            "required": 0,
+            "conditional_logic": 0,
+            "wrapper": {
+                "width": "",
+                "class": "",
+                "id": ""
+            },
+            "default_value": "",
+            "maxlength": "",
+            "allow_in_bindings": 0,
+            "rows": 3,
+            "placeholder": "",
+            "new_lines": ""
+        }
+    ],
+    "location": [
+        [
+            {
+                "param": "post_type",
+                "operator": "==",
+                "value": "user_submits"
+            }
+        ]
+    ],
+    "menu_order": 1,
+    "position": "side",
+    "style": "default",
+    "label_placement": "top",
+    "instruction_placement": "label",
+    "hide_on_screen": [],
+    "active": true,
+    "description": "",
+    "show_in_rest": 0,
+    "display_title": "",
+    "allow_ai_access": false,
+    "ai_description": "",
+    "modified": 1793531933
+}

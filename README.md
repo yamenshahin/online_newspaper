@@ -19,11 +19,11 @@ An Arabic (RTL) news theme for Sharaka Online Newspaper, built as a child of `he
 | WordPress + PHP 8.x  | Code uses typed signatures and nullable return types.                                   |
 | Hello Elementor      | Parent theme (`Template: hello-elementor`).                                             |
 | Elementor            | Footer template, built from the theme's shortcodes. The header is Hello's PHP header, overridden in `template-parts/dynamic-header.php`. |
-| ACF Pro              | **Required.** Post types, taxonomies and field groups are all defined in `acf-json/`.   |
+| ACF Pro              | **Required.** Post types, taxonomies and field groups are defined in `acf-json/` (all but `user_submits`, see the note below). |
 | Node.js              | Only needed to rebuild CSS (Tailwind CSS v4 via `@tailwindcss/cli`).                    |
 | WP-CLI (optional)    | For flushing rewrites/cache after deploys.                                              |
 
-> Custom post types and taxonomies are **not** registered in PHP. ACF Pro loads them from `acf-json/`. If ACF is inactive, these post types and taxonomies are not registered and their templates have nothing to show.
+> Custom post types and taxonomies are **not** registered in PHP. ACF Pro loads them from `acf-json/`. If ACF is inactive, these post types and taxonomies are not registered and their templates have nothing to show. The one exception is the entity-submissions staging type `user_submits`, registered with `register_post_type()` in `inc/submissions/post-type.php` (see *Entity submissions*): only its two field groups (`group_submission`, `group_submission_review`) live in `acf-json/`, so the type stays registered without ACF but its form and review fields do not.
 
 ---
 
@@ -126,6 +126,33 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 
 ---
 
+## Entity submissions
+
+Visitors can ask for a new entity or event page («طلب إضافة»). A request is a `user_submits` post (pending, never public); the clerk reviews it in wp-admin and «نشر» turns it into a term of the chosen taxonomy (`government_entity`, `private_entity`, `event`, `international_entity`) with the ACF values copied over. Code: `inc/submissions/` (`registry.php` constants, taxonomy registry, depth rules and the REST route; `roles.php` role and lockout; `post-type.php` CPT and clerk screens; `form.php` shortcodes and validation; `approval.php` publish/reject; `notifications.php` e-mails and digest) and `assets/js/submissions.js` (the parent picker, front end and admin).
+
+**Pages.** Two pages must exist: `submit-entity` with `[entity_submit]` and `my-account` with `[entity_account]`. The slugs can be changed with the `submission_page_slug` filter (`$slug, $which`, where `$which` is `submit` or `account`). Both pages send no-cache headers and tell LiteSpeed not to cache them (`litespeed_control_set_nocache`); any other page cache must exclude them by hand.
+
+**Accounts.** Settings → General: *Anyone can register* on, default role «مُرسل» (`submitter`, `read` only). Subscribers are treated the same way: anyone who cannot `edit_posts` is kept out of wp-admin (profile page included), gets no admin bar and lands on `my-account` after login. Passwords are set through «نسيت كلمة المرور؟» on the account page.
+
+**Google login (Nextend Social Login).** Settings → Nextend Social Login → Google: enter the client id and secret, verify, enable. Authorised redirect URI in the Google console: `https://tafaol.sa/wp-login.php?loginSocial=google`. Leave *Fixed redirect URL* empty: with a fixed URL Nextend skips `login_redirect` and submitters would not land on their account page. The Google button appears on `my-account` only once the provider is enabled.
+
+**Clerk workflow** («طلبات الإضافة» in the admin menu; editors and administrators):
+
+- The edit screen shows the request fields, the term field group of the chosen type (the same group the taxonomy uses), the «مراجعة الطلب» box and the read-only «بيانات الطلب» box (submitter, uploads, possible duplicates, last error).
+- «نشر» publishes: a term is created with the request's name, slug and parent, the ACF values are copied to it, the request keeps the term id in `_result_term_id` and the submitter gets an e-mail. When something is wrong (no slug, duplicate name or slug, wrong parent level) the request goes back to pending and the reason is shown as a notice and in «بيانات الطلب».
+- Rejection: write «سبب الرفض» and press «حفظ بإنتظار المراجعة» (the request is trashed, its uploads are deleted and the reason is mailed), or «نقل إلى سلة المهملات» for a rejection without a reason. «استعادة» from the trash brings the request back as pending with the reason cleared.
+- Slug rule: Latin lowercase letters, digits and hyphens only, from «الرابط (slug)» or, when empty, from the English name. Arabic is never transliterated; without a Latin slug the request cannot be published.
+- After approval, edits are made on the term; the request is a frozen copy. Rejecting deletes the submitter's uploads, approving keeps them (they belong to the page now).
+- Parent level: a request sits under the last level of its taxonomy (a sector for government entities, a root for events, none for international entities). Depths are computed from the term tree, never hard-coded.
+
+**Notifications.** Approval and rejection e-mails go to the submitter; a daily digest of new requests goes to the admin e-mail (`submissions_daily_digest`, 06:00 UTC = 09:00 KSA). WP-Cron only runs with traffic, and `wp_mail` deliverability on Hostinger has to be checked (SMTP plugin if needed).
+
+**Limits.** Per hour: 5 requests per user, 10 per IP, 60 site-wide. Images: jpg, png or webp up to 3 MB through the basic uploader only (submitters have no media library access).
+
+Field groups `group_submission` and `group_submission_review` live in `acf-json/` and load from there; syncing them into the database is optional.
+
+---
+
 ## Shortcodes
 
 | Shortcode                         | Use                                                          |
@@ -133,6 +160,8 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 | `[department_footer_branding]`    | Footer logo + label for the current department.             |
 | `[department_footer_social]`      | Social links for the current department.                    |
 | `[plain_menu name="…"]` / `[plain_menu location="…"]` | Flat, single-level menu links (optional `class`). |
+| `[entity_submit]`                 | Entity submission form (page `submit-entity`): type picker, then an ACF form that creates a pending `user_submits` request. |
+| `[entity_account]`                | Submitter account (page `my-account`): login form, greeting, request list with status. |
 
 ---
 
@@ -142,6 +171,7 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 | :----------------------------------------------- | :----- | :------------------------------------------ |
 | `/wp-json/hello/v1/entity-nav`                   | GET    | `?taxonomy=&parent=` → entities under a group (id, name, link). |
 | `/wp-json/hello/v1/entity-search`                | GET    | `?q=&taxonomy=all` → `{items, truncated}`: matching entities across taxonomies, max 100 per taxonomy (min. 2 chars). |
+| `/wp-json/hello/v1/submission-parents`           | GET    | `?taxonomy=&parent=&term=` → one level of the submission parent picker: `{taxonomy, leaf_depth, parent_depth, depth, final, items, path}`. |
 | `/wp-json/newspapersite/v1/track-view/{id}`      | POST   | Page-cache-safe view counter (`post_views_count` meta). |
 | `admin-ajax.php?action=cars_filter`              | POST   | Car results + filter chips HTML (nonce-protected). |
 
@@ -159,15 +189,17 @@ hello-elementor-child/
 │   ├── fonts/                 # SF Pro AR Display + Material Symbols subset (woff2)
 │   ├── webfonts/              # Font Awesome solid + brands (woff2)
 │   ├── images/                # Fallback images and icons
-│   └── js/filters.js          # Header search, show-more, entity tabs/search, cars AJAX filters
+│   ├── js/filters.js          # Header search, show-more, entity tabs/search, cars AJAX filters
+│   └── js/submissions.js      # Entity submissions: parent picker (front end + admin)
 ├── inc/
 │   ├── cars.php               # Cars directory: filter state, queries, facet counts, URLs
 │   ├── department-context.php # Current department + field fallback + theme color
 │   ├── related-content.php    # Related rows under single items: picks, ranking, cache
 │   ├── site-search.php        # Searchable post types, short-term skip, result count text
 │   ├── taxonomy-helpers.php   # Entity trees, caching, REST routes, term-archive skip list
-│   └── shortcodes/
-│       └── department-footer.php
+│   ├── shortcodes/
+│   │   └── department-footer.php
+│   └── submissions/           # Entity submissions: registry, roles, CPT, form, approval, notifications
 ├── src/input.css              # Tailwind v4 entry (@theme tokens, fonts, custom CSS)
 ├── template-parts/
 │   ├── archive/               # Shared CPT loop

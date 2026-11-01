@@ -25,6 +25,12 @@ if (defined('WP_CLI') && WP_CLI) {
 }
 require_once $theme_inc . '/site-search.php';
 require_once $theme_inc . '/related-content.php';
+require_once $theme_inc . '/submissions/registry.php';      // entity submissions: taxonomy registry, depth rules, /submission-parents
+require_once $theme_inc . '/submissions/roles.php';         // entity submissions: submitter role, dashboard lockout, login redirect
+require_once $theme_inc . '/submissions/post-type.php';     // entity submissions: user_submits CPT, admin screens, ACF group matching
+require_once $theme_inc . '/submissions/form.php';          // entity submissions: [entity_submit] [entity_account], acf_form, validation
+require_once $theme_inc . '/submissions/approval.php';      // entity submissions: publish → term, reject → trash
+require_once $theme_inc . '/submissions/notifications.php'; // entity submissions: e-mails, daily digest
 // ---------------------------------------------------------------------------
 // Assets
 // ---------------------------------------------------------------------------
