@@ -74,14 +74,13 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: 'مكتبة الفيديو • VIDEO LIBRARY'); ?>
+                    <?php echo esc_html($section_title ?: __('Video library • VIDEO LIBRARY', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">تغطية
-                    مرئية</span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Video coverage', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                <?php echo esc_html($subtitle ?: 'مجموعة من أحدث التغطيات والمقاطع المرئية التي ترصد نبض المشهد السعودي'); ?>
+                <?php echo esc_html($subtitle ?: __('A collection of the latest coverage and videos capturing the pulse of Saudi Arabia', 'hello-elementor-child')); ?>
             </p>
         </div>
 
@@ -94,7 +93,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <?php else: ?>
                 <img src="<?php echo esc_url($more_icon_uri); ?>" alt="" class="w-5 h-5" width="20" height="20" />
             <?php endif; ?>
-            <span><?php esc_html_e('المزيد', 'hello-elementor-child'); ?></span>
+            <span><?php esc_html_e('More', 'hello-elementor-child'); ?></span>
         </a>
     </div>
 
@@ -103,7 +102,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
         <?php while ($query->have_posts()):
             $query->the_post();
             $post_id = get_the_ID();
-            $video_label = 'فيديو'; // Fallback
+            $video_label = __('Video', 'hello-elementor-child'); // Fallback
         
             if ($is_department_page) {
                 // Section is on a Department Page: Pull the "post_editor" taxonomy
@@ -111,7 +110,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
                 if (!empty($editors) && !is_wp_error($editors)) {
                     $video_label = $editors[0]->name;
                 } else {
-                    $video_label = 'تفاعل السعودية';
+                    $video_label = __('Tafaol Saudi', 'hello-elementor-child');
                 }
             } else {
                 // Section is on the Home Page: Pull the "department" taxonomy

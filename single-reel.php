@@ -16,14 +16,14 @@ while (have_posts()):
         <header class="py-12 md:py-16 border-b border-gray-100 mb-10">
             <div class="max-w-3xl mx-auto px-6 text-center">
                 <span class="text-sm font-bold text-primary uppercase tracking-widest mb-3 block">
-                    <?php esc_html_e('ريل', 'hello-elementor-child'); ?>
+                    <?php esc_html_e('Reel', 'hello-elementor-child'); ?>
                 </span>
                 <h1 class="text-3xl md:text-4xl font-bold text-gray-900 tracking-tight mb-4">
                     <?php the_title(); ?>
                 </h1>
                 <?php if ($parent instanceof WP_Post): ?>
                     <p class="text-sm text-gray-500">
-                        <?php esc_html_e('من بودكاست', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('From the podcast', 'hello-elementor-child'); ?>
                         <a href="<?php echo esc_url(get_permalink($parent)); ?>"
                             class="text-primary font-semibold hover:underline">
                             <?php echo esc_html(get_the_title($parent)); ?>
@@ -56,7 +56,7 @@ while (have_posts()):
                         echo esc_html(
                             sprintf(
                                 /* translators: %s: podcast title */
-                                __('العودة إلى %s', 'hello-elementor-child'),
+                                __('Back to %s', 'hello-elementor-child'),
                                 get_the_title($parent)
                             )
                         );

@@ -68,10 +68,10 @@ const SUBMISSION_GROUP_REVIEW = 'group_submission_review';
 function submission_taxonomies(): array
 {
     return apply_filters('submission_taxonomies', [
-        'government_entity' => ['label' => __('الجهات الحكومية السعودية', 'hello-elementor-child'), 'group' => 'group_6aa2bdac2e1bc'],
-        'private_entity' => ['label' => __('القطاع الخاص', 'hello-elementor-child'), 'group' => 'group_6aa2bdae8888f'],
-        'event' => ['label' => __('الفعاليات', 'hello-elementor-child'), 'group' => 'group_6ac7cfb4e2327'],
-        'international_entity' => ['label' => __('الجهات الدولية', 'hello-elementor-child'), 'group' => 'group_7ac66e32d00b2'],
+        'government_entity' => ['label' => __('Saudi Government Entities', 'hello-elementor-child'), 'group' => 'group_6aa2bdac2e1bc'],
+        'private_entity' => ['label' => __('Private Sector', 'hello-elementor-child'), 'group' => 'group_6aa2bdae8888f'],
+        'event' => ['label' => __('Events', 'hello-elementor-child'), 'group' => 'group_6ac7cfb4e2327'],
+        'international_entity' => ['label' => __('International Entities', 'hello-elementor-child'), 'group' => 'group_7ac66e32d00b2'],
     ]);
 }
 
@@ -267,25 +267,25 @@ function validate_submission_parent(string $taxonomy, int $parent): true|WP_Erro
 
     if ($parent_depth < 0) {
         if ($parent !== 0) {
-            return new WP_Error('parent_not_allowed', __('هذا النوع لا يحتاج إلى تصنيف رئيسي.', 'hello-elementor-child'));
+            return new WP_Error('parent_not_allowed', __('This type does not need a parent.', 'hello-elementor-child'));
         }
         return true;
     }
 
     if ($parent === 0) {
-        return new WP_Error('parent_required', __('يرجى اختيار التصنيف الرئيسي حتى آخر مستوى.', 'hello-elementor-child'));
+        return new WP_Error('parent_required', __('Please choose the parent down to the last level.', 'hello-elementor-child'));
     }
 
     $depth = get_submission_term_depth($taxonomy, $parent);
     if ($depth < 0) {
-        return new WP_Error('parent_unknown', __('التصنيف الرئيسي المختار غير موجود.', 'hello-elementor-child'));
+        return new WP_Error('parent_unknown', __('The chosen parent does not exist.', 'hello-elementor-child'));
     }
     if ($depth !== $parent_depth) {
         return new WP_Error(
             'parent_depth',
             sprintf(
                 /* translators: %d: 1-based level number the parent must be picked from */
-                __('يرجى اختيار التصنيف الرئيسي من المستوى الأخير (المستوى %d).', 'hello-elementor-child'),
+                __('Please choose the parent from the last level (level %d).', 'hello-elementor-child'),
                 $parent_depth + 1
             )
         );
@@ -418,13 +418,13 @@ function is_submission_form_request(): bool
 function get_submission_js_labels(): array
 {
     return [
-        'choose' => __('اختر…', 'hello-elementor-child'),
-        'noParent' => __('لا يحتاج هذا النوع إلى تصنيف رئيسي.', 'hello-elementor-child'),
-        'noOptions' => __('لا توجد خيارات متاحة', 'hello-elementor-child'),
-        'loading' => __('جارٍ التحميل…', 'hello-elementor-child'),
-        'error' => __('تعذر تحميل الخيارات، حاول مرة أخرى.', 'hello-elementor-child'),
+        'choose' => __('Choose…', 'hello-elementor-child'),
+        'noParent' => __('No parent is needed for this type.', 'hello-elementor-child'),
+        'noOptions' => __('No options available', 'hello-elementor-child'),
+        'loading' => __('Loading…', 'hello-elementor-child'),
+        'error' => __('The options could not be loaded, try again.', 'hello-elementor-child'),
         /* translators: %d: 1-based level number of a parent picker select */
-        'level' => __('المستوى %d', 'hello-elementor-child'),
+        'level' => __('Level %d', 'hello-elementor-child'),
     ];
 }
 

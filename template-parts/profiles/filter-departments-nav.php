@@ -36,7 +36,7 @@ $is_all_active = !($current_department instanceof WP_Term);
             <a href="<?php echo esc_url($all_url); ?>" class="inline-flex px-4 py-2 rounded-full text-sm font-semibold transition-colors <?php echo $is_all_active
                    ? 'bg-primary text-white'
                    : 'bg-gray-50 text-gray-600 hover:bg-gray-100 hover:text-primary'; ?>">
-                <?php esc_html_e('الكل', 'hello-elementor-child'); ?>
+                <?php esc_html_e('All', 'hello-elementor-child'); ?>
             </a>
         </li>
 

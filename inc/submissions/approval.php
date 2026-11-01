@@ -110,9 +110,9 @@ function submission_handle_admin_save($post_id, $post, $update = false): void
             $trashed = submission_without_admin_save(static fn() => wp_trash_post($post_id));
             if ($trashed) {
                 submission_save_flag('redirect_to_list', true);
-                submission_set_admin_notice('success', esc_html__('تم رفض الطلب وإشعار المُرسل.', 'hello-elementor-child'));
+                submission_set_admin_notice('success', esc_html__('The request was rejected and the submitter notified.', 'hello-elementor-child'));
             } else {
-                submission_set_admin_notice('error', esc_html__('تعذر نقل الطلب إلى سلة المهملات.', 'hello-elementor-child'));
+                submission_set_admin_notice('error', esc_html__('The request could not be moved to the trash.', 'hello-elementor-child'));
             }
             return;
         }
@@ -129,7 +129,7 @@ function submission_handle_admin_save($post_id, $post, $update = false): void
             $messages = array_filter(wp_list_pluck($acf_errors, 'message'), 'is_string');
             submission_set_admin_notice(
                 'error',
-                esc_html__('لم يُنشر الطلب: ', 'hello-elementor-child') . esc_html(implode(' / ', $messages))
+                esc_html__('The request was not published:', 'hello-elementor-child') . esc_html(implode(' / ', $messages))
             );
             submission_save_flag('approval_failed', true);
             submission_without_admin_save(static fn() => wp_update_post(['ID' => $post_id, 'post_status' => 'pending']));
@@ -153,7 +153,7 @@ function submission_handle_admin_save($post_id, $post, $update = false): void
                 update_post_meta($post_id, SUBMISSION_META_ERROR, $message);
                 submission_set_admin_notice(
                     'error',
-                    esc_html__('لم يُنشر الطلب: ', 'hello-elementor-child') . esc_html($message)
+                    esc_html__('The request was not published:', 'hello-elementor-child') . esc_html($message)
                 );
                 submission_save_flag('approval_failed', true);
                 submission_without_admin_save(static fn() => wp_update_post(['ID' => $post_id, 'post_status' => 'pending']));
@@ -174,7 +174,7 @@ function submission_handle_admin_save($post_id, $post, $update = false): void
  */
 function submission_published_notice(int $term_id): string
 {
-    $text = esc_html__('تم نشر الصفحة:', 'hello-elementor-child');
+    $text = esc_html__('Page published:', 'hello-elementor-child');
     $term = get_term($term_id);
     if (!($term instanceof WP_Term)) {
         return $text;
@@ -183,11 +183,11 @@ function submission_published_notice(int $term_id): string
     $links = [];
     $view = get_term_link($term);
     if (is_string($view)) {
-        $links[] = '<a href="' . esc_url($view) . '">' . esc_html__('عرض', 'hello-elementor-child') . '</a>';
+        $links[] = '<a href="' . esc_url($view) . '">' . esc_html__('View', 'hello-elementor-child') . '</a>';
     }
     $edit = get_edit_term_link($term);
     if (is_string($edit) && $edit !== '') {
-        $links[] = '<a href="' . esc_url($edit) . '">' . esc_html__('تحرير', 'hello-elementor-child') . '</a>';
+        $links[] = '<a href="' . esc_url($edit) . '">' . esc_html__('Edit', 'hello-elementor-child') . '</a>';
     }
     return $links === [] ? $text : $text . ' ' . implode(' · ', $links);
 }
@@ -223,19 +223,19 @@ function convert_submission_to_term(int $post_id): int|WP_Error
     // 1. Type.
     $taxonomy = (string) get_post_meta($post_id, SUBMISSION_FIELD_TAXONOMY, true);
     if (!is_submission_taxonomy($taxonomy)) {
-        return new WP_Error('no_type', __('النوع غير محدد.', 'hello-elementor-child'));
+        return new WP_Error('no_type', __('The type is not set.', 'hello-elementor-child'));
     }
 
     // 2. Name (raw title, entities decoded).
     $name = get_submission_name($post_id);
     if ($name === '') {
-        return new WP_Error('no_name', __('الاسم مطلوب.', 'hello-elementor-child'));
+        return new WP_Error('no_name', __('The name is required.', 'hello-elementor-child'));
     }
 
     // 3. Slug: review_slug, else english_title; Latin only, never derived from the Arabic name.
     $slug = get_submission_slug_candidate($post_id);
     if ($slug === '') {
-        return new WP_Error('no_slug', __('الرابط (slug) بالإنجليزية مطلوب قبل النشر.', 'hello-elementor-child'));
+        return new WP_Error('no_slug', __('An English slug is required before publishing.', 'hello-elementor-child'));
     }
     if ((string) get_post_meta($post_id, SUBMISSION_FIELD_SLUG, true) === '') {
         update_field(SUBMISSION_KEY_SLUG, $slug, $post_id);
@@ -253,11 +253,11 @@ function convert_submission_to_term(int $post_id): int|WP_Error
     if ($existing instanceof WP_Term) {
         return new WP_Error(
             'slug_exists',
-            __('توجد صفحة بنفس الرابط: ', 'hello-elementor-child') . wp_specialchars_decode($existing->name, ENT_QUOTES)
+            __('A page with the same slug exists:', 'hello-elementor-child') . wp_specialchars_decode($existing->name, ENT_QUOTES)
         );
     }
     if (term_exists($name, $taxonomy, $parent)) {
-        return new WP_Error('name_exists', __('توجد صفحة بنفس الاسم ضمن نفس التصنيف الرئيسي.', 'hello-elementor-child'));
+        return new WP_Error('name_exists', __('A page with the same name exists under the same parent.', 'hello-elementor-child'));
     }
 
     // 6. Term.

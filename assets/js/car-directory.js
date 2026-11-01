@@ -82,17 +82,18 @@
 		onClose: null,
 		lastFocus: null,
 		build() {
+			const t = window.helloCarDirectory || {};
 			const el = document.createElement('div');
 			el.className = 'car-lightbox';
 			el.hidden = true;
 			el.setAttribute('role', 'dialog');
 			el.setAttribute('aria-modal', 'true');
-			el.setAttribute('aria-label', 'معرض الصور');
+			el.setAttribute('aria-label', t.gallery || '');
 			el.innerHTML = '<div class="car-lb-top"><span class="car-lb-title"></span><span class="car-lb-count car-ltr"></span>'
-				+ '<button type="button" class="car-lb-btn car-lb-close" aria-label="إغلاق"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>'
-				+ '<div class="car-lb-stage"><button type="button" class="car-lb-btn car-lb-prev" aria-label="السابق"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>'
+				+ '<button type="button" class="car-lb-btn car-lb-close" aria-label="' + (t.close || '') + '"><i class="fas fa-xmark" aria-hidden="true"></i></button></div>'
+				+ '<div class="car-lb-stage"><button type="button" class="car-lb-btn car-lb-prev" aria-label="' + (t.previous || '') + '"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>'
 				+ '<img class="car-lb-pic" alt="">'
-				+ '<button type="button" class="car-lb-btn car-lb-next" aria-label="التالي"><i class="fas fa-chevron-left" aria-hidden="true"></i></button></div>'
+				+ '<button type="button" class="car-lb-btn car-lb-next" aria-label="' + (t.next || '') + '"><i class="fas fa-chevron-left" aria-hidden="true"></i></button></div>'
 				+ '<div class="car-lb-strip"></div>';
 			el.addEventListener('click', (e) => {
 				const thumb = e.target.closest('[data-lb]');
@@ -141,7 +142,7 @@
 				b.type = 'button';
 				b.className = 'car-lb-thumb';
 				b.dataset.lb = String(i);
-				b.setAttribute('aria-label', `صورة ${i + 1}`);
+				b.setAttribute('aria-label', ((window.helloCarDirectory || {}).photo || '%d').replace('%d', String(i + 1)));
 				const img = document.createElement('img');
 				img.className = 'car-lb-thumb-pic';
 				img.src = it.thumb;
@@ -246,7 +247,7 @@
 		}
 		const open = target.classList.toggle('is-open');
 		btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-		btn.textContent = open ? (btn.dataset.labelOpen || 'إخفاء') : (btn.dataset.labelClosed || '...اقرأ المزيد');
+		btn.textContent = open ? btn.dataset.labelOpen : btn.dataset.labelClosed;
 	}
 
 	// ------------------------------------------------------------------ spec tabs

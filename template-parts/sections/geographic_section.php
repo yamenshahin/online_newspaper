@@ -134,7 +134,7 @@ if (!empty($_GET[$query_var])) {
                                     <span
                                         class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                         <?php echo esc_html($count); ?>
-                                        <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
+                                        <?php esc_html_e('item', 'hello-elementor-child'); ?>
                                     </span>
                                 </div>
                             </<?php echo $tag; ?>>
@@ -147,7 +147,7 @@ if (!empty($_GET[$query_var])) {
                 <div class="flex justify-center w-full mt-2">
                     <button type="button"
                         class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
-                        <span class="toggle-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                        <span class="toggle-text"><?php esc_html_e('Show more', 'hello-elementor-child'); ?></span>
                         <span class="material-symbols-outlined text-[16px] toggle-icon">expand_more</span>
                     </button>
                 </div>
@@ -174,7 +174,7 @@ if (!empty($_GET[$query_var])) {
                                 </div>
                                 <span
                                     class="text-xs font-bold text-on-surface-variant group-hover:text-primary transition-colors">
-                                    <?php esc_html_e('المناطق', 'hello-elementor-child'); ?>
+                                    <?php esc_html_e('Regions', 'hello-elementor-child'); ?>
                                 </span>
                             </button>
                             <!-- Item 2: All [Parent] Link -->
@@ -194,13 +194,13 @@ if (!empty($_GET[$query_var])) {
                                 </div>
                                 <h3
                                     class="text-sm font-bold text-on-background text-center mb-1 line-clamp-2 leading-snug group-hover:text-primary transition-colors relative z-10">
-                                    <?php echo esc_html(sprintf(__('كل %s', 'hello-elementor-child'), $parent_term->name)); ?>
+                                    <?php echo esc_html(sprintf(__('All %s', 'hello-elementor-child'), $parent_term->name)); ?>
                                 </h3>
                                 <div class="mt-auto relative z-10 pt-2 w-full flex justify-center">
                                     <span
                                         class="inline-flex items-center justify-center gap-1 text-[11px] font-bold tracking-wide text-white bg-primary-container border border-primary/20 px-2.5 py-1 rounded-full whitespace-nowrap group-hover:bg-primary group-hover:text-on-primary transition-colors">
                                         <span><?php echo esc_html($parent_data['count']); ?></span>
-                                        <span><?php esc_html_e('الإجمالي', 'hello-elementor-child'); ?></span>
+                                        <span><?php esc_html_e('Total', 'hello-elementor-child'); ?></span>
                                     </span>
                                 </div>
                             </a>
@@ -233,7 +233,7 @@ if (!empty($_GET[$query_var])) {
                                         <span
                                             class="text-xs font-bold tracking-wide text-on-surface-variant px-3 py-1 rounded-full group-hover:bg-primary-container group-hover:text-on-primary-container transition-colors">
                                             <?php echo esc_html($count); ?>
-                                            <?php esc_html_e('مادة', 'hello-elementor-child'); ?>
+                                            <?php esc_html_e('item', 'hello-elementor-child'); ?>
                                         </span>
                                     </div>
                                 </a>
@@ -246,7 +246,7 @@ if (!empty($_GET[$query_var])) {
                     <div class="flex justify-center w-full mt-2">
                         <button type="button"
                             class="filter-toggle-btn px-space-md py-space-xs rounded-full bg-surface-container border border-surface-container-highest text-on-surface font-label-pill text-label-pill transition-colors hover:bg-surface-container-high hidden items-center gap-2">
-                            <span class="toggle-text"><?php esc_html_e('عرض المزيد', 'hello-elementor-child'); ?></span>
+                            <span class="toggle-text"><?php esc_html_e('Show more', 'hello-elementor-child'); ?></span>
                             <span class="material-symbols-outlined text-[16px] toggle-icon">expand_more</span>
                         </button>
                     </div>

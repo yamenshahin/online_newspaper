@@ -31,6 +31,51 @@ require_once $theme_inc . '/submissions/post-type.php';     // entity submission
 require_once $theme_inc . '/submissions/form.php';          // entity submissions: [entity_submit] [entity_account], acf_form, validation
 require_once $theme_inc . '/submissions/approval.php';      // entity submissions: publish → term, reject → trash
 require_once $theme_inc . '/submissions/notifications.php'; // entity submissions: e-mails, daily digest
+
+// Translations: languages/{locale}.mo (source strings are English, the Arabic site uses ar.mo).
+add_action('after_setup_theme', function () {
+	load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
+});
+
+// ACF field groups, post types and taxonomies (acf-json) translate through the theme domain.
+add_filter('acf/settings/l10n_textdomain', fn() => 'hello-elementor-child');
+
+// ACF translates its post types / taxonomies only when they load from acf-json, not the copies synced to the
+// database (stored as already validated). Translate their labels when WordPress registers them instead; ACF's
+// stored settings stay untouched.
+function translate_acf_registered_labels(array $args, string $key): array
+{
+	// Not cached: ACF's list fills up while it registers (JSON-only items first, then the database ones).
+	$is_acf = function_exists('acf_get_acf_post_types')
+		&& (in_array($key, wp_list_pluck(acf_get_acf_post_types(), 'post_type'), true)
+			|| in_array($key, wp_list_pluck(acf_get_acf_taxonomies(), 'taxonomy'), true));
+	if (!$is_acf) {
+		return $args;
+	}
+	// The database copies store "&" as "&amp;"; the catalogue has the plain text.
+	$translate = static fn(string $text): string => __(str_replace('&amp;', '&', $text), 'hello-elementor-child'); // phpcs:ignore WordPress.WP.I18n.NonSingularStringLiteralText
+	foreach (['label', 'description'] as $field) {
+		if (!empty($args[$field]) && is_string($args[$field])) {
+			$args[$field] = $translate($args[$field]);
+		}
+	}
+	foreach ((array) ($args['labels'] ?? []) as $name => $label) {
+		if (is_string($label) && $label !== '') {
+			$args['labels'][$name] = $translate($label);
+		}
+	}
+	return $args;
+}
+add_filter('register_post_type_args', 'translate_acf_registered_labels', 10, 2);
+add_filter('register_taxonomy_args', 'translate_acf_registered_labels', 10, 2);
+
+// ACF's own "Select" placeholder has no Arabic in its language pack: use the theme's.
+add_filter('acf/prepare_field/type=select', function ($field) {
+	if (is_array($field) && empty($field['placeholder'])) {
+		$field['placeholder'] = __('Choose…', 'hello-elementor-child');
+	}
+	return $field;
+});
 // ---------------------------------------------------------------------------
 // Assets
 // ---------------------------------------------------------------------------
@@ -72,6 +117,8 @@ function hello_elementor_child_scripts_styles()
 			[
 				'navUrl' => esc_url_raw(rest_url('hello/v1/entity-nav')),
 				'searchUrl' => esc_url_raw(rest_url('hello/v1/entity-search')),
+				'showMore' => __('Show more', 'hello-elementor-child'),
+				'showLess' => __('Show less', 'hello-elementor-child'),
 			]
 		);
 
@@ -106,6 +153,14 @@ function enqueue_car_directory_script()
 			filemtime($path),
 			true
 		);
+		wp_localize_script('hello-elementor-child-car-directory', 'helloCarDirectory', [
+			'gallery' => __('Photo gallery', 'hello-elementor-child'),
+			'close' => __('Close', 'hello-elementor-child'),
+			'previous' => __('Previous', 'hello-elementor-child'),
+			'next' => __('Next', 'hello-elementor-child'),
+			/* translators: %d: photo number */
+			'photo' => __('Photo %d', 'hello-elementor-child'),
+		]);
 	}
 }
 add_action('wp_enqueue_scripts', 'enqueue_car_directory_script', 20);
@@ -525,7 +580,7 @@ function render_post_dates($post = null): void
 	$published_label = wp_date($format, $published, $timezone);
 	?>
 	<time datetime="<?php echo esc_attr(wp_date('c', $published, $timezone)); ?>">
-		<?php echo esc_html(sprintf(__('نُشر في %s', 'hello-elementor-child'), $published_label)); ?>
+		<?php echo esc_html(sprintf(__('Published on %s', 'hello-elementor-child'), $published_label)); ?>
 	</time>
 	<?php
 	if (!$modified || $modified <= $published) {
@@ -539,7 +594,7 @@ function render_post_dates($post = null): void
 	?>
 	<span>&bull;</span>
 	<time datetime="<?php echo esc_attr(wp_date('c', $modified, $timezone)); ?>">
-		<?php echo esc_html(sprintf(__('آخر تحديث %s', 'hello-elementor-child'), $modified_label)); ?>
+		<?php echo esc_html(sprintf(__('Last updated %s', 'hello-elementor-child'), $modified_label)); ?>
 	</time>
 	<?php
 }
@@ -624,20 +679,20 @@ function get_dynamic_taxonomy_labels(string $taxonomy): array
 	// Hardcoded overrides
 	$hardcoded_map = [
 		'government_entity' => [
-			'title' => 'الجهات الحكومية السعودية',
-			'subtitle' => 'فرز المحتوى بحسب الجهة الحكومية',
+			'title' => __('Saudi Government Entities', 'hello-elementor-child'),
+			'subtitle' => __('Sort content by government entity', 'hello-elementor-child'),
 		],
 		'private_entity' => [
-			'title' => 'القطاع الخاص',
-			'subtitle' => 'فرز المحتوى بحسب القطاع الخاص',
+			'title' => __('Private Sector', 'hello-elementor-child'),
+			'subtitle' => __('Sort content by private sector', 'hello-elementor-child'),
 		],
 		'event' => [
-			'title' => 'الفعاليات',
-			'subtitle' => 'فرز المحتوى بحسب الفعالية',
+			'title' => __('Events', 'hello-elementor-child'),
+			'subtitle' => __('Sort content by event', 'hello-elementor-child'),
 		],
 		'international_entity' => [
-			'title' => 'الجهات الدولية',
-			'subtitle' => 'فرز المحتوى بحسب الجهة الدولية',
+			'title' => __('International Entities', 'hello-elementor-child'),
+			'subtitle' => __('Sort content by international entity', 'hello-elementor-child'),
 		],
 	];
 
@@ -786,7 +841,7 @@ add_action('add_meta_boxes', function () {
 			function ($post) {
 				$count = (int) get_post_meta($post->ID, 'post_views_count', true);
 				echo '<p style="font-size: 24px; font-weight: 600; margin: 8px 0; color: #2271b1;">' . esc_html(number_format_i18n($count)) . '</p>';
-				echo '<p class="description">Total unique session views by real users.</p>';
+				echo '<p class="description">' . esc_html__('Total unique session views by real users.', 'hello-elementor-child') . '</p>';
 			},
 			$post_type,
 			'side',

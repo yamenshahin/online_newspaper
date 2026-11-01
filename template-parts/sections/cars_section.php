@@ -18,7 +18,7 @@ if (!empty($section)) {
     $posts_limit = get_sub_field('posts_limit') ?: 0;
 }
 
-$section_title = $section_title ?: __('دليل السيارات', 'hello-elementor-child');
+$section_title = $section_title ?: __('Car Directory', 'hello-elementor-child');
 $is_car_archive = is_post_type_archive('car');
 $posts_limit = absint($posts_limit) ?: ($is_car_archive ? CAR_FILTER_PER_PAGE : CAR_SECTION_PER_PAGE);
 
@@ -86,7 +86,7 @@ $ctx = [
         <div id="cars-loading" class="absolute inset-0 z-10 hidden items-center justify-center bg-white/70 rounded-2xl">
             <div class="flex flex-col items-center gap-3">
                 <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                <span class="text-sm font-medium text-on-surface-variant"><?php esc_html_e('جاري التحميل…', 'hello-elementor-child'); ?></span>
+                <span class="text-sm font-medium text-on-surface-variant"><?php echo esc_html_x('Loading…', 'cars', 'hello-elementor-child'); ?></span>
             </div>
         </div>
 

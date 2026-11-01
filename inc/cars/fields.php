@@ -81,7 +81,7 @@ final class Car_Spec_Renderer
     {
         $fields = function_exists('acf_get_fields') ? (acf_get_fields($group_key) ?: []) : [];
         $tabs = [];
-        $current = ['label' => 'عام', 'fields' => []];
+        $current = ['label' => __('General', 'hello-elementor-child'), 'fields' => []];
         foreach ($fields as $f) {
             if ($f['type'] === 'tab') {
                 $tabs[] = $current;
@@ -132,7 +132,7 @@ final class Car_Spec_Renderer
     {
         return $links === ''
             ? ''
-            : '<nav class="car-spec-tabs" data-car-spec-tabs aria-label="أقسام المواصفات">' . $links . '</nav>';
+            : '<nav class="car-spec-tabs" data-car-spec-tabs aria-label="' . esc_attr__('Specification sections', 'hello-elementor-child') . '">' . $links . '</nav>';
     }
 
     // ----------------------------------------------------------------- fields
@@ -310,8 +310,8 @@ final class Car_Spec_Renderer
                     return '';
                 }
                 return $v
-                    ? '<span class="font-semibold text-primary"><i class="fas fa-check" aria-hidden="true"></i> نعم</span>'
-                    : '<span class="text-on-surface-variant"><i class="fas fa-xmark" aria-hidden="true"></i> لا</span>';
+                    ? '<span class="font-semibold text-primary"><i class="fas fa-check" aria-hidden="true"></i> ' . esc_html__('Yes', 'hello-elementor-child') . '</span>'
+                    : '<span class="text-on-surface-variant"><i class="fas fa-xmark" aria-hidden="true"></i> ' . esc_html__('No', 'hello-elementor-child') . '</span>';
             case 'number':
                 if (!is_numeric($v)) {
                     return '';
@@ -325,7 +325,7 @@ final class Car_Spec_Renderer
                 if (!$keys) {
                     return '';
                 }
-                return esc_html(implode('، ', array_map(static fn($k) => (string) ($f['choices'][$k] ?? $k), $keys)));
+                return esc_html(implode(_x(', ', 'list separator', 'hello-elementor-child'), array_map(static fn($k) => (string) ($f['choices'][$k] ?? $k), $keys)));
             case 'url':
                 return is_string($v) && $v !== ''
                     ? '<a class="car-ltr text-primary underline" href="' . esc_url($v) . '" target="_blank" rel="noopener">' . esc_html(rawurldecode($v)) . '</a>'
@@ -349,7 +349,7 @@ final class Car_Spec_Renderer
                         $links[] = '<a class="text-primary hover:underline" href="' . esc_url(get_permalink($id)) . '">' . esc_html(get_the_title($id)) . '</a>';
                     }
                 }
-                return implode('، ', $links) . (count($items) > self::MAX_LINKS ? ' … (+' . (count($items) - self::MAX_LINKS) . ')' : '');
+                return implode(_x(', ', 'list separator', 'hello-elementor-child'), $links) . (count($items) > self::MAX_LINKS ? ' … (+' . (count($items) - self::MAX_LINKS) . ')' : '');
             case 'image':
                 $id = is_array($v) ? (int) ($v['ID'] ?? $v['id'] ?? 0) : (int) $v;
                 return $id ? (string) wp_get_attachment_image($id, 'medium', false, ['class' => 'rounded-xl', 'loading' => 'lazy']) : '';
@@ -394,7 +394,7 @@ final class Car_Spec_Renderer
             return '';
         }
         if (preg_match('~(?:youtube(?:-nocookie)?\.com/(?:embed/|watch\?(?:.*&)?v=|shorts/)|youtu\.be/)([A-Za-z0-9_-]{6,})~', $url, $m)) {
-            return '<div class="car-video aspect-video overflow-hidden rounded-xl bg-surface-container"><iframe class="h-full w-full" src="' . esc_url('https://www.youtube-nocookie.com/embed/' . $m[1]) . '" title="فيديو الاستعراض" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
+            return '<div class="car-video aspect-video overflow-hidden rounded-xl bg-surface-container"><iframe class="h-full w-full" src="' . esc_url('https://www.youtube-nocookie.com/embed/' . $m[1]) . '" title="' . esc_attr__('Review video', 'hello-elementor-child') . '" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe></div>';
         }
         return '<a class="car-ltr text-primary underline" href="' . esc_url($url) . '" target="_blank" rel="noopener">' . esc_html($url) . '</a>';
     }

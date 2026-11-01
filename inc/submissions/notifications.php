@@ -79,22 +79,22 @@ function notify_submission_approved(int $term_id, int $post_id): void
 
     $lines = [
         /* translators: %s: submitter display name */
-        sprintf(__('مرحباً %s،', 'hello-elementor-child'), notify_submission_display_name($user)),
+        sprintf(__('Hello %s,', 'hello-elementor-child'), notify_submission_display_name($user)),
         /* translators: 1: request name, 2: site name */
-        sprintf(__('تم نشر طلبك «%1$s» على موقع %2$s.', 'hello-elementor-child'), $name, $blogname),
+        sprintf(__('Your request "%1$s" was published on %2$s.', 'hello-elementor-child'), $name, $blogname),
     ];
     if (!is_wp_error($link) && (string) $link !== '') {
-        $lines[] = __('رابط الصفحة:', 'hello-elementor-child');
+        $lines[] = __('Page link:', 'hello-elementor-child');
         $lines[] = (string) $link;
     }
-    $lines[] = __('شكراً لمساهمتك.', 'hello-elementor-child');
+    $lines[] = __('Thank you for your contribution.', 'hello-elementor-child');
     /* translators: %s: site name */
     $lines[] = sprintf(__('— %s', 'hello-elementor-child'), $blogname);
 
     notify_submission_mail(
         (string) $user->user_email,
         /* translators: %s: request name */
-        sprintf(__('تم نشر طلبك: %s', 'hello-elementor-child'), $name),
+        sprintf(__('Your request was published: %s', 'hello-elementor-child'), $name),
         implode("\n", $lines)
     );
 }
@@ -119,13 +119,13 @@ function notify_submission_rejected(int $post_id): void
 
     $lines = [
         /* translators: %s: submitter display name */
-        sprintf(__('مرحباً %s،', 'hello-elementor-child'), notify_submission_display_name($user)),
+        sprintf(__('Hello %s,', 'hello-elementor-child'), notify_submission_display_name($user)),
         /* translators: %s: request name */
-        sprintf(__('بخصوص طلبك «%s»:', 'hello-elementor-child'), $name),
-        $reason !== '' ? $reason : __('لم نتمكن من نشر طلبك.', 'hello-elementor-child'),
+        sprintf(__('About your request "%s":', 'hello-elementor-child'), $name),
+        $reason !== '' ? $reason : __('We could not publish your request.', 'hello-elementor-child'),
     ];
     if ($account !== '') {
-        $lines[] = __('يمكنك متابعة طلباتك أو إرسال طلب جديد من هنا:', 'hello-elementor-child');
+        $lines[] = __('You can follow your requests or send a new one here:', 'hello-elementor-child');
         $lines[] = $account;
     }
     /* translators: %s: site name */
@@ -134,7 +134,7 @@ function notify_submission_rejected(int $post_id): void
     notify_submission_mail(
         (string) $user->user_email,
         /* translators: %s: request name */
-        sprintf(__('بخصوص طلبك: %s', 'hello-elementor-child'), $name),
+        sprintf(__('About your request: %s', 'hello-elementor-child'), $name),
         implode("\n", $lines)
     );
 }
@@ -221,14 +221,14 @@ function submissions_send_daily_digest(): void
     }
     if ($total > $max_lines) {
         /* translators: %d: number of requests not listed */
-        $lines[] = sprintf(__('و %d أخرى', 'hello-elementor-child'), $total - $max_lines);
+        $lines[] = sprintf(__('and %d more', 'hello-elementor-child'), $total - $max_lines);
     }
 
     $blogname = wp_specialchars_decode((string) get_bloginfo('name'), ENT_QUOTES);
     $sent     = notify_submission_mail(
         (string) get_option('admin_email'),
         /* translators: 1: number of new requests, 2: site name */
-        sprintf(__('طلبات إضافة جديدة (%1$d) — %2$s', 'hello-elementor-child'), $total, $blogname),
+        sprintf(__('New add requests (%1$d) — %2$s', 'hello-elementor-child'), $total, $blogname),
         implode("\n", $lines)
     );
     if ($sent) {

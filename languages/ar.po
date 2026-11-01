@@ -1,0 +1,3471 @@
+# Copyright (C) 2026 Yamen Shahin <yamenshahin@gmail.com>
+# This file is distributed under the GNU General Public License v3 or later..
+msgid ""
+msgstr ""
+"Project-Id-Version: Hello Elementor Child\n"
+"Language: ar\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
+"X-Domain: hello-elementor-child\n"
+
+#. Theme Name of the theme
+#: style.css
+msgid "Online Newspaper Theme - Hello Elementor Child"
+msgstr ""
+
+#. Theme URI of the theme
+#. Author URI of the theme
+#: style.css
+msgid "https://github.com/yamenshahin"
+msgstr ""
+
+#. Description of the theme
+#: style.css
+msgid "Custom Hello Elementor child theme engineered for the Online Newspaper, featuring dynamic ACF layout engines, custom post types, and directory taxonomies."
+msgstr ""
+
+#. Author of the theme
+#: style.css
+msgid "Yamen Shahin <yamenshahin@gmail.com>"
+msgstr ""
+
+#: 404.php:30
+msgid "A reporter holds out a microphone to the number 404, which folds its arms and refuses to talk"
+msgstr "مراسل يمدّ الميكروفون إلى الرقم 404 الذي يكتّف ذراعيه ويرفض الحديث"
+
+#: 404.php:35
+msgid "Error 404"
+msgstr "خطأ 404"
+
+#: 404.php:40
+msgid "The only page that didn't interact with us!"
+msgstr "الصفحة الوحيدة اللي ما تفاعلت معنا!"
+
+#: 404.php:44
+msgid "The page doesn't exist, but the news never stops."
+msgstr "الصفحة غير موجودة، لكن الأخبار ما توقف."
+
+#: 404.php:50
+msgid "Back to home"
+msgstr "العودة للرئيسية"
+
+#: 404.php:57
+msgid "Search for what you were looking for"
+msgstr "ابحث عمّا كنت تريده"
+
+#: 404.php:66
+#: template-parts/cards/card-post.php:24
+msgid "Latest news"
+msgstr "آخر الأخبار"
+
+#. translators: %d: page number
+#: archive-car.php:14
+#: archive-car.php:21
+#: inc/cars/directory.php:338
+#: inc/cars/helpers.php:470
+#: template-parts/sections/cars_section.php:21
+#: template-parts/sections/car_home_section.php:40
+msgid "Car Directory"
+msgstr "دليل السيارات"
+
+#: archive-car.php:15
+msgid "Find your car by make, model, year, price and specifications"
+msgstr "ابحث عن سيارتك بحسب الشركة والموديل والسنة والسعر والمواصفات"
+
+#: front-page.php:43
+#: taxonomy-event.php:58
+#: taxonomy-geographic.php:71
+#: taxonomy-government_entity.php:72
+#: taxonomy-international_entity.php:72
+#: taxonomy-private_entity.php:72
+#: taxonomy-speaker_influencer.php:79
+msgid "No sections configured for the homepage."
+msgstr ""
+
+#: functions.php:75
+#: inc/submissions/registry.php:421
+msgid "Choose…"
+msgstr "اختر…"
+
+#: functions.php:120
+#: template-parts/sections/geographic_section.php:150
+#: template-parts/sections/geographic_section.php:249
+#: template-parts/sections/program_series_section.php:290
+#: template-parts/sections/program_series_section.php:309
+msgid "Show more"
+msgstr "عرض المزيد"
+
+#: functions.php:121
+#: template-parts/sections/program_series_section.php:306
+msgid "Show less"
+msgstr "عرض أقل"
+
+#. translators: %s: model-year title
+#: functions.php:157
+#: single-car_model_year.php:104
+msgid "Photo gallery"
+msgstr "معرض الصور"
+
+#: functions.php:158
+msgid "Close"
+msgstr "إغلاق"
+
+#: functions.php:159
+msgid "Previous"
+msgstr "السابق"
+
+#: functions.php:160
+msgid "Next"
+msgstr "التالي"
+
+#. translators: %d: photo number
+#: functions.php:162
+#, php-format
+msgid "Photo %d"
+msgstr "صورة %d"
+
+#: functions.php:583
+#, php-format
+msgid "Published on %s"
+msgstr "نُشر في %s"
+
+#: functions.php:597
+#, php-format
+msgid "Last updated %s"
+msgstr "آخر تحديث %s"
+
+#: functions.php:682
+#: inc/submissions/registry.php:71
+#: template-parts/entities/entity-browse-section.php:88
+msgid "Saudi Government Entities"
+msgstr "الجهات الحكومية السعودية"
+
+#: functions.php:683
+msgid "Sort content by government entity"
+msgstr "فرز المحتوى بحسب الجهة الحكومية"
+
+#: functions.php:686
+#: inc/submissions/registry.php:72
+#: template-parts/entities/entity-browse-section.php:89
+msgid "Private Sector"
+msgstr "القطاع الخاص"
+
+#: functions.php:687
+msgid "Sort content by private sector"
+msgstr "فرز المحتوى بحسب القطاع الخاص"
+
+#: functions.php:690
+#: inc/acf-json-strings.php:371
+#: inc/submissions/registry.php:73
+#: template-parts/entities/entity-browse-section.php:90
+msgid "Events"
+msgstr "الفعاليات"
+
+#: functions.php:691
+msgid "Sort content by event"
+msgstr "فرز المحتوى بحسب الفعالية"
+
+#: functions.php:694
+#: inc/acf-json-strings.php:390
+#: inc/submissions/registry.php:74
+#: template-parts/entities/entity-browse-section.php:91
+msgid "International Entities"
+msgstr "الجهات الدولية"
+
+#: functions.php:695
+msgid "Sort content by international entity"
+msgstr "فرز المحتوى بحسب الجهة الدولية"
+
+#: functions.php:840
+msgid "Post Views"
+msgstr "مشاهدات المادة"
+
+#: functions.php:844
+msgid "Total unique session views by real users."
+msgstr "إجمالي المشاهدات الفريدة لكل جلسة من زوار حقيقيين."
+
+#: functions.php:862
+msgid "Views"
+msgstr "المشاهدات"
+
+#: functions.php:997
+#: functions.php:1013
+#: functions.php:1019
+#: inc/acf-json-strings.php:19
+msgid "Detailed Description"
+msgstr "الوصف التفصيلي"
+
+#: functions.php:1096
+#: functions.php:1107
+#: inc/acf-json-strings.php:249
+msgid "Department"
+msgstr "الإدارة"
+
+#: functions.php:1100
+#: inc/acf-json-strings.php:266
+msgid "Program Series"
+msgstr "سلاسل البرامج"
+
+#: inc/acf-json-strings.php:14
+msgid "Department Logo"
+msgstr "شعار الإدارة"
+
+#: inc/acf-json-strings.php:15
+msgid "Please ensure the uploaded image has a maximum width of 1920px."
+msgstr "يرجى التأكد من ألا يتجاوز عرض الصورة 1920 بكسل."
+
+#: inc/acf-json-strings.php:16
+msgid "Department Color Theme"
+msgstr "لون الإدارة"
+
+#: inc/acf-json-strings.php:17
+msgid "Department Icon"
+msgstr "أيقونة الإدارة"
+
+#: inc/acf-json-strings.php:18
+msgid "Please ensure the uploaded image has a maximum width of 600px."
+msgstr "يرجى التأكد من ألا يتجاوز عرض الصورة 600 بكسل."
+
+#: inc/acf-json-strings.php:20
+msgid "Social Media Links"
+msgstr "روابط التواصل الاجتماعي"
+
+#: inc/acf-json-strings.php:21
+msgid "Add Row"
+msgstr "إضافة صف"
+
+#: inc/acf-json-strings.php:22
+msgid "Link"
+msgstr "الرابط"
+
+#: inc/acf-json-strings.php:23
+msgid "Platform"
+msgstr "المنصة"
+
+#: inc/acf-json-strings.php:24
+msgid "Website"
+msgstr "الموقع الإلكتروني"
+
+#: inc/acf-json-strings.php:25
+msgid "Follower Count"
+msgstr "عدد المتابعين"
+
+#: inc/acf-json-strings.php:26
+msgid "Insert formatted numbers like \"10K\" or \"1.2M\""
+msgstr "أدخل الأرقام بصيغة مختصرة مثل \"10K\" أو \"1.2M\""
+
+#: inc/acf-json-strings.php:27
+msgid "Extra Info"
+msgstr "معلومات إضافية"
+
+#: inc/acf-json-strings.php:28
+msgid "Add Extra Info"
+msgstr "إضافة معلومة"
+
+#: inc/acf-json-strings.php:29
+msgid "Label"
+msgstr "العنوان"
+
+#: inc/acf-json-strings.php:30
+msgid "e.g., \"City\", \"Founded\", \"Industry\""
+msgstr "مثال: \"المدينة\"، \"سنة التأسيس\"، \"القطاع\""
+
+#: inc/acf-json-strings.php:31
+msgid "Value"
+msgstr "القيمة"
+
+#: inc/acf-json-strings.php:32
+msgid "e.g., \"Cairo\", \"2015\", \"Technology\""
+msgstr "مثال: \"الرياض\"، \"2015\"، \"التقنية\""
+
+#: inc/acf-json-strings.php:33
+msgid "Footer Logo"
+msgstr "شعار التذييل"
+
+#: inc/acf-json-strings.php:34
+msgid "Footer Label"
+msgstr "نص التذييل"
+
+#: inc/acf-json-strings.php:35
+msgid "Image"
+msgstr "الصورة"
+
+#: inc/acf-json-strings.php:36
+msgid "Please ensure the uploaded image has a 3:4 aspect ratio and a maximum width of 1920px."
+msgstr "يرجى التأكد من أن نسبة أبعاد الصورة 3:4 وألا يتجاوز عرضها 1920 بكسل."
+
+#: inc/acf-json-strings.php:37
+msgid "Add Social Media Link"
+msgstr "إضافة رابط تواصل"
+
+#: inc/acf-json-strings.php:38
+msgid "Please ensure the uploaded image has a 1:1 aspect ratio and a maximum width of 512px."
+msgstr "يرجى التأكد من أن نسبة أبعاد الصورة 1:1 وألا يتجاوز عرضها 512 بكسل."
+
+#: inc/acf-json-strings.php:39
+msgid "Please ensure the uploaded image has a 9:16 aspect ratio and a maximum width of 1920px."
+msgstr "يرجى التأكد من أن نسبة أبعاد الصورة 9:16 وألا يتجاوز عرضها 1920 بكسل."
+
+#: inc/acf-json-strings.php:40
+msgid "Department Sections"
+msgstr "أقسام الصفحة"
+
+#: inc/acf-json-strings.php:41
+msgid "Hero Lead Section"
+msgstr "القسم الرئيسي"
+
+#: inc/acf-json-strings.php:42
+msgid "Section Title"
+msgstr "عنوان القسم"
+
+#: inc/acf-json-strings.php:43
+msgid "Hero Featured"
+msgstr "الخبر المميز"
+
+#: inc/acf-json-strings.php:44
+msgid "Hero Trending"
+msgstr "الأكثر تداولاً"
+
+#: inc/acf-json-strings.php:45
+msgid "Posts (News) Section"
+msgstr "قسم الأخبار"
+
+#: inc/acf-json-strings.php:46
+msgid "Subtitle"
+msgstr "العنوان الفرعي"
+
+#: inc/acf-json-strings.php:47
+msgid "Posts Limit"
+msgstr "عدد المواد"
+
+#: inc/acf-json-strings.php:48
+msgid "Social Media Section"
+msgstr "قسم التواصل الاجتماعي"
+
+#: inc/acf-json-strings.php:49
+msgid "Infographics Section"
+msgstr "قسم الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:50
+msgid "Interviews Section"
+msgstr "قسم الحوارات"
+
+#: inc/acf-json-strings.php:51
+msgid "Videos Section"
+msgstr "قسم الفيديو"
+
+#: inc/acf-json-strings.php:52
+msgid "Podcasts Section"
+msgstr "قسم البودكاست"
+
+#: inc/acf-json-strings.php:53
+msgid "Speakers Section"
+msgstr "قسم المتحدثين"
+
+#: inc/acf-json-strings.php:54
+msgid "Program Series Section"
+msgstr "قسم سلاسل البرامج"
+
+#: inc/acf-json-strings.php:55
+msgid "Filter Government + Private Entities Section"
+msgstr "قسم فرز الجهات الحكومية والخاصة"
+
+#: inc/acf-json-strings.php:56
+msgid "Geographic Section"
+msgstr "القسم الجغرافي"
+
+#: inc/acf-json-strings.php:57
+msgid "Cars Section"
+msgstr "قسم السيارات"
+
+#: inc/acf-json-strings.php:58
+msgid "Show Budget Strip"
+msgstr "إظهار شريط الميزانية"
+
+#: inc/acf-json-strings.php:59
+msgid "Show Body Types"
+msgstr "إظهار أنواع الهيكل"
+
+#: inc/acf-json-strings.php:60
+msgid "Show Top Brands"
+msgstr "إظهار أبرز العلامات"
+
+#: inc/acf-json-strings.php:61
+msgid "Brands Limit"
+msgstr "عدد العلامات"
+
+#: inc/acf-json-strings.php:62
+msgid "Show Origins"
+msgstr "إظهار بلدان المنشأ"
+
+#: inc/acf-json-strings.php:63
+msgid "Ad Banner"
+msgstr "بانر إعلاني"
+
+#: inc/acf-json-strings.php:64
+msgid "Ad Image"
+msgstr "صورة الإعلان"
+
+#: inc/acf-json-strings.php:65
+msgid "Ad Link"
+msgstr "رابط الإعلان"
+
+#: inc/acf-json-strings.php:66
+msgid "Ad Code"
+msgstr "كود إعلاني"
+
+#: inc/acf-json-strings.php:67
+msgid "Ad Code / Script"
+msgstr "الكود الإعلاني / السكربت"
+
+#: inc/acf-json-strings.php:68
+msgid "Add Section"
+msgstr "إضافة قسم"
+
+#: inc/acf-json-strings.php:69
+msgid "Resources"
+msgstr "المصادر"
+
+#: inc/acf-json-strings.php:70
+msgid "Put all post resources here for review."
+msgstr "ضع هنا جميع مصادر المادة للمراجعة."
+
+#: inc/acf-json-strings.php:71
+msgid "Podcast Reels"
+msgstr "ريلز البودكاست"
+
+#: inc/acf-json-strings.php:72
+#: template-parts/profiles/sub-profile-organizer.php:73
+msgid "Organizer"
+msgstr "الجهة المنظمة"
+
+#: inc/acf-json-strings.php:73
+msgid "Organizer Name"
+msgstr "اسم الجهة المنظمة"
+
+#: inc/acf-json-strings.php:74
+msgid "Organizer Image"
+msgstr "صورة الجهة المنظمة"
+
+#: inc/acf-json-strings.php:75
+msgid "Organizer Social Media Links"
+msgstr "روابط التواصل للجهة المنظمة"
+
+#: inc/acf-json-strings.php:76
+msgid "Organizer Extra Info"
+msgstr "معلومات إضافية عن الجهة المنظمة"
+
+#: inc/acf-json-strings.php:77
+msgid "Location"
+msgstr "الموقع"
+
+#: inc/acf-json-strings.php:78
+msgid "Latitude"
+msgstr "خط العرض"
+
+#: inc/acf-json-strings.php:79
+msgid "Longitude"
+msgstr "خط الطول"
+
+#: inc/acf-json-strings.php:80
+msgid "Related Posts"
+msgstr "مواد ذات صلة"
+
+#: inc/acf-json-strings.php:81
+msgid "Pick up to 4 posts (optional)."
+msgstr "اختر حتى 4 مواد (اختياري)."
+
+#: inc/acf-json-strings.php:82
+#: template-parts/cards/card-hero-featured.php:14
+msgid "Programs"
+msgstr "برامج"
+
+#: inc/acf-json-strings.php:83
+msgid "Programs and Shows."
+msgstr "البرامج والعروض."
+
+#: inc/acf-json-strings.php:84
+msgid "Program"
+msgstr "البرنامج"
+
+#: inc/acf-json-strings.php:85
+msgid "All Programs"
+msgstr "كل البرامج"
+
+#: inc/acf-json-strings.php:86
+msgid "Edit Program"
+msgstr "تحرير البرنامج"
+
+#: inc/acf-json-strings.php:87
+msgid "View Program"
+msgstr "عرض البرنامج"
+
+#: inc/acf-json-strings.php:88
+msgid "View Programs"
+msgstr "عرض البرامج"
+
+#: inc/acf-json-strings.php:89
+msgid "Add New Program"
+msgstr "إضافة برنامج"
+
+#: inc/acf-json-strings.php:90
+msgid "New Program"
+msgstr "برنامج جديد"
+
+#: inc/acf-json-strings.php:91
+msgid "Parent Program:"
+msgstr "البرنامج الأب:"
+
+#: inc/acf-json-strings.php:92
+msgid "Search Programs"
+msgstr "بحث في البرامج"
+
+#: inc/acf-json-strings.php:93
+msgid "No programs found"
+msgstr "لم يُعثر على برامج"
+
+#: inc/acf-json-strings.php:94
+msgid "No programs found in Trash"
+msgstr "لم يُعثر على برامج في سلة المهملات"
+
+#: inc/acf-json-strings.php:95
+msgid "Program Archives"
+msgstr "أرشيف البرامج"
+
+#: inc/acf-json-strings.php:96
+msgid "Program Attributes"
+msgstr "خصائص البرنامج"
+
+#: inc/acf-json-strings.php:97
+msgid "Insert into program"
+msgstr "إدراج في البرنامج"
+
+#: inc/acf-json-strings.php:98
+msgid "Uploaded to this program"
+msgstr "مرفوع إلى هذا البرنامج"
+
+#: inc/acf-json-strings.php:99
+msgid "Filter programs list"
+msgstr "تصفية قائمة البرامج"
+
+#: inc/acf-json-strings.php:100
+msgid "Filter programs by date"
+msgstr "تصفية البرامج حسب التاريخ"
+
+#: inc/acf-json-strings.php:101
+msgid "Programs list navigation"
+msgstr "التنقل في قائمة البرامج"
+
+#: inc/acf-json-strings.php:102
+msgid "Programs list"
+msgstr "قائمة البرامج"
+
+#: inc/acf-json-strings.php:103
+msgid "Program published."
+msgstr "تم نشر البرنامج."
+
+#: inc/acf-json-strings.php:104
+msgid "Program published privately."
+msgstr "تم نشر البرنامج بشكل خاص."
+
+#: inc/acf-json-strings.php:105
+msgid "Program reverted to draft."
+msgstr "تمت إعادة البرنامج إلى مسودة."
+
+#: inc/acf-json-strings.php:106
+msgid "Program scheduled."
+msgstr "تمت جدولة البرنامج."
+
+#: inc/acf-json-strings.php:107
+msgid "Program updated."
+msgstr "تم تحديث البرنامج."
+
+#: inc/acf-json-strings.php:108
+msgid "Program Link"
+msgstr "رابط البرنامج"
+
+#: inc/acf-json-strings.php:109
+msgid "A link to a program."
+msgstr "رابط إلى برنامج."
+
+#: inc/acf-json-strings.php:110
+msgid "Infographics"
+msgstr "الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:111
+msgid "Data visualizations."
+msgstr "تصورات البيانات."
+
+#: inc/acf-json-strings.php:112
+#: template-parts/cards/card-hero-featured.php:15
+msgid "Infographic"
+msgstr "انفوجرافيك"
+
+#: inc/acf-json-strings.php:113
+msgid "All Infographics"
+msgstr "كل الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:114
+msgid "Edit Infographic"
+msgstr "تحرير الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:115
+msgid "View Infographic"
+msgstr "عرض الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:116
+msgid "View Infographics"
+msgstr "عرض الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:117
+msgid "Add New Infographic"
+msgstr "إضافة إنفوجرافيك"
+
+#: inc/acf-json-strings.php:118
+msgid "New Infographic"
+msgstr "إنفوجرافيك جديد"
+
+#: inc/acf-json-strings.php:119
+msgid "Parent Infographic:"
+msgstr "الإنفوجرافيك الأب:"
+
+#: inc/acf-json-strings.php:120
+msgid "Search Infographics"
+msgstr "بحث في الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:121
+msgid "No infographics found"
+msgstr "لم يُعثر على إنفوجرافيك"
+
+#: inc/acf-json-strings.php:122
+msgid "No infographics found in Trash"
+msgstr "لم يُعثر على إنفوجرافيك في سلة المهملات"
+
+#: inc/acf-json-strings.php:123
+msgid "Infographic Archives"
+msgstr "أرشيف الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:124
+msgid "Infographic Attributes"
+msgstr "خصائص الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:125
+msgid "Insert into infographic"
+msgstr "إدراج في الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:126
+msgid "Uploaded to this infographic"
+msgstr "مرفوع إلى هذا الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:127
+msgid "Filter infographics list"
+msgstr "تصفية قائمة الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:128
+msgid "Filter infographics by date"
+msgstr "تصفية الإنفوجرافيك حسب التاريخ"
+
+#: inc/acf-json-strings.php:129
+msgid "Infographics list navigation"
+msgstr "التنقل في قائمة الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:130
+msgid "Infographics list"
+msgstr "قائمة الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:131
+msgid "Infographic published."
+msgstr "تم نشر الإنفوجرافيك."
+
+#: inc/acf-json-strings.php:132
+msgid "Infographic published privately."
+msgstr "تم نشر الإنفوجرافيك بشكل خاص."
+
+#: inc/acf-json-strings.php:133
+msgid "Infographic reverted to draft."
+msgstr "تمت إعادة الإنفوجرافيك إلى مسودة."
+
+#: inc/acf-json-strings.php:134
+msgid "Infographic scheduled."
+msgstr "تمت جدولة الإنفوجرافيك."
+
+#: inc/acf-json-strings.php:135
+msgid "Infographic updated."
+msgstr "تم تحديث الإنفوجرافيك."
+
+#: inc/acf-json-strings.php:136
+msgid "Infographic Link"
+msgstr "رابط الإنفوجرافيك"
+
+#: inc/acf-json-strings.php:137
+msgid "A link to a infographic."
+msgstr "رابط إلى إنفوجرافيك."
+
+#: inc/acf-json-strings.php:138
+#: template-parts/cards/card-hero-featured.php:13
+msgid "Interviews"
+msgstr "مقابلات"
+
+#: inc/acf-json-strings.php:139
+msgid "Media-rich interview content."
+msgstr "محتوى حوارات غني بالوسائط."
+
+#: inc/acf-json-strings.php:140
+#: template-parts/cards/card-interview.php:23
+#: template-parts/sections/interviews_section.php:105
+msgid "Interview"
+msgstr "حوار"
+
+#: inc/acf-json-strings.php:141
+msgid "All Interviews"
+msgstr "كل الحوارات"
+
+#: inc/acf-json-strings.php:142
+msgid "Edit Interview"
+msgstr "تحرير الحوار"
+
+#: inc/acf-json-strings.php:143
+msgid "View Interview"
+msgstr "عرض الحوار"
+
+#: inc/acf-json-strings.php:144
+msgid "View Interviews"
+msgstr "عرض الحوارات"
+
+#: inc/acf-json-strings.php:145
+msgid "Add New Interview"
+msgstr "إضافة حوار"
+
+#: inc/acf-json-strings.php:146
+msgid "New Interview"
+msgstr "حوار جديد"
+
+#: inc/acf-json-strings.php:147
+msgid "Parent Interview:"
+msgstr "الحوار الأب:"
+
+#: inc/acf-json-strings.php:148
+msgid "Search Interviews"
+msgstr "بحث في الحوارات"
+
+#: inc/acf-json-strings.php:149
+msgid "No interviews found"
+msgstr "لم يُعثر على حوارات"
+
+#: inc/acf-json-strings.php:150
+msgid "No interviews found in Trash"
+msgstr "لم يُعثر على حوارات في سلة المهملات"
+
+#: inc/acf-json-strings.php:151
+msgid "Interview Archives"
+msgstr "أرشيف الحوارات"
+
+#: inc/acf-json-strings.php:152
+msgid "Interview Attributes"
+msgstr "خصائص الحوار"
+
+#: inc/acf-json-strings.php:153
+msgid "Insert into interview"
+msgstr "إدراج في الحوار"
+
+#: inc/acf-json-strings.php:154
+msgid "Uploaded to this interview"
+msgstr "مرفوع إلى هذا الحوار"
+
+#: inc/acf-json-strings.php:155
+msgid "Filter interviews list"
+msgstr "تصفية قائمة الحوارات"
+
+#: inc/acf-json-strings.php:156
+msgid "Filter interviews by date"
+msgstr "تصفية الحوارات حسب التاريخ"
+
+#: inc/acf-json-strings.php:157
+msgid "Interviews list navigation"
+msgstr "التنقل في قائمة الحوارات"
+
+#: inc/acf-json-strings.php:158
+msgid "Interviews list"
+msgstr "قائمة الحوارات"
+
+#: inc/acf-json-strings.php:159
+msgid "Interview published."
+msgstr "تم نشر الحوار."
+
+#: inc/acf-json-strings.php:160
+msgid "Interview published privately."
+msgstr "تم نشر الحوار بشكل خاص."
+
+#: inc/acf-json-strings.php:161
+msgid "Interview reverted to draft."
+msgstr "تمت إعادة الحوار إلى مسودة."
+
+#: inc/acf-json-strings.php:162
+msgid "Interview scheduled."
+msgstr "تمت جدولة الحوار."
+
+#: inc/acf-json-strings.php:163
+msgid "Interview updated."
+msgstr "تم تحديث الحوار."
+
+#: inc/acf-json-strings.php:164
+msgid "Interview Link"
+msgstr "رابط الحوار"
+
+#: inc/acf-json-strings.php:165
+msgid "A link to a interview."
+msgstr "رابط إلى حوار."
+
+#: inc/acf-json-strings.php:166
+msgid "Videos"
+msgstr "الفيديوهات"
+
+#: inc/acf-json-strings.php:167
+#: template-parts/cards/card-video.php:23
+#: template-parts/sections/videos_section.php:105
+msgid "Video"
+msgstr "فيديو"
+
+#: inc/acf-json-strings.php:168
+msgid "All Videos"
+msgstr "كل الفيديوهات"
+
+#: inc/acf-json-strings.php:169
+msgid "Edit Video"
+msgstr "تحرير الفيديو"
+
+#: inc/acf-json-strings.php:170
+msgid "View Video"
+msgstr "عرض الفيديو"
+
+#: inc/acf-json-strings.php:171
+msgid "View Videos"
+msgstr "عرض الفيديوهات"
+
+#: inc/acf-json-strings.php:172
+msgid "Add New Video"
+msgstr "إضافة فيديو"
+
+#: inc/acf-json-strings.php:173
+msgid "New Video"
+msgstr "فيديو جديد"
+
+#: inc/acf-json-strings.php:174
+msgid "Parent Video:"
+msgstr "الفيديو الأب:"
+
+#: inc/acf-json-strings.php:175
+msgid "Search Videos"
+msgstr "بحث في الفيديوهات"
+
+#: inc/acf-json-strings.php:176
+msgid "No videos found"
+msgstr "لم يُعثر على فيديوهات"
+
+#: inc/acf-json-strings.php:177
+msgid "No videos found in Trash"
+msgstr "لم يُعثر على فيديوهات في سلة المهملات"
+
+#: inc/acf-json-strings.php:178
+msgid "Video Archives"
+msgstr "أرشيف الفيديوهات"
+
+#: inc/acf-json-strings.php:179
+msgid "Video Attributes"
+msgstr "خصائص الفيديو"
+
+#: inc/acf-json-strings.php:180
+msgid "Insert into video"
+msgstr "إدراج في الفيديو"
+
+#: inc/acf-json-strings.php:181
+msgid "Uploaded to this video"
+msgstr "مرفوع إلى هذا الفيديو"
+
+#: inc/acf-json-strings.php:182
+msgid "Filter videos list"
+msgstr "تصفية قائمة الفيديوهات"
+
+#: inc/acf-json-strings.php:183
+msgid "Filter videos by date"
+msgstr "تصفية الفيديوهات حسب التاريخ"
+
+#: inc/acf-json-strings.php:184
+msgid "Videos list navigation"
+msgstr "التنقل في قائمة الفيديوهات"
+
+#: inc/acf-json-strings.php:185
+msgid "Videos list"
+msgstr "قائمة الفيديوهات"
+
+#: inc/acf-json-strings.php:186
+msgid "Video published."
+msgstr "تم نشر الفيديو."
+
+#: inc/acf-json-strings.php:187
+msgid "Video published privately."
+msgstr "تم نشر الفيديو بشكل خاص."
+
+#: inc/acf-json-strings.php:188
+msgid "Video reverted to draft."
+msgstr "تمت إعادة الفيديو إلى مسودة."
+
+#: inc/acf-json-strings.php:189
+msgid "Video scheduled."
+msgstr "تمت جدولة الفيديو."
+
+#: inc/acf-json-strings.php:190
+msgid "Video updated."
+msgstr "تم تحديث الفيديو."
+
+#: inc/acf-json-strings.php:191
+msgid "Video Link"
+msgstr "رابط الفيديو"
+
+#: inc/acf-json-strings.php:192
+msgid "A link to a video."
+msgstr "رابط إلى فيديو."
+
+#: inc/acf-json-strings.php:193
+msgid "Podcasts"
+msgstr "البودكاست"
+
+#: inc/acf-json-strings.php:194
+#: single-podcast.php:25
+#: template-parts/cards/card-podcast.php:23
+#: template-parts/sections/podcasts_section.php:79
+#: template-parts/sections/podcasts_section.php:107
+msgid "Podcast"
+msgstr "بودكاست"
+
+#: inc/acf-json-strings.php:195
+msgid "All Podcasts"
+msgstr "كل البودكاست"
+
+#: inc/acf-json-strings.php:196
+msgid "Edit Podcast"
+msgstr "تحرير البودكاست"
+
+#: inc/acf-json-strings.php:197
+msgid "View Podcast"
+msgstr "عرض البودكاست"
+
+#: inc/acf-json-strings.php:198
+msgid "View Podcasts"
+msgstr "عرض البودكاست"
+
+#: inc/acf-json-strings.php:199
+msgid "Add New Podcast"
+msgstr "إضافة بودكاست"
+
+#: inc/acf-json-strings.php:200
+msgid "New Podcast"
+msgstr "بودكاست جديد"
+
+#: inc/acf-json-strings.php:201
+msgid "Parent Podcast:"
+msgstr "البودكاست الأب:"
+
+#: inc/acf-json-strings.php:202
+msgid "Search Podcasts"
+msgstr "بحث في البودكاست"
+
+#: inc/acf-json-strings.php:203
+msgid "No podcasts found"
+msgstr "لم يُعثر على حلقات بودكاست"
+
+#: inc/acf-json-strings.php:204
+msgid "No podcasts found in Trash"
+msgstr "لم يُعثر على حلقات بودكاست في سلة المهملات"
+
+#: inc/acf-json-strings.php:205
+msgid "Podcast Archives"
+msgstr "أرشيف البودكاست"
+
+#: inc/acf-json-strings.php:206
+msgid "Podcast Attributes"
+msgstr "خصائص البودكاست"
+
+#: inc/acf-json-strings.php:207
+msgid "Insert into podcast"
+msgstr "إدراج في البودكاست"
+
+#: inc/acf-json-strings.php:208
+msgid "Uploaded to this podcast"
+msgstr "مرفوع إلى هذا البودكاست"
+
+#: inc/acf-json-strings.php:209
+msgid "Filter podcasts list"
+msgstr "تصفية قائمة البودكاست"
+
+#: inc/acf-json-strings.php:210
+msgid "Filter podcasts by date"
+msgstr "تصفية البودكاست حسب التاريخ"
+
+#: inc/acf-json-strings.php:211
+msgid "Podcasts list navigation"
+msgstr "التنقل في قائمة البودكاست"
+
+#: inc/acf-json-strings.php:212
+msgid "Podcasts list"
+msgstr "قائمة البودكاست"
+
+#: inc/acf-json-strings.php:213
+msgid "Podcast published."
+msgstr "تم نشر البودكاست."
+
+#: inc/acf-json-strings.php:214
+msgid "Podcast published privately."
+msgstr "تم نشر البودكاست بشكل خاص."
+
+#: inc/acf-json-strings.php:215
+msgid "Podcast reverted to draft."
+msgstr "تمت إعادة البودكاست إلى مسودة."
+
+#: inc/acf-json-strings.php:216
+msgid "Podcast scheduled."
+msgstr "تمت جدولة البودكاست."
+
+#: inc/acf-json-strings.php:217
+msgid "Podcast updated."
+msgstr "تم تحديث البودكاست."
+
+#: inc/acf-json-strings.php:218
+msgid "Podcast Link"
+msgstr "رابط البودكاست"
+
+#: inc/acf-json-strings.php:219
+msgid "A link to a podcast."
+msgstr "رابط إلى بودكاست."
+
+#: inc/acf-json-strings.php:220
+#: inc/site-search.php:150
+msgid "Reels"
+msgstr "الريلز"
+
+#: inc/acf-json-strings.php:221
+#: single-reel.php:19
+msgid "Reel"
+msgstr "ريل"
+
+#: inc/acf-json-strings.php:222
+msgid "All Reels"
+msgstr "كل الريلز"
+
+#: inc/acf-json-strings.php:223
+msgid "Edit Reel"
+msgstr "تحرير الريل"
+
+#: inc/acf-json-strings.php:224
+msgid "View Reel"
+msgstr "عرض الريل"
+
+#: inc/acf-json-strings.php:225
+msgid "View Reels"
+msgstr "عرض الريلز"
+
+#: inc/acf-json-strings.php:226
+msgid "Add New Reel"
+msgstr "إضافة ريل"
+
+#: inc/acf-json-strings.php:227
+msgid "New Reel"
+msgstr "ريل جديد"
+
+#: inc/acf-json-strings.php:228
+msgid "Parent Reel:"
+msgstr "الريل الأب:"
+
+#: inc/acf-json-strings.php:229
+msgid "Search Reels"
+msgstr "بحث في الريلز"
+
+#: inc/acf-json-strings.php:230
+msgid "No reels found"
+msgstr "لم يُعثر على ريلز"
+
+#: inc/acf-json-strings.php:231
+msgid "No reels found in Trash"
+msgstr "لم يُعثر على ريلز في سلة المهملات"
+
+#: inc/acf-json-strings.php:232
+msgid "Reel Archives"
+msgstr "أرشيف الريلز"
+
+#: inc/acf-json-strings.php:233
+msgid "Reel Attributes"
+msgstr "خصائص الريل"
+
+#: inc/acf-json-strings.php:234
+msgid "Insert into reel"
+msgstr "إدراج في الريل"
+
+#: inc/acf-json-strings.php:235
+msgid "Uploaded to this reel"
+msgstr "مرفوع إلى هذا الريل"
+
+#: inc/acf-json-strings.php:236
+msgid "Filter reels list"
+msgstr "تصفية قائمة الريلز"
+
+#: inc/acf-json-strings.php:237
+msgid "Filter reels by date"
+msgstr "تصفية الريلز حسب التاريخ"
+
+#: inc/acf-json-strings.php:238
+msgid "Reels list navigation"
+msgstr "التنقل في قائمة الريلز"
+
+#: inc/acf-json-strings.php:239
+msgid "Reels list"
+msgstr "قائمة الريلز"
+
+#: inc/acf-json-strings.php:240
+msgid "Reel published."
+msgstr "تم نشر الريل."
+
+#: inc/acf-json-strings.php:241
+msgid "Reel published privately."
+msgstr "تم نشر الريل بشكل خاص."
+
+#: inc/acf-json-strings.php:242
+msgid "Reel reverted to draft."
+msgstr "تمت إعادة الريل إلى مسودة."
+
+#: inc/acf-json-strings.php:243
+msgid "Reel scheduled."
+msgstr "تمت جدولة الريل."
+
+#: inc/acf-json-strings.php:244
+msgid "Reel updated."
+msgstr "تم تحديث الريل."
+
+#: inc/acf-json-strings.php:245
+msgid "Reel Link"
+msgstr "رابط الريل"
+
+#: inc/acf-json-strings.php:246
+msgid "A link to a reel."
+msgstr "رابط إلى ريل."
+
+#: inc/acf-json-strings.php:247
+#: template-parts/profiles/filter-departments-nav.php:32
+msgid "Departments"
+msgstr "الإدارات"
+
+#: inc/acf-json-strings.php:248
+msgid "Primary navigation axis. The core vertical division of the site."
+msgstr "محور التنقل الرئيسي، والتقسيم الأساسي للموقع."
+
+#: inc/acf-json-strings.php:250
+msgid "All department"
+msgstr "كل الإدارات"
+
+#: inc/acf-json-strings.php:251
+msgid "Edit Department"
+msgstr "تحرير الإدارة"
+
+#: inc/acf-json-strings.php:252
+msgid "View Department"
+msgstr "عرض الإدارة"
+
+#: inc/acf-json-strings.php:253
+msgid "Update Department"
+msgstr "تحديث الإدارة"
+
+#: inc/acf-json-strings.php:254
+msgid "Add New Department"
+msgstr "إضافة إدارة"
+
+#: inc/acf-json-strings.php:255
+msgid "New Department Name"
+msgstr "اسم إدارة جديدة"
+
+#: inc/acf-json-strings.php:256
+msgid "Search department"
+msgstr "بحث في الإدارات"
+
+#: inc/acf-json-strings.php:257
+msgid "No department found"
+msgstr "لم يُعثر على إدارات"
+
+#: inc/acf-json-strings.php:258
+msgid "No department"
+msgstr "لا توجد إدارات"
+
+#: inc/acf-json-strings.php:259
+msgid "Names can be entered in Arabic or English."
+msgstr "يمكن إدخال الأسماء بالعربية أو الإنجليزية."
+
+#: inc/acf-json-strings.php:260
+msgid "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here."
+msgstr "يجب أن يكون الرابط (slug) بالإنجليزية أو بحروف لاتينية. أدخل هنا ترجمة الاسم أو كتابته بحروف لاتينية."
+
+#: inc/acf-json-strings.php:261
+msgid "department list navigation"
+msgstr "التنقل في قائمة الإدارات"
+
+#: inc/acf-json-strings.php:262
+msgid "department list"
+msgstr "قائمة الإدارات"
+
+#: inc/acf-json-strings.php:263
+msgid "← Go to department"
+msgstr "→ العودة إلى الإدارات"
+
+#: inc/acf-json-strings.php:264
+msgid "Department Link"
+msgstr "رابط الإدارة"
+
+#: inc/acf-json-strings.php:265
+msgid "A link to a department"
+msgstr "رابط إلى إدارة"
+
+#: inc/acf-json-strings.php:267
+msgid "Grouping episodic or related programs."
+msgstr "تجميع البرامج المتسلسلة أو المترابطة."
+
+#: inc/acf-json-strings.php:268
+msgid "All Program Series"
+msgstr "كل سلاسل البرامج"
+
+#: inc/acf-json-strings.php:269
+msgid "Edit Program Series"
+msgstr "تحرير سلسلة البرامج"
+
+#: inc/acf-json-strings.php:270
+msgid "View Program Series"
+msgstr "عرض سلسلة البرامج"
+
+#: inc/acf-json-strings.php:271
+msgid "Update Program Series"
+msgstr "تحديث سلسلة البرامج"
+
+#: inc/acf-json-strings.php:272
+msgid "Add New Program Series"
+msgstr "إضافة سلسلة برامج"
+
+#: inc/acf-json-strings.php:273
+msgid "New Program Series Name"
+msgstr "اسم سلسلة برامج جديدة"
+
+#: inc/acf-json-strings.php:274
+msgid "Search Program Series"
+msgstr "بحث في سلاسل البرامج"
+
+#: inc/acf-json-strings.php:275
+msgid "No program series found"
+msgstr "لم يُعثر على سلاسل برامج"
+
+#: inc/acf-json-strings.php:276
+msgid "No program series"
+msgstr "لا توجد سلاسل برامج"
+
+#: inc/acf-json-strings.php:277
+msgid "Program Series list navigation"
+msgstr "التنقل في قائمة سلاسل البرامج"
+
+#: inc/acf-json-strings.php:278
+msgid "Program Series list"
+msgstr "قائمة سلاسل البرامج"
+
+#: inc/acf-json-strings.php:279
+msgid "← Go to program series"
+msgstr "→ العودة إلى سلاسل البرامج"
+
+#: inc/acf-json-strings.php:280
+msgid "Program Series Link"
+msgstr "رابط سلسلة البرامج"
+
+#: inc/acf-json-strings.php:281
+msgid "A link to a program series"
+msgstr "رابط إلى سلسلة برامج"
+
+#: inc/acf-json-strings.php:282
+msgid "Government Entities"
+msgstr "الجهات الحكومية"
+
+#: inc/acf-json-strings.php:283
+msgid "Tagging involved government bodies."
+msgstr "وسم الجهات الحكومية المعنية."
+
+#: inc/acf-json-strings.php:284
+msgid "Government Entity"
+msgstr "الجهة الحكومية"
+
+#: inc/acf-json-strings.php:285
+msgid "All Government Entities"
+msgstr "كل الجهات الحكومية"
+
+#: inc/acf-json-strings.php:286
+msgid "Edit Government Entity"
+msgstr "تحرير الجهة الحكومية"
+
+#: inc/acf-json-strings.php:287
+msgid "View Government Entity"
+msgstr "عرض الجهة الحكومية"
+
+#: inc/acf-json-strings.php:288
+msgid "Update Government Entity"
+msgstr "تحديث الجهة الحكومية"
+
+#: inc/acf-json-strings.php:289
+msgid "Add New Government Entity"
+msgstr "إضافة جهة حكومية"
+
+#: inc/acf-json-strings.php:290
+msgid "New Government Entity Name"
+msgstr "اسم جهة حكومية جديدة"
+
+#: inc/acf-json-strings.php:291
+msgid "Search Government Entities"
+msgstr "بحث في الجهات الحكومية"
+
+#: inc/acf-json-strings.php:292
+msgid "No government entities found"
+msgstr "لم يُعثر على جهات حكومية"
+
+#: inc/acf-json-strings.php:293
+msgid "No government entities"
+msgstr "لا توجد جهات حكومية"
+
+#: inc/acf-json-strings.php:294
+msgid "Government Entities list navigation"
+msgstr "التنقل في قائمة الجهات الحكومية"
+
+#: inc/acf-json-strings.php:295
+msgid "Government Entities list"
+msgstr "قائمة الجهات الحكومية"
+
+#: inc/acf-json-strings.php:296
+msgid "← Go to government entities"
+msgstr "→ العودة إلى الجهات الحكومية"
+
+#: inc/acf-json-strings.php:297
+msgid "Government Entity Link"
+msgstr "رابط الجهة الحكومية"
+
+#: inc/acf-json-strings.php:298
+msgid "A link to a government entity"
+msgstr "رابط إلى جهة حكومية"
+
+#: inc/acf-json-strings.php:299
+msgid "Private Entities"
+msgstr "الجهات الخاصة"
+
+#: inc/acf-json-strings.php:300
+msgid "Tagging involved private partners."
+msgstr "وسم الشركاء من القطاع الخاص."
+
+#: inc/acf-json-strings.php:301
+msgid "Private Entity"
+msgstr "الجهة الخاصة"
+
+#: inc/acf-json-strings.php:302
+msgid "All Private Entities"
+msgstr "كل الجهات الخاصة"
+
+#: inc/acf-json-strings.php:303
+msgid "Edit Private Entity"
+msgstr "تحرير الجهة الخاصة"
+
+#: inc/acf-json-strings.php:304
+msgid "View Private Entity"
+msgstr "عرض الجهة الخاصة"
+
+#: inc/acf-json-strings.php:305
+msgid "Update Private Entity"
+msgstr "تحديث الجهة الخاصة"
+
+#: inc/acf-json-strings.php:306
+msgid "Add New Private Entity"
+msgstr "إضافة جهة خاصة"
+
+#: inc/acf-json-strings.php:307
+msgid "New Private Entity Name"
+msgstr "اسم جهة خاصة جديدة"
+
+#: inc/acf-json-strings.php:308
+msgid "Search Private Entities"
+msgstr "بحث في الجهات الخاصة"
+
+#: inc/acf-json-strings.php:309
+msgid "No private entities found"
+msgstr "لم يُعثر على جهات خاصة"
+
+#: inc/acf-json-strings.php:310
+msgid "No private entities"
+msgstr "لا توجد جهات خاصة"
+
+#: inc/acf-json-strings.php:311
+msgid "Private Entities list navigation"
+msgstr "التنقل في قائمة الجهات الخاصة"
+
+#: inc/acf-json-strings.php:312
+msgid "Private Entities list"
+msgstr "قائمة الجهات الخاصة"
+
+#: inc/acf-json-strings.php:313
+msgid "← Go to private entities"
+msgstr "→ العودة إلى الجهات الخاصة"
+
+#: inc/acf-json-strings.php:314
+msgid "Private Entity Link"
+msgstr "رابط الجهة الخاصة"
+
+#: inc/acf-json-strings.php:315
+msgid "A link to a private entity"
+msgstr "رابط إلى جهة خاصة"
+
+#: inc/acf-json-strings.php:316
+msgid "Speakers & Influencers"
+msgstr "المتحدثون والمؤثرون"
+
+#: inc/acf-json-strings.php:317
+msgid "Speakers, hosts, or guests."
+msgstr "المتحدثون والمقدمون والضيوف."
+
+#: inc/acf-json-strings.php:318
+msgid "Speaker/Influencer"
+msgstr "المتحدث/المؤثر"
+
+#: inc/acf-json-strings.php:319
+msgid "All Speakers & Influencers"
+msgstr "كل المتحدثين والمؤثرين"
+
+#: inc/acf-json-strings.php:320
+msgid "Edit speaker_influencer"
+msgstr "تحرير المتحدث/المؤثر"
+
+#: inc/acf-json-strings.php:321
+msgid "View speaker_influencer"
+msgstr "عرض المتحدث/المؤثر"
+
+#: inc/acf-json-strings.php:322
+msgid "Update speaker_influencer"
+msgstr "تحديث المتحدث/المؤثر"
+
+#: inc/acf-json-strings.php:323
+msgid "Add New speaker_influencer"
+msgstr "إضافة متحدث/مؤثر"
+
+#: inc/acf-json-strings.php:324
+msgid "New speaker_influencer Name"
+msgstr "اسم متحدث/مؤثر جديد"
+
+#: inc/acf-json-strings.php:325
+msgid "Search Speakers & Influencers"
+msgstr "بحث في المتحدثين والمؤثرين"
+
+#: inc/acf-json-strings.php:326
+msgid "No speakers & influencers found"
+msgstr "لم يُعثر على متحدثين ومؤثرين"
+
+#: inc/acf-json-strings.php:327
+msgid "No speakers & influencers"
+msgstr "لا يوجد متحدثون ومؤثرون"
+
+#: inc/acf-json-strings.php:328
+msgid "Speakers & Influencers list navigation"
+msgstr "التنقل في قائمة المتحدثين والمؤثرين"
+
+#: inc/acf-json-strings.php:329
+msgid "Speakers & Influencers list"
+msgstr "قائمة المتحدثين والمؤثرين"
+
+#: inc/acf-json-strings.php:330
+msgid "← Go to speakers & influencers"
+msgstr "→ العودة إلى المتحدثين والمؤثرين"
+
+#: inc/acf-json-strings.php:331
+msgid "speaker_influencer Link"
+msgstr "رابط المتحدث/المؤثر"
+
+#: inc/acf-json-strings.php:332
+msgid "A link to a speaker_influencer"
+msgstr "رابط إلى متحدث/مؤثر"
+
+#: inc/acf-json-strings.php:333
+msgid "Geographics"
+msgstr "المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:334
+msgid "Location-based filtering."
+msgstr "التصفية حسب الموقع."
+
+#: inc/acf-json-strings.php:335
+msgid "Geographic"
+msgstr "المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:336
+msgid "All Geographic"
+msgstr "كل المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:337
+msgid "Edit Geographic"
+msgstr "تحرير المنطقة الجغرافية"
+
+#: inc/acf-json-strings.php:338
+msgid "View Geographic"
+msgstr "عرض المنطقة الجغرافية"
+
+#: inc/acf-json-strings.php:339
+msgid "Update Geographic"
+msgstr "تحديث المنطقة الجغرافية"
+
+#: inc/acf-json-strings.php:340
+msgid "Add New Geographic"
+msgstr "إضافة منطقة جغرافية"
+
+#: inc/acf-json-strings.php:341
+msgid "New Geographic Name"
+msgstr "اسم منطقة جغرافية جديدة"
+
+#: inc/acf-json-strings.php:342
+msgid "Search Geographic"
+msgstr "بحث في المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:343
+msgid "No geographic found"
+msgstr "لم يُعثر على مناطق جغرافية"
+
+#: inc/acf-json-strings.php:344
+msgid "No geographic"
+msgstr "لا توجد مناطق جغرافية"
+
+#: inc/acf-json-strings.php:345
+msgid "Hierarchical location filter: Country → City."
+msgstr "تصفية هرمية حسب الموقع: الدولة ← المدينة."
+
+#: inc/acf-json-strings.php:346
+msgid "Geographic list navigation"
+msgstr "التنقل في قائمة المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:347
+msgid "Geographic list"
+msgstr "قائمة المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:348
+msgid "← Go to geographic"
+msgstr "→ العودة إلى المناطق الجغرافية"
+
+#: inc/acf-json-strings.php:349
+msgid "Geographic Link"
+msgstr "رابط المنطقة الجغرافية"
+
+#: inc/acf-json-strings.php:350
+msgid "A link to a geographic"
+msgstr "رابط إلى منطقة جغرافية"
+
+#: inc/acf-json-strings.php:351
+msgid "Editors"
+msgstr "المحررون"
+
+#: inc/acf-json-strings.php:352
+msgid "Editors replace authors."
+msgstr "المحررون بدلاً من الكتّاب."
+
+#: inc/acf-json-strings.php:353
+msgid "Editor"
+msgstr "المحرر"
+
+#: inc/acf-json-strings.php:354
+msgid "All Editors"
+msgstr "كل المحررين"
+
+#: inc/acf-json-strings.php:355
+msgid "Edit Editor"
+msgstr "تحرير المحرر"
+
+#: inc/acf-json-strings.php:356
+msgid "View Editor"
+msgstr "عرض المحرر"
+
+#: inc/acf-json-strings.php:357
+msgid "Update Editor"
+msgstr "تحديث المحرر"
+
+#: inc/acf-json-strings.php:358
+msgid "Add New Editor"
+msgstr "إضافة محرر"
+
+#: inc/acf-json-strings.php:359
+msgid "New Editor Name"
+msgstr "اسم محرر جديد"
+
+#: inc/acf-json-strings.php:360
+msgid "Parent Editor"
+msgstr "المحرر الأب"
+
+#: inc/acf-json-strings.php:361
+msgid "Parent Editor:"
+msgstr "المحرر الأب:"
+
+#: inc/acf-json-strings.php:362
+msgid "Search Editors"
+msgstr "بحث في المحررين"
+
+#: inc/acf-json-strings.php:363
+msgid "No editors found"
+msgstr "لم يُعثر على محررين"
+
+#: inc/acf-json-strings.php:364
+msgid "No editors"
+msgstr "لا يوجد محررون"
+
+#: inc/acf-json-strings.php:365
+msgid "Filter by editor"
+msgstr "تصفية حسب المحرر"
+
+#: inc/acf-json-strings.php:366
+msgid "Editors list navigation"
+msgstr "التنقل في قائمة المحررين"
+
+#: inc/acf-json-strings.php:367
+msgid "Editors list"
+msgstr "قائمة المحررين"
+
+#: inc/acf-json-strings.php:368
+msgid "← Go to editors"
+msgstr "→ العودة إلى المحررين"
+
+#: inc/acf-json-strings.php:369
+msgid "Editor Link"
+msgstr "رابط المحرر"
+
+#: inc/acf-json-strings.php:370
+msgid "A link to a editor"
+msgstr "رابط إلى محرر"
+
+#: inc/acf-json-strings.php:372
+msgid "Event"
+msgstr "الفعالية"
+
+#: inc/acf-json-strings.php:373
+msgid "All Events"
+msgstr "كل الفعاليات"
+
+#: inc/acf-json-strings.php:374
+msgid "Edit Event"
+msgstr "تحرير الفعالية"
+
+#: inc/acf-json-strings.php:375
+msgid "View Event"
+msgstr "عرض الفعالية"
+
+#: inc/acf-json-strings.php:376
+msgid "Update Event"
+msgstr "تحديث الفعالية"
+
+#: inc/acf-json-strings.php:377
+msgid "Add New Event"
+msgstr "إضافة فعالية"
+
+#: inc/acf-json-strings.php:378
+msgid "New Event Name"
+msgstr "اسم فعالية جديدة"
+
+#: inc/acf-json-strings.php:379
+msgid "Parent Event"
+msgstr "الفعالية الأب"
+
+#: inc/acf-json-strings.php:380
+msgid "Parent Event:"
+msgstr "الفعالية الأب:"
+
+#: inc/acf-json-strings.php:381
+msgid "Search Events"
+msgstr "بحث في الفعاليات"
+
+#: inc/acf-json-strings.php:382
+msgid "No events found"
+msgstr "لم يُعثر على فعاليات"
+
+#: inc/acf-json-strings.php:383
+msgid "No events"
+msgstr "لا توجد فعاليات"
+
+#: inc/acf-json-strings.php:384
+msgid "Filter by event"
+msgstr "تصفية حسب الفعالية"
+
+#: inc/acf-json-strings.php:385
+msgid "Events list navigation"
+msgstr "التنقل في قائمة الفعاليات"
+
+#: inc/acf-json-strings.php:386
+msgid "Events list"
+msgstr "قائمة الفعاليات"
+
+#: inc/acf-json-strings.php:387
+msgid "← Go to events"
+msgstr "→ العودة إلى الفعاليات"
+
+#: inc/acf-json-strings.php:388
+msgid "Event Link"
+msgstr "رابط الفعالية"
+
+#: inc/acf-json-strings.php:389
+msgid "A link to a event"
+msgstr "رابط إلى فعالية"
+
+#: inc/acf-json-strings.php:391
+msgid "Tagging involved international bodies."
+msgstr "وسم الجهات الدولية المعنية."
+
+#: inc/acf-json-strings.php:392
+msgid "International Entity"
+msgstr "الجهة الدولية"
+
+#: inc/acf-json-strings.php:393
+msgid "All International Entities"
+msgstr "كل الجهات الدولية"
+
+#: inc/acf-json-strings.php:394
+msgid "Edit International Entity"
+msgstr "تحرير الجهة الدولية"
+
+#: inc/acf-json-strings.php:395
+msgid "View International Entity"
+msgstr "عرض الجهة الدولية"
+
+#: inc/acf-json-strings.php:396
+msgid "Update International Entity"
+msgstr "تحديث الجهة الدولية"
+
+#: inc/acf-json-strings.php:397
+msgid "Add New International Entity"
+msgstr "إضافة جهة دولية"
+
+#: inc/acf-json-strings.php:398
+msgid "New International Entity Name"
+msgstr "اسم جهة دولية جديدة"
+
+#: inc/acf-json-strings.php:399
+msgid "Search International Entities"
+msgstr "بحث في الجهات الدولية"
+
+#: inc/acf-json-strings.php:400
+msgid "No international entities found"
+msgstr "لم يُعثر على جهات دولية"
+
+#: inc/acf-json-strings.php:401
+msgid "No international entities"
+msgstr "لا توجد جهات دولية"
+
+#: inc/acf-json-strings.php:402
+msgid "International Entities list navigation"
+msgstr "التنقل في قائمة الجهات الدولية"
+
+#: inc/acf-json-strings.php:403
+msgid "International Entities list"
+msgstr "قائمة الجهات الدولية"
+
+#: inc/acf-json-strings.php:404
+msgid "← Go to international entities"
+msgstr "→ العودة إلى الجهات الدولية"
+
+#: inc/acf-json-strings.php:405
+msgid "International Entity Link"
+msgstr "رابط الجهة الدولية"
+
+#: inc/acf-json-strings.php:406
+msgid "A link to an international entity"
+msgstr "رابط إلى جهة دولية"
+
+#: inc/cars.php:21
+msgid "Make"
+msgstr "الشركة"
+
+#: inc/cars.php:22
+#: inc/cars/helpers.php:948
+#: taxonomy-car_make.php:32
+msgid "Model"
+msgstr "الموديل"
+
+#: inc/cars.php:23
+msgid "Year"
+msgstr "السنة"
+
+#: inc/cars.php:24
+#: inc/cars/directory.php:33
+msgid "Origin"
+msgstr "المنشأ"
+
+#: inc/cars.php:25
+msgid "Body"
+msgstr "الهيكل"
+
+#: inc/cars.php:26
+msgid "Fuel"
+msgstr "الوقود"
+
+#: inc/cars.php:27
+msgid "Transmission"
+msgstr "ناقل الحركة"
+
+#: inc/cars.php:28
+msgid "Drivetrain"
+msgstr "نظام الدفع"
+
+#: inc/cars.php:29
+#: inc/cars/directory.php:39
+#: single-car.php:72
+msgid "Features"
+msgstr "التجهيزات"
+
+#. translators: %s: model-year title
+#: inc/cars.php:37
+#: inc/cars/helpers.php:802
+#: inc/cars/helpers.php:949
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+msgid "Price"
+msgstr "السعر"
+
+#: inc/cars.php:37
+#: inc/cars.php:414
+msgid "SAR"
+msgstr "ر.س"
+
+#: inc/cars.php:38
+msgid "Power"
+msgstr "القوة"
+
+#: inc/cars.php:38
+msgid "hp"
+msgstr "حصان"
+
+#: inc/cars.php:39
+msgid "Torque"
+msgstr "العزم"
+
+#: inc/cars.php:39
+msgid "Nm"
+msgstr "نيوتن.متر"
+
+#: inc/cars.php:40
+msgid "Engine size"
+msgstr "سعة المحرك"
+
+#: inc/cars.php:40
+msgid "L"
+msgstr "لتر"
+
+#: inc/cars.php:41
+msgid "Seats"
+msgstr "المقاعد"
+
+#. translators: %s: number of matching cars
+#: inc/cars.php:377
+#, php-format
+msgid "%s matching car"
+msgid_plural "%s matching cars"
+msgstr[0] "لا توجد سيارات مطابقة"
+msgstr[1] "سيارة واحدة"
+msgstr[2] "سيارتان"
+msgstr[3] "%s سيارات"
+msgstr[4] "%s سيارة"
+msgstr[5] "%s سيارة"
+
+#. translators: 1: facet label, 2: minimum, 3: maximum
+#: inc/cars.php:397
+#, php-format
+msgid "%1$s: from %2$s to %3$s"
+msgstr "%1$s: من %2$s إلى %3$s"
+
+#. translators: 1: facet label, 2: minimum
+#: inc/cars.php:401
+#, php-format
+msgid "%1$s: from %2$s"
+msgstr "%1$s: من %2$s"
+
+#. translators: 1: facet label, 2: maximum
+#: inc/cars.php:404
+#, php-format
+msgid "%1$s: up to %2$s"
+msgstr "%1$s: حتى %2$s"
+
+#. translators: %s: price
+#: inc/cars.php:417
+#, php-format
+msgid "Starting from %s"
+msgstr "ابتداءً من %s"
+
+#: inc/cars.php:477
+#: template-parts/profiles/filter-departments-nav.php:39
+msgid "All"
+msgstr "الكل"
+
+#: inc/cars.php:478
+msgid "Choose a make first"
+msgstr "اختر الشركة أولًا"
+
+#: inc/cars/directory.php:32
+msgid "Brands and models"
+msgstr "الماركات والموديلات"
+
+#: inc/cars/directory.php:34
+msgid "Model years"
+msgstr "سنوات الموديل"
+
+#: inc/cars/directory.php:35
+msgid "Body types"
+msgstr "أنواع الهيكل"
+
+#: inc/cars/directory.php:36
+msgid "Fuel types"
+msgstr "أنواع الوقود"
+
+#: inc/cars/directory.php:37
+msgid "Transmission types"
+msgstr "أنواع ناقل الحركة"
+
+#: inc/cars/directory.php:38
+msgid "Drivetrains"
+msgstr "أنظمة الدفع"
+
+#. translators: %s: amount in thousands ("50 ألف")
+#: inc/cars/directory.php:54
+#, php-format
+msgid "Under %s"
+msgstr "أقل من %s"
+
+#. translators: 1: lower amount, 2: upper amount ("50 ألف", "100 ألف")
+#: inc/cars/directory.php:57
+#, php-format
+msgid "%1$s to %2$s"
+msgstr "%1$s إلى %2$s"
+
+#. translators: %s: amount in thousands ("400 ألف")
+#: inc/cars/directory.php:61
+#, php-format
+msgid "Over %s"
+msgstr "أكثر من %s"
+
+#. translators: %s: number of thousands
+#: inc/cars/directory.php:69
+#, php-format
+msgid "%s thousand"
+msgstr "%s ألف"
+
+#. translators: %d: page number
+#: inc/cars/directory.php:338
+#: price-range.php:21
+#, php-format
+msgid "Page %d"
+msgstr "صفحة %d"
+
+#: inc/cars/fields.php:84
+msgid "General"
+msgstr "عام"
+
+#: inc/cars/fields.php:135
+msgid "Specification sections"
+msgstr "أقسام المواصفات"
+
+#: inc/cars/fields.php:313
+msgid "Yes"
+msgstr "نعم"
+
+#: inc/cars/fields.php:314
+msgid "No"
+msgstr "لا"
+
+#: inc/cars/fields.php:328
+#: inc/cars/fields.php:352
+msgctxt "list separator"
+msgid ", "
+msgstr "،"
+
+#: inc/cars/fields.php:397
+msgid "Review video"
+msgstr "فيديو الاستعراض"
+
+#. translators: %s: amount
+#: inc/cars/helpers.php:371
+#, php-format
+msgid "%s SAR"
+msgstr "%s ر.س"
+
+#. translators: %s: amount
+#: inc/cars/helpers.php:378
+#, php-format
+msgid "%s US dollars"
+msgstr "%s دولار أمريكي"
+
+#. translators: %s: number of cars
+#: inc/cars/helpers.php:397
+#, php-format
+msgid "%s car"
+msgid_plural "%s cars"
+msgstr[0] "لا توجد سيارات"
+msgstr[1] "سيارة واحدة"
+msgstr[2] "سيارتان"
+msgstr[3] "%s سيارات"
+msgstr[4] "%s سيارة"
+msgstr[5] "%s سيارة"
+
+#. translators: %s: number of models
+#: inc/cars/helpers.php:403
+#, php-format
+msgid "%s model"
+msgid_plural "%s models"
+msgstr[0] "لا توجد موديلات"
+msgstr[1] "موديل واحد"
+msgstr[2] "موديلان"
+msgstr[3] "%s موديلات"
+msgstr[4] "%s موديلاً"
+msgstr[5] "%s موديلاً"
+
+#. translators: %s: number of brands
+#: inc/cars/helpers.php:409
+#, php-format
+msgid "%s brand"
+msgid_plural "%s brands"
+msgstr[0] "لا توجد علامات"
+msgstr[1] "علامة واحدة"
+msgstr[2] "علامتان"
+msgstr[3] "%s علامات"
+msgstr[4] "%s علامة"
+msgstr[5] "%s علامة"
+
+#. translators: %s: number of trims
+#: inc/cars/helpers.php:415
+#, php-format
+msgid "%s trim"
+msgid_plural "%s trims"
+msgstr[0] "لا توجد فئات"
+msgstr[1] "فئة واحدة"
+msgstr[2] "فئتان"
+msgstr[3] "%s فئات"
+msgstr[4] "%s فئة"
+msgstr[5] "%s فئة"
+
+#. translators: %s: number of model years
+#: inc/cars/helpers.php:421
+#, php-format
+msgid "%s model year"
+msgid_plural "%s model years"
+msgstr[0] "لا توجد سنوات موديل"
+msgstr[1] "سنة موديل واحدة"
+msgstr[2] "سنتا موديل"
+msgstr[3] "%s سنوات موديل"
+msgstr[4] "%s سنة موديل"
+msgstr[5] "%s سنة موديل"
+
+#. translators: %s: number of photos
+#: inc/cars/helpers.php:427
+#, php-format
+msgid "%s photo"
+msgid_plural "%s photos"
+msgstr[0] "لا توجد صور"
+msgstr[1] "صورة واحدة"
+msgstr[2] "صورتان"
+msgstr[3] "%s صور"
+msgstr[4] "%s صورة"
+msgstr[5] "%s صورة"
+
+#: inc/cars/helpers.php:470
+#: search.php:46
+#: template-parts/archive/cpt-loop.php:113
+msgid "Home"
+msgstr "الرئيسية"
+
+#: inc/cars/helpers.php:472
+msgid "Breadcrumb"
+msgstr "مسار التصفح"
+
+#: inc/cars/helpers.php:526
+#: template-parts/sections/infographics_section.php:95
+#: template-parts/sections/interviews_section.php:96
+#: template-parts/sections/podcasts_section.php:98
+#: template-parts/sections/posts_section.php:99
+#: template-parts/sections/programs_section.php:96
+#: template-parts/sections/videos_section.php:96
+msgid "More"
+msgstr "المزيد"
+
+#: inc/cars/helpers.php:655
+msgid "No price"
+msgstr "لا يوجد سعر"
+
+#: inc/cars/helpers.php:664
+#: template-parts/cars/filter-more.php:68
+#: template-parts/cars/filter-more.php:69
+msgid "to"
+msgstr "إلى"
+
+#: inc/cars/helpers.php:701
+#: single-car_model_year.php:27
+msgid "Sub-family"
+msgstr "فئة فرعية"
+
+#: inc/cars/helpers.php:776
+msgid "Hide"
+msgstr "إخفاء"
+
+#: inc/cars/helpers.php:776
+msgid "...Read more"
+msgstr "...اقرأ المزيد"
+
+#: inc/cars/helpers.php:802
+msgid "Price starts from"
+msgstr "السعر يبدأ من"
+
+#: inc/cars/helpers.php:805
+msgid "VAT included"
+msgstr "شامل ضريبة القيمة المضافة"
+
+#: inc/cars/helpers.php:805
+msgid "Excluding VAT"
+msgstr "غير شامل الضريبة"
+
+#: inc/cars/helpers.php:807
+msgid "No published price"
+msgstr "لا يوجد سعر منشور"
+
+#: inc/cars/helpers.php:811
+msgid "Warranty:"
+msgstr "الضمان:"
+
+#: inc/cars/helpers.php:847
+#: inc/cars/helpers.php:857
+msgid "View full size"
+msgstr "عرض بالحجم الكامل"
+
+#. translators: 1: photo number, 2: number of photos
+#: inc/cars/helpers.php:870
+#, php-format
+msgid "Photo %1$d of %2$d"
+msgstr "صورة %1$d من %2$d"
+
+#. translators: %s: number of photos ("12 photos")
+#: inc/cars/helpers.php:876
+#, php-format
+msgid "%s in the gallery - click a photo to view it full size"
+msgstr "%s في المعرض - اضغط على الصورة للعرض بالحجم الكامل"
+
+#: inc/cars/helpers.php:905
+msgid "Price list"
+msgstr "قائمة الأسعار"
+
+#: inc/cars/helpers.php:948
+msgid "Lowest price"
+msgstr "أقل سعر"
+
+#: inc/cars/helpers.php:948
+msgid "Highest price"
+msgstr "أعلى سعر"
+
+#. translators: %s: model-year title
+#: inc/cars/helpers.php:949
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+msgid "Trim"
+msgstr "الفئة"
+
+#: inc/cars/helpers.php:950
+msgid "Latest price list"
+msgstr "أحدث قائمة أسعار"
+
+#. translators: %s: model name
+#: inc/cars/helpers.php:1040
+#, php-format
+msgid "Other trims of %s"
+msgstr "فئات أخرى من %s"
+
+#. translators: %s: model name
+#: inc/cars/helpers.php:1040
+msgid "the model"
+msgstr "الموديل"
+
+#: inc/cars/helpers.php:1041
+msgid "Rival cars"
+msgstr "سيارات منافسة"
+
+#: inc/cars/helpers.php:1048
+#: template-parts/related/related-content.php:16
+msgid "You may also like"
+msgstr "قد يهمك أيضًا"
+
+#: inc/shortcodes/department-footer.php:81
+msgid "Follow us"
+msgstr "تابعنا"
+
+#. translators: %s: number of search results
+#: inc/site-search.php:119
+#, php-format
+msgid "%s result"
+msgid_plural "%s results"
+msgstr[0] "لا توجد نتائج"
+msgstr[1] "نتيجة واحدة"
+msgstr[2] "نتيجتان"
+msgstr[3] "%s نتائج"
+msgstr[4] "%s نتيجة"
+msgstr[5] "%s نتيجة"
+
+#: inc/site-search.php:153
+msgid "Content"
+msgstr "المحتوى"
+
+#: inc/submissions/approval.php:113
+msgid "The request was rejected and the submitter notified."
+msgstr "تم رفض الطلب وإشعار المُرسل."
+
+#: inc/submissions/approval.php:115
+msgid "The request could not be moved to the trash."
+msgstr "تعذر نقل الطلب إلى سلة المهملات."
+
+#: inc/submissions/approval.php:132
+#: inc/submissions/approval.php:156
+msgid "The request was not published:"
+msgstr "لم يُنشر الطلب: "
+
+#: inc/submissions/approval.php:177
+msgid "Page published:"
+msgstr "تم نشر الصفحة:"
+
+#: inc/submissions/approval.php:186
+msgid "View"
+msgstr "عرض"
+
+#: inc/submissions/approval.php:190
+#: inc/submissions/post-type.php:319
+msgid "Edit"
+msgstr "تحرير"
+
+#: inc/submissions/approval.php:226
+msgid "The type is not set."
+msgstr "النوع غير محدد."
+
+#: inc/submissions/approval.php:232
+#: inc/submissions/form.php:737
+msgid "The name is required."
+msgstr "الاسم مطلوب."
+
+#: inc/submissions/approval.php:238
+msgid "An English slug is required before publishing."
+msgstr "الرابط (slug) بالإنجليزية مطلوب قبل النشر."
+
+#: inc/submissions/approval.php:256
+msgid "A page with the same slug exists:"
+msgstr "توجد صفحة بنفس الرابط: "
+
+#: inc/submissions/approval.php:260
+msgid "A page with the same name exists under the same parent."
+msgstr "توجد صفحة بنفس الاسم ضمن نفس التصنيف الرئيسي."
+
+#: inc/submissions/form.php:136
+#: inc/submissions/form.php:275
+msgid "The page is not set up yet."
+msgstr "الصفحة غير مُعدّة بعد."
+
+#: inc/submissions/form.php:138
+msgid "Create the submit-entity and my-account pages."
+msgstr "أنشئ صفحتَي submit-entity و my-account."
+
+#: inc/submissions/form.php:220
+msgid "Choose the type, then enter the details. The request is reviewed before publishing."
+msgstr "اختر النوع، ثم أدخل البيانات. يُراجع الطلب قبل النشر."
+
+#. translators: %s: type label (e.g. الفعاليات)
+#: inc/submissions/form.php:230
+#, php-format
+msgid "Add: %s"
+msgstr "إضافة: %s"
+
+#: inc/submissions/form.php:231
+msgid "The Arabic name is required; the English name is optional and is used for the page URL. Images: jpg, png or webp up to 3 MB. The request is reviewed before publishing and you get an email when it is published."
+msgstr "الاسم بالعربية مطلوب، والاسم بالإنجليزية اختياري ويُستخدم لرابط الصفحة. الصور: jpg أو png أو webp حتى 3 ميغابايت. يُراجع الطلب قبل النشر ويصلك بريد عند النشر."
+
+#: inc/submissions/form.php:232
+msgid "Change type"
+msgstr "تغيير النوع"
+
+#: inc/submissions/form.php:243
+msgid "Log in to send an add request"
+msgstr "سجّل الدخول لإرسال طلب إضافة"
+
+#: inc/submissions/form.php:245
+#: inc/submissions/form.php:1119
+msgid "Log in"
+msgstr "تسجيل الدخول"
+
+#: inc/submissions/form.php:256
+msgid "What would you like to add?"
+msgstr "ماذا تريد إضافته؟"
+
+#: inc/submissions/form.php:262
+msgid "Add ←"
+msgstr "إضافة ←"
+
+#: inc/submissions/form.php:280
+msgid "This form requires JavaScript to be enabled in the browser."
+msgstr "يتطلب هذا النموذج تفعيل JavaScript في المتصفح."
+
+#: inc/submissions/form.php:296
+msgid "Send request"
+msgstr "إرسال الطلب"
+
+#: inc/submissions/form.php:341
+#: inc/submissions/post-type.php:115
+msgid "Entity / event name in Arabic"
+msgstr "اسم الجهة / الفعالية بالعربية"
+
+#: inc/submissions/form.php:360
+msgid "The entity / event name in Arabic is required."
+msgstr "اسم الجهة / الفعالية بالعربية مطلوب."
+
+#: inc/submissions/form.php:452
+#: inc/submissions/form.php:460
+msgid "The slug may only contain lowercase Latin letters, numbers and hyphens."
+msgstr "الرابط يجب أن يكون بحروف لاتينية صغيرة وأرقام وشرطات فقط."
+
+#: inc/submissions/form.php:477
+msgid "The English name may only contain Latin characters (up to 120 characters)."
+msgstr "الاسم بالإنجليزية يجب أن يحتوي حروفاً لاتينية فقط (حتى 120 حرفاً)."
+
+#: inc/submissions/form.php:532
+msgid "Choosing an existing file is not allowed; upload a new image."
+msgstr "غير مسموح باختيار ملف موجود، ارفع صورة جديدة."
+
+#: inc/submissions/form.php:560
+msgid "Invalid value."
+msgstr "قيمة غير صالحة."
+
+#: inc/submissions/form.php:583
+msgid "File type not allowed. Allowed: jpg, png or webp."
+msgstr "نوع الملف غير مسموح. المسموح: jpg أو png أو webp."
+
+#: inc/submissions/form.php:587
+msgid "The image is larger than 3 MB."
+msgstr "حجم الصورة يتجاوز 3 ميغابايت."
+
+#: inc/submissions/form.php:694
+msgid "You must be logged in to send a request."
+msgstr "يجب تسجيل الدخول لإرسال طلب."
+
+#: inc/submissions/form.php:700
+msgid "Invalid type."
+msgstr "النوع غير صالح."
+
+#: inc/submissions/form.php:704
+#: inc/submissions/form.php:710
+msgid "Mismatched data."
+msgstr "بيانات غير متطابقة."
+
+#: inc/submissions/form.php:716
+#: inc/submissions/form.php:790
+msgid "You have sent too many requests, try again later."
+msgstr "لقد أرسلت عدداً كبيراً من الطلبات، حاول لاحقاً."
+
+#: inc/submissions/form.php:724
+msgid "The name is too long."
+msgstr "الاسم طويل جداً."
+
+#: inc/submissions/form.php:749
+msgid "This entity already exists:"
+msgstr "هذه الجهة موجودة بالفعل: "
+
+#: inc/submissions/form.php:765
+msgid "A request for this entity is already under review."
+msgstr "يوجد طلب قيد المراجعة لهذه الجهة."
+
+#: inc/submissions/form.php:787
+msgid "Not allowed."
+msgstr "غير مسموح."
+
+#: inc/submissions/form.php:886
+msgid "Create an account to send add requests and follow your requests."
+msgstr "أنشئ حساباً لإرسال طلب إضافة ومتابعة طلباتك."
+
+#: inc/submissions/form.php:892
+msgid "Log in to send add requests and follow your requests."
+msgstr "سجّل الدخول لإرسال طلب إضافة ومتابعة طلباتك."
+
+#: inc/submissions/form.php:897
+msgid "Log out"
+msgstr "تسجيل الخروج"
+
+#: inc/submissions/form.php:898
+msgid "Send a new request"
+msgstr "إرسال طلب جديد"
+
+#. translators: %s: the user's display name
+#: inc/submissions/form.php:903
+#, php-format
+msgid "Hello, %s"
+msgstr "مرحباً، %s"
+
+#: inc/submissions/form.php:925
+msgid "or"
+msgstr "أو"
+
+#: inc/submissions/form.php:999
+#: inc/submissions/form.php:1089
+msgid "Registration is currently closed."
+msgstr "التسجيل مغلق حالياً."
+
+#: inc/submissions/form.php:1001
+msgid "The page has expired, please try again."
+msgstr "انتهت صلاحية الصفحة، أعد المحاولة."
+
+#: inc/submissions/form.php:1003
+msgid "The account could not be created."
+msgstr "تعذر إنشاء الحساب."
+
+#: inc/submissions/form.php:1009
+msgid "Too many attempts, try again later."
+msgstr "محاولات كثيرة، حاول لاحقاً."
+
+#: inc/submissions/form.php:1014
+msgid "Enter your name (60 characters at most)."
+msgstr "اكتب اسمك (60 حرفاً كحد أقصى)."
+
+#: inc/submissions/form.php:1017
+msgid "Invalid email address."
+msgstr "البريد الإلكتروني غير صالح."
+
+#: inc/submissions/form.php:1019
+msgid "This email is already registered, please log in."
+msgstr "هذا البريد مسجل بالفعل، سجّل الدخول."
+
+#: inc/submissions/form.php:1022
+msgid "The password must be at least 8 characters."
+msgstr "كلمة المرور 8 أحرف على الأقل."
+
+#: inc/submissions/form.php:1081
+#: inc/submissions/form.php:1150
+msgid "Create an account"
+msgstr "إنشاء حساب"
+
+#: inc/submissions/form.php:1092
+#: inc/submissions/post-type.php:220
+msgid "Name"
+msgstr "الاسم"
+
+#: inc/submissions/form.php:1093
+msgid "Email"
+msgstr "البريد الإلكتروني"
+
+#: inc/submissions/form.php:1094
+msgid "Password (at least 8 characters)"
+msgstr "كلمة المرور (8 أحرف على الأقل)"
+
+#: inc/submissions/form.php:1099
+msgid "Create account"
+msgstr "إنشاء الحساب"
+
+#: inc/submissions/form.php:1103
+msgid "Have an account?"
+msgstr "لديك حساب؟"
+
+#: inc/submissions/form.php:1104
+msgctxt "link"
+msgid "Log in"
+msgstr "سجّل الدخول"
+
+#: inc/submissions/form.php:1124
+msgid "Incorrect login details."
+msgstr "بيانات الدخول غير صحيحة."
+
+#: inc/submissions/form.php:1128
+msgid "Check your email: we sent you a password reset link, then log in here."
+msgstr "تحقق من بريدك الإلكتروني: أرسلنا إليك رابط إعادة تعيين كلمة المرور، ثم سجّل الدخول من هنا."
+
+#: inc/submissions/form.php:1133
+msgid "Email or username"
+msgstr "البريد الإلكتروني أو اسم المستخدم"
+
+#: inc/submissions/form.php:1137
+msgid "Password"
+msgstr "كلمة المرور"
+
+#: inc/submissions/form.php:1141
+msgid "Remember me"
+msgstr "تذكرني"
+
+#: inc/submissions/form.php:1145
+msgid "Sign in"
+msgstr "دخول"
+
+#: inc/submissions/form.php:1152
+msgid "Forgot your password?"
+msgstr "نسيت كلمة المرور؟"
+
+#: inc/submissions/form.php:1200
+msgid "Your request was received and will be reviewed soon."
+msgstr "تم استلام طلبك وسيُراجع قريباً."
+
+#: inc/submissions/form.php:1204
+msgid "My requests"
+msgstr "طلباتي"
+
+#: inc/submissions/form.php:1225
+msgid "You haven't sent any requests yet."
+msgstr "لم ترسل أي طلب بعد."
+
+#: inc/submissions/form.php:1258
+#: inc/submissions/post-type.php:337
+msgid "Published"
+msgstr "منشور"
+
+#: inc/submissions/form.php:1261
+#: inc/submissions/post-type.php:314
+#: inc/submissions/post-type.php:693
+msgid "View page"
+msgstr "عرض الصفحة"
+
+#: inc/submissions/form.php:1264
+#: inc/submissions/post-type.php:341
+msgid "Rejected"
+msgstr "مرفوض"
+
+#: inc/submissions/form.php:1271
+#: inc/submissions/post-type.php:344
+msgid "Under review"
+msgstr "قيد المراجعة"
+
+#. translators: %s: submitter display name
+#: inc/submissions/notifications.php:82
+#: inc/submissions/notifications.php:122
+#, php-format
+msgid "Hello %s,"
+msgstr "مرحباً %s،"
+
+#. translators: 1: request name, 2: site name
+#: inc/submissions/notifications.php:84
+#, php-format
+msgid "Your request \"%1$s\" was published on %2$s."
+msgstr "تم نشر طلبك «%1$s» على موقع %2$s."
+
+#: inc/submissions/notifications.php:87
+msgid "Page link:"
+msgstr "رابط الصفحة:"
+
+#: inc/submissions/notifications.php:90
+msgid "Thank you for your contribution."
+msgstr "شكراً لمساهمتك."
+
+#. translators: %s: site name
+#: inc/submissions/notifications.php:92
+#: inc/submissions/notifications.php:132
+#, php-format
+msgid "— %s"
+msgstr ""
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:97
+#, php-format
+msgid "Your request was published: %s"
+msgstr "تم نشر طلبك: %s"
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:124
+#, php-format
+msgid "About your request \"%s\":"
+msgstr "بخصوص طلبك «%s»:"
+
+#: inc/submissions/notifications.php:125
+msgid "We could not publish your request."
+msgstr "لم نتمكن من نشر طلبك."
+
+#: inc/submissions/notifications.php:128
+msgid "You can follow your requests or send a new one here:"
+msgstr "يمكنك متابعة طلباتك أو إرسال طلب جديد من هنا:"
+
+#. translators: %s: request name
+#: inc/submissions/notifications.php:137
+#, php-format
+msgid "About your request: %s"
+msgstr "بخصوص طلبك: %s"
+
+#. translators: 1: request name, 2: type label, 3: submitter display name, 4: edit URL
+#: inc/submissions/notifications.php:215
+#, php-format
+msgid "• %1$s — %2$s — %3$s — %4$s"
+msgstr ""
+
+#. translators: %d: number of requests not listed
+#: inc/submissions/notifications.php:224
+#, php-format
+msgid "and %d more"
+msgstr "و %d أخرى"
+
+#. translators: 1: number of new requests, 2: site name
+#: inc/submissions/notifications.php:231
+#, php-format
+msgid "New add requests (%1$d) — %2$s"
+msgstr "طلبات إضافة جديدة (%1$d) — %2$s"
+
+#: inc/submissions/post-type.php:49
+#: inc/submissions/post-type.php:51
+msgid "Add requests"
+msgstr "طلبات الإضافة"
+
+#: inc/submissions/post-type.php:50
+msgid "Add request"
+msgstr "طلب إضافة"
+
+#: inc/submissions/post-type.php:52
+#: inc/submissions/post-type.php:53
+msgid "New request"
+msgstr "إضافة طلب"
+
+#: inc/submissions/post-type.php:54
+msgid "Review request"
+msgstr "مراجعة الطلب"
+
+#: inc/submissions/post-type.php:55
+msgid "View request"
+msgstr "عرض الطلب"
+
+#: inc/submissions/post-type.php:56
+msgid "Search requests"
+msgstr "بحث في الطلبات"
+
+#: inc/submissions/post-type.php:57
+msgid "No requests"
+msgstr "لا توجد طلبات"
+
+#: inc/submissions/post-type.php:58
+msgid "No requests in the trash"
+msgstr "لا توجد طلبات في سلة المهملات"
+
+#: inc/submissions/post-type.php:59
+msgid "All requests"
+msgstr "كل الطلبات"
+
+#: inc/submissions/post-type.php:135
+msgid "Request saved."
+msgstr "تم حفظ الطلب."
+
+#: inc/submissions/post-type.php:136
+msgid "Request published and page created."
+msgstr "تم نشر الطلب وإنشاء الصفحة."
+
+#: inc/submissions/post-type.php:137
+#: inc/submissions/post-type.php:138
+msgid "Request saved (under review)."
+msgstr "تم حفظ الطلب (قيد المراجعة)."
+
+#: inc/submissions/post-type.php:221
+#: inc/submissions/post-type.php:361
+msgid "Type"
+msgstr "النوع"
+
+#: inc/submissions/post-type.php:222
+msgid "Parent"
+msgstr "التصنيف الرئيسي"
+
+#: inc/submissions/post-type.php:223
+msgid "English name"
+msgstr "الاسم بالإنجليزية"
+
+#: inc/submissions/post-type.php:224
+msgid "Submitter"
+msgstr "المُرسل"
+
+#: inc/submissions/post-type.php:225
+msgid "Result"
+msgstr "النتيجة"
+
+#: inc/submissions/post-type.php:226
+msgid "Date"
+msgstr "التاريخ"
+
+#: inc/submissions/post-type.php:363
+msgid "All types"
+msgstr "كل الأنواع"
+
+#: inc/submissions/post-type.php:549
+msgid "Request details"
+msgstr "بيانات الطلب"
+
+#: inc/submissions/post-type.php:571
+msgid "To approve: review the fields, check the slug, then click \"Publish\". To reject: enter the reason, then \"Save as Pending\". \"Move to Trash\" rejects without a reason."
+msgstr "للموافقة: راجع الحقول وتأكد من الرابط ثم اضغط «نشر». للرفض: اكتب سبب الرفض ثم «حفظ بإنتظار المراجعة». «نقل إلى سلة المهملات» يرفض بدون سبب."
+
+#: inc/submissions/post-type.php:575
+msgid "Submitter:"
+msgstr "المُرسل:"
+
+#. translators: %s: registration date
+#: inc/submissions/post-type.php:584
+#, php-format
+msgid "Registered: %s"
+msgstr "تاريخ التسجيل: %s"
+
+#: inc/submissions/post-type.php:591
+msgid "Request date:"
+msgstr "تاريخ الطلب:"
+
+#: inc/submissions/post-type.php:604
+msgid "Uploaded files:"
+msgstr "الملفات المرفوعة:"
+
+#: inc/submissions/post-type.php:606
+msgid "No uploaded files."
+msgstr "لا توجد ملفات مرفوعة."
+
+#: inc/submissions/post-type.php:636
+msgid "Last publishing error:"
+msgstr "خطأ النشر الأخير:"
+
+#: inc/submissions/post-type.php:683
+msgid "May already exist"
+msgstr "قد تكون موجودة مسبقاً"
+
+#: inc/submissions/post-type.php:701
+msgid "Other requests with the same name:"
+msgstr "طلبات أخرى بنفس الاسم:"
+
+#: inc/submissions/post-type.php:720
+msgid "Published:"
+msgstr "تم النشر:"
+
+#: inc/submissions/registry.php:270
+msgid "This type does not need a parent."
+msgstr "هذا النوع لا يحتاج إلى تصنيف رئيسي."
+
+#: inc/submissions/registry.php:276
+msgid "Please choose the parent down to the last level."
+msgstr "يرجى اختيار التصنيف الرئيسي حتى آخر مستوى."
+
+#: inc/submissions/registry.php:281
+msgid "The chosen parent does not exist."
+msgstr "التصنيف الرئيسي المختار غير موجود."
+
+#. translators: %d: 1-based level number the parent must be picked from
+#: inc/submissions/registry.php:288
+#, php-format
+msgid "Please choose the parent from the last level (level %d)."
+msgstr "يرجى اختيار التصنيف الرئيسي من المستوى الأخير (المستوى %d)."
+
+#: inc/submissions/registry.php:422
+msgid "No parent is needed for this type."
+msgstr "لا يحتاج هذا النوع إلى تصنيف رئيسي."
+
+#: inc/submissions/registry.php:423
+msgid "No options available"
+msgstr "لا توجد خيارات متاحة"
+
+#: inc/submissions/registry.php:424
+#: template-parts/entities/entity-browse-section.php:82
+msgid "Loading…"
+msgstr "جارٍ التحميل…"
+
+#: inc/submissions/registry.php:425
+msgid "The options could not be loaded, try again."
+msgstr "تعذر تحميل الخيارات، حاول مرة أخرى."
+
+#. translators: %d: 1-based level number of a parent picker select
+#: inc/submissions/registry.php:427
+#, php-format
+msgid "Level %d"
+msgstr "المستوى %d"
+
+#: inc/submissions/roles.php:28
+msgctxt "user role"
+msgid "Submitter"
+msgstr "مُرسل"
+
+#: price-range.php:13
+#: template-parts/sections/car_home_section.php:122
+msgid "Cars for your budget"
+msgstr "سيارات تناسب ميزانيتك"
+
+#. translators: %s: price range ("50 ألف إلى 100 ألف")
+#: price-range.php:15
+#, php-format
+msgid "New cars %s Saudi riyals"
+msgstr "سيارات جديدة %s ريال سعودي"
+
+#: price-range.php:37
+msgid "This price range does not exist."
+msgstr "هذه الفئة السعرية غير موجودة."
+
+#: price-range.php:43
+msgid "Price range"
+msgstr "الفئة السعرية"
+
+#. translators: 1: last year, 2: this year, 3: price range, 4: number of models ("12 models")
+#: price-range.php:47
+#, php-format
+msgid "Looking to buy a new %1$d or %2$d model car with a budget of %3$s Saudi riyals? Here are %4$s at the lowest price per model."
+msgstr "هل ترغب في شراء سيارة جديدة موديل %1$d أو %2$d بميزانية %3$s ريال سعودي؟ إليك %4$s بأقل سعر لكل موديل."
+
+#: price-range.php:49
+#: taxonomy-body_type.php:35
+msgid "Available models"
+msgstr "الموديلات المتوفرة"
+
+#: price-range.php:49
+#: taxonomy-body_type.php:35
+msgid "Lowest price per model"
+msgstr "أقل سعر لكل موديل"
+
+#. translators: 1: body type, 2: last year, 3: this year
+#: price-range.php:55
+#: taxonomy-body_type.php:42
+msgid "No cars on this page."
+msgstr "لا توجد سيارات في هذه الصفحة."
+
+#: price-range.php:55
+msgid "No cars in this price range at the moment."
+msgstr "لا توجد سيارات في هذه الفئة السعرية حالياً."
+
+#: price-range.php:60
+msgid "Other price ranges"
+msgstr "فئات سعرية أخرى"
+
+#. translators: %s: post type label, e.g. البرامج
+#: search.php:31
+#, php-format
+msgid "Remove filter: %s"
+msgstr "إزالة التصفية: %s"
+
+#: search.php:43
+msgctxt "search"
+msgid "Breadcrumb"
+msgstr "مسار التنقل"
+
+#: search.php:50
+#: template-parts/cars/filter-taxonomies.php:23
+msgid "Search"
+msgstr "البحث"
+
+#: search.php:58
+#: template-parts/header-search.php:14
+#: template-parts/header-search.php:22
+#: template-parts/search/search-form.php:18
+msgid "Site search"
+msgstr "البحث في الموقع"
+
+#. translators: %s: the search query, wrapped in «»
+#: search.php:62
+#, php-format
+msgid "Search results for: %s"
+msgstr "نتائج البحث عن: %s"
+
+#. translators: 1: current page number, 2: number of pages
+#: search.php:77
+#, php-format
+msgid "Page %1$s of %2$s"
+msgstr "الصفحة %1$s من %2$s"
+
+#: search.php:88
+msgid "In:"
+msgstr "ضمن:"
+
+#: search.php:104
+msgid "Search the site content"
+msgstr "ابحث في محتوى الموقع"
+
+#: search.php:104
+msgid "Edit search"
+msgstr "تعديل البحث"
+
+#: search.php:118
+msgid "What are you looking for?"
+msgstr "عمّ تبحث؟"
+
+#: search.php:121
+msgid "Type one or more words to search the news, programs, interviews and the rest of the site."
+msgstr "اكتب كلمة أو أكثر للبحث في الأخبار والبرامج والحوارات وبقية محتوى الموقع."
+
+#: search.php:125
+msgid "The search term is too short"
+msgstr "كلمة البحث قصيرة جدًا"
+
+#: search.php:130
+msgid "Type at least two characters to start searching."
+msgstr "اكتب حرفين على الأقل لبدء البحث."
+
+#: search.php:138
+msgid "Results"
+msgstr "النتائج"
+
+#: search.php:169
+msgid "Search results pages"
+msgstr "صفحات نتائج البحث"
+
+#: search.php:181
+msgid "Previous page"
+msgstr "الصفحة السابقة"
+
+#: search.php:183
+msgid "Next page"
+msgstr "الصفحة التالية"
+
+#: search.php:196
+msgid "No matching results"
+msgstr "لا توجد نتائج مطابقة"
+
+#. translators: %s: the search query, wrapped in «»
+#: search.php:202
+#, php-format
+msgid "We found no content matching %s. Try other or fewer words, or check the spelling."
+msgstr "لم نعثر على محتوى يطابق %s. جرّب كلمات أخرى أو أقل، أو تأكد من طريقة الكتابة."
+
+#: search.php:208
+msgid "Results may differ with the spelling of a word, so try for example «إنفوجراف» and «انفوجراف»."
+msgstr "قد تختلف النتائج باختلاف طريقة كتابة الكلمة، فجرّب مثلًا «إنفوجراف» و«انفوجراف»."
+
+#: search.php:213
+msgid "Search all content"
+msgstr "ابحث في كل المحتوى"
+
+#. translators: %s: model year
+#: single-car.php:47
+#: single-car_model_year.php:25
+#, php-format
+msgid "Model %s"
+msgstr "موديل %s"
+
+#: single-car.php:80
+msgid "Key specifications"
+msgstr "أبرز المواصفات"
+
+#: single-car.php:85
+msgid "Overview"
+msgstr "نظرة عامة"
+
+#: single-car.php:92
+msgid "Detailed specifications"
+msgstr "المواصفات التفصيلية"
+
+#: single-car.php:92
+msgid "Full specifications"
+msgstr "المواصفات الكاملة"
+
+#. translators: %s: model year
+#: single-car_model_year.php:29
+#, php-format
+msgid "Model year %s"
+msgstr "سنة الموديل %s"
+
+#: single-car_model_year.php:41
+msgid "Prices from"
+msgstr "الأسعار من"
+
+#: single-car_model_year.php:43
+msgid "Starts from"
+msgstr "يبدأ من"
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:85
+#, php-format
+msgid "%s trims"
+msgstr "فئات %s"
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:85
+msgid "Choose a trim"
+msgstr "اختر من بين الفئات"
+
+#: single-car_model_year.php:89
+msgid "No trims are linked to this year."
+msgstr "لا توجد فئات مرتبطة بهذه السنة."
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:96
+#: taxonomy-car_make.php:84
+#, php-format
+msgid "%s prices"
+msgstr "أسعار %s"
+
+#. translators: %s: model-year title
+#: single-car_model_year.php:104
+#, php-format
+msgid "%s photos"
+msgstr "صور %s"
+
+#: single-podcast.php:11
+#: single.php:19
+#: template-parts/cards/card-interview.php:9
+#: template-parts/cards/card-podcast.php:9
+#: template-parts/cards/card-post.php:9
+#: template-parts/cards/card-program.php:9
+#: template-parts/cards/card-video.php:9
+#: template-parts/sections/interviews_section.php:113
+#: template-parts/sections/podcasts_section.php:114
+#: template-parts/sections/posts_section.php:115
+#: template-parts/sections/program_series_section.php:245
+#: template-parts/sections/speakers_section.php:148
+#: template-parts/sections/videos_section.php:113
+msgid "Tafaol Saudi"
+msgstr "تفاعل السعودية"
+
+#: single-podcast.php:58
+msgid "Episode reels"
+msgstr "ريلز الحلقة"
+
+#: single-reel.php:26
+msgid "From the podcast"
+msgstr "من بودكاست"
+
+#. translators: %s: podcast title
+#. translators: %s: department name
+#: single-reel.php:59
+#: template-parts/archive/cpt-loop.php:101
+#: template-parts/sections/active-filter-header.php:41
+#, php-format
+msgid "Back to %s"
+msgstr "العودة إلى %s"
+
+#: taxonomy-body_type.php:21
+msgid "This body type does not exist."
+msgstr "نوع الهيكل هذا غير موجود."
+
+#. translators: %s: body type
+#: taxonomy-body_type.php:28
+#, php-format
+msgid "New %s cars"
+msgstr "سيارات %s جديدة"
+
+#. translators: %s: body type
+#: taxonomy-body_type.php:28
+msgid "Body type"
+msgstr "نوع الهيكل"
+
+#. translators: 1: number of models ("12 models"), 2: body type, 3: last year, 4: this year
+#: taxonomy-body_type.php:33
+#, php-format
+msgid "%1$s in the %2$s class, %3$d and %4$d models, at the lowest price per model."
+msgstr "%1$s من فئة %2$s بموديلات %3$d و%4$d، بأقل سعر لكل موديل."
+
+#. translators: 1: body type, 2: last year, 3: this year
+#: taxonomy-body_type.php:42
+#, php-format
+msgid "No %1$s cars with %2$d and %3$d models at the moment."
+msgstr "لا توجد سيارات %1$s بموديلات %2$d و%3$d حالياً."
+
+#: taxonomy-body_type.php:47
+msgid "Other shapes"
+msgstr "أشكال أخرى"
+
+#: taxonomy-car_make.php:26
+msgid "This brand does not exist."
+msgstr "هذه العلامة التجارية غير موجودة."
+
+#: taxonomy-car_make.php:32
+msgid "Brand"
+msgstr "العلامة التجارية"
+
+#. translators: %s: brand or model name
+#: taxonomy-car_make.php:40
+#: taxonomy-car_make.php:62
+#, php-format
+msgid "Choose from the %s cars"
+msgstr "اختر من بين سيارات %s"
+
+#: taxonomy-car_make.php:41
+msgid "This model has no model years yet."
+msgstr "لا توجد سنوات موديل لهذا الموديل بعد."
+
+#. translators: %s: brand or model name
+#: taxonomy-car_make.php:62
+msgid "Models"
+msgstr "الموديلات"
+
+#: taxonomy-car_make.php:63
+msgid "This brand has no models yet."
+msgstr "لا توجد موديلات لهذه العلامة التجارية بعد."
+
+#. translators: %s: origin (country)
+#: taxonomy-car_origin.php:20
+#, php-format
+msgid "Choose from %s"
+msgstr "اختر من بين %s"
+
+#. translators: %s: origin (country)
+#: taxonomy-car_origin.php:20
+msgid "Brands"
+msgstr "العلامات التجارية"
+
+#: taxonomy-car_origin.php:24
+msgid "This origin has no brands yet."
+msgstr "لا توجد علامات تجارية لهذا المنشأ بعد."
+
+#: taxonomy-car_origin.php:28
+msgid "This origin does not exist."
+msgstr "هذا المنشأ غير موجود."
+
+#: taxonomy-department.php:93
+msgid "No sections have been set up for this entity yet."
+msgstr "لم يتم إعداد أقسام لهذه الجهة بعد."
+
+#: taxonomy-event.php:27
+#: taxonomy-geographic.php:37
+#: taxonomy-government_entity.php:38
+#: taxonomy-international_entity.php:38
+#: taxonomy-private_entity.php:38
+#: taxonomy-speaker_influencer.php:45
+msgid "Back to the homepage"
+msgstr "العودة إلى الرئيسية"
+
+#. translators: 1: department name, 2: post type label
+#: template-parts/archive/cpt-loop.php:75
+#, php-format
+msgid "%1$s — %2$s"
+msgstr ""
+
+#: template-parts/archive/cpt-loop.php:147
+msgid "Pagination"
+msgstr ""
+
+#: template-parts/archive/cpt-loop.php:189
+msgid "No content yet"
+msgstr "لا توجد محتويات بعد"
+
+#: template-parts/archive/cpt-loop.php:192
+msgid "Nothing has been published in this section yet."
+msgstr "لم يتم نشر أي محتوى في هذا القسم حتى الآن."
+
+#: template-parts/cards/card-hero-featured.php:12
+msgid "News"
+msgstr "أخبار"
+
+#: template-parts/cards/card-hero-featured.php:54
+msgid "Cover story • FEATURED STORY"
+msgstr "قصة الغلاف • FEATURED STORY"
+
+#: template-parts/cards/card-hero-featured.php:63
+#, php-format
+msgid "%s ago"
+msgstr "منذ %s"
+
+#: template-parts/cards/card-hero-featured.php:91
+msgid "Read the full story"
+msgstr "مشاهدة القصة الكاملة"
+
+#: template-parts/cards/card-hero-featured.php:97
+msgid "Share"
+msgstr "مشاركة"
+
+#: template-parts/cards/card-infographic.php:13
+#: template-parts/cards/card-interview.php:35
+#: template-parts/cards/card-podcast.php:35
+#: template-parts/cards/card-program.php:35
+#: template-parts/cards/card-video.php:35
+msgid "No Image"
+msgstr ""
+
+#: template-parts/cards/card-interview.php:9
+#: template-parts/cards/card-interview.php:13
+#: template-parts/cards/card-podcast.php:9
+#: template-parts/cards/card-podcast.php:13
+#: template-parts/cards/card-post.php:9
+#: template-parts/cards/card-post.php:13
+#: template-parts/cards/card-program.php:9
+#: template-parts/cards/card-program.php:13
+#: template-parts/cards/card-video.php:9
+#: template-parts/cards/card-video.php:13
+#: template-parts/sections/program_series_section.php:245
+#: template-parts/sections/speakers_section.php:148
+msgctxt "between names"
+msgid " and "
+msgstr " و "
+
+#: template-parts/cards/card-program.php:23
+#: template-parts/cards/card-program.php:52
+msgid "Our programs"
+msgstr "برامجنا"
+
+#. translators: %s: filter text
+#: template-parts/cars/filter-chips.php:42
+#, php-format
+msgctxt "car filter"
+msgid "Remove filter: %s"
+msgstr "إزالة الفلتر: %s"
+
+#: template-parts/cars/filter-chips.php:50
+msgid "Clear all"
+msgstr "مسح الكل"
+
+#: template-parts/cars/filter-more.php:22
+msgid "More filters"
+msgstr "المزيد من الفلاتر"
+
+#: template-parts/cars/filter-more.php:63
+#: template-parts/cars/filter-more.php:64
+msgid "From"
+msgstr "من"
+
+#: template-parts/cars/filter-more.php:78
+msgid "Apply"
+msgstr "تطبيق"
+
+#: template-parts/cars/filter-taxonomies.php:29
+msgid "Search for a car…"
+msgstr "ابحث عن سيارة…"
+
+#: template-parts/cars/filter-taxonomies.php:34
+#: template-parts/header-search.php:34
+#: template-parts/search/search-form.php:38
+msgctxt "button"
+msgid "Search"
+msgstr "بحث"
+
+#: template-parts/cars/model-listing.php:22
+msgid "No cars in this list at the moment."
+msgstr "لا توجد سيارات في هذه القائمة حالياً."
+
+#: template-parts/cars/model-listing.php:34
+#: template-parts/cars/results.php:61
+msgid "Pages"
+msgstr "تصفح الصفحات"
+
+#: template-parts/cars/results.php:84
+msgid "Show more cars"
+msgstr "عرض المزيد من السيارات"
+
+#: template-parts/entities/entity-browse-section.php:77
+#: template-parts/sections/filter_section.php:21
+msgid "Entities"
+msgstr "الجهات"
+
+#: template-parts/entities/entity-browse-section.php:83
+msgid "No entities in this group"
+msgstr "لا توجد جهات في هذه المجموعة"
+
+#: template-parts/entities/entity-browse-section.php:84
+msgid "Loading failed, click to retry"
+msgstr "تعذر التحميل، اضغط لإعادة المحاولة"
+
+#: template-parts/entities/entity-browse-section.php:85
+msgid "No results"
+msgstr "لا توجد نتائج"
+
+#: template-parts/entities/entity-browse-section.php:86
+msgid "Too many results, type a more specific word to narrow the search"
+msgstr "النتائج كثيرة، اكتب كلمة أدق لتضييق البحث"
+
+#: template-parts/entities/entity-browse-section.php:204
+msgid "Search…"
+msgstr "ابحث…"
+
+#: template-parts/header-search.php:23
+msgid "Search the site"
+msgstr "ابحث في الموقع"
+
+#: template-parts/header-search.php:30
+msgid "Search the site…"
+msgstr "ابحث في الموقع…"
+
+#: template-parts/header-search.php:34
+#: template-parts/search/search-form.php:37
+msgid "Searching…"
+msgstr "جارٍ البحث…"
+
+#: template-parts/header-search.php:37
+msgid "Close search"
+msgstr "إغلاق البحث"
+
+#: template-parts/profiles/term-profile.php:14
+msgid "Back"
+msgstr "العودة"
+
+#: template-parts/profiles/term-profile.php:58
+msgid "Profile"
+msgstr ""
+
+#: template-parts/related/related-content.php:17
+msgid "More coverage on this topic"
+msgstr "تغطيات أخرى حول الموضوع"
+
+#: template-parts/search/search-form.php:24
+msgid "Search terms"
+msgstr "كلمات البحث"
+
+#: template-parts/search/search-form.php:34
+msgid "Search the news, programs and interviews…"
+msgstr "ابحث في الأخبار والبرامج والحوارات…"
+
+#: template-parts/sections/cars_section.php:89
+msgctxt "cars"
+msgid "Loading…"
+msgstr "جاري التحميل…"
+
+#: template-parts/sections/car_home_section.php:116
+msgid "All cars"
+msgstr "كل السيارات"
+
+#: template-parts/sections/car_home_section.php:132
+msgid "Choose your car by shape"
+msgstr "اختر سيارتك حسب الشكل"
+
+#: template-parts/sections/car_home_section.php:142
+msgid "Choose your brand to follow its news and cars"
+msgstr "اختر علامتك لمتابعة أخبارها وسياراتها"
+
+#: template-parts/sections/car_home_section.php:146
+msgid "All of the"
+msgstr "كل"
+
+#: template-parts/sections/car_home_section.php:146
+msgid "brands"
+msgstr "العلامات"
+
+#: template-parts/sections/car_home_section.php:155
+msgid "All brands by country of origin"
+msgstr "كل العلامات حسب بلد المنشأ"
+
+#: template-parts/sections/geographic_section.php:15
+msgid "Geographic Locations"
+msgstr ""
+
+#: template-parts/sections/geographic_section.php:137
+#: template-parts/sections/geographic_section.php:236
+msgid "item"
+msgstr "مادة"
+
+#: template-parts/sections/geographic_section.php:177
+msgid "Regions"
+msgstr "المناطق"
+
+#: template-parts/sections/geographic_section.php:197
+#, php-format
+msgid "All %s"
+msgstr "كل %s"
+
+#: template-parts/sections/geographic_section.php:203
+msgid "Total"
+msgstr "الإجمالي"
+
+#: template-parts/sections/infographics_section.php:76
+msgid "Data and infographics lab"
+msgstr "مختبر البيانات والإنفوجرافيك"
+
+#: template-parts/sections/infographics_section.php:79
+msgid "Interactive numbers"
+msgstr "أرقام تفاعلية"
+
+#: template-parts/sections/infographics_section.php:82
+msgid "Visual micro-analyses and charts tracking the acceleration of technology and digital transformation"
+msgstr "تحليلات بصرية ميكروية ورسوم بيانية ترصد تسارع منظومة التكنولوجيا والتحول الرقمي"
+
+#: template-parts/sections/interviews_section.php:77
+msgid "Interviews and conversations"
+msgstr "حوارات ولقاءات"
+
+#: template-parts/sections/interviews_section.php:80
+msgid "Long sessions"
+msgstr "جلسات مطولة"
+
+#: template-parts/sections/interviews_section.php:83
+msgid "In-depth conversations with leaders of technological transformation and Saudi decision makers"
+msgstr "لقاءات معمقة مع قادة التحول التكنولوجي وصناع القرار في المنظومة السعودية"
+
+#: template-parts/sections/podcasts_section.php:82
+msgid "Episodes"
+msgstr "حلقات"
+
+#: template-parts/sections/podcasts_section.php:85
+msgid "In-depth audio and video programs"
+msgstr "برامج صوتية ومرئية معمقة"
+
+#: template-parts/sections/posts_section.php:80
+msgid "Latest news • LATEST NEWS"
+msgstr "أحدث الأخبار • LATEST NEWS"
+
+#: template-parts/sections/posts_section.php:83
+msgid "Continuous updates"
+msgstr "تحديث مستمر"
+
+#: template-parts/sections/posts_section.php:86
+msgid "Comprehensive news coverage of the most important events and changes in Saudi Arabia"
+msgstr "تغطية إخبارية شاملة لأهم الأحداث والتحولات في المشهد السعودي"
+
+#: template-parts/sections/posts_section.php:107
+msgid "News • NEWS"
+msgstr "أخبار • NEWS"
+
+#: template-parts/sections/programs_section.php:77
+msgid "Programs and shows • PROGRAMS (SHOWS)"
+msgstr "البرامج والعروض • PROGRAMS (SHOWS)"
+
+#: template-parts/sections/programs_section.php:80
+msgid "Productions"
+msgstr "برامج إنتاجية"
+
+#: template-parts/sections/programs_section.php:83
+msgid "Talk shows and in-depth exploratory series documenting the contemporary technical and cultural renaissance"
+msgstr "برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة"
+
+#: template-parts/sections/program_series_section.php:16
+msgid "ORIGINAL SERIES / Our exclusive programs"
+msgstr "ORIGINAL SERIES / برامجنا الحصرية"
+
+#: template-parts/sections/program_series_section.php:155
+msgid "In-depth documentary series chronicling a historic transformation"
+msgstr "سلاسل وثائقية معمقة تؤرخ التحول التاريخي"
+
+#: template-parts/sections/program_series_section.php:161
+#: template-parts/sections/program_series_section.php:167
+msgid "All seasons guide"
+msgstr "دليل كل المواسم"
+
+#: template-parts/sections/program_series_section.php:252
+msgid "approved episodes"
+msgstr "حلقة معتمدة"
+
+#: template-parts/sections/program_series_section.php:275
+msgid "Browse all episodes"
+msgstr "تصفح كل الحلقات"
+
+#: template-parts/sections/social_section.php:50
+msgid "Follow us across our digital platforms for the latest updates, programs, and exclusive insights."
+msgstr ""
+
+#: template-parts/sections/social_section.php:60
+msgid "Join the community of"
+msgstr "انضم إلى مجتمع"
+
+#: template-parts/sections/social_section.php:68
+msgid "Stay Connected"
+msgstr ""
+
+#: template-parts/sections/social_section.php:95
+msgid "Visit"
+msgstr ""
+
+#: template-parts/sections/speakers_section.php:14
+msgid "Change makers • VOICES & SPEAKERS"
+msgstr "صناع الأثر • VOICES & SPEAKERS"
+
+#: template-parts/sections/speakers_section.php:52
+msgid "Leaders and content creators sharing their views and exclusive analysis on the platform"
+msgstr "شخصيات قيادية وصناع محتوى يشاركون رؤاهم وتحليلاتهم الحصرية عبر المنصة"
+
+#: template-parts/sections/speakers_section.php:59
+msgid "All experts"
+msgstr "كل الخبراء"
+
+#: template-parts/sections/speakers_section.php:116
+msgid "published items"
+msgstr "مادة منشورة"
+
+#: template-parts/sections/speakers_section.php:149
+msgid "Expert and change maker in"
+msgstr "خبير وصانع أثر في"
+
+#: template-parts/sections/speakers_section.php:165
+msgid "View profile and articles"
+msgstr "عرض الملف والمقالات"
+
+#: template-parts/sections/videos_section.php:77
+msgid "Video library • VIDEO LIBRARY"
+msgstr "مكتبة الفيديو • VIDEO LIBRARY"
+
+#: template-parts/sections/videos_section.php:80
+msgid "Video coverage"
+msgstr "تغطية مرئية"
+
+#: template-parts/sections/videos_section.php:83
+msgid "A collection of the latest coverage and videos capturing the pulse of Saudi Arabia"
+msgstr "مجموعة من أحدث التغطيات والمقاطع المرئية التي ترصد نبض المشهد السعودي"

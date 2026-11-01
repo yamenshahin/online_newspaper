@@ -37,7 +37,7 @@ if (!empty($section)) {
 // A toggle that was never saved (row older than the field) is on, like its default.
 $is_on = static fn($value): bool => $value === null || (bool) $value;
 
-$section_title = trim((string) $section_title) ?: __('دليل السيارات', 'hello-elementor-child');
+$section_title = trim((string) $section_title) ?: __('Car Directory', 'hello-elementor-child');
 $subtitle = trim((string) $subtitle);
 $brands_limit = max(1, (int) $brands_limit ?: 15);
 $show_budget = $is_on($show_budget);
@@ -113,13 +113,13 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php car_section_open('car-home-section'); ?>
 
     <?php if (empty($section['hide_header'])) { // the car archive shows the filter's header above instead
-        car_section_header($headline, $eyebrow, n_cars(car_total_count()), $archive_url, __('كل السيارات', 'hello-elementor-child'));
+        car_section_header($headline, $eyebrow, n_cars(car_total_count()), $archive_url, __('All cars', 'hello-elementor-child'));
     } ?>
 
     <?php if ($show_budget): ?>
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
-            $block_header(__('سيارات تناسب ميزانيتك', 'hello-elementor-child'));
+            $block_header(__('Cars for your budget', 'hello-elementor-child'));
             car_grid(car_price_range_tiles(), 'cols-9'); // filters are grids, never sliders
             $block_gap = ' mt-space-xl';
             ?>
@@ -129,7 +129,7 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php if ($show_body_types): ?>
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
-            $block_header(__('اختر سيارتك حسب الشكل', 'hello-elementor-child'));
+            $block_header(__('Choose your car by shape', 'hello-elementor-child'));
             car_grid(car_body_type_tiles(true), 'cols-6');
             $block_gap = ' mt-space-xl';
             ?>
@@ -139,11 +139,11 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php if ($top_makes): ?>
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
-            $block_header(__('اختر علامتك لمتابعة أخبارها وسياراتها', 'hello-elementor-child'));
+            $block_header(__('Choose your brand to follow its news and cars', 'hello-elementor-child'));
             $tiles = array_map($make_tile, $top_makes);
             // "all brands" jumps to the first origin group below (staging: #all-brands)
             $first_origin = $origin_blocks ? 'car-origin-' . $origin_blocks[0][0]->slug : '';
-            $tiles[] = car_text_tile($first_origin ? '#' . $first_origin : $archive_url, 'كل<br>العلامات');
+            $tiles[] = car_text_tile($first_origin ? '#' . $first_origin : $archive_url, esc_html__('All of the', 'hello-elementor-child') . '<br>' . esc_html__('brands', 'hello-elementor-child'));
             car_grid($tiles, 'logos');
             $block_gap = ' mt-space-xl';
             ?>
@@ -152,7 +152,7 @@ $block_gap = ''; // mt-space-xl from the second visible block on
 
     <?php if ($origin_blocks): ?>
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>" id="car-home-origins">
-            <?php $block_header(__('كل العلامات حسب بلد المنشأ', 'hello-elementor-child'), n_makes($origin_makes_total)); ?>
+            <?php $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($origin_makes_total)); ?>
 
             <?php foreach ($origin_blocks as [$origin, $makes]): ?>
                 <div class="car-home-origin mt-space-lg scroll-mt-6" id="<?php echo esc_attr('car-origin-' . $origin->slug); ?>">

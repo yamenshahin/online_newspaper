@@ -36,20 +36,10 @@
     // The type select of the admin edit screen (ACF select field, ui 0). Not rendered on the front end.
     const TAXONOMY_SELECT = 'select[name="acf[field_submission_taxonomy]"]';
 
-    // Same texts as get_submission_js_labels(); only used when a localized label is missing.
-    const FALLBACK_LABELS = {
-        choose: 'اختر…',
-        noParent: 'لا يحتاج هذا النوع إلى تصنيف رئيسي.',
-        noOptions: 'لا توجد خيارات متاحة',
-        loading: 'جارٍ التحميل…',
-        error: 'تعذر تحميل الخيارات، حاول مرة أخرى.',
-        level: 'المستوى %d'
-    };
-
-    /** Localized label by key, falling back to the registry text. */
+    /** Localized label by key (get_submission_js_labels()). */
     function text(key) {
         const value = labels[key];
-        return typeof value === 'string' && value !== '' ? value : FALLBACK_LABELS[key] || '';
+        return typeof value === 'string' ? value : '';
     }
 
     /** sprintf(labels.level, n) — the label holds a single %d. */

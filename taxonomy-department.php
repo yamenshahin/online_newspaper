@@ -90,7 +90,7 @@ foreach ($filterable_taxonomies as $tax) {
                 ?>
                 <div class="w-full px-margin-mobile lg:px-margin py-space-xl text-center">
                     <p class="font-body-lg text-body-lg text-on-surface-variant font-medium">
-                        <?php esc_html_e('لم يتم إعداد أقسام لهذه الجهة بعد.', 'hello-elementor-child'); ?>
+                        <?php esc_html_e('No sections have been set up for this entity yet.', 'hello-elementor-child'); ?>
                     </p>
                 </div>
             <?php endif; ?>

@@ -74,14 +74,13 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: 'البرامج والعروض • PROGRAMS (SHOWS)'); ?>
+                    <?php echo esc_html($section_title ?: __('Programs and shows • PROGRAMS (SHOWS)', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">برامج
-                    إنتاجية</span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Productions', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                <?php echo esc_html($subtitle ?: 'برامج حوارية وسلاسل استكشافية معمقة توثق النهضة التقنية والثقافية المعاصرة'); ?>
+                <?php echo esc_html($subtitle ?: __('Talk shows and in-depth exploratory series documenting the contemporary technical and cultural renaissance', 'hello-elementor-child')); ?>
             </p>
         </div>
 
@@ -94,7 +93,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <?php else: ?>
                 <img src="<?php echo esc_url($more_icon_uri); ?>" alt="" class="w-5 h-5" width="20" height="20" />
             <?php endif; ?>
-            <span><?php esc_html_e('المزيد', 'hello-elementor-child'); ?></span>
+            <span><?php esc_html_e('More', 'hello-elementor-child'); ?></span>
         </a>
     </div>
 

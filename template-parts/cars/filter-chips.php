@@ -39,7 +39,7 @@ foreach ($state['ranges'] as $prefix => $range) {
     <?php foreach ($chips as [$text, $url]): ?>
         <a href="<?php echo esc_url($url); ?>"
             class="inline-flex items-center gap-1 rounded-full bg-primary text-on-primary px-3 py-1 text-sm font-semibold hover:opacity-90 transition-all"
-            aria-label="<?php echo esc_attr(sprintf(/* translators: %s: filter text */ __('إزالة الفلتر: %s', 'hello-elementor-child'), $text)); ?>">
+            aria-label="<?php echo esc_attr(sprintf(/* translators: %s: filter text */ _x('Remove filter: %s', 'car filter', 'hello-elementor-child'), $text)); ?>">
             <?php echo esc_html($text); ?>
             <span aria-hidden="true">×</span>
         </a>
@@ -47,6 +47,6 @@ foreach ($state['ranges'] as $prefix => $range) {
 
     <a href="<?php echo esc_url($base_url); ?>" data-cars-clear
         class="text-sm text-primary font-semibold underline-offset-2 hover:underline self-center">
-        <?php esc_html_e('مسح الكل', 'hello-elementor-child'); ?>
+        <?php esc_html_e('Clear all', 'hello-elementor-child'); ?>
     </a>
 </div>

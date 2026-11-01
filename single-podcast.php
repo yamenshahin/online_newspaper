@@ -8,7 +8,7 @@ while (have_posts()):
 	the_post();
 
 	$editor_terms = get_the_terms(get_the_ID(), 'post_editor');
-	$display_author = 'تفاعل السعودية';
+	$display_author = __('Tafaol Saudi', 'hello-elementor-child');
 	if (!empty($editor_terms) && !is_wp_error($editor_terms)) {
 		$display_author = $editor_terms[0]->name;
 	}
@@ -22,7 +22,7 @@ while (have_posts()):
 		<header class="py-16 md:py-24 bg-gray-50/50 border-b border-gray-100 mb-12">
 			<div class="max-w-4xl mx-auto px-6 text-center">
 				<span class="text-sm font-bold text-primary uppercase tracking-widest mb-4 block">
-					<?php esc_html_e('بودكاست', 'hello-elementor-child'); ?>
+					<?php esc_html_e('Podcast', 'hello-elementor-child'); ?>
 				</span>
 				<h1 class="text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 tracking-tight mb-6 leading-tight">
 					<?php the_title(); ?>
@@ -55,7 +55,7 @@ while (have_posts()):
 		<?php if (!empty($reels)): ?>
 			<section class="max-w-7xl mx-auto px-6 mt-20">
 				<h2 class="text-2xl font-bold text-gray-900 mb-8">
-					<?php esc_html_e('ريلز الحلقة', 'hello-elementor-child'); ?>
+					<?php esc_html_e('Episode reels', 'hello-elementor-child'); ?>
 				</h2>
 				<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 md:gap-6">
 					<?php

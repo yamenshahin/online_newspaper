@@ -77,14 +77,13 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: 'أحدث الأخبار • LATEST NEWS'); ?>
+                    <?php echo esc_html($section_title ?: __('Latest news • LATEST NEWS', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold">تحديث
-                    مستمر</span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Continuous updates', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                <?php echo esc_html($subtitle ?: 'تغطية إخبارية شاملة لأهم الأحداث والتحولات في المشهد السعودي'); ?>
+                <?php echo esc_html($subtitle ?: __('Comprehensive news coverage of the most important events and changes in Saudi Arabia', 'hello-elementor-child')); ?>
             </p>
         </div>
 
@@ -97,7 +96,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <?php else: ?>
                 <img src="<?php echo esc_url($more_icon_uri); ?>" alt="" class="w-5 h-5" width="20" height="20" />
             <?php endif; ?>
-            <span><?php esc_html_e('المزيد', 'hello-elementor-child'); ?></span>
+            <span><?php esc_html_e('More', 'hello-elementor-child'); ?></span>
         </a>
     </div>
 
@@ -105,7 +104,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
         <?php while ($query->have_posts()):
             $query->the_post();
             $post_id = get_the_ID();
-            $post_label = 'أخبار • NEWS'; // Universal fallback
+            $post_label = __('News • NEWS', 'hello-elementor-child'); // Universal fallback
         
             if ($department instanceof WP_Term) {
                 // Section is on a Department Page: Pull the "post_editor" taxonomy from the post
@@ -113,7 +112,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
                 if (!empty($editors) && !is_wp_error($editors)) {
                     $post_label = $editors[0]->name;
                 } else {
-                    $post_label = 'تفاعل السعودية';
+                    $post_label = __('Tafaol Saudi', 'hello-elementor-child');
                 }
             } else {
                 // Section is on the Home Page: Pull the "department" taxonomy from the post

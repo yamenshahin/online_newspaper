@@ -16,7 +16,7 @@ while (have_posts()):
 
     // Fetch first term from the 'post_editor' custom taxonomy with fallback
     $editor_terms = get_the_terms(get_the_ID(), 'post_editor');
-    $display_author = 'تفاعل السعودية';
+    $display_author = __('Tafaol Saudi', 'hello-elementor-child');
     if (!empty($editor_terms) && !is_wp_error($editor_terms)) {
         $first_term = reset($editor_terms);
         if ($first_term && !empty($first_term->name)) {

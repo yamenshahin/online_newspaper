@@ -11,7 +11,7 @@ if (!$term instanceof WP_Term) {
 }
 
 $back_url = $args['back_url'] ?? home_url('/');
-$back_label = $args['back_label'] ?? __('العودة', 'hello-elementor-child');
+$back_label = $args['back_label'] ?? __('Back', 'hello-elementor-child');
 
 $acf_term_id = $term->taxonomy . '_' . $term->term_id;
 

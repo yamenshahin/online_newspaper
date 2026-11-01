@@ -78,7 +78,7 @@ function render_department_footer_social(): string
     ?>
     <div class="department-footer-social">
         <p class="text-sm font-semibold text-white mb-3">
-            <?php esc_html_e('تابعنا', 'hello-elementor-child'); ?>
+            <?php esc_html_e('Follow us', 'hello-elementor-child'); ?>
         </p>
         <div class="flex flex-wrap gap-2">
             <?php foreach ($social as $row):
