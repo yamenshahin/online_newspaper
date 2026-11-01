@@ -862,6 +862,46 @@ add_shortcode('plain_menu', function ($atts) {
  */
 add_filter('rank_math/tools/robots_txt', '__return_false');
 
+/**
+ * Share image (og:image / twitter:image) when Rank Math found none:
+ * the term's ACF image on term archives, the first gallery photo on posts without a featured image.
+ */
+function add_share_image_fallback($image): void
+{
+	if ($image->has_images()) {
+		return;
+	}
+
+	$image_id = 0;
+	if (is_tax()) {
+		$term = get_queried_object();
+		foreach (['taxonomy_image', 'department_logo', 'image', 'logo'] as $field) {
+			$value = get_field($field, $term, false);
+			if ($image_id = (int) (is_array($value) ? ($value['ID'] ?? 0) : $value)) {
+				break;
+			}
+		}
+	} elseif (is_singular()) {
+		$gallery = (array) get_field('gallery', get_queried_object_id(), false);
+		$image_id = (int) ($gallery[0] ?? 0);
+	}
+
+	// add_image(), not add_image_by_id(): Rank Math drops images under 200px, and entity logos are often smaller.
+	$src = $image_id ? wp_get_attachment_image_src($image_id, 'full') : false;
+	if ($src) {
+		$image->add_image([
+			'id'     => $image_id,
+			'url'    => $src[0],
+			'width'  => $src[1],
+			'height' => $src[2],
+			'type'   => get_post_mime_type($image_id),
+			'alt'    => get_post_meta($image_id, '_wp_attachment_image_alt', true) ?: single_term_title('', false) ?: get_the_title(),
+		]);
+	}
+}
+add_action('rank_math/opengraph/facebook/add_additional_images', 'add_share_image_fallback');
+add_action('rank_math/opengraph/twitter/add_additional_images', 'add_share_image_fallback');
+
 
 /**
  * Admin terms list: show ACF detailed_description instead of native Description.
