@@ -1399,3 +1399,109 @@ article iframe {
         }
     }
 }
+
+/* Entity submission form (acf_form on the front end): must beat ACF's un-layered acf-input.css */
+.entity-submission .acf-field :is(input[type=text], input[type=number], input[type=url], input[type=email], input[type=password], textarea, select) {
+    width: 100%;
+    border: 1px solid var(--color-surface-container-highest);
+    border-radius: var(--radius-full);
+    padding: .5rem 1rem;
+    background: #fff;
+    color: var(--color-on-background);
+    font: inherit;
+}
+
+.entity-submission .acf-field textarea {
+    border-radius: var(--radius-xl);
+}
+
+.entity-submission .acf-field :is(input, textarea, select):focus {
+    outline: none;
+    border-color: var(--color-primary);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--color-primary) 30%, transparent);
+}
+
+.entity-submission .acf-fields > .acf-field {
+    border-top: 0;
+    padding: .75rem 0;
+}
+
+.entity-submission .acf-label label {
+    font-weight: 600;
+    font-size: .875rem;
+    color: var(--color-on-surface-variant);
+}
+
+.entity-submission .acf-form-submit {
+    padding: 1rem 0 0;
+}
+
+.entity-submission .submission-ltr :is(input, textarea) {
+    direction: ltr;
+    text-align: left;
+}
+
+.entity-submission .acf-basic-uploader input[type=file] {
+    font-size: .875rem;
+}
+
+/* Repeater "add row" links render without wp-admin button styles on the front end: make them buttons. */
+.entity-submission .acf-actions .acf-button {
+    display: inline-flex;
+    align-items: center;
+    gap: .25rem;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    padding: .375rem 1rem;
+    background: #fff;
+    color: var(--color-primary);
+    font-size: .875rem;
+    font-weight: 600;
+    line-height: 1.5;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+}
+
+.entity-submission .acf-actions .acf-button::before {
+    content: "+";
+    font-weight: 700;
+}
+
+.entity-submission .acf-actions .acf-button:hover,
+.entity-submission .acf-actions .acf-button:focus-visible {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Image fields (basic uploader): the browser's file button styled like the add-row buttons. */
+.entity-submission .acf-basic-uploader input[type=file]::file-selector-button {
+    margin-inline-end: .75rem;
+    border: 1px solid var(--color-primary);
+    border-radius: var(--radius-full);
+    padding: .375rem 1rem;
+    background: #fff;
+    color: var(--color-primary);
+    font: inherit;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+}
+
+.entity-submission .acf-basic-uploader input[type=file]::file-selector-button:hover {
+    background: var(--color-primary);
+    color: #fff;
+}
+
+/* Selects: native arrow off, one chevron on the end side (RTL: left), same as the car filter selects (inc/cars.php). */
+.entity-submission .acf-field select:not([multiple]),
+.entity-submission .submission-parent-picker select {
+    appearance: none;
+    -webkit-appearance: none;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='m3 4.5 3 3 3-3' stroke='%231f2937' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: 1rem center;
+    background-size: 12px 12px;
+    padding-inline-end: 2.5rem;
+    cursor: pointer;
+}
