@@ -1,8 +1,7 @@
 <?php
 /**
- * Flexible Content: Programs Section 
- * TODO: to be removed (I don't think we need this anymore as we use program_series_section instead)
- * Works on Department pages and Homepage
+ * Flexible Content: Latest Program Episodes Section
+ * Works on Department pages, entity archives and Homepage
  */
 
 $department = $args['department'] ?? null;
@@ -19,8 +18,9 @@ if (!empty($section)) {
 }
 
 $tax_query = ['relation' => 'AND'];
+$is_department_page = ($department instanceof WP_Term);
 
-if ($department instanceof WP_Term) {
+if ($is_department_page) {
     $tax_query[] = [
         'taxonomy' => 'department',
         'field' => 'term_id',
@@ -55,7 +55,7 @@ if (!$query->have_posts()) {
     return;
 }
 
-if ($department instanceof WP_Term) {
+if ($is_department_page) {
     $more_link = add_query_arg(array_merge(['view' => 'program'], $more_link_args), get_term_link($department));
 } else {
     $more_link = get_post_type_archive_link('program');
@@ -74,13 +74,13 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
             <div class="flex items-center gap-space-xs">
                 <?php render_department_icon($department ?? null); ?>
                 <h2 class="font-headline-lg text-headline-lg text-on-background">
-                    <?php echo esc_html($section_title ?: __('Programs and shows • PROGRAMS (SHOWS)', 'hello-elementor-child')); ?>
+                    <?php echo esc_html($section_title ?: __('Latest program episodes', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Productions', 'hello-elementor-child'); ?></span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('New episodes', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
-                <?php echo esc_html($subtitle ?: __('Talk shows and in-depth exploratory series documenting the contemporary technical and cultural renaissance', 'hello-elementor-child')); ?>
+                <?php echo esc_html($subtitle ?: __('The newest episodes from our programs and series', 'hello-elementor-child')); ?>
             </p>
         </div>
 
