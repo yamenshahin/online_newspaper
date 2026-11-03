@@ -19,7 +19,7 @@ if (empty($ad_code)) {
 }
 ?>
 
-<section class="promo-code-section py-8 border-b border-gray-100 last:border-0 my-4">
+<section class="promo-code-section py-8 my-4">
     <div class="max-w-7xl mx-auto px-6 flex justify-center">
         <div class="w-full max-w-4xl flex justify-center items-center">
             <div class="promo-embed-wrapper text-center w-full overflow-hidden">
