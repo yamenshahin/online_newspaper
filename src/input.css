@@ -271,7 +271,17 @@ main,
     justify-content: space-between;
     padding-block-end: 1rem;
     padding-block-start: 1rem;
-    position: relative
+    /* Sticky top menu; sits under the admin bar when logged in. */
+    position: sticky;
+    top: var(--wp-admin--admin-bar--height, 0px);
+    z-index: 50
+}
+
+/* Below 601px the admin bar scrolls away with the page, so the header sticks to the very top. */
+@media (max-width: 600px) {
+    .site-header {
+        top: 0;
+    }
 }
 
 .site-header .site-title {
@@ -710,7 +720,8 @@ footer .site-navigation ul.menu a {
     align-items: center;
     /* Adjust this padding to perfectly match your lg:px-margin Tailwind setting */
     padding: 1rem 6vw;
-    background-color: transparent;
+    /* Solid: the header is sticky (see "Header CSS"), content scrolls under it. */
+    background-color: #fff;
     border-bottom: 1px solid rgba(0, 0, 0, 0.05);
 }
 
