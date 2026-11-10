@@ -16,6 +16,7 @@ if (!empty($section)) {
     $subtitle = get_sub_field('subtitle');
     $posts_limit = get_sub_field('posts_limit') ?: 4;
 }
+$grid_layout = get_section_grid_layout($section);
 
 $tax_query = ['relation' => 'AND'];
 $is_department_page = ($department instanceof WP_Term);
@@ -45,7 +46,7 @@ foreach ($filterable_taxonomies as $tax) {
 
 $query = new WP_Query([
     'post_type' => 'interview',
-    'posts_per_page' => absint($posts_limit),
+    'posts_per_page' => get_section_grid_post_count($grid_layout, $posts_limit),
     'tax_query' => $tax_query,
     'no_found_rows' => true,
     'ignore_sticky_posts' => true,
@@ -97,9 +98,10 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
         </a>
     </div>
 
-    <!-- Updated to 4 columns on large screens -->
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-        <?php while ($query->have_posts()):
+    <div class="<?php echo esc_attr(get_section_grid_classes($grid_layout)); ?>">
+        <?php
+        $card_index = 0;
+        while ($query->have_posts()):
             $query->the_post();
             $post_id = get_the_ID();
             $interview_label = __('Interview', 'hello-elementor-child'); // Fallback
@@ -120,7 +122,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
                 }
             }
 
-            get_template_part('template-parts/cards/card', 'interview', ['interview_label' => $interview_label]);
+            render_section_grid_card($grid_layout, 'interview', ['interview_label' => $interview_label], $card_index++, $query->post_count);
         endwhile; ?>
     </div>
 </section>

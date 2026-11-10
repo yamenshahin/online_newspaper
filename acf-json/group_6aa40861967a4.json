@@ -173,6 +173,36 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6b12a0c0f1a01",
+                            "label": "Grid layout",
+                            "name": "grid_layout",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "featured_right": "Featured grid (1 + 4), featured on right",
+                                "featured_left": "Featured grid (1 + 4), featured on left",
+                                "grid": "4 grid"
+                            },
+                            "default_value": "featured_right",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6aa415f23b57e",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -180,7 +210,15 @@
                             "type": "number",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6b12a0c0f1a01",
+                                        "operator": "==",
+                                        "value": "grid"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -354,6 +392,36 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6b12a0c0f1a02",
+                            "label": "Grid layout",
+                            "name": "grid_layout",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "featured_right": "Featured grid (1 + 4), featured on right",
+                                "featured_left": "Featured grid (1 + 4), featured on left",
+                                "grid": "4 grid"
+                            },
+                            "default_value": "featured_right",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6aa415f83b581",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -361,7 +429,15 @@
                             "type": "number",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6b12a0c0f1a02",
+                                        "operator": "==",
+                                        "value": "grid"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -429,6 +505,36 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6b12a0c0f1a03",
+                            "label": "Grid layout",
+                            "name": "grid_layout",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "featured_right": "Featured grid (1 + 4), featured on right",
+                                "featured_left": "Featured grid (1 + 4), featured on left",
+                                "grid": "4 grid"
+                            },
+                            "default_value": "featured_right",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6aa40974a6f5e",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -436,7 +542,15 @@
                             "type": "number",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6b12a0c0f1a03",
+                                        "operator": "==",
+                                        "value": "grid"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -579,6 +693,36 @@
                             "append": ""
                         },
                         {
+                            "key": "field_6b12a0c0f1a04",
+                            "label": "Grid layout",
+                            "name": "grid_layout",
+                            "aria-label": "",
+                            "type": "select",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "choices": {
+                                "featured_right": "Featured grid (1 + 4), featured on right",
+                                "featured_left": "Featured grid (1 + 4), featured on left",
+                                "grid": "4 grid"
+                            },
+                            "default_value": "featured_right",
+                            "return_format": "value",
+                            "multiple": 0,
+                            "allow_null": 0,
+                            "allow_in_bindings": 0,
+                            "ui": 0,
+                            "ajax": 0,
+                            "placeholder": "",
+                            "create_options": 0,
+                            "save_options": 0
+                        },
+                        {
                             "key": "field_6ab129aeedc26",
                             "label": "Posts Limit",
                             "name": "posts_limit",
@@ -586,7 +730,15 @@
                             "type": "number",
                             "instructions": "",
                             "required": 0,
-                            "conditional_logic": 0,
+                            "conditional_logic": [
+                                [
+                                    {
+                                        "field": "field_6b12a0c0f1a04",
+                                        "operator": "==",
+                                        "value": "grid"
+                                    }
+                                ]
+                            ],
                             "wrapper": {
                                 "width": "",
                                 "class": "",
@@ -1143,5 +1295,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1793718969
+    "modified": 1794326312
 }

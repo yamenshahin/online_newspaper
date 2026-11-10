@@ -250,6 +250,20 @@
 
 /* Add your custom styles here */
 
+/* Boxed layout: page content, header and footer inner rows are capped and centred;
+   header/footer backgrounds stay full width. */
+:root {
+    --site-box-width: 1290px;
+}
+
+main,
+.site-header .header-inner,
+.site-footer .footer-inner {
+    width: 100%;
+    max-width: var(--site-box-width);
+    margin-inline: auto;
+}
+
 /** Header CSS **/
 .site-header {
     display: flex;
