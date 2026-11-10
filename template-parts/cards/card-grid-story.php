@@ -3,7 +3,7 @@
  * Template Part: flat story card of the featured grid (1 + 4), any post type.
  *
  * Args: 'size' => 'large' | 'small'.
- * Large: image 1000:696 on desktop (16:9 below), 30px title. Small: 16:9 image, 16px title. Titles clamp at 2 lines.
+ * Images 16:9. Large: 30px title on desktop; small: 16px title. Titles clamp at 2 lines.
  */
 
 $is_large = 'large' === ($args['size'] ?? 'small');
@@ -40,7 +40,7 @@ $time_ago = sprintf(
 <article id="post-<?php the_ID(); ?>" <?php post_class('group flex flex-col gap-2 min-w-0'); ?>>
 
     <a href="<?php the_permalink(); ?>"
-        class="relative block w-full overflow-hidden rounded-2xl bg-surface-container aspect-video <?php echo $is_large ? 'lg:aspect-[1000/696]' : ''; ?>">
+        class="relative block w-full overflow-hidden rounded-2xl bg-surface-container aspect-video">
         <?php if (has_post_thumbnail()): ?>
             <?php the_post_thumbnail($is_large ? 'large' : 'medium_large', ['class' => 'absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-105']); ?>
         <?php endif; ?>

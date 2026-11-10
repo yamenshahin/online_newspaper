@@ -7,7 +7,7 @@
  * - grid: plain 4-column grid of the section's own cards, `posts_limit` cards.
  *
  * The featured grid uses flat cards (template-parts/cards/card-grid-story.php). On desktop the large column is
- * 47.6% wide and its image 1000:696, small images 16:9, so both columns end at about the same height.
+ * 50% + 33px wide, all images 16:9, so both columns end at about the same height.
  */
 
 if (!defined('ABSPATH')) {
@@ -66,7 +66,9 @@ function render_section_grid_card(string $layout, string $card, array $card_args
     }
 
     if (0 === $index) {
-        echo '<div class="w-full lg:w-1/2 xl:w-[47.6%] shrink-0">';
+        // Width that makes a 16:9 large story end level with the two rows of small 16:9 stories:
+        // large image + its taller title block = 2 small images + 2 small title blocks + row gap  =>  50% + 33px.
+        echo '<div class="w-full lg:w-[calc(50%+33px)] shrink-0">';
         get_template_part('template-parts/cards/card', 'grid-story', ['size' => 'large']);
         echo '</div>';
 
