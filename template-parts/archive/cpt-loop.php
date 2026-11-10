@@ -133,7 +133,7 @@ if ($department instanceof WP_Term) {
 
     <?php if ($loop_query->have_posts()): ?>
 
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter mb-12">
+        <div class="<?php echo esc_attr(get_section_grid_classes('grid')); ?> mb-12">
             <?php
             while ($loop_query->have_posts()):
                 $loop_query->the_post();
