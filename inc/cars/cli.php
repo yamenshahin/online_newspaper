@@ -696,8 +696,12 @@ final class Car_Directory_CLI
             // a re-run with --media-dir / --media-url also completes the files of attachments that are already here
             if ($dry) {
                 $this->media_check($rec, $opt);
+                if ($rec['file'] && $rec['file'] !== (string) get_post_meta($id, '_wp_attached_file', true)) {
+                    $this->bump('attachments_file_to_update');
+                }
             } elseif (!$opt['skip-media'] && ($opt['media-dir'] || $opt['media-url'])) {
                 $this->fetch_media($rec, $opt);
+                $this->adopt_file($id, $rec);
             }
             return;
         }
@@ -730,6 +734,33 @@ final class Car_Directory_CLI
         if (!$opt['skip-media']) {
             $this->fetch_media($rec, $opt);
         }
+    }
+
+    /**
+     * The source site renamed or replaced the file of an attachment that is already here: point the attachment at
+     * the pack's file (path, metadata, mime, guid) once that file is here. The old file stays on disk, unused.
+     */
+    private function adopt_file(int $id, array $rec): void
+    {
+        global $wpdb;
+        $file = (string) $rec['file'];
+        $upload = wp_upload_dir();
+        if ($file === '' || $file === (string) get_post_meta($id, '_wp_attached_file', true) || !is_file($upload['basedir'] . '/' . $file)) {
+            return;
+        }
+        $meta = null;
+        foreach ($rec['meta'] as [$k, $v]) {
+            if ($k === '_wp_attachment_metadata') {
+                $meta = maybe_unserialize($v);
+            }
+        }
+        update_post_meta($id, '_wp_attached_file', $file);
+        if (is_array($meta)) {
+            wp_update_attachment_metadata($id, $meta);
+        }
+        $wpdb->update($wpdb->posts, ['post_mime_type' => (string) $rec['mime'], 'guid' => trailingslashit($upload['baseurl']) . $file], ['ID' => $id]);
+        clean_post_cache($id);
+        $this->bump('attachments_file_updated');
     }
 
     private function media_check(array $rec, array $opt): void
