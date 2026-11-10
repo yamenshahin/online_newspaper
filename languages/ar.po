@@ -1,12 +1,15 @@
-# Copyright (C) 2026 Yamen Shahin <yamenshahin@gmail.com>
-# This file is distributed under the GNU General Public License v3 or later..
 msgid ""
 msgstr ""
 "Project-Id-Version: Hello Elementor Child\n"
-"Language: ar\n"
+"Report-Msgid-Bugs-To: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"POT-Creation-Date: 2026-11-10T15:57:56+00:00\n"
+"PO-Revision-Date: 2026-11-10T15:57:56+00:00\n"
+"Language: ar\n"
 "Plural-Forms: nplurals=6; plural=(n==0 ? 0 : n==1 ? 1 : n==2 ? 2 : n%100>=3 && n%100<=10 ? 3 : n%100>=11 ? 4 : 5);\n"
 "X-Domain: hello-elementor-child\n"
 
@@ -84,12 +87,12 @@ msgstr "ابحث عن سيارتك بحسب الشركة والموديل وال
 msgid "No sections configured for the homepage."
 msgstr ""
 
-#: functions.php:75
+#: functions.php:76
 #: inc/submissions/registry.php:421
 msgid "Choose…"
 msgstr "اختر…"
 
-#: functions.php:120
+#: functions.php:121
 #: template-parts/sections/geographic_section.php:150
 #: template-parts/sections/geographic_section.php:249
 #: template-parts/sections/program_series_section.php:290
@@ -97,114 +100,114 @@ msgstr "اختر…"
 msgid "Show more"
 msgstr "عرض المزيد"
 
-#: functions.php:121
+#: functions.php:122
 #: template-parts/sections/program_series_section.php:306
 msgid "Show less"
 msgstr "عرض أقل"
 
 #. translators: %s: model-year title
-#: functions.php:157
+#: functions.php:158
 #: single-car_model_year.php:104
 msgid "Photo gallery"
 msgstr "معرض الصور"
 
-#: functions.php:158
+#: functions.php:159
 msgid "Close"
 msgstr "إغلاق"
 
-#: functions.php:159
+#: functions.php:160
 msgid "Previous"
 msgstr "السابق"
 
-#: functions.php:160
+#: functions.php:161
 msgid "Next"
 msgstr "التالي"
 
 #. translators: %d: photo number
-#: functions.php:162
+#: functions.php:163
 #, php-format
 msgid "Photo %d"
 msgstr "صورة %d"
 
-#: functions.php:583
+#: functions.php:584
 #, php-format
 msgid "Published on %s"
 msgstr "نُشر في %s"
 
-#: functions.php:597
+#: functions.php:598
 #, php-format
 msgid "Last updated %s"
 msgstr "آخر تحديث %s"
 
-#: functions.php:682
+#: functions.php:683
 #: inc/submissions/registry.php:71
 #: template-parts/entities/entity-browse-section.php:88
 msgid "Saudi Government Entities"
 msgstr "الجهات الحكومية السعودية"
 
-#: functions.php:683
+#: functions.php:684
 msgid "Sort content by government entity"
 msgstr "فرز المحتوى بحسب الجهة الحكومية"
 
-#: functions.php:686
+#: functions.php:687
 #: inc/submissions/registry.php:72
 #: template-parts/entities/entity-browse-section.php:89
 msgid "Private Sector"
 msgstr "القطاع الخاص"
 
-#: functions.php:687
+#: functions.php:688
 msgid "Sort content by private sector"
 msgstr "فرز المحتوى بحسب القطاع الخاص"
 
-#: functions.php:690
-#: inc/acf-json-strings.php:371
+#: functions.php:691
+#: inc/acf-json-strings.php:376
 #: inc/submissions/registry.php:73
 #: template-parts/entities/entity-browse-section.php:90
 msgid "Events"
 msgstr "الفعاليات"
 
-#: functions.php:691
+#: functions.php:692
 msgid "Sort content by event"
 msgstr "فرز المحتوى بحسب الفعالية"
 
-#: functions.php:694
-#: inc/acf-json-strings.php:390
+#: functions.php:695
+#: inc/acf-json-strings.php:395
 #: inc/submissions/registry.php:74
 #: template-parts/entities/entity-browse-section.php:91
 msgid "International Entities"
 msgstr "الجهات الدولية"
 
-#: functions.php:695
+#: functions.php:696
 msgid "Sort content by international entity"
 msgstr "فرز المحتوى بحسب الجهة الدولية"
 
-#: functions.php:840
+#: functions.php:841
 msgid "Post Views"
 msgstr "مشاهدات المادة"
 
-#: functions.php:844
+#: functions.php:845
 msgid "Total unique session views by real users."
 msgstr "إجمالي المشاهدات الفريدة لكل جلسة من زوار حقيقيين."
 
-#: functions.php:862
+#: functions.php:863
 msgid "Views"
 msgstr "المشاهدات"
 
-#: functions.php:997
-#: functions.php:1013
-#: functions.php:1019
+#: functions.php:998
+#: functions.php:1014
+#: functions.php:1020
 #: inc/acf-json-strings.php:19
 msgid "Detailed Description"
 msgstr "الوصف التفصيلي"
 
-#: functions.php:1096
-#: functions.php:1107
-#: inc/acf-json-strings.php:249
+#: functions.php:1097
+#: functions.php:1108
+#: inc/acf-json-strings.php:254
 msgid "Department"
 msgstr "الإدارة"
 
-#: functions.php:1100
-#: inc/acf-json-strings.php:266
+#: functions.php:1101
+#: inc/acf-json-strings.php:271
 msgid "Program Series"
 msgstr "سلاسل البرامج"
 
@@ -341,1441 +344,1457 @@ msgid "Posts Limit"
 msgstr "عدد المواد"
 
 #: inc/acf-json-strings.php:48
+msgid "Grid layout"
+msgstr "شكل الشبكة"
+
+#: inc/acf-json-strings.php:49
+msgid "Featured grid (1 + 4), featured on right"
+msgstr "شبكة مميزة (1 + 4)، المادة الرئيسية يمينًا"
+
+#: inc/acf-json-strings.php:50
+msgid "Featured grid (1 + 4), featured on left"
+msgstr "شبكة مميزة (1 + 4)، المادة الرئيسية يسارًا"
+
+#: inc/acf-json-strings.php:51
+msgid "4 grid"
+msgstr "شبكة من 4 أعمدة"
+
+#: inc/acf-json-strings.php:52
 msgid "Social Media Section"
 msgstr "قسم التواصل الاجتماعي"
 
-#: inc/acf-json-strings.php:49
+#: inc/acf-json-strings.php:53
 msgid "Infographics Section"
 msgstr "قسم الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:50
+#: inc/acf-json-strings.php:54
 msgid "Interviews Section"
 msgstr "قسم الحوارات"
 
-#: inc/acf-json-strings.php:51
+#: inc/acf-json-strings.php:55
 msgid "Videos Section"
 msgstr "قسم الفيديو"
 
-#: inc/acf-json-strings.php:52
+#: inc/acf-json-strings.php:56
 msgid "Program Episodes Section"
 msgstr "قسم حلقات البرامج"
 
-#: inc/acf-json-strings.php:52
+#: inc/acf-json-strings.php:57
 msgid "Podcasts Section"
 msgstr "قسم البودكاست"
 
-#: inc/acf-json-strings.php:53
+#: inc/acf-json-strings.php:58
 msgid "Speakers Section"
 msgstr "قسم المتحدثين"
 
-#: inc/acf-json-strings.php:54
+#: inc/acf-json-strings.php:59
 msgid "Program Series Section"
 msgstr "قسم سلاسل البرامج"
 
-#: inc/acf-json-strings.php:55
+#: inc/acf-json-strings.php:60
 msgid "Filter Government + Private Entities Section"
 msgstr "قسم فرز الجهات الحكومية والخاصة"
 
-#: inc/acf-json-strings.php:56
+#: inc/acf-json-strings.php:61
 msgid "Geographic Section"
 msgstr "القسم الجغرافي"
 
-#: inc/acf-json-strings.php:57
+#: inc/acf-json-strings.php:62
 msgid "Cars Section"
 msgstr "قسم السيارات"
 
-#: inc/acf-json-strings.php:58
+#: inc/acf-json-strings.php:63
 msgid "Show Budget Strip"
 msgstr "إظهار شريط الميزانية"
 
-#: inc/acf-json-strings.php:59
+#: inc/acf-json-strings.php:64
 msgid "Show Body Types"
 msgstr "إظهار أنواع الهيكل"
 
-#: inc/acf-json-strings.php:60
+#: inc/acf-json-strings.php:65
 msgid "Show Top Brands"
 msgstr "إظهار أبرز العلامات"
 
-#: inc/acf-json-strings.php:61
+#: inc/acf-json-strings.php:66
 msgid "Brands Limit"
 msgstr "عدد العلامات"
 
-#: inc/acf-json-strings.php:62
+#: inc/acf-json-strings.php:67
 msgid "Show Origins"
 msgstr "إظهار بلدان المنشأ"
 
-#: inc/acf-json-strings.php:63
+#: inc/acf-json-strings.php:68
 msgid "Ad Banner"
 msgstr "بانر إعلاني"
 
-#: inc/acf-json-strings.php:64
+#: inc/acf-json-strings.php:69
 msgid "Ad Image"
 msgstr "صورة الإعلان"
 
-#: inc/acf-json-strings.php:65
+#: inc/acf-json-strings.php:70
 msgid "Ad Link"
 msgstr "رابط الإعلان"
 
-#: inc/acf-json-strings.php:66
+#: inc/acf-json-strings.php:71
 msgid "Ad Code"
 msgstr "كود إعلاني"
 
-#: inc/acf-json-strings.php:67
+#: inc/acf-json-strings.php:72
 msgid "Ad Code / Script"
 msgstr "الكود الإعلاني / السكربت"
 
-#: inc/acf-json-strings.php:68
+#: inc/acf-json-strings.php:73
 msgid "Add Section"
 msgstr "إضافة قسم"
 
-#: inc/acf-json-strings.php:69
+#: inc/acf-json-strings.php:74
 msgid "Resources"
 msgstr "المصادر"
 
-#: inc/acf-json-strings.php:70
+#: inc/acf-json-strings.php:75
 msgid "Put all post resources here for review."
 msgstr "ضع هنا جميع مصادر المادة للمراجعة."
 
-#: inc/acf-json-strings.php:71
+#: inc/acf-json-strings.php:76
 msgid "Podcast Reels"
 msgstr "ريلز البودكاست"
 
-#: inc/acf-json-strings.php:72
+#: inc/acf-json-strings.php:77
 #: template-parts/profiles/sub-profile-organizer.php:73
 msgid "Organizer"
 msgstr "الجهة المنظمة"
 
-#: inc/acf-json-strings.php:73
+#: inc/acf-json-strings.php:78
 msgid "Organizer Name"
 msgstr "اسم الجهة المنظمة"
 
-#: inc/acf-json-strings.php:74
+#: inc/acf-json-strings.php:79
 msgid "Organizer Image"
 msgstr "صورة الجهة المنظمة"
 
-#: inc/acf-json-strings.php:75
+#: inc/acf-json-strings.php:80
 msgid "Organizer Social Media Links"
 msgstr "روابط التواصل للجهة المنظمة"
 
-#: inc/acf-json-strings.php:76
+#: inc/acf-json-strings.php:81
 msgid "Organizer Extra Info"
 msgstr "معلومات إضافية عن الجهة المنظمة"
 
-#: inc/acf-json-strings.php:77
+#: inc/acf-json-strings.php:82
 msgid "Location"
 msgstr "الموقع"
 
-#: inc/acf-json-strings.php:78
+#: inc/acf-json-strings.php:83
 msgid "Latitude"
 msgstr "خط العرض"
 
-#: inc/acf-json-strings.php:79
+#: inc/acf-json-strings.php:84
 msgid "Longitude"
 msgstr "خط الطول"
 
-#: inc/acf-json-strings.php:80
+#: inc/acf-json-strings.php:85
 msgid "Related Posts"
 msgstr "مواد ذات صلة"
 
-#: inc/acf-json-strings.php:81
+#: inc/acf-json-strings.php:86
 msgid "Pick up to 4 posts (optional)."
 msgstr "اختر حتى 4 مواد (اختياري)."
 
-#: inc/acf-json-strings.php:82
+#: inc/acf-json-strings.php:87
 #: template-parts/cards/card-hero-featured.php:14
 msgid "Programs"
 msgstr "برامج"
 
-#: inc/acf-json-strings.php:83
+#: inc/acf-json-strings.php:88
 msgid "Programs and Shows."
 msgstr "البرامج والعروض."
 
-#: inc/acf-json-strings.php:84
+#: inc/acf-json-strings.php:89
 msgid "Program"
 msgstr "البرنامج"
 
-#: inc/acf-json-strings.php:85
+#: inc/acf-json-strings.php:90
 msgid "All Programs"
 msgstr "كل البرامج"
 
-#: inc/acf-json-strings.php:86
+#: inc/acf-json-strings.php:91
 msgid "Edit Program"
 msgstr "تحرير البرنامج"
 
-#: inc/acf-json-strings.php:87
+#: inc/acf-json-strings.php:92
 msgid "View Program"
 msgstr "عرض البرنامج"
 
-#: inc/acf-json-strings.php:88
+#: inc/acf-json-strings.php:93
 msgid "View Programs"
 msgstr "عرض البرامج"
 
-#: inc/acf-json-strings.php:89
+#: inc/acf-json-strings.php:94
 msgid "Add New Program"
 msgstr "إضافة برنامج"
 
-#: inc/acf-json-strings.php:90
+#: inc/acf-json-strings.php:95
 msgid "New Program"
 msgstr "برنامج جديد"
 
-#: inc/acf-json-strings.php:91
+#: inc/acf-json-strings.php:96
 msgid "Parent Program:"
 msgstr "البرنامج الأب:"
 
-#: inc/acf-json-strings.php:92
+#: inc/acf-json-strings.php:97
 msgid "Search Programs"
 msgstr "بحث في البرامج"
 
-#: inc/acf-json-strings.php:93
+#: inc/acf-json-strings.php:98
 msgid "No programs found"
 msgstr "لم يُعثر على برامج"
 
-#: inc/acf-json-strings.php:94
+#: inc/acf-json-strings.php:99
 msgid "No programs found in Trash"
 msgstr "لم يُعثر على برامج في سلة المهملات"
 
-#: inc/acf-json-strings.php:95
+#: inc/acf-json-strings.php:100
 msgid "Program Archives"
 msgstr "أرشيف البرامج"
 
-#: inc/acf-json-strings.php:96
+#: inc/acf-json-strings.php:101
 msgid "Program Attributes"
 msgstr "خصائص البرنامج"
 
-#: inc/acf-json-strings.php:97
+#: inc/acf-json-strings.php:102
 msgid "Insert into program"
 msgstr "إدراج في البرنامج"
 
-#: inc/acf-json-strings.php:98
+#: inc/acf-json-strings.php:103
 msgid "Uploaded to this program"
 msgstr "مرفوع إلى هذا البرنامج"
 
-#: inc/acf-json-strings.php:99
+#: inc/acf-json-strings.php:104
 msgid "Filter programs list"
 msgstr "تصفية قائمة البرامج"
 
-#: inc/acf-json-strings.php:100
+#: inc/acf-json-strings.php:105
 msgid "Filter programs by date"
 msgstr "تصفية البرامج حسب التاريخ"
 
-#: inc/acf-json-strings.php:101
+#: inc/acf-json-strings.php:106
 msgid "Programs list navigation"
 msgstr "التنقل في قائمة البرامج"
 
-#: inc/acf-json-strings.php:102
+#: inc/acf-json-strings.php:107
 msgid "Programs list"
 msgstr "قائمة البرامج"
 
-#: inc/acf-json-strings.php:103
+#: inc/acf-json-strings.php:108
 msgid "Program published."
 msgstr "تم نشر البرنامج."
 
-#: inc/acf-json-strings.php:104
+#: inc/acf-json-strings.php:109
 msgid "Program published privately."
 msgstr "تم نشر البرنامج بشكل خاص."
 
-#: inc/acf-json-strings.php:105
+#: inc/acf-json-strings.php:110
 msgid "Program reverted to draft."
 msgstr "تمت إعادة البرنامج إلى مسودة."
 
-#: inc/acf-json-strings.php:106
+#: inc/acf-json-strings.php:111
 msgid "Program scheduled."
 msgstr "تمت جدولة البرنامج."
 
-#: inc/acf-json-strings.php:107
+#: inc/acf-json-strings.php:112
 msgid "Program updated."
 msgstr "تم تحديث البرنامج."
 
-#: inc/acf-json-strings.php:108
+#: inc/acf-json-strings.php:113
 msgid "Program Link"
 msgstr "رابط البرنامج"
 
-#: inc/acf-json-strings.php:109
+#: inc/acf-json-strings.php:114
 msgid "A link to a program."
 msgstr "رابط إلى برنامج."
 
-#: inc/acf-json-strings.php:110
+#: inc/acf-json-strings.php:115
 msgid "Infographics"
 msgstr "الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:111
+#: inc/acf-json-strings.php:116
 msgid "Data visualizations."
 msgstr "تصورات البيانات."
 
-#: inc/acf-json-strings.php:112
+#: inc/acf-json-strings.php:117
 #: template-parts/cards/card-hero-featured.php:15
 msgid "Infographic"
 msgstr "انفوجرافيك"
 
-#: inc/acf-json-strings.php:113
+#: inc/acf-json-strings.php:118
 msgid "All Infographics"
 msgstr "كل الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:114
+#: inc/acf-json-strings.php:119
 msgid "Edit Infographic"
 msgstr "تحرير الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:115
+#: inc/acf-json-strings.php:120
 msgid "View Infographic"
 msgstr "عرض الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:116
+#: inc/acf-json-strings.php:121
 msgid "View Infographics"
 msgstr "عرض الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:117
+#: inc/acf-json-strings.php:122
 msgid "Add New Infographic"
 msgstr "إضافة إنفوجرافيك"
 
-#: inc/acf-json-strings.php:118
+#: inc/acf-json-strings.php:123
 msgid "New Infographic"
 msgstr "إنفوجرافيك جديد"
 
-#: inc/acf-json-strings.php:119
+#: inc/acf-json-strings.php:124
 msgid "Parent Infographic:"
 msgstr "الإنفوجرافيك الأب:"
 
-#: inc/acf-json-strings.php:120
+#: inc/acf-json-strings.php:125
 msgid "Search Infographics"
 msgstr "بحث في الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:121
+#: inc/acf-json-strings.php:126
 msgid "No infographics found"
 msgstr "لم يُعثر على إنفوجرافيك"
 
-#: inc/acf-json-strings.php:122
+#: inc/acf-json-strings.php:127
 msgid "No infographics found in Trash"
 msgstr "لم يُعثر على إنفوجرافيك في سلة المهملات"
 
-#: inc/acf-json-strings.php:123
+#: inc/acf-json-strings.php:128
 msgid "Infographic Archives"
 msgstr "أرشيف الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:124
+#: inc/acf-json-strings.php:129
 msgid "Infographic Attributes"
 msgstr "خصائص الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:125
+#: inc/acf-json-strings.php:130
 msgid "Insert into infographic"
 msgstr "إدراج في الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:126
+#: inc/acf-json-strings.php:131
 msgid "Uploaded to this infographic"
 msgstr "مرفوع إلى هذا الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:127
+#: inc/acf-json-strings.php:132
 msgid "Filter infographics list"
 msgstr "تصفية قائمة الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:128
+#: inc/acf-json-strings.php:133
 msgid "Filter infographics by date"
 msgstr "تصفية الإنفوجرافيك حسب التاريخ"
 
-#: inc/acf-json-strings.php:129
+#: inc/acf-json-strings.php:134
 msgid "Infographics list navigation"
 msgstr "التنقل في قائمة الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:130
+#: inc/acf-json-strings.php:135
 msgid "Infographics list"
 msgstr "قائمة الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:131
+#: inc/acf-json-strings.php:136
 msgid "Infographic published."
 msgstr "تم نشر الإنفوجرافيك."
 
-#: inc/acf-json-strings.php:132
+#: inc/acf-json-strings.php:137
 msgid "Infographic published privately."
 msgstr "تم نشر الإنفوجرافيك بشكل خاص."
 
-#: inc/acf-json-strings.php:133
+#: inc/acf-json-strings.php:138
 msgid "Infographic reverted to draft."
 msgstr "تمت إعادة الإنفوجرافيك إلى مسودة."
 
-#: inc/acf-json-strings.php:134
+#: inc/acf-json-strings.php:139
 msgid "Infographic scheduled."
 msgstr "تمت جدولة الإنفوجرافيك."
 
-#: inc/acf-json-strings.php:135
+#: inc/acf-json-strings.php:140
 msgid "Infographic updated."
 msgstr "تم تحديث الإنفوجرافيك."
 
-#: inc/acf-json-strings.php:136
+#: inc/acf-json-strings.php:141
 msgid "Infographic Link"
 msgstr "رابط الإنفوجرافيك"
 
-#: inc/acf-json-strings.php:137
+#: inc/acf-json-strings.php:142
 msgid "A link to a infographic."
 msgstr "رابط إلى إنفوجرافيك."
 
-#: inc/acf-json-strings.php:138
+#: inc/acf-json-strings.php:143
 #: template-parts/cards/card-hero-featured.php:13
 msgid "Interviews"
 msgstr "مقابلات"
 
-#: inc/acf-json-strings.php:139
+#: inc/acf-json-strings.php:144
 msgid "Media-rich interview content."
 msgstr "محتوى حوارات غني بالوسائط."
 
-#: inc/acf-json-strings.php:140
+#: inc/acf-json-strings.php:145
 #: template-parts/cards/card-interview.php:23
-#: template-parts/sections/interviews_section.php:105
+#: template-parts/sections/interviews_section.php:108
 msgid "Interview"
 msgstr "حوار"
 
-#: inc/acf-json-strings.php:141
+#: inc/acf-json-strings.php:146
 msgid "All Interviews"
 msgstr "كل الحوارات"
 
-#: inc/acf-json-strings.php:142
+#: inc/acf-json-strings.php:147
 msgid "Edit Interview"
 msgstr "تحرير الحوار"
 
-#: inc/acf-json-strings.php:143
+#: inc/acf-json-strings.php:148
 msgid "View Interview"
 msgstr "عرض الحوار"
 
-#: inc/acf-json-strings.php:144
+#: inc/acf-json-strings.php:149
 msgid "View Interviews"
 msgstr "عرض الحوارات"
 
-#: inc/acf-json-strings.php:145
+#: inc/acf-json-strings.php:150
 msgid "Add New Interview"
 msgstr "إضافة حوار"
 
-#: inc/acf-json-strings.php:146
+#: inc/acf-json-strings.php:151
 msgid "New Interview"
 msgstr "حوار جديد"
 
-#: inc/acf-json-strings.php:147
+#: inc/acf-json-strings.php:152
 msgid "Parent Interview:"
 msgstr "الحوار الأب:"
 
-#: inc/acf-json-strings.php:148
+#: inc/acf-json-strings.php:153
 msgid "Search Interviews"
 msgstr "بحث في الحوارات"
 
-#: inc/acf-json-strings.php:149
+#: inc/acf-json-strings.php:154
 msgid "No interviews found"
 msgstr "لم يُعثر على حوارات"
 
-#: inc/acf-json-strings.php:150
+#: inc/acf-json-strings.php:155
 msgid "No interviews found in Trash"
 msgstr "لم يُعثر على حوارات في سلة المهملات"
 
-#: inc/acf-json-strings.php:151
+#: inc/acf-json-strings.php:156
 msgid "Interview Archives"
 msgstr "أرشيف الحوارات"
 
-#: inc/acf-json-strings.php:152
+#: inc/acf-json-strings.php:157
 msgid "Interview Attributes"
 msgstr "خصائص الحوار"
 
-#: inc/acf-json-strings.php:153
+#: inc/acf-json-strings.php:158
 msgid "Insert into interview"
 msgstr "إدراج في الحوار"
 
-#: inc/acf-json-strings.php:154
+#: inc/acf-json-strings.php:159
 msgid "Uploaded to this interview"
 msgstr "مرفوع إلى هذا الحوار"
 
-#: inc/acf-json-strings.php:155
+#: inc/acf-json-strings.php:160
 msgid "Filter interviews list"
 msgstr "تصفية قائمة الحوارات"
 
-#: inc/acf-json-strings.php:156
+#: inc/acf-json-strings.php:161
 msgid "Filter interviews by date"
 msgstr "تصفية الحوارات حسب التاريخ"
 
-#: inc/acf-json-strings.php:157
+#: inc/acf-json-strings.php:162
 msgid "Interviews list navigation"
 msgstr "التنقل في قائمة الحوارات"
 
-#: inc/acf-json-strings.php:158
+#: inc/acf-json-strings.php:163
 msgid "Interviews list"
 msgstr "قائمة الحوارات"
 
-#: inc/acf-json-strings.php:159
+#: inc/acf-json-strings.php:164
 msgid "Interview published."
 msgstr "تم نشر الحوار."
 
-#: inc/acf-json-strings.php:160
+#: inc/acf-json-strings.php:165
 msgid "Interview published privately."
 msgstr "تم نشر الحوار بشكل خاص."
 
-#: inc/acf-json-strings.php:161
+#: inc/acf-json-strings.php:166
 msgid "Interview reverted to draft."
 msgstr "تمت إعادة الحوار إلى مسودة."
 
-#: inc/acf-json-strings.php:162
+#: inc/acf-json-strings.php:167
 msgid "Interview scheduled."
 msgstr "تمت جدولة الحوار."
 
-#: inc/acf-json-strings.php:163
+#: inc/acf-json-strings.php:168
 msgid "Interview updated."
 msgstr "تم تحديث الحوار."
 
-#: inc/acf-json-strings.php:164
+#: inc/acf-json-strings.php:169
 msgid "Interview Link"
 msgstr "رابط الحوار"
 
-#: inc/acf-json-strings.php:165
+#: inc/acf-json-strings.php:170
 msgid "A link to a interview."
 msgstr "رابط إلى حوار."
 
-#: inc/acf-json-strings.php:166
+#: inc/acf-json-strings.php:171
 msgid "Videos"
 msgstr "الفيديوهات"
 
-#: inc/acf-json-strings.php:167
+#: inc/acf-json-strings.php:172
 #: template-parts/cards/card-video.php:23
-#: template-parts/sections/videos_section.php:105
+#: template-parts/sections/videos_section.php:108
 msgid "Video"
 msgstr "فيديو"
 
-#: inc/acf-json-strings.php:168
+#: inc/acf-json-strings.php:173
 msgid "All Videos"
 msgstr "كل الفيديوهات"
 
-#: inc/acf-json-strings.php:169
+#: inc/acf-json-strings.php:174
 msgid "Edit Video"
 msgstr "تحرير الفيديو"
 
-#: inc/acf-json-strings.php:170
+#: inc/acf-json-strings.php:175
 msgid "View Video"
 msgstr "عرض الفيديو"
 
-#: inc/acf-json-strings.php:171
+#: inc/acf-json-strings.php:176
 msgid "View Videos"
 msgstr "عرض الفيديوهات"
 
-#: inc/acf-json-strings.php:172
+#: inc/acf-json-strings.php:177
 msgid "Add New Video"
 msgstr "إضافة فيديو"
 
-#: inc/acf-json-strings.php:173
+#: inc/acf-json-strings.php:178
 msgid "New Video"
 msgstr "فيديو جديد"
 
-#: inc/acf-json-strings.php:174
+#: inc/acf-json-strings.php:179
 msgid "Parent Video:"
 msgstr "الفيديو الأب:"
 
-#: inc/acf-json-strings.php:175
+#: inc/acf-json-strings.php:180
 msgid "Search Videos"
 msgstr "بحث في الفيديوهات"
 
-#: inc/acf-json-strings.php:176
+#: inc/acf-json-strings.php:181
 msgid "No videos found"
 msgstr "لم يُعثر على فيديوهات"
 
-#: inc/acf-json-strings.php:177
+#: inc/acf-json-strings.php:182
 msgid "No videos found in Trash"
 msgstr "لم يُعثر على فيديوهات في سلة المهملات"
 
-#: inc/acf-json-strings.php:178
+#: inc/acf-json-strings.php:183
 msgid "Video Archives"
 msgstr "أرشيف الفيديوهات"
 
-#: inc/acf-json-strings.php:179
+#: inc/acf-json-strings.php:184
 msgid "Video Attributes"
 msgstr "خصائص الفيديو"
 
-#: inc/acf-json-strings.php:180
+#: inc/acf-json-strings.php:185
 msgid "Insert into video"
 msgstr "إدراج في الفيديو"
 
-#: inc/acf-json-strings.php:181
+#: inc/acf-json-strings.php:186
 msgid "Uploaded to this video"
 msgstr "مرفوع إلى هذا الفيديو"
 
-#: inc/acf-json-strings.php:182
+#: inc/acf-json-strings.php:187
 msgid "Filter videos list"
 msgstr "تصفية قائمة الفيديوهات"
 
-#: inc/acf-json-strings.php:183
+#: inc/acf-json-strings.php:188
 msgid "Filter videos by date"
 msgstr "تصفية الفيديوهات حسب التاريخ"
 
-#: inc/acf-json-strings.php:184
+#: inc/acf-json-strings.php:189
 msgid "Videos list navigation"
 msgstr "التنقل في قائمة الفيديوهات"
 
-#: inc/acf-json-strings.php:185
+#: inc/acf-json-strings.php:190
 msgid "Videos list"
 msgstr "قائمة الفيديوهات"
 
-#: inc/acf-json-strings.php:186
+#: inc/acf-json-strings.php:191
 msgid "Video published."
 msgstr "تم نشر الفيديو."
 
-#: inc/acf-json-strings.php:187
+#: inc/acf-json-strings.php:192
 msgid "Video published privately."
 msgstr "تم نشر الفيديو بشكل خاص."
 
-#: inc/acf-json-strings.php:188
+#: inc/acf-json-strings.php:193
 msgid "Video reverted to draft."
 msgstr "تمت إعادة الفيديو إلى مسودة."
 
-#: inc/acf-json-strings.php:189
+#: inc/acf-json-strings.php:194
 msgid "Video scheduled."
 msgstr "تمت جدولة الفيديو."
 
-#: inc/acf-json-strings.php:190
+#: inc/acf-json-strings.php:195
 msgid "Video updated."
 msgstr "تم تحديث الفيديو."
 
-#: inc/acf-json-strings.php:191
+#: inc/acf-json-strings.php:196
 msgid "Video Link"
 msgstr "رابط الفيديو"
 
-#: inc/acf-json-strings.php:192
+#: inc/acf-json-strings.php:197
 msgid "A link to a video."
 msgstr "رابط إلى فيديو."
 
-#: inc/acf-json-strings.php:193
+#: inc/acf-json-strings.php:198
 msgid "Podcasts"
 msgstr "البودكاست"
 
-#: inc/acf-json-strings.php:194
+#: inc/acf-json-strings.php:199
 #: single-podcast.php:25
 #: template-parts/cards/card-podcast.php:23
-#: template-parts/sections/podcasts_section.php:79
-#: template-parts/sections/podcasts_section.php:107
+#: template-parts/sections/podcasts_section.php:80
+#: template-parts/sections/podcasts_section.php:109
 msgid "Podcast"
 msgstr "بودكاست"
 
-#: inc/acf-json-strings.php:195
+#: inc/acf-json-strings.php:200
 msgid "All Podcasts"
 msgstr "كل البودكاست"
 
-#: inc/acf-json-strings.php:196
+#: inc/acf-json-strings.php:201
 msgid "Edit Podcast"
 msgstr "تحرير البودكاست"
 
-#: inc/acf-json-strings.php:197
+#: inc/acf-json-strings.php:202
 msgid "View Podcast"
 msgstr "عرض البودكاست"
 
-#: inc/acf-json-strings.php:198
+#: inc/acf-json-strings.php:203
 msgid "View Podcasts"
 msgstr "عرض البودكاست"
 
-#: inc/acf-json-strings.php:199
+#: inc/acf-json-strings.php:204
 msgid "Add New Podcast"
 msgstr "إضافة بودكاست"
 
-#: inc/acf-json-strings.php:200
+#: inc/acf-json-strings.php:205
 msgid "New Podcast"
 msgstr "بودكاست جديد"
 
-#: inc/acf-json-strings.php:201
+#: inc/acf-json-strings.php:206
 msgid "Parent Podcast:"
 msgstr "البودكاست الأب:"
 
-#: inc/acf-json-strings.php:202
+#: inc/acf-json-strings.php:207
 msgid "Search Podcasts"
 msgstr "بحث في البودكاست"
 
-#: inc/acf-json-strings.php:203
+#: inc/acf-json-strings.php:208
 msgid "No podcasts found"
 msgstr "لم يُعثر على حلقات بودكاست"
 
-#: inc/acf-json-strings.php:204
+#: inc/acf-json-strings.php:209
 msgid "No podcasts found in Trash"
 msgstr "لم يُعثر على حلقات بودكاست في سلة المهملات"
 
-#: inc/acf-json-strings.php:205
+#: inc/acf-json-strings.php:210
 msgid "Podcast Archives"
 msgstr "أرشيف البودكاست"
 
-#: inc/acf-json-strings.php:206
+#: inc/acf-json-strings.php:211
 msgid "Podcast Attributes"
 msgstr "خصائص البودكاست"
 
-#: inc/acf-json-strings.php:207
+#: inc/acf-json-strings.php:212
 msgid "Insert into podcast"
 msgstr "إدراج في البودكاست"
 
-#: inc/acf-json-strings.php:208
+#: inc/acf-json-strings.php:213
 msgid "Uploaded to this podcast"
 msgstr "مرفوع إلى هذا البودكاست"
 
-#: inc/acf-json-strings.php:209
+#: inc/acf-json-strings.php:214
 msgid "Filter podcasts list"
 msgstr "تصفية قائمة البودكاست"
 
-#: inc/acf-json-strings.php:210
+#: inc/acf-json-strings.php:215
 msgid "Filter podcasts by date"
 msgstr "تصفية البودكاست حسب التاريخ"
 
-#: inc/acf-json-strings.php:211
+#: inc/acf-json-strings.php:216
 msgid "Podcasts list navigation"
 msgstr "التنقل في قائمة البودكاست"
 
-#: inc/acf-json-strings.php:212
+#: inc/acf-json-strings.php:217
 msgid "Podcasts list"
 msgstr "قائمة البودكاست"
 
-#: inc/acf-json-strings.php:213
+#: inc/acf-json-strings.php:218
 msgid "Podcast published."
 msgstr "تم نشر البودكاست."
 
-#: inc/acf-json-strings.php:214
+#: inc/acf-json-strings.php:219
 msgid "Podcast published privately."
 msgstr "تم نشر البودكاست بشكل خاص."
 
-#: inc/acf-json-strings.php:215
+#: inc/acf-json-strings.php:220
 msgid "Podcast reverted to draft."
 msgstr "تمت إعادة البودكاست إلى مسودة."
 
-#: inc/acf-json-strings.php:216
+#: inc/acf-json-strings.php:221
 msgid "Podcast scheduled."
 msgstr "تمت جدولة البودكاست."
 
-#: inc/acf-json-strings.php:217
+#: inc/acf-json-strings.php:222
 msgid "Podcast updated."
 msgstr "تم تحديث البودكاست."
 
-#: inc/acf-json-strings.php:218
+#: inc/acf-json-strings.php:223
 msgid "Podcast Link"
 msgstr "رابط البودكاست"
 
-#: inc/acf-json-strings.php:219
+#: inc/acf-json-strings.php:224
 msgid "A link to a podcast."
 msgstr "رابط إلى بودكاست."
 
-#: inc/acf-json-strings.php:220
+#: inc/acf-json-strings.php:225
 #: inc/site-search.php:150
 msgid "Reels"
 msgstr "الريلز"
 
-#: inc/acf-json-strings.php:221
+#: inc/acf-json-strings.php:226
 #: single-reel.php:19
 msgid "Reel"
 msgstr "ريل"
 
-#: inc/acf-json-strings.php:222
+#: inc/acf-json-strings.php:227
 msgid "All Reels"
 msgstr "كل الريلز"
 
-#: inc/acf-json-strings.php:223
+#: inc/acf-json-strings.php:228
 msgid "Edit Reel"
 msgstr "تحرير الريل"
 
-#: inc/acf-json-strings.php:224
+#: inc/acf-json-strings.php:229
 msgid "View Reel"
 msgstr "عرض الريل"
 
-#: inc/acf-json-strings.php:225
+#: inc/acf-json-strings.php:230
 msgid "View Reels"
 msgstr "عرض الريلز"
 
-#: inc/acf-json-strings.php:226
+#: inc/acf-json-strings.php:231
 msgid "Add New Reel"
 msgstr "إضافة ريل"
 
-#: inc/acf-json-strings.php:227
+#: inc/acf-json-strings.php:232
 msgid "New Reel"
 msgstr "ريل جديد"
 
-#: inc/acf-json-strings.php:228
+#: inc/acf-json-strings.php:233
 msgid "Parent Reel:"
 msgstr "الريل الأب:"
 
-#: inc/acf-json-strings.php:229
+#: inc/acf-json-strings.php:234
 msgid "Search Reels"
 msgstr "بحث في الريلز"
 
-#: inc/acf-json-strings.php:230
+#: inc/acf-json-strings.php:235
 msgid "No reels found"
 msgstr "لم يُعثر على ريلز"
 
-#: inc/acf-json-strings.php:231
+#: inc/acf-json-strings.php:236
 msgid "No reels found in Trash"
 msgstr "لم يُعثر على ريلز في سلة المهملات"
 
-#: inc/acf-json-strings.php:232
+#: inc/acf-json-strings.php:237
 msgid "Reel Archives"
 msgstr "أرشيف الريلز"
 
-#: inc/acf-json-strings.php:233
+#: inc/acf-json-strings.php:238
 msgid "Reel Attributes"
 msgstr "خصائص الريل"
 
-#: inc/acf-json-strings.php:234
+#: inc/acf-json-strings.php:239
 msgid "Insert into reel"
 msgstr "إدراج في الريل"
 
-#: inc/acf-json-strings.php:235
+#: inc/acf-json-strings.php:240
 msgid "Uploaded to this reel"
 msgstr "مرفوع إلى هذا الريل"
 
-#: inc/acf-json-strings.php:236
+#: inc/acf-json-strings.php:241
 msgid "Filter reels list"
 msgstr "تصفية قائمة الريلز"
 
-#: inc/acf-json-strings.php:237
+#: inc/acf-json-strings.php:242
 msgid "Filter reels by date"
 msgstr "تصفية الريلز حسب التاريخ"
 
-#: inc/acf-json-strings.php:238
+#: inc/acf-json-strings.php:243
 msgid "Reels list navigation"
 msgstr "التنقل في قائمة الريلز"
 
-#: inc/acf-json-strings.php:239
+#: inc/acf-json-strings.php:244
 msgid "Reels list"
 msgstr "قائمة الريلز"
 
-#: inc/acf-json-strings.php:240
+#: inc/acf-json-strings.php:245
 msgid "Reel published."
 msgstr "تم نشر الريل."
 
-#: inc/acf-json-strings.php:241
+#: inc/acf-json-strings.php:246
 msgid "Reel published privately."
 msgstr "تم نشر الريل بشكل خاص."
 
-#: inc/acf-json-strings.php:242
+#: inc/acf-json-strings.php:247
 msgid "Reel reverted to draft."
 msgstr "تمت إعادة الريل إلى مسودة."
 
-#: inc/acf-json-strings.php:243
+#: inc/acf-json-strings.php:248
 msgid "Reel scheduled."
 msgstr "تمت جدولة الريل."
 
-#: inc/acf-json-strings.php:244
+#: inc/acf-json-strings.php:249
 msgid "Reel updated."
 msgstr "تم تحديث الريل."
 
-#: inc/acf-json-strings.php:245
+#: inc/acf-json-strings.php:250
 msgid "Reel Link"
 msgstr "رابط الريل"
 
-#: inc/acf-json-strings.php:246
+#: inc/acf-json-strings.php:251
 msgid "A link to a reel."
 msgstr "رابط إلى ريل."
 
-#: inc/acf-json-strings.php:247
+#: inc/acf-json-strings.php:252
 #: template-parts/profiles/filter-departments-nav.php:32
 msgid "Departments"
 msgstr "الإدارات"
 
-#: inc/acf-json-strings.php:248
+#: inc/acf-json-strings.php:253
 msgid "Primary navigation axis. The core vertical division of the site."
 msgstr "محور التنقل الرئيسي، والتقسيم الأساسي للموقع."
 
-#: inc/acf-json-strings.php:250
+#: inc/acf-json-strings.php:255
 msgid "All department"
 msgstr "كل الإدارات"
 
-#: inc/acf-json-strings.php:251
+#: inc/acf-json-strings.php:256
 msgid "Edit Department"
 msgstr "تحرير الإدارة"
 
-#: inc/acf-json-strings.php:252
+#: inc/acf-json-strings.php:257
 msgid "View Department"
 msgstr "عرض الإدارة"
 
-#: inc/acf-json-strings.php:253
+#: inc/acf-json-strings.php:258
 msgid "Update Department"
 msgstr "تحديث الإدارة"
 
-#: inc/acf-json-strings.php:254
+#: inc/acf-json-strings.php:259
 msgid "Add New Department"
 msgstr "إضافة إدارة"
 
-#: inc/acf-json-strings.php:255
+#: inc/acf-json-strings.php:260
 msgid "New Department Name"
 msgstr "اسم إدارة جديدة"
 
-#: inc/acf-json-strings.php:256
+#: inc/acf-json-strings.php:261
 msgid "Search department"
 msgstr "بحث في الإدارات"
 
-#: inc/acf-json-strings.php:257
+#: inc/acf-json-strings.php:262
 msgid "No department found"
 msgstr "لم يُعثر على إدارات"
 
-#: inc/acf-json-strings.php:258
+#: inc/acf-json-strings.php:263
 msgid "No department"
 msgstr "لا توجد إدارات"
 
-#: inc/acf-json-strings.php:259
+#: inc/acf-json-strings.php:264
 msgid "Names can be entered in Arabic or English."
 msgstr "يمكن إدخال الأسماء بالعربية أو الإنجليزية."
 
-#: inc/acf-json-strings.php:260
+#: inc/acf-json-strings.php:265
 msgid "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here."
 msgstr "يجب أن يكون الرابط (slug) بالإنجليزية أو بحروف لاتينية. أدخل هنا ترجمة الاسم أو كتابته بحروف لاتينية."
 
-#: inc/acf-json-strings.php:261
+#: inc/acf-json-strings.php:266
 msgid "department list navigation"
 msgstr "التنقل في قائمة الإدارات"
 
-#: inc/acf-json-strings.php:262
+#: inc/acf-json-strings.php:267
 msgid "department list"
 msgstr "قائمة الإدارات"
 
-#: inc/acf-json-strings.php:263
+#: inc/acf-json-strings.php:268
 msgid "← Go to department"
 msgstr "→ العودة إلى الإدارات"
 
-#: inc/acf-json-strings.php:264
+#: inc/acf-json-strings.php:269
 msgid "Department Link"
 msgstr "رابط الإدارة"
 
-#: inc/acf-json-strings.php:265
+#: inc/acf-json-strings.php:270
 msgid "A link to a department"
 msgstr "رابط إلى إدارة"
 
-#: inc/acf-json-strings.php:267
+#: inc/acf-json-strings.php:272
 msgid "Grouping episodic or related programs."
 msgstr "تجميع البرامج المتسلسلة أو المترابطة."
 
-#: inc/acf-json-strings.php:268
+#: inc/acf-json-strings.php:273
 msgid "All Program Series"
 msgstr "كل سلاسل البرامج"
 
-#: inc/acf-json-strings.php:269
+#: inc/acf-json-strings.php:274
 msgid "Edit Program Series"
 msgstr "تحرير سلسلة البرامج"
 
-#: inc/acf-json-strings.php:270
+#: inc/acf-json-strings.php:275
 msgid "View Program Series"
 msgstr "عرض سلسلة البرامج"
 
-#: inc/acf-json-strings.php:271
+#: inc/acf-json-strings.php:276
 msgid "Update Program Series"
 msgstr "تحديث سلسلة البرامج"
 
-#: inc/acf-json-strings.php:272
+#: inc/acf-json-strings.php:277
 msgid "Add New Program Series"
 msgstr "إضافة سلسلة برامج"
 
-#: inc/acf-json-strings.php:273
+#: inc/acf-json-strings.php:278
 msgid "New Program Series Name"
 msgstr "اسم سلسلة برامج جديدة"
 
-#: inc/acf-json-strings.php:274
+#: inc/acf-json-strings.php:279
 msgid "Search Program Series"
 msgstr "بحث في سلاسل البرامج"
 
-#: inc/acf-json-strings.php:275
+#: inc/acf-json-strings.php:280
 msgid "No program series found"
 msgstr "لم يُعثر على سلاسل برامج"
 
-#: inc/acf-json-strings.php:276
+#: inc/acf-json-strings.php:281
 msgid "No program series"
 msgstr "لا توجد سلاسل برامج"
 
-#: inc/acf-json-strings.php:277
+#: inc/acf-json-strings.php:282
 msgid "Program Series list navigation"
 msgstr "التنقل في قائمة سلاسل البرامج"
 
-#: inc/acf-json-strings.php:278
+#: inc/acf-json-strings.php:283
 msgid "Program Series list"
 msgstr "قائمة سلاسل البرامج"
 
-#: inc/acf-json-strings.php:279
+#: inc/acf-json-strings.php:284
 msgid "← Go to program series"
 msgstr "→ العودة إلى سلاسل البرامج"
 
-#: inc/acf-json-strings.php:280
+#: inc/acf-json-strings.php:285
 msgid "Program Series Link"
 msgstr "رابط سلسلة البرامج"
 
-#: inc/acf-json-strings.php:281
+#: inc/acf-json-strings.php:286
 msgid "A link to a program series"
 msgstr "رابط إلى سلسلة برامج"
 
-#: inc/acf-json-strings.php:282
+#: inc/acf-json-strings.php:287
 msgid "Government Entities"
 msgstr "الجهات الحكومية"
 
-#: inc/acf-json-strings.php:283
+#: inc/acf-json-strings.php:288
 msgid "Tagging involved government bodies."
 msgstr "وسم الجهات الحكومية المعنية."
 
-#: inc/acf-json-strings.php:284
+#: inc/acf-json-strings.php:289
 msgid "Government Entity"
 msgstr "الجهة الحكومية"
 
-#: inc/acf-json-strings.php:285
+#: inc/acf-json-strings.php:290
 msgid "All Government Entities"
 msgstr "كل الجهات الحكومية"
 
-#: inc/acf-json-strings.php:286
+#: inc/acf-json-strings.php:291
 msgid "Edit Government Entity"
 msgstr "تحرير الجهة الحكومية"
 
-#: inc/acf-json-strings.php:287
+#: inc/acf-json-strings.php:292
 msgid "View Government Entity"
 msgstr "عرض الجهة الحكومية"
 
-#: inc/acf-json-strings.php:288
+#: inc/acf-json-strings.php:293
 msgid "Update Government Entity"
 msgstr "تحديث الجهة الحكومية"
 
-#: inc/acf-json-strings.php:289
+#: inc/acf-json-strings.php:294
 msgid "Add New Government Entity"
 msgstr "إضافة جهة حكومية"
 
-#: inc/acf-json-strings.php:290
+#: inc/acf-json-strings.php:295
 msgid "New Government Entity Name"
 msgstr "اسم جهة حكومية جديدة"
 
-#: inc/acf-json-strings.php:291
+#: inc/acf-json-strings.php:296
 msgid "Search Government Entities"
 msgstr "بحث في الجهات الحكومية"
 
-#: inc/acf-json-strings.php:292
+#: inc/acf-json-strings.php:297
 msgid "No government entities found"
 msgstr "لم يُعثر على جهات حكومية"
 
-#: inc/acf-json-strings.php:293
+#: inc/acf-json-strings.php:298
 msgid "No government entities"
 msgstr "لا توجد جهات حكومية"
 
-#: inc/acf-json-strings.php:294
+#: inc/acf-json-strings.php:299
 msgid "Government Entities list navigation"
 msgstr "التنقل في قائمة الجهات الحكومية"
 
-#: inc/acf-json-strings.php:295
+#: inc/acf-json-strings.php:300
 msgid "Government Entities list"
 msgstr "قائمة الجهات الحكومية"
 
-#: inc/acf-json-strings.php:296
+#: inc/acf-json-strings.php:301
 msgid "← Go to government entities"
 msgstr "→ العودة إلى الجهات الحكومية"
 
-#: inc/acf-json-strings.php:297
+#: inc/acf-json-strings.php:302
 msgid "Government Entity Link"
 msgstr "رابط الجهة الحكومية"
 
-#: inc/acf-json-strings.php:298
+#: inc/acf-json-strings.php:303
 msgid "A link to a government entity"
 msgstr "رابط إلى جهة حكومية"
 
-#: inc/acf-json-strings.php:299
+#: inc/acf-json-strings.php:304
 msgid "Private Entities"
 msgstr "الجهات الخاصة"
 
-#: inc/acf-json-strings.php:300
+#: inc/acf-json-strings.php:305
 msgid "Tagging involved private partners."
 msgstr "وسم الشركاء من القطاع الخاص."
 
-#: inc/acf-json-strings.php:301
+#: inc/acf-json-strings.php:306
 msgid "Private Entity"
 msgstr "الجهة الخاصة"
 
-#: inc/acf-json-strings.php:302
+#: inc/acf-json-strings.php:307
 msgid "All Private Entities"
 msgstr "كل الجهات الخاصة"
 
-#: inc/acf-json-strings.php:303
+#: inc/acf-json-strings.php:308
 msgid "Edit Private Entity"
 msgstr "تحرير الجهة الخاصة"
 
-#: inc/acf-json-strings.php:304
+#: inc/acf-json-strings.php:309
 msgid "View Private Entity"
 msgstr "عرض الجهة الخاصة"
 
-#: inc/acf-json-strings.php:305
+#: inc/acf-json-strings.php:310
 msgid "Update Private Entity"
 msgstr "تحديث الجهة الخاصة"
 
-#: inc/acf-json-strings.php:306
+#: inc/acf-json-strings.php:311
 msgid "Add New Private Entity"
 msgstr "إضافة جهة خاصة"
 
-#: inc/acf-json-strings.php:307
+#: inc/acf-json-strings.php:312
 msgid "New Private Entity Name"
 msgstr "اسم جهة خاصة جديدة"
 
-#: inc/acf-json-strings.php:308
+#: inc/acf-json-strings.php:313
 msgid "Search Private Entities"
 msgstr "بحث في الجهات الخاصة"
 
-#: inc/acf-json-strings.php:309
+#: inc/acf-json-strings.php:314
 msgid "No private entities found"
 msgstr "لم يُعثر على جهات خاصة"
 
-#: inc/acf-json-strings.php:310
+#: inc/acf-json-strings.php:315
 msgid "No private entities"
 msgstr "لا توجد جهات خاصة"
 
-#: inc/acf-json-strings.php:311
+#: inc/acf-json-strings.php:316
 msgid "Private Entities list navigation"
 msgstr "التنقل في قائمة الجهات الخاصة"
 
-#: inc/acf-json-strings.php:312
+#: inc/acf-json-strings.php:317
 msgid "Private Entities list"
 msgstr "قائمة الجهات الخاصة"
 
-#: inc/acf-json-strings.php:313
+#: inc/acf-json-strings.php:318
 msgid "← Go to private entities"
 msgstr "→ العودة إلى الجهات الخاصة"
 
-#: inc/acf-json-strings.php:314
+#: inc/acf-json-strings.php:319
 msgid "Private Entity Link"
 msgstr "رابط الجهة الخاصة"
 
-#: inc/acf-json-strings.php:315
+#: inc/acf-json-strings.php:320
 msgid "A link to a private entity"
 msgstr "رابط إلى جهة خاصة"
 
-#: inc/acf-json-strings.php:316
+#: inc/acf-json-strings.php:321
 msgid "Speakers & Influencers"
 msgstr "المتحدثون والمؤثرون"
 
-#: inc/acf-json-strings.php:317
+#: inc/acf-json-strings.php:322
 msgid "Speakers, hosts, or guests."
 msgstr "المتحدثون والمقدمون والضيوف."
 
-#: inc/acf-json-strings.php:318
+#: inc/acf-json-strings.php:323
 msgid "Speaker/Influencer"
 msgstr "المتحدث/المؤثر"
 
-#: inc/acf-json-strings.php:319
+#: inc/acf-json-strings.php:324
 msgid "All Speakers & Influencers"
 msgstr "كل المتحدثين والمؤثرين"
 
-#: inc/acf-json-strings.php:320
+#: inc/acf-json-strings.php:325
 msgid "Edit speaker_influencer"
 msgstr "تحرير المتحدث/المؤثر"
 
-#: inc/acf-json-strings.php:321
+#: inc/acf-json-strings.php:326
 msgid "View speaker_influencer"
 msgstr "عرض المتحدث/المؤثر"
 
-#: inc/acf-json-strings.php:322
+#: inc/acf-json-strings.php:327
 msgid "Update speaker_influencer"
 msgstr "تحديث المتحدث/المؤثر"
 
-#: inc/acf-json-strings.php:323
+#: inc/acf-json-strings.php:328
 msgid "Add New speaker_influencer"
 msgstr "إضافة متحدث/مؤثر"
 
-#: inc/acf-json-strings.php:324
+#: inc/acf-json-strings.php:329
 msgid "New speaker_influencer Name"
 msgstr "اسم متحدث/مؤثر جديد"
 
-#: inc/acf-json-strings.php:325
+#: inc/acf-json-strings.php:330
 msgid "Search Speakers & Influencers"
 msgstr "بحث في المتحدثين والمؤثرين"
 
-#: inc/acf-json-strings.php:326
+#: inc/acf-json-strings.php:331
 msgid "No speakers & influencers found"
 msgstr "لم يُعثر على متحدثين ومؤثرين"
 
-#: inc/acf-json-strings.php:327
+#: inc/acf-json-strings.php:332
 msgid "No speakers & influencers"
 msgstr "لا يوجد متحدثون ومؤثرون"
 
-#: inc/acf-json-strings.php:328
+#: inc/acf-json-strings.php:333
 msgid "Speakers & Influencers list navigation"
 msgstr "التنقل في قائمة المتحدثين والمؤثرين"
 
-#: inc/acf-json-strings.php:329
+#: inc/acf-json-strings.php:334
 msgid "Speakers & Influencers list"
 msgstr "قائمة المتحدثين والمؤثرين"
 
-#: inc/acf-json-strings.php:330
+#: inc/acf-json-strings.php:335
 msgid "← Go to speakers & influencers"
 msgstr "→ العودة إلى المتحدثين والمؤثرين"
 
-#: inc/acf-json-strings.php:331
+#: inc/acf-json-strings.php:336
 msgid "speaker_influencer Link"
 msgstr "رابط المتحدث/المؤثر"
 
-#: inc/acf-json-strings.php:332
+#: inc/acf-json-strings.php:337
 msgid "A link to a speaker_influencer"
 msgstr "رابط إلى متحدث/مؤثر"
 
-#: inc/acf-json-strings.php:333
+#: inc/acf-json-strings.php:338
 msgid "Geographics"
 msgstr "المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:334
+#: inc/acf-json-strings.php:339
 msgid "Location-based filtering."
 msgstr "التصفية حسب الموقع."
 
-#: inc/acf-json-strings.php:335
+#: inc/acf-json-strings.php:340
 msgid "Geographic"
 msgstr "المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:336
+#: inc/acf-json-strings.php:341
 msgid "All Geographic"
 msgstr "كل المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:337
+#: inc/acf-json-strings.php:342
 msgid "Edit Geographic"
 msgstr "تحرير المنطقة الجغرافية"
 
-#: inc/acf-json-strings.php:338
+#: inc/acf-json-strings.php:343
 msgid "View Geographic"
 msgstr "عرض المنطقة الجغرافية"
 
-#: inc/acf-json-strings.php:339
+#: inc/acf-json-strings.php:344
 msgid "Update Geographic"
 msgstr "تحديث المنطقة الجغرافية"
 
-#: inc/acf-json-strings.php:340
+#: inc/acf-json-strings.php:345
 msgid "Add New Geographic"
 msgstr "إضافة منطقة جغرافية"
 
-#: inc/acf-json-strings.php:341
+#: inc/acf-json-strings.php:346
 msgid "New Geographic Name"
 msgstr "اسم منطقة جغرافية جديدة"
 
-#: inc/acf-json-strings.php:342
+#: inc/acf-json-strings.php:347
 msgid "Search Geographic"
 msgstr "بحث في المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:343
+#: inc/acf-json-strings.php:348
 msgid "No geographic found"
 msgstr "لم يُعثر على مناطق جغرافية"
 
-#: inc/acf-json-strings.php:344
+#: inc/acf-json-strings.php:349
 msgid "No geographic"
 msgstr "لا توجد مناطق جغرافية"
 
-#: inc/acf-json-strings.php:345
+#: inc/acf-json-strings.php:350
 msgid "Hierarchical location filter: Country → City."
 msgstr "تصفية هرمية حسب الموقع: الدولة ← المدينة."
 
-#: inc/acf-json-strings.php:346
+#: inc/acf-json-strings.php:351
 msgid "Geographic list navigation"
 msgstr "التنقل في قائمة المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:347
+#: inc/acf-json-strings.php:352
 msgid "Geographic list"
 msgstr "قائمة المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:348
+#: inc/acf-json-strings.php:353
 msgid "← Go to geographic"
 msgstr "→ العودة إلى المناطق الجغرافية"
 
-#: inc/acf-json-strings.php:349
+#: inc/acf-json-strings.php:354
 msgid "Geographic Link"
 msgstr "رابط المنطقة الجغرافية"
 
-#: inc/acf-json-strings.php:350
+#: inc/acf-json-strings.php:355
 msgid "A link to a geographic"
 msgstr "رابط إلى منطقة جغرافية"
 
-#: inc/acf-json-strings.php:351
+#: inc/acf-json-strings.php:356
 msgid "Editors"
 msgstr "المحررون"
 
-#: inc/acf-json-strings.php:352
+#: inc/acf-json-strings.php:357
 msgid "Editors replace authors."
 msgstr "المحررون بدلاً من الكتّاب."
 
-#: inc/acf-json-strings.php:353
+#: inc/acf-json-strings.php:358
 msgid "Editor"
 msgstr "المحرر"
 
-#: inc/acf-json-strings.php:354
+#: inc/acf-json-strings.php:359
 msgid "All Editors"
 msgstr "كل المحررين"
 
-#: inc/acf-json-strings.php:355
+#: inc/acf-json-strings.php:360
 msgid "Edit Editor"
 msgstr "تحرير المحرر"
 
-#: inc/acf-json-strings.php:356
+#: inc/acf-json-strings.php:361
 msgid "View Editor"
 msgstr "عرض المحرر"
 
-#: inc/acf-json-strings.php:357
+#: inc/acf-json-strings.php:362
 msgid "Update Editor"
 msgstr "تحديث المحرر"
 
-#: inc/acf-json-strings.php:358
+#: inc/acf-json-strings.php:363
 msgid "Add New Editor"
 msgstr "إضافة محرر"
 
-#: inc/acf-json-strings.php:359
+#: inc/acf-json-strings.php:364
 msgid "New Editor Name"
 msgstr "اسم محرر جديد"
 
-#: inc/acf-json-strings.php:360
+#: inc/acf-json-strings.php:365
 msgid "Parent Editor"
 msgstr "المحرر الأب"
 
-#: inc/acf-json-strings.php:361
+#: inc/acf-json-strings.php:366
 msgid "Parent Editor:"
 msgstr "المحرر الأب:"
 
-#: inc/acf-json-strings.php:362
+#: inc/acf-json-strings.php:367
 msgid "Search Editors"
 msgstr "بحث في المحررين"
 
-#: inc/acf-json-strings.php:363
+#: inc/acf-json-strings.php:368
 msgid "No editors found"
 msgstr "لم يُعثر على محررين"
 
-#: inc/acf-json-strings.php:364
+#: inc/acf-json-strings.php:369
 msgid "No editors"
 msgstr "لا يوجد محررون"
 
-#: inc/acf-json-strings.php:365
+#: inc/acf-json-strings.php:370
 msgid "Filter by editor"
 msgstr "تصفية حسب المحرر"
 
-#: inc/acf-json-strings.php:366
+#: inc/acf-json-strings.php:371
 msgid "Editors list navigation"
 msgstr "التنقل في قائمة المحررين"
 
-#: inc/acf-json-strings.php:367
+#: inc/acf-json-strings.php:372
 msgid "Editors list"
 msgstr "قائمة المحررين"
 
-#: inc/acf-json-strings.php:368
+#: inc/acf-json-strings.php:373
 msgid "← Go to editors"
 msgstr "→ العودة إلى المحررين"
 
-#: inc/acf-json-strings.php:369
+#: inc/acf-json-strings.php:374
 msgid "Editor Link"
 msgstr "رابط المحرر"
 
-#: inc/acf-json-strings.php:370
+#: inc/acf-json-strings.php:375
 msgid "A link to a editor"
 msgstr "رابط إلى محرر"
 
-#: inc/acf-json-strings.php:372
+#: inc/acf-json-strings.php:377
 msgid "Event"
 msgstr "الفعالية"
 
-#: inc/acf-json-strings.php:373
+#: inc/acf-json-strings.php:378
 msgid "All Events"
 msgstr "كل الفعاليات"
 
-#: inc/acf-json-strings.php:374
+#: inc/acf-json-strings.php:379
 msgid "Edit Event"
 msgstr "تحرير الفعالية"
 
-#: inc/acf-json-strings.php:375
+#: inc/acf-json-strings.php:380
 msgid "View Event"
 msgstr "عرض الفعالية"
 
-#: inc/acf-json-strings.php:376
+#: inc/acf-json-strings.php:381
 msgid "Update Event"
 msgstr "تحديث الفعالية"
 
-#: inc/acf-json-strings.php:377
+#: inc/acf-json-strings.php:382
 msgid "Add New Event"
 msgstr "إضافة فعالية"
 
-#: inc/acf-json-strings.php:378
+#: inc/acf-json-strings.php:383
 msgid "New Event Name"
 msgstr "اسم فعالية جديدة"
 
-#: inc/acf-json-strings.php:379
+#: inc/acf-json-strings.php:384
 msgid "Parent Event"
 msgstr "الفعالية الأب"
 
-#: inc/acf-json-strings.php:380
+#: inc/acf-json-strings.php:385
 msgid "Parent Event:"
 msgstr "الفعالية الأب:"
 
-#: inc/acf-json-strings.php:381
+#: inc/acf-json-strings.php:386
 msgid "Search Events"
 msgstr "بحث في الفعاليات"
 
-#: inc/acf-json-strings.php:382
+#: inc/acf-json-strings.php:387
 msgid "No events found"
 msgstr "لم يُعثر على فعاليات"
 
-#: inc/acf-json-strings.php:383
+#: inc/acf-json-strings.php:388
 msgid "No events"
 msgstr "لا توجد فعاليات"
 
-#: inc/acf-json-strings.php:384
+#: inc/acf-json-strings.php:389
 msgid "Filter by event"
 msgstr "تصفية حسب الفعالية"
 
-#: inc/acf-json-strings.php:385
+#: inc/acf-json-strings.php:390
 msgid "Events list navigation"
 msgstr "التنقل في قائمة الفعاليات"
 
-#: inc/acf-json-strings.php:386
+#: inc/acf-json-strings.php:391
 msgid "Events list"
 msgstr "قائمة الفعاليات"
 
-#: inc/acf-json-strings.php:387
+#: inc/acf-json-strings.php:392
 msgid "← Go to events"
 msgstr "→ العودة إلى الفعاليات"
 
-#: inc/acf-json-strings.php:388
+#: inc/acf-json-strings.php:393
 msgid "Event Link"
 msgstr "رابط الفعالية"
 
-#: inc/acf-json-strings.php:389
+#: inc/acf-json-strings.php:394
 msgid "A link to a event"
 msgstr "رابط إلى فعالية"
 
-#: inc/acf-json-strings.php:391
+#: inc/acf-json-strings.php:396
 msgid "Tagging involved international bodies."
 msgstr "وسم الجهات الدولية المعنية."
 
-#: inc/acf-json-strings.php:392
+#: inc/acf-json-strings.php:397
 msgid "International Entity"
 msgstr "الجهة الدولية"
 
-#: inc/acf-json-strings.php:393
+#: inc/acf-json-strings.php:398
 msgid "All International Entities"
 msgstr "كل الجهات الدولية"
 
-#: inc/acf-json-strings.php:394
+#: inc/acf-json-strings.php:399
 msgid "Edit International Entity"
 msgstr "تحرير الجهة الدولية"
 
-#: inc/acf-json-strings.php:395
+#: inc/acf-json-strings.php:400
 msgid "View International Entity"
 msgstr "عرض الجهة الدولية"
 
-#: inc/acf-json-strings.php:396
+#: inc/acf-json-strings.php:401
 msgid "Update International Entity"
 msgstr "تحديث الجهة الدولية"
 
-#: inc/acf-json-strings.php:397
+#: inc/acf-json-strings.php:402
 msgid "Add New International Entity"
 msgstr "إضافة جهة دولية"
 
-#: inc/acf-json-strings.php:398
+#: inc/acf-json-strings.php:403
 msgid "New International Entity Name"
 msgstr "اسم جهة دولية جديدة"
 
-#: inc/acf-json-strings.php:399
+#: inc/acf-json-strings.php:404
 msgid "Search International Entities"
 msgstr "بحث في الجهات الدولية"
 
-#: inc/acf-json-strings.php:400
+#: inc/acf-json-strings.php:405
 msgid "No international entities found"
 msgstr "لم يُعثر على جهات دولية"
 
-#: inc/acf-json-strings.php:401
+#: inc/acf-json-strings.php:406
 msgid "No international entities"
 msgstr "لا توجد جهات دولية"
 
-#: inc/acf-json-strings.php:402
+#: inc/acf-json-strings.php:407
 msgid "International Entities list navigation"
 msgstr "التنقل في قائمة الجهات الدولية"
 
-#: inc/acf-json-strings.php:403
+#: inc/acf-json-strings.php:408
 msgid "International Entities list"
 msgstr "قائمة الجهات الدولية"
 
-#: inc/acf-json-strings.php:404
+#: inc/acf-json-strings.php:409
 msgid "← Go to international entities"
 msgstr "→ العودة إلى الجهات الدولية"
 
-#: inc/acf-json-strings.php:405
+#: inc/acf-json-strings.php:410
 msgid "International Entity Link"
 msgstr "رابط الجهة الدولية"
 
-#: inc/acf-json-strings.php:406
+#: inc/acf-json-strings.php:411
 msgid "A link to an international entity"
 msgstr "رابط إلى جهة دولية"
 
@@ -2084,11 +2103,11 @@ msgstr "مسار التصفح"
 
 #: inc/cars/helpers.php:526
 #: template-parts/sections/infographics_section.php:95
-#: template-parts/sections/interviews_section.php:96
-#: template-parts/sections/podcasts_section.php:98
-#: template-parts/sections/posts_section.php:99
+#: template-parts/sections/interviews_section.php:97
+#: template-parts/sections/podcasts_section.php:99
+#: template-parts/sections/posts_section.php:100
 #: template-parts/sections/programs_section.php:96
-#: template-parts/sections/videos_section.php:96
+#: template-parts/sections/videos_section.php:97
 msgid "More"
 msgstr "المزيد"
 
@@ -2995,12 +3014,12 @@ msgstr "صور %s"
 #: template-parts/cards/card-post.php:9
 #: template-parts/cards/card-program.php:9
 #: template-parts/cards/card-video.php:9
-#: template-parts/sections/interviews_section.php:113
-#: template-parts/sections/podcasts_section.php:114
-#: template-parts/sections/posts_section.php:115
+#: template-parts/sections/interviews_section.php:116
+#: template-parts/sections/podcasts_section.php:116
+#: template-parts/sections/posts_section.php:118
 #: template-parts/sections/program_series_section.php:245
 #: template-parts/sections/speakers_section.php:148
-#: template-parts/sections/videos_section.php:113
+#: template-parts/sections/videos_section.php:116
 msgid "Tafaol Saudi"
 msgstr "تفاعل السعودية"
 
@@ -3353,39 +3372,39 @@ msgstr "أرقام تفاعلية"
 msgid "Visual micro-analyses and charts tracking the acceleration of technology and digital transformation"
 msgstr "تحليلات بصرية ميكروية ورسوم بيانية ترصد تسارع منظومة التكنولوجيا والتحول الرقمي"
 
-#: template-parts/sections/interviews_section.php:77
+#: template-parts/sections/interviews_section.php:78
 msgid "Interviews and conversations"
 msgstr "حوارات ولقاءات"
 
-#: template-parts/sections/interviews_section.php:80
+#: template-parts/sections/interviews_section.php:81
 msgid "Long sessions"
 msgstr "جلسات مطولة"
 
-#: template-parts/sections/interviews_section.php:83
+#: template-parts/sections/interviews_section.php:84
 msgid "In-depth conversations with leaders of technological transformation and Saudi decision makers"
 msgstr "لقاءات معمقة مع قادة التحول التكنولوجي وصناع القرار في المنظومة السعودية"
 
-#: template-parts/sections/podcasts_section.php:82
+#: template-parts/sections/podcasts_section.php:83
 msgid "Episodes"
 msgstr "حلقات"
 
-#: template-parts/sections/podcasts_section.php:85
+#: template-parts/sections/podcasts_section.php:86
 msgid "In-depth audio and video programs"
 msgstr "برامج صوتية ومرئية معمقة"
 
-#: template-parts/sections/posts_section.php:80
+#: template-parts/sections/posts_section.php:81
 msgid "Latest news • LATEST NEWS"
 msgstr "أحدث الأخبار • LATEST NEWS"
 
-#: template-parts/sections/posts_section.php:83
+#: template-parts/sections/posts_section.php:84
 msgid "Continuous updates"
 msgstr "تحديث مستمر"
 
-#: template-parts/sections/posts_section.php:86
+#: template-parts/sections/posts_section.php:87
 msgid "Comprehensive news coverage of the most important events and changes in Saudi Arabia"
 msgstr "تغطية إخبارية شاملة لأهم الأحداث والتحولات في المشهد السعودي"
 
-#: template-parts/sections/posts_section.php:107
+#: template-parts/sections/posts_section.php:110
 msgid "News • NEWS"
 msgstr "أخبار • NEWS"
 
@@ -3462,14 +3481,14 @@ msgstr "خبير وصانع أثر في"
 msgid "View profile and articles"
 msgstr "عرض الملف والمقالات"
 
-#: template-parts/sections/videos_section.php:77
+#: template-parts/sections/videos_section.php:78
 msgid "Video library • VIDEO LIBRARY"
 msgstr "مكتبة الفيديو • VIDEO LIBRARY"
 
-#: template-parts/sections/videos_section.php:80
+#: template-parts/sections/videos_section.php:81
 msgid "Video coverage"
 msgstr "تغطية مرئية"
 
-#: template-parts/sections/videos_section.php:83
+#: template-parts/sections/videos_section.php:84
 msgid "A collection of the latest coverage and videos capturing the pulse of Saudi Arabia"
 msgstr "مجموعة من أحدث التغطيات والمقاطع المرئية التي ترصد نبض المشهد السعودي"
