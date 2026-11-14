@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-10T15:57:56+00:00\n"
+"POT-Creation-Date: 2026-11-14T12:35:44+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: hello-elementor-child\n"
@@ -161,7 +161,7 @@ msgid "Sort content by private sector"
 msgstr ""
 
 #: functions.php:691
-#: inc/acf-json-strings.php:376
+#: inc/acf-json-strings.php:380
 #: inc/submissions/registry.php:73
 #: template-parts/entities/entity-browse-section.php:90
 msgid "Events"
@@ -172,7 +172,7 @@ msgid "Sort content by event"
 msgstr ""
 
 #: functions.php:695
-#: inc/acf-json-strings.php:395
+#: inc/acf-json-strings.php:399
 #: inc/submissions/registry.php:74
 #: template-parts/entities/entity-browse-section.php:91
 msgid "International Entities"
@@ -203,12 +203,12 @@ msgstr ""
 
 #: functions.php:1097
 #: functions.php:1108
-#: inc/acf-json-strings.php:254
+#: inc/acf-json-strings.php:258
 msgid "Department"
 msgstr ""
 
 #: functions.php:1101
-#: inc/acf-json-strings.php:271
+#: inc/acf-json-strings.php:275
 msgid "Program Series"
 msgstr ""
 
@@ -437,526 +437,542 @@ msgid "Ad Link"
 msgstr ""
 
 #: inc/acf-json-strings.php:71
-msgid "Ad Code"
+msgid "Ad Slider"
 msgstr ""
 
 #: inc/acf-json-strings.php:72
-msgid "Ad Code / Script"
+msgid "Ads"
 msgstr ""
 
 #: inc/acf-json-strings.php:73
-msgid "Add Section"
+msgid "Add Ad"
 msgstr ""
 
 #: inc/acf-json-strings.php:74
-msgid "Resources"
+msgid "Rotation Interval (seconds)"
 msgstr ""
 
 #: inc/acf-json-strings.php:75
-msgid "Put all post resources here for review."
+msgid "Ad Code"
 msgstr ""
 
 #: inc/acf-json-strings.php:76
-msgid "Podcast Reels"
+msgid "Ad Code / Script"
 msgstr ""
 
 #: inc/acf-json-strings.php:77
+msgid "Add Section"
+msgstr ""
+
+#: inc/acf-json-strings.php:78
+msgid "Resources"
+msgstr ""
+
+#: inc/acf-json-strings.php:79
+msgid "Put all post resources here for review."
+msgstr ""
+
+#: inc/acf-json-strings.php:80
+msgid "Podcast Reels"
+msgstr ""
+
+#: inc/acf-json-strings.php:81
 #: template-parts/profiles/sub-profile-organizer.php:73
 msgid "Organizer"
 msgstr ""
 
-#: inc/acf-json-strings.php:78
+#: inc/acf-json-strings.php:82
 msgid "Organizer Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:79
+#: inc/acf-json-strings.php:83
 msgid "Organizer Image"
 msgstr ""
 
-#: inc/acf-json-strings.php:80
+#: inc/acf-json-strings.php:84
 msgid "Organizer Social Media Links"
 msgstr ""
 
-#: inc/acf-json-strings.php:81
+#: inc/acf-json-strings.php:85
 msgid "Organizer Extra Info"
 msgstr ""
 
-#: inc/acf-json-strings.php:82
+#: inc/acf-json-strings.php:86
 msgid "Location"
 msgstr ""
 
-#: inc/acf-json-strings.php:83
+#: inc/acf-json-strings.php:87
 msgid "Latitude"
 msgstr ""
 
-#: inc/acf-json-strings.php:84
+#: inc/acf-json-strings.php:88
 msgid "Longitude"
 msgstr ""
 
-#: inc/acf-json-strings.php:85
+#: inc/acf-json-strings.php:89
 msgid "Related Posts"
 msgstr ""
 
-#: inc/acf-json-strings.php:86
+#: inc/acf-json-strings.php:90
 msgid "Pick up to 4 posts (optional)."
 msgstr ""
 
-#: inc/acf-json-strings.php:87
+#: inc/acf-json-strings.php:91
 #: template-parts/cards/card-hero-featured.php:14
 msgid "Programs"
 msgstr ""
 
-#: inc/acf-json-strings.php:88
+#: inc/acf-json-strings.php:92
 msgid "Programs and Shows."
 msgstr ""
 
-#: inc/acf-json-strings.php:89
+#: inc/acf-json-strings.php:93
 msgid "Program"
 msgstr ""
 
-#: inc/acf-json-strings.php:90
+#: inc/acf-json-strings.php:94
 msgid "All Programs"
 msgstr ""
 
-#: inc/acf-json-strings.php:91
+#: inc/acf-json-strings.php:95
 msgid "Edit Program"
 msgstr ""
 
-#: inc/acf-json-strings.php:92
+#: inc/acf-json-strings.php:96
 msgid "View Program"
 msgstr ""
 
-#: inc/acf-json-strings.php:93
+#: inc/acf-json-strings.php:97
 msgid "View Programs"
 msgstr ""
 
-#: inc/acf-json-strings.php:94
+#: inc/acf-json-strings.php:98
 msgid "Add New Program"
 msgstr ""
 
-#: inc/acf-json-strings.php:95
+#: inc/acf-json-strings.php:99
 msgid "New Program"
 msgstr ""
 
-#: inc/acf-json-strings.php:96
+#: inc/acf-json-strings.php:100
 msgid "Parent Program:"
 msgstr ""
 
-#: inc/acf-json-strings.php:97
+#: inc/acf-json-strings.php:101
 msgid "Search Programs"
 msgstr ""
 
-#: inc/acf-json-strings.php:98
+#: inc/acf-json-strings.php:102
 msgid "No programs found"
 msgstr ""
 
-#: inc/acf-json-strings.php:99
+#: inc/acf-json-strings.php:103
 msgid "No programs found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:100
+#: inc/acf-json-strings.php:104
 msgid "Program Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:101
+#: inc/acf-json-strings.php:105
 msgid "Program Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:102
+#: inc/acf-json-strings.php:106
 msgid "Insert into program"
 msgstr ""
 
-#: inc/acf-json-strings.php:103
+#: inc/acf-json-strings.php:107
 msgid "Uploaded to this program"
 msgstr ""
 
-#: inc/acf-json-strings.php:104
+#: inc/acf-json-strings.php:108
 msgid "Filter programs list"
 msgstr ""
 
-#: inc/acf-json-strings.php:105
+#: inc/acf-json-strings.php:109
 msgid "Filter programs by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:106
+#: inc/acf-json-strings.php:110
 msgid "Programs list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:107
+#: inc/acf-json-strings.php:111
 msgid "Programs list"
 msgstr ""
 
-#: inc/acf-json-strings.php:108
+#: inc/acf-json-strings.php:112
 msgid "Program published."
 msgstr ""
 
-#: inc/acf-json-strings.php:109
+#: inc/acf-json-strings.php:113
 msgid "Program published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:110
+#: inc/acf-json-strings.php:114
 msgid "Program reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:111
+#: inc/acf-json-strings.php:115
 msgid "Program scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:112
+#: inc/acf-json-strings.php:116
 msgid "Program updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:113
+#: inc/acf-json-strings.php:117
 msgid "Program Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:114
+#: inc/acf-json-strings.php:118
 msgid "A link to a program."
 msgstr ""
 
-#: inc/acf-json-strings.php:115
+#: inc/acf-json-strings.php:119
 msgid "Infographics"
 msgstr ""
 
-#: inc/acf-json-strings.php:116
+#: inc/acf-json-strings.php:120
 msgid "Data visualizations."
 msgstr ""
 
-#: inc/acf-json-strings.php:117
+#: inc/acf-json-strings.php:121
 #: template-parts/cards/card-hero-featured.php:15
 msgid "Infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:118
+#: inc/acf-json-strings.php:122
 msgid "All Infographics"
 msgstr ""
 
-#: inc/acf-json-strings.php:119
+#: inc/acf-json-strings.php:123
 msgid "Edit Infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:120
+#: inc/acf-json-strings.php:124
 msgid "View Infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:121
+#: inc/acf-json-strings.php:125
 msgid "View Infographics"
 msgstr ""
 
-#: inc/acf-json-strings.php:122
+#: inc/acf-json-strings.php:126
 msgid "Add New Infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:123
+#: inc/acf-json-strings.php:127
 msgid "New Infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:124
+#: inc/acf-json-strings.php:128
 msgid "Parent Infographic:"
 msgstr ""
 
-#: inc/acf-json-strings.php:125
+#: inc/acf-json-strings.php:129
 msgid "Search Infographics"
 msgstr ""
 
-#: inc/acf-json-strings.php:126
+#: inc/acf-json-strings.php:130
 msgid "No infographics found"
 msgstr ""
 
-#: inc/acf-json-strings.php:127
+#: inc/acf-json-strings.php:131
 msgid "No infographics found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:128
+#: inc/acf-json-strings.php:132
 msgid "Infographic Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:129
+#: inc/acf-json-strings.php:133
 msgid "Infographic Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:130
+#: inc/acf-json-strings.php:134
 msgid "Insert into infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:131
+#: inc/acf-json-strings.php:135
 msgid "Uploaded to this infographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:132
+#: inc/acf-json-strings.php:136
 msgid "Filter infographics list"
 msgstr ""
 
-#: inc/acf-json-strings.php:133
+#: inc/acf-json-strings.php:137
 msgid "Filter infographics by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:134
+#: inc/acf-json-strings.php:138
 msgid "Infographics list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:135
+#: inc/acf-json-strings.php:139
 msgid "Infographics list"
 msgstr ""
 
-#: inc/acf-json-strings.php:136
+#: inc/acf-json-strings.php:140
 msgid "Infographic published."
 msgstr ""
 
-#: inc/acf-json-strings.php:137
+#: inc/acf-json-strings.php:141
 msgid "Infographic published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:138
+#: inc/acf-json-strings.php:142
 msgid "Infographic reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:139
+#: inc/acf-json-strings.php:143
 msgid "Infographic scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:140
+#: inc/acf-json-strings.php:144
 msgid "Infographic updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:141
+#: inc/acf-json-strings.php:145
 msgid "Infographic Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:142
+#: inc/acf-json-strings.php:146
 msgid "A link to a infographic."
 msgstr ""
 
-#: inc/acf-json-strings.php:143
+#: inc/acf-json-strings.php:147
 #: template-parts/cards/card-hero-featured.php:13
 msgid "Interviews"
 msgstr ""
 
-#: inc/acf-json-strings.php:144
+#: inc/acf-json-strings.php:148
 msgid "Media-rich interview content."
 msgstr ""
 
-#: inc/acf-json-strings.php:145
+#: inc/acf-json-strings.php:149
 #: template-parts/cards/card-interview.php:23
-#: template-parts/sections/interviews_section.php:108
+#: template-parts/sections/interviews_section.php:107
 msgid "Interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:146
+#: inc/acf-json-strings.php:150
 msgid "All Interviews"
 msgstr ""
 
-#: inc/acf-json-strings.php:147
+#: inc/acf-json-strings.php:151
 msgid "Edit Interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:148
+#: inc/acf-json-strings.php:152
 msgid "View Interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:149
+#: inc/acf-json-strings.php:153
 msgid "View Interviews"
 msgstr ""
 
-#: inc/acf-json-strings.php:150
+#: inc/acf-json-strings.php:154
 msgid "Add New Interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:151
+#: inc/acf-json-strings.php:155
 msgid "New Interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:152
+#: inc/acf-json-strings.php:156
 msgid "Parent Interview:"
 msgstr ""
 
-#: inc/acf-json-strings.php:153
+#: inc/acf-json-strings.php:157
 msgid "Search Interviews"
 msgstr ""
 
-#: inc/acf-json-strings.php:154
+#: inc/acf-json-strings.php:158
 msgid "No interviews found"
 msgstr ""
 
-#: inc/acf-json-strings.php:155
+#: inc/acf-json-strings.php:159
 msgid "No interviews found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:156
+#: inc/acf-json-strings.php:160
 msgid "Interview Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:157
+#: inc/acf-json-strings.php:161
 msgid "Interview Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:158
+#: inc/acf-json-strings.php:162
 msgid "Insert into interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:159
+#: inc/acf-json-strings.php:163
 msgid "Uploaded to this interview"
 msgstr ""
 
-#: inc/acf-json-strings.php:160
+#: inc/acf-json-strings.php:164
 msgid "Filter interviews list"
 msgstr ""
 
-#: inc/acf-json-strings.php:161
+#: inc/acf-json-strings.php:165
 msgid "Filter interviews by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:162
+#: inc/acf-json-strings.php:166
 msgid "Interviews list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:163
+#: inc/acf-json-strings.php:167
 msgid "Interviews list"
 msgstr ""
 
-#: inc/acf-json-strings.php:164
+#: inc/acf-json-strings.php:168
 msgid "Interview published."
 msgstr ""
 
-#: inc/acf-json-strings.php:165
+#: inc/acf-json-strings.php:169
 msgid "Interview published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:166
+#: inc/acf-json-strings.php:170
 msgid "Interview reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:167
+#: inc/acf-json-strings.php:171
 msgid "Interview scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:168
+#: inc/acf-json-strings.php:172
 msgid "Interview updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:169
+#: inc/acf-json-strings.php:173
 msgid "Interview Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:170
+#: inc/acf-json-strings.php:174
 msgid "A link to a interview."
 msgstr ""
 
-#: inc/acf-json-strings.php:171
+#: inc/acf-json-strings.php:175
 msgid "Videos"
 msgstr ""
 
-#: inc/acf-json-strings.php:172
+#: inc/acf-json-strings.php:176
 #: template-parts/cards/card-video.php:23
-#: template-parts/sections/videos_section.php:108
+#: template-parts/sections/videos_section.php:107
 msgid "Video"
 msgstr ""
 
-#: inc/acf-json-strings.php:173
+#: inc/acf-json-strings.php:177
 msgid "All Videos"
 msgstr ""
 
-#: inc/acf-json-strings.php:174
+#: inc/acf-json-strings.php:178
 msgid "Edit Video"
 msgstr ""
 
-#: inc/acf-json-strings.php:175
+#: inc/acf-json-strings.php:179
 msgid "View Video"
 msgstr ""
 
-#: inc/acf-json-strings.php:176
+#: inc/acf-json-strings.php:180
 msgid "View Videos"
 msgstr ""
 
-#: inc/acf-json-strings.php:177
+#: inc/acf-json-strings.php:181
 msgid "Add New Video"
 msgstr ""
 
-#: inc/acf-json-strings.php:178
+#: inc/acf-json-strings.php:182
 msgid "New Video"
 msgstr ""
 
-#: inc/acf-json-strings.php:179
+#: inc/acf-json-strings.php:183
 msgid "Parent Video:"
 msgstr ""
 
-#: inc/acf-json-strings.php:180
+#: inc/acf-json-strings.php:184
 msgid "Search Videos"
 msgstr ""
 
-#: inc/acf-json-strings.php:181
+#: inc/acf-json-strings.php:185
 msgid "No videos found"
 msgstr ""
 
-#: inc/acf-json-strings.php:182
+#: inc/acf-json-strings.php:186
 msgid "No videos found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:183
+#: inc/acf-json-strings.php:187
 msgid "Video Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:184
+#: inc/acf-json-strings.php:188
 msgid "Video Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:185
+#: inc/acf-json-strings.php:189
 msgid "Insert into video"
 msgstr ""
 
-#: inc/acf-json-strings.php:186
+#: inc/acf-json-strings.php:190
 msgid "Uploaded to this video"
 msgstr ""
 
-#: inc/acf-json-strings.php:187
+#: inc/acf-json-strings.php:191
 msgid "Filter videos list"
 msgstr ""
 
-#: inc/acf-json-strings.php:188
+#: inc/acf-json-strings.php:192
 msgid "Filter videos by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:189
+#: inc/acf-json-strings.php:193
 msgid "Videos list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:190
+#: inc/acf-json-strings.php:194
 msgid "Videos list"
 msgstr ""
 
-#: inc/acf-json-strings.php:191
+#: inc/acf-json-strings.php:195
 msgid "Video published."
 msgstr ""
 
-#: inc/acf-json-strings.php:192
+#: inc/acf-json-strings.php:196
 msgid "Video published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:193
+#: inc/acf-json-strings.php:197
 msgid "Video reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:194
+#: inc/acf-json-strings.php:198
 msgid "Video scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:195
+#: inc/acf-json-strings.php:199
 msgid "Video updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:196
+#: inc/acf-json-strings.php:200
 msgid "Video Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:197
+#: inc/acf-json-strings.php:201
 msgid "A link to a video."
 msgstr ""
 
-#: inc/acf-json-strings.php:198
+#: inc/acf-json-strings.php:202
 msgid "Podcasts"
 msgstr ""
 
-#: inc/acf-json-strings.php:199
+#: inc/acf-json-strings.php:203
 #: single-podcast.php:25
 #: template-parts/cards/card-podcast.php:23
 #: template-parts/sections/podcasts_section.php:80
@@ -964,838 +980,838 @@ msgstr ""
 msgid "Podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:200
+#: inc/acf-json-strings.php:204
 msgid "All Podcasts"
 msgstr ""
 
-#: inc/acf-json-strings.php:201
+#: inc/acf-json-strings.php:205
 msgid "Edit Podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:202
+#: inc/acf-json-strings.php:206
 msgid "View Podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:203
+#: inc/acf-json-strings.php:207
 msgid "View Podcasts"
 msgstr ""
 
-#: inc/acf-json-strings.php:204
+#: inc/acf-json-strings.php:208
 msgid "Add New Podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:205
+#: inc/acf-json-strings.php:209
 msgid "New Podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:206
+#: inc/acf-json-strings.php:210
 msgid "Parent Podcast:"
 msgstr ""
 
-#: inc/acf-json-strings.php:207
+#: inc/acf-json-strings.php:211
 msgid "Search Podcasts"
 msgstr ""
 
-#: inc/acf-json-strings.php:208
+#: inc/acf-json-strings.php:212
 msgid "No podcasts found"
 msgstr ""
 
-#: inc/acf-json-strings.php:209
+#: inc/acf-json-strings.php:213
 msgid "No podcasts found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:210
+#: inc/acf-json-strings.php:214
 msgid "Podcast Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:211
+#: inc/acf-json-strings.php:215
 msgid "Podcast Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:212
+#: inc/acf-json-strings.php:216
 msgid "Insert into podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:213
+#: inc/acf-json-strings.php:217
 msgid "Uploaded to this podcast"
 msgstr ""
 
-#: inc/acf-json-strings.php:214
+#: inc/acf-json-strings.php:218
 msgid "Filter podcasts list"
 msgstr ""
 
-#: inc/acf-json-strings.php:215
+#: inc/acf-json-strings.php:219
 msgid "Filter podcasts by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:216
+#: inc/acf-json-strings.php:220
 msgid "Podcasts list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:217
+#: inc/acf-json-strings.php:221
 msgid "Podcasts list"
 msgstr ""
 
-#: inc/acf-json-strings.php:218
+#: inc/acf-json-strings.php:222
 msgid "Podcast published."
 msgstr ""
 
-#: inc/acf-json-strings.php:219
+#: inc/acf-json-strings.php:223
 msgid "Podcast published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:220
+#: inc/acf-json-strings.php:224
 msgid "Podcast reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:221
+#: inc/acf-json-strings.php:225
 msgid "Podcast scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:222
+#: inc/acf-json-strings.php:226
 msgid "Podcast updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:223
+#: inc/acf-json-strings.php:227
 msgid "Podcast Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:224
+#: inc/acf-json-strings.php:228
 msgid "A link to a podcast."
 msgstr ""
 
-#: inc/acf-json-strings.php:225
+#: inc/acf-json-strings.php:229
 #: inc/site-search.php:150
 msgid "Reels"
 msgstr ""
 
-#: inc/acf-json-strings.php:226
+#: inc/acf-json-strings.php:230
 #: single-reel.php:19
 msgid "Reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:227
+#: inc/acf-json-strings.php:231
 msgid "All Reels"
 msgstr ""
 
-#: inc/acf-json-strings.php:228
+#: inc/acf-json-strings.php:232
 msgid "Edit Reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:229
+#: inc/acf-json-strings.php:233
 msgid "View Reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:230
+#: inc/acf-json-strings.php:234
 msgid "View Reels"
 msgstr ""
 
-#: inc/acf-json-strings.php:231
+#: inc/acf-json-strings.php:235
 msgid "Add New Reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:232
+#: inc/acf-json-strings.php:236
 msgid "New Reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:233
+#: inc/acf-json-strings.php:237
 msgid "Parent Reel:"
 msgstr ""
 
-#: inc/acf-json-strings.php:234
+#: inc/acf-json-strings.php:238
 msgid "Search Reels"
 msgstr ""
 
-#: inc/acf-json-strings.php:235
+#: inc/acf-json-strings.php:239
 msgid "No reels found"
 msgstr ""
 
-#: inc/acf-json-strings.php:236
+#: inc/acf-json-strings.php:240
 msgid "No reels found in Trash"
 msgstr ""
 
-#: inc/acf-json-strings.php:237
+#: inc/acf-json-strings.php:241
 msgid "Reel Archives"
 msgstr ""
 
-#: inc/acf-json-strings.php:238
+#: inc/acf-json-strings.php:242
 msgid "Reel Attributes"
 msgstr ""
 
-#: inc/acf-json-strings.php:239
+#: inc/acf-json-strings.php:243
 msgid "Insert into reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:240
+#: inc/acf-json-strings.php:244
 msgid "Uploaded to this reel"
 msgstr ""
 
-#: inc/acf-json-strings.php:241
+#: inc/acf-json-strings.php:245
 msgid "Filter reels list"
 msgstr ""
 
-#: inc/acf-json-strings.php:242
+#: inc/acf-json-strings.php:246
 msgid "Filter reels by date"
 msgstr ""
 
-#: inc/acf-json-strings.php:243
+#: inc/acf-json-strings.php:247
 msgid "Reels list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:244
+#: inc/acf-json-strings.php:248
 msgid "Reels list"
 msgstr ""
 
-#: inc/acf-json-strings.php:245
+#: inc/acf-json-strings.php:249
 msgid "Reel published."
 msgstr ""
 
-#: inc/acf-json-strings.php:246
+#: inc/acf-json-strings.php:250
 msgid "Reel published privately."
 msgstr ""
 
-#: inc/acf-json-strings.php:247
+#: inc/acf-json-strings.php:251
 msgid "Reel reverted to draft."
 msgstr ""
 
-#: inc/acf-json-strings.php:248
+#: inc/acf-json-strings.php:252
 msgid "Reel scheduled."
 msgstr ""
 
-#: inc/acf-json-strings.php:249
+#: inc/acf-json-strings.php:253
 msgid "Reel updated."
 msgstr ""
 
-#: inc/acf-json-strings.php:250
+#: inc/acf-json-strings.php:254
 msgid "Reel Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:251
+#: inc/acf-json-strings.php:255
 msgid "A link to a reel."
 msgstr ""
 
-#: inc/acf-json-strings.php:252
+#: inc/acf-json-strings.php:256
 #: template-parts/profiles/filter-departments-nav.php:32
 msgid "Departments"
 msgstr ""
 
-#: inc/acf-json-strings.php:253
+#: inc/acf-json-strings.php:257
 msgid "Primary navigation axis. The core vertical division of the site."
 msgstr ""
 
-#: inc/acf-json-strings.php:255
+#: inc/acf-json-strings.php:259
 msgid "All department"
 msgstr ""
 
-#: inc/acf-json-strings.php:256
+#: inc/acf-json-strings.php:260
 msgid "Edit Department"
 msgstr ""
 
-#: inc/acf-json-strings.php:257
+#: inc/acf-json-strings.php:261
 msgid "View Department"
 msgstr ""
 
-#: inc/acf-json-strings.php:258
+#: inc/acf-json-strings.php:262
 msgid "Update Department"
 msgstr ""
 
-#: inc/acf-json-strings.php:259
+#: inc/acf-json-strings.php:263
 msgid "Add New Department"
 msgstr ""
 
-#: inc/acf-json-strings.php:260
+#: inc/acf-json-strings.php:264
 msgid "New Department Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:261
+#: inc/acf-json-strings.php:265
 msgid "Search department"
 msgstr ""
 
-#: inc/acf-json-strings.php:262
+#: inc/acf-json-strings.php:266
 msgid "No department found"
 msgstr ""
 
-#: inc/acf-json-strings.php:263
+#: inc/acf-json-strings.php:267
 msgid "No department"
 msgstr ""
 
-#: inc/acf-json-strings.php:264
+#: inc/acf-json-strings.php:268
 msgid "Names can be entered in Arabic or English."
 msgstr ""
 
-#: inc/acf-json-strings.php:265
+#: inc/acf-json-strings.php:269
 msgid "Slugs must be in English or Franco-Arabic. Enter a translated or transliterated version here."
 msgstr ""
 
-#: inc/acf-json-strings.php:266
+#: inc/acf-json-strings.php:270
 msgid "department list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:267
+#: inc/acf-json-strings.php:271
 msgid "department list"
 msgstr ""
 
-#: inc/acf-json-strings.php:268
+#: inc/acf-json-strings.php:272
 msgid "← Go to department"
 msgstr ""
 
-#: inc/acf-json-strings.php:269
+#: inc/acf-json-strings.php:273
 msgid "Department Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:270
+#: inc/acf-json-strings.php:274
 msgid "A link to a department"
 msgstr ""
 
-#: inc/acf-json-strings.php:272
+#: inc/acf-json-strings.php:276
 msgid "Grouping episodic or related programs."
 msgstr ""
 
-#: inc/acf-json-strings.php:273
+#: inc/acf-json-strings.php:277
 msgid "All Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:274
+#: inc/acf-json-strings.php:278
 msgid "Edit Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:275
+#: inc/acf-json-strings.php:279
 msgid "View Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:276
+#: inc/acf-json-strings.php:280
 msgid "Update Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:277
+#: inc/acf-json-strings.php:281
 msgid "Add New Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:278
+#: inc/acf-json-strings.php:282
 msgid "New Program Series Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:279
+#: inc/acf-json-strings.php:283
 msgid "Search Program Series"
 msgstr ""
 
-#: inc/acf-json-strings.php:280
+#: inc/acf-json-strings.php:284
 msgid "No program series found"
 msgstr ""
 
-#: inc/acf-json-strings.php:281
+#: inc/acf-json-strings.php:285
 msgid "No program series"
 msgstr ""
 
-#: inc/acf-json-strings.php:282
+#: inc/acf-json-strings.php:286
 msgid "Program Series list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:283
+#: inc/acf-json-strings.php:287
 msgid "Program Series list"
 msgstr ""
 
-#: inc/acf-json-strings.php:284
+#: inc/acf-json-strings.php:288
 msgid "← Go to program series"
 msgstr ""
 
-#: inc/acf-json-strings.php:285
+#: inc/acf-json-strings.php:289
 msgid "Program Series Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:286
+#: inc/acf-json-strings.php:290
 msgid "A link to a program series"
 msgstr ""
 
-#: inc/acf-json-strings.php:287
+#: inc/acf-json-strings.php:291
 msgid "Government Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:288
+#: inc/acf-json-strings.php:292
 msgid "Tagging involved government bodies."
 msgstr ""
 
-#: inc/acf-json-strings.php:289
+#: inc/acf-json-strings.php:293
 msgid "Government Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:290
+#: inc/acf-json-strings.php:294
 msgid "All Government Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:291
+#: inc/acf-json-strings.php:295
 msgid "Edit Government Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:292
+#: inc/acf-json-strings.php:296
 msgid "View Government Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:293
+#: inc/acf-json-strings.php:297
 msgid "Update Government Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:294
+#: inc/acf-json-strings.php:298
 msgid "Add New Government Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:295
+#: inc/acf-json-strings.php:299
 msgid "New Government Entity Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:296
+#: inc/acf-json-strings.php:300
 msgid "Search Government Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:297
+#: inc/acf-json-strings.php:301
 msgid "No government entities found"
 msgstr ""
 
-#: inc/acf-json-strings.php:298
+#: inc/acf-json-strings.php:302
 msgid "No government entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:299
+#: inc/acf-json-strings.php:303
 msgid "Government Entities list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:300
+#: inc/acf-json-strings.php:304
 msgid "Government Entities list"
 msgstr ""
 
-#: inc/acf-json-strings.php:301
+#: inc/acf-json-strings.php:305
 msgid "← Go to government entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:302
+#: inc/acf-json-strings.php:306
 msgid "Government Entity Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:303
+#: inc/acf-json-strings.php:307
 msgid "A link to a government entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:304
+#: inc/acf-json-strings.php:308
 msgid "Private Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:305
+#: inc/acf-json-strings.php:309
 msgid "Tagging involved private partners."
 msgstr ""
 
-#: inc/acf-json-strings.php:306
+#: inc/acf-json-strings.php:310
 msgid "Private Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:307
+#: inc/acf-json-strings.php:311
 msgid "All Private Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:308
+#: inc/acf-json-strings.php:312
 msgid "Edit Private Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:309
+#: inc/acf-json-strings.php:313
 msgid "View Private Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:310
+#: inc/acf-json-strings.php:314
 msgid "Update Private Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:311
+#: inc/acf-json-strings.php:315
 msgid "Add New Private Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:312
+#: inc/acf-json-strings.php:316
 msgid "New Private Entity Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:313
+#: inc/acf-json-strings.php:317
 msgid "Search Private Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:314
+#: inc/acf-json-strings.php:318
 msgid "No private entities found"
 msgstr ""
 
-#: inc/acf-json-strings.php:315
+#: inc/acf-json-strings.php:319
 msgid "No private entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:316
+#: inc/acf-json-strings.php:320
 msgid "Private Entities list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:317
+#: inc/acf-json-strings.php:321
 msgid "Private Entities list"
 msgstr ""
 
-#: inc/acf-json-strings.php:318
+#: inc/acf-json-strings.php:322
 msgid "← Go to private entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:319
+#: inc/acf-json-strings.php:323
 msgid "Private Entity Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:320
+#: inc/acf-json-strings.php:324
 msgid "A link to a private entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:321
+#: inc/acf-json-strings.php:325
 msgid "Speakers & Influencers"
 msgstr ""
 
-#: inc/acf-json-strings.php:322
+#: inc/acf-json-strings.php:326
 msgid "Speakers, hosts, or guests."
 msgstr ""
 
-#: inc/acf-json-strings.php:323
+#: inc/acf-json-strings.php:327
 msgid "Speaker/Influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:324
+#: inc/acf-json-strings.php:328
 msgid "All Speakers & Influencers"
 msgstr ""
 
-#: inc/acf-json-strings.php:325
+#: inc/acf-json-strings.php:329
 msgid "Edit speaker_influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:326
+#: inc/acf-json-strings.php:330
 msgid "View speaker_influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:327
+#: inc/acf-json-strings.php:331
 msgid "Update speaker_influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:328
+#: inc/acf-json-strings.php:332
 msgid "Add New speaker_influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:329
+#: inc/acf-json-strings.php:333
 msgid "New speaker_influencer Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:330
+#: inc/acf-json-strings.php:334
 msgid "Search Speakers & Influencers"
 msgstr ""
 
-#: inc/acf-json-strings.php:331
+#: inc/acf-json-strings.php:335
 msgid "No speakers & influencers found"
 msgstr ""
 
-#: inc/acf-json-strings.php:332
+#: inc/acf-json-strings.php:336
 msgid "No speakers & influencers"
 msgstr ""
 
-#: inc/acf-json-strings.php:333
+#: inc/acf-json-strings.php:337
 msgid "Speakers & Influencers list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:334
+#: inc/acf-json-strings.php:338
 msgid "Speakers & Influencers list"
 msgstr ""
 
-#: inc/acf-json-strings.php:335
+#: inc/acf-json-strings.php:339
 msgid "← Go to speakers & influencers"
 msgstr ""
 
-#: inc/acf-json-strings.php:336
+#: inc/acf-json-strings.php:340
 msgid "speaker_influencer Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:337
+#: inc/acf-json-strings.php:341
 msgid "A link to a speaker_influencer"
 msgstr ""
 
-#: inc/acf-json-strings.php:338
+#: inc/acf-json-strings.php:342
 msgid "Geographics"
 msgstr ""
 
-#: inc/acf-json-strings.php:339
+#: inc/acf-json-strings.php:343
 msgid "Location-based filtering."
 msgstr ""
 
-#: inc/acf-json-strings.php:340
+#: inc/acf-json-strings.php:344
 msgid "Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:341
+#: inc/acf-json-strings.php:345
 msgid "All Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:342
+#: inc/acf-json-strings.php:346
 msgid "Edit Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:343
+#: inc/acf-json-strings.php:347
 msgid "View Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:344
+#: inc/acf-json-strings.php:348
 msgid "Update Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:345
+#: inc/acf-json-strings.php:349
 msgid "Add New Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:346
+#: inc/acf-json-strings.php:350
 msgid "New Geographic Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:347
+#: inc/acf-json-strings.php:351
 msgid "Search Geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:348
+#: inc/acf-json-strings.php:352
 msgid "No geographic found"
 msgstr ""
 
-#: inc/acf-json-strings.php:349
+#: inc/acf-json-strings.php:353
 msgid "No geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:350
+#: inc/acf-json-strings.php:354
 msgid "Hierarchical location filter: Country → City."
 msgstr ""
 
-#: inc/acf-json-strings.php:351
+#: inc/acf-json-strings.php:355
 msgid "Geographic list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:352
+#: inc/acf-json-strings.php:356
 msgid "Geographic list"
 msgstr ""
 
-#: inc/acf-json-strings.php:353
+#: inc/acf-json-strings.php:357
 msgid "← Go to geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:354
+#: inc/acf-json-strings.php:358
 msgid "Geographic Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:355
+#: inc/acf-json-strings.php:359
 msgid "A link to a geographic"
 msgstr ""
 
-#: inc/acf-json-strings.php:356
+#: inc/acf-json-strings.php:360
 msgid "Editors"
 msgstr ""
 
-#: inc/acf-json-strings.php:357
+#: inc/acf-json-strings.php:361
 msgid "Editors replace authors."
 msgstr ""
 
-#: inc/acf-json-strings.php:358
+#: inc/acf-json-strings.php:362
 msgid "Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:359
+#: inc/acf-json-strings.php:363
 msgid "All Editors"
 msgstr ""
 
-#: inc/acf-json-strings.php:360
+#: inc/acf-json-strings.php:364
 msgid "Edit Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:361
+#: inc/acf-json-strings.php:365
 msgid "View Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:362
+#: inc/acf-json-strings.php:366
 msgid "Update Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:363
+#: inc/acf-json-strings.php:367
 msgid "Add New Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:364
+#: inc/acf-json-strings.php:368
 msgid "New Editor Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:365
+#: inc/acf-json-strings.php:369
 msgid "Parent Editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:366
+#: inc/acf-json-strings.php:370
 msgid "Parent Editor:"
 msgstr ""
 
-#: inc/acf-json-strings.php:367
+#: inc/acf-json-strings.php:371
 msgid "Search Editors"
 msgstr ""
 
-#: inc/acf-json-strings.php:368
+#: inc/acf-json-strings.php:372
 msgid "No editors found"
 msgstr ""
 
-#: inc/acf-json-strings.php:369
+#: inc/acf-json-strings.php:373
 msgid "No editors"
 msgstr ""
 
-#: inc/acf-json-strings.php:370
+#: inc/acf-json-strings.php:374
 msgid "Filter by editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:371
+#: inc/acf-json-strings.php:375
 msgid "Editors list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:372
+#: inc/acf-json-strings.php:376
 msgid "Editors list"
 msgstr ""
 
-#: inc/acf-json-strings.php:373
+#: inc/acf-json-strings.php:377
 msgid "← Go to editors"
 msgstr ""
 
-#: inc/acf-json-strings.php:374
+#: inc/acf-json-strings.php:378
 msgid "Editor Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:375
+#: inc/acf-json-strings.php:379
 msgid "A link to a editor"
 msgstr ""
 
-#: inc/acf-json-strings.php:377
+#: inc/acf-json-strings.php:381
 msgid "Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:378
+#: inc/acf-json-strings.php:382
 msgid "All Events"
 msgstr ""
 
-#: inc/acf-json-strings.php:379
+#: inc/acf-json-strings.php:383
 msgid "Edit Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:380
+#: inc/acf-json-strings.php:384
 msgid "View Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:381
+#: inc/acf-json-strings.php:385
 msgid "Update Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:382
+#: inc/acf-json-strings.php:386
 msgid "Add New Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:383
+#: inc/acf-json-strings.php:387
 msgid "New Event Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:384
+#: inc/acf-json-strings.php:388
 msgid "Parent Event"
 msgstr ""
 
-#: inc/acf-json-strings.php:385
+#: inc/acf-json-strings.php:389
 msgid "Parent Event:"
 msgstr ""
 
-#: inc/acf-json-strings.php:386
+#: inc/acf-json-strings.php:390
 msgid "Search Events"
 msgstr ""
 
-#: inc/acf-json-strings.php:387
+#: inc/acf-json-strings.php:391
 msgid "No events found"
 msgstr ""
 
-#: inc/acf-json-strings.php:388
+#: inc/acf-json-strings.php:392
 msgid "No events"
 msgstr ""
 
-#: inc/acf-json-strings.php:389
+#: inc/acf-json-strings.php:393
 msgid "Filter by event"
 msgstr ""
 
-#: inc/acf-json-strings.php:390
+#: inc/acf-json-strings.php:394
 msgid "Events list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:391
+#: inc/acf-json-strings.php:395
 msgid "Events list"
 msgstr ""
 
-#: inc/acf-json-strings.php:392
+#: inc/acf-json-strings.php:396
 msgid "← Go to events"
 msgstr ""
 
-#: inc/acf-json-strings.php:393
+#: inc/acf-json-strings.php:397
 msgid "Event Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:394
+#: inc/acf-json-strings.php:398
 msgid "A link to a event"
 msgstr ""
 
-#: inc/acf-json-strings.php:396
+#: inc/acf-json-strings.php:400
 msgid "Tagging involved international bodies."
 msgstr ""
 
-#: inc/acf-json-strings.php:397
+#: inc/acf-json-strings.php:401
 msgid "International Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:398
+#: inc/acf-json-strings.php:402
 msgid "All International Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:399
+#: inc/acf-json-strings.php:403
 msgid "Edit International Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:400
+#: inc/acf-json-strings.php:404
 msgid "View International Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:401
+#: inc/acf-json-strings.php:405
 msgid "Update International Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:402
+#: inc/acf-json-strings.php:406
 msgid "Add New International Entity"
 msgstr ""
 
-#: inc/acf-json-strings.php:403
+#: inc/acf-json-strings.php:407
 msgid "New International Entity Name"
 msgstr ""
 
-#: inc/acf-json-strings.php:404
+#: inc/acf-json-strings.php:408
 msgid "Search International Entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:405
+#: inc/acf-json-strings.php:409
 msgid "No international entities found"
 msgstr ""
 
-#: inc/acf-json-strings.php:406
+#: inc/acf-json-strings.php:410
 msgid "No international entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:407
+#: inc/acf-json-strings.php:411
 msgid "International Entities list navigation"
 msgstr ""
 
-#: inc/acf-json-strings.php:408
+#: inc/acf-json-strings.php:412
 msgid "International Entities list"
 msgstr ""
 
-#: inc/acf-json-strings.php:409
+#: inc/acf-json-strings.php:413
 msgid "← Go to international entities"
 msgstr ""
 
-#: inc/acf-json-strings.php:410
+#: inc/acf-json-strings.php:414
 msgid "International Entity Link"
 msgstr ""
 
-#: inc/acf-json-strings.php:411
+#: inc/acf-json-strings.php:415
 msgid "A link to an international entity"
 msgstr ""
 
@@ -2978,17 +2994,18 @@ msgstr ""
 
 #: single-podcast.php:11
 #: single.php:19
+#: template-parts/cards/card-grid-story.php:15
 #: template-parts/cards/card-interview.php:9
 #: template-parts/cards/card-podcast.php:9
 #: template-parts/cards/card-post.php:9
 #: template-parts/cards/card-program.php:9
 #: template-parts/cards/card-video.php:9
-#: template-parts/sections/interviews_section.php:116
+#: template-parts/sections/interviews_section.php:115
 #: template-parts/sections/podcasts_section.php:116
 #: template-parts/sections/posts_section.php:118
 #: template-parts/sections/program_series_section.php:245
 #: template-parts/sections/speakers_section.php:148
-#: template-parts/sections/videos_section.php:116
+#: template-parts/sections/videos_section.php:115
 msgid "Tafaol Saudi"
 msgstr ""
 
@@ -3118,17 +3135,37 @@ msgstr ""
 msgid "Nothing has been published in this section yet."
 msgstr ""
 
+#: template-parts/cards/card-grid-story.php:15
+#: template-parts/cards/card-grid-story.php:19
+#: template-parts/cards/card-interview.php:9
+#: template-parts/cards/card-interview.php:13
+#: template-parts/cards/card-podcast.php:9
+#: template-parts/cards/card-podcast.php:13
+#: template-parts/cards/card-post.php:9
+#: template-parts/cards/card-post.php:13
+#: template-parts/cards/card-program.php:9
+#: template-parts/cards/card-program.php:13
+#: template-parts/cards/card-video.php:9
+#: template-parts/cards/card-video.php:13
+#: template-parts/sections/program_series_section.php:245
+#: template-parts/sections/speakers_section.php:148
+msgctxt "between names"
+msgid " and "
+msgstr ""
+
+#. translators: %s: human time difference, e.g. "8 hours"
+#: template-parts/cards/card-grid-story.php:36
+#: template-parts/cards/card-hero-featured.php:63
+#, php-format
+msgid "%s ago"
+msgstr ""
+
 #: template-parts/cards/card-hero-featured.php:12
 msgid "News"
 msgstr ""
 
 #: template-parts/cards/card-hero-featured.php:54
 msgid "Cover story • FEATURED STORY"
-msgstr ""
-
-#: template-parts/cards/card-hero-featured.php:63
-#, php-format
-msgid "%s ago"
 msgstr ""
 
 #: template-parts/cards/card-hero-featured.php:91
@@ -3145,22 +3182,6 @@ msgstr ""
 #: template-parts/cards/card-program.php:35
 #: template-parts/cards/card-video.php:35
 msgid "No Image"
-msgstr ""
-
-#: template-parts/cards/card-interview.php:9
-#: template-parts/cards/card-interview.php:13
-#: template-parts/cards/card-podcast.php:9
-#: template-parts/cards/card-podcast.php:13
-#: template-parts/cards/card-post.php:9
-#: template-parts/cards/card-post.php:13
-#: template-parts/cards/card-program.php:9
-#: template-parts/cards/card-program.php:13
-#: template-parts/cards/card-video.php:9
-#: template-parts/cards/card-video.php:13
-#: template-parts/sections/program_series_section.php:245
-#: template-parts/sections/speakers_section.php:148
-msgctxt "between names"
-msgid " and "
 msgstr ""
 
 #: template-parts/cards/card-program.php:23
@@ -3276,6 +3297,12 @@ msgstr ""
 
 #: template-parts/search/search-form.php:34
 msgid "Search the news, programs and interviews…"
+msgstr ""
+
+#. translators: %d: ad number
+#: template-parts/sections/ad_slider_section.php:77
+#, php-format
+msgid "Show ad %d"
 msgstr ""
 
 #: template-parts/sections/cars_section.php:89
