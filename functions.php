@@ -39,7 +39,36 @@ add_action('after_setup_theme', function () {
 });
 
 // ACF field groups, post types and taxonomies (acf-json) translate through the theme domain.
-add_filter('acf/settings/l10n_textdomain', fn() => 'hello-elementor-child');
+// Not on ACF's own editors (field groups, post types, taxonomies, their list/sync and AJAX): they would show the
+// translated labels, and saving would write the Arabic into acf-json instead of the English source strings.
+add_filter('acf/settings/l10n_textdomain', fn() => is_acf_definition_screen() ? '' : 'hello-elementor-child');
+
+function is_acf_definition_screen(): bool
+{
+	static $result = null;
+	if (null !== $result) {
+		return $result;
+	}
+	if (!is_admin()) {
+		return $result = false;
+	}
+	$acf_types = ['acf-field-group', 'acf-post-type', 'acf-taxonomy', 'acf-ui-options-page'];
+	if (wp_doing_ajax()) {
+		$action = isset($_REQUEST['action']) ? sanitize_key(wp_unslash($_REQUEST['action'])) : '';
+		return $result = (bool) preg_match('#^acf/(field_group|post_type|taxonomy|ui_options_page)/#', $action);
+	}
+	global $pagenow;
+	$type = isset($_REQUEST['post_type']) ? sanitize_key(wp_unslash($_REQUEST['post_type'])) : '';
+	if ('' === $type && in_array($pagenow, ['post.php', 'post-new.php'], true)) {
+		$id = isset($_REQUEST['post']) ? (int) $_REQUEST['post'] : (isset($_POST['post_ID']) ? (int) $_POST['post_ID'] : 0);
+		$type = $id ? (string) get_post_type($id) : 'post';
+	}
+	if (in_array($pagenow, ['post.php', 'post-new.php', 'edit.php'], true)) {
+		return $result = in_array($type, $acf_types, true);
+	}
+	// ACF tools page (export / import).
+	return $result = ('admin.php' === $pagenow && isset($_GET['page']) && 'acf-tools' === $_GET['page']);
+}
 
 // ACF translates its post types / taxonomies only when they load from acf-json, not the copies synced to the
 // database (stored as already validated). Translate their labels when WordPress registers them instead; ACF's
