@@ -5,6 +5,7 @@
  * One GET form holds every filter field (primary bar + "more" panel), so a plain submit works without JS;
  * filters.js refreshes #cars-chips and #cars-results over AJAX (action cars_filter) and mirrors the state
  * in the URL. The models map lets the model select follow the make without a request.
+ * Outside the archive (departments) there are no results: the form is a search box that opens the archive.
  */
 $section = $args['section'] ?? [];
 
@@ -20,17 +21,17 @@ if (!empty($section)) {
 
 $section_title = $section_title ?: __('Car Directory', 'hello-elementor-child');
 $is_car_archive = is_post_type_archive('car');
-$posts_limit = absint($posts_limit) ?: ($is_car_archive ? CAR_FILTER_PER_PAGE : CAR_SECTION_PER_PAGE);
+$posts_limit = absint($posts_limit) ?: CAR_FILTER_PER_PAGE;
 
 $state = get_car_filter_state();
-$base_url = get_cars_filter_base_url();
 $archive_url = get_cars_archive_url();
+$base_url = $is_car_archive ? get_cars_filter_base_url() : $archive_url;
 
-$query = query_cars_directory([
-    'posts_per_page' => absint($posts_limit) ?: CAR_FILTER_PER_PAGE,
+$query = $is_car_archive ? query_cars_directory([
+    'posts_per_page' => $posts_limit,
     'paged' => $state['paged'],
     'state' => $state,
-]);
+]) : null;
 
 $ctx = [
     'state' => $state,
@@ -45,7 +46,7 @@ $ctx = [
     data-base-url="<?php echo esc_url($base_url); ?>"
     data-archive-url="<?php echo esc_url($archive_url); ?>"
     data-is-archive="<?php echo $is_car_archive ? '1' : '0'; ?>"
-    data-per-page="<?php echo esc_attr((string) (absint($posts_limit) ?: CAR_FILTER_PER_PAGE)); ?>">
+    data-per-page="<?php echo esc_attr((string) $posts_limit); ?>">
 
     <div class="flex flex-col items-start gap-space-xs mb-6 text-start">
         <?php if ($is_car_archive): ?>
@@ -82,16 +83,18 @@ $ctx = [
         <?php get_template_part('template-parts/cars/filter', 'more', $ctx); ?>
     </form>
 
-    <div id="cars-results" class="relative mt-8">
-        <div id="cars-loading" class="absolute inset-0 z-10 hidden items-center justify-center bg-white/70 rounded-2xl">
-            <div class="flex flex-col items-center gap-3">
-                <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-                <span class="text-sm font-medium text-on-surface-variant"><?php echo esc_html_x('Loading…', 'cars', 'hello-elementor-child'); ?></span>
+    <?php if ($is_car_archive): ?>
+        <div id="cars-results" class="relative mt-8">
+            <div id="cars-loading" class="absolute inset-0 z-10 hidden items-center justify-center bg-white/70 rounded-2xl">
+                <div class="flex flex-col items-center gap-3">
+                    <div class="w-10 h-10 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+                    <span class="text-sm font-medium text-on-surface-variant"><?php echo esc_html_x('Loading…', 'cars', 'hello-elementor-child'); ?></span>
+                </div>
             </div>
-        </div>
 
-        <?php get_template_part('template-parts/cars/results', null, $ctx); ?>
-    </div>
+            <?php get_template_part('template-parts/cars/results', null, $ctx); ?>
+        </div>
+    <?php endif; ?>
 
     <script type="application/json" id="cars-models-map"><?php echo wp_json_encode(get_car_models_map(), JSON_UNESCAPED_UNICODE | JSON_HEX_TAG | JSON_HEX_AMP); ?></script>
 </section>

@@ -638,6 +638,21 @@ function car_term_tile(WP_Term $term, string $class = '', string $label = ''): s
     return car_tile(car_term_url($term), car_img(car_term_image_url($term), $term->name, 'car-tile-pic'), $label !== '' ? $label : $term->name, '', '', $class);
 }
 
+/**
+ * Origin tile: the country flag (assets/images/flags/, by origin slug; a globe for origins without one),
+ * the origin name and "N علامة · N سيارة". Links to the origin page, which lists its makes.
+ */
+function car_origin_tile(WP_Term $origin, int $makes): string
+{
+    $flags = ['japanese-cars' => 'jp', 'chinese-cars' => 'cn', 'german-cars' => 'de', 'american-cars' => 'us', 'korean-cars' => 'kr', 'british-cars' => 'gb', 'french-cars' => 'fr', 'italian-cars' => 'it', 'european-cars' => 'eu'];
+    $code = $flags[$origin->slug] ?? '';
+    $img = $code !== ''
+        ? sprintf('<img src="%s" alt="" width="72" height="48" loading="lazy" decoding="async" class="h-12 w-auto rounded-md object-cover shadow-sm ring-1 ring-black/10">', esc_url(get_stylesheet_directory_uri() . "/assets/images/flags/{$code}.svg"))
+        : '<span class="flex h-12 w-[4.5rem] items-center justify-center rounded-md bg-surface-container text-2xl text-primary"><i class="fas fa-globe" aria-hidden="true"></i></span>';
+    $sub = implode(' · ', array_filter([$makes ? n_makes($makes) : '', ($count = car_term_count($origin)) ? n_cars($count) : '']));
+    return car_tile(car_term_url($origin), $img, $origin->name, $sub);
+}
+
 /** Body-type tile: the source icon (term logo) once attached, the placeholder silhouette until then. */
 function car_body_tile(WP_Term $body, string $sub = '', string $class = ''): string
 {

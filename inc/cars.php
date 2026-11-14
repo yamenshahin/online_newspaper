@@ -11,8 +11,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-const CAR_FILTER_PER_PAGE = 15; // the directory (/car-directory/); a cars_section elsewhere shows CAR_SECTION_PER_PAGE
-const CAR_SECTION_PER_PAGE = 5;
+const CAR_FILTER_PER_PAGE = 15; // the directory (/car-directory/); a cars_section elsewhere shows no results
 
 /** Taxonomy facets in display order: GET param => taxonomy, label, multi (list of slugs). f_model = car_make children of f_make. */
 function get_car_filter_taxonomies(): array

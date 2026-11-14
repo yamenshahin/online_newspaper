@@ -3,7 +3,7 @@
  * Flexible Content: Car directory home (the staging front page as one Layout Engine row).
  *
  * Four switchable blocks: price ranges (budget), body types, the most-listed makes, then every
- * origin with its makes as logo tiles. Built from the car directory helpers (inc/cars/helpers.php:
+ * origin as a flag tile (its page lists the makes). Built from the car directory helpers (inc/cars/helpers.php:
  * tiles, strips, grids, section header; inc/cars/directory.php: price ranges, body-type order, URLs).
  * Offered on the front page and on every department; skipped on entity term archives
  * (get_term_archive_skip_layouts()). The wrapper carries `car-directory`: the component CSS of the
@@ -141,9 +141,8 @@ $block_gap = ''; // mt-space-xl from the second visible block on
             <?php
             $block_header(__('Choose your brand to follow its news and cars', 'hello-elementor-child'));
             $tiles = array_map($make_tile, $top_makes);
-            // "all brands" jumps to the first origin group below (staging: #all-brands)
-            $first_origin = $origin_blocks ? 'car-origin-' . $origin_blocks[0][0]->slug : '';
-            $tiles[] = car_text_tile($first_origin ? '#' . $first_origin : $archive_url, esc_html__('All of the', 'hello-elementor-child') . '<br>' . esc_html__('brands', 'hello-elementor-child'));
+            // "all brands" jumps to the origin flags below (every make is one click further)
+            $tiles[] = car_text_tile($origin_blocks ? '#car-home-origins' : $archive_url,esc_html__('All of the', 'hello-elementor-child') . '<br>' . esc_html__('brands', 'hello-elementor-child'));
             car_grid($tiles, 'logos');
             $block_gap = ' mt-space-xl';
             ?>
@@ -151,26 +150,21 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php endif; ?>
 
     <?php if ($origin_blocks): ?>
-        <div class="car-home-block<?php echo esc_attr($block_gap); ?>" id="car-home-origins">
-            <?php $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($origin_makes_total)); ?>
+        <div class="car-home-block scroll-mt-6<?php echo esc_attr($block_gap); ?>" id="car-home-origins">
+            <?php
+            $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($origin_makes_total));
+            // one flag per origin; its page lists the makes
+            car_grid(array_map(static fn(array $block): string => car_origin_tile($block[0], count($block[1])), $origin_blocks));
+            ?>
+        </div>
+    <?php endif; ?>
 
-            <?php foreach ($origin_blocks as [$origin, $makes]): ?>
-                <div class="car-home-origin mt-space-lg scroll-mt-6" id="<?php echo esc_attr('car-origin-' . $origin->slug); ?>">
-                    <div class="mb-4 flex flex-wrap items-center gap-space-sm">
-                        <h4 class="font-title-editorial text-title-editorial text-on-background">
-                            <a class="inline-flex items-center gap-space-sm transition-colors hover:text-primary" href="<?php echo esc_url(car_term_url($origin)); ?>">
-                                <i class="fas fa-car text-primary" aria-hidden="true"></i>
-                                <span><?php echo esc_html($origin->name); ?></span>
-                            </a>
-                        </h4>
-                        <?php
-                        echo car_pill(n_makes(count($makes))); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper
-                        echo car_pill(n_cars(car_term_count($origin)), car_term_url($origin), 'outline'); // phpcs:ignore WordPress.Security.EscapeOutput -- escaped in the helper
-                        ?>
-                    </div>
-                    <?php car_grid(array_map($make_tile, $makes), 'logos'); ?>
-                </div>
-            <?php endforeach; ?>
+    <?php if (!is_post_type_archive('car')): // departments show no car list: this opens the directory ?>
+        <div class="mt-space-xl flex justify-center">
+            <a href="<?php echo esc_url(get_cars_archive_url()); ?>"
+                class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:opacity-90">
+                <?php esc_html_e('Show more cars', 'hello-elementor-child'); ?>
+            </a>
         </div>
     <?php endif; ?>
 
