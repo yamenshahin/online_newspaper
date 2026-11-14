@@ -241,10 +241,16 @@ function car_short_title(WP_Post $post, array $strip, string $fallback = ''): st
  */
 function car_cheapest_per_model(array $args): array
 {
+    return array_values(array_filter(array_map('get_post', car_cheapest_per_model_ids($args))));
+}
+
+/** IDs behind car_cheapest_per_model() (cheapest first); counts use these without loading the posts. */
+function car_cheapest_per_model_ids(array $args): array
+{
     $cache_key = 'car_cpm_' . md5(wp_json_encode($args) . wp_date('Y') . car_directory_data_version());
     $cached = get_transient($cache_key);
     if (is_array($cached)) {
-        return array_values(array_filter(array_map('get_post', $cached)));
+        return $cached;
     }
     global $wpdb;
     // Two key -> value maps (meta_key is indexed) filtered in PHP: a meta_query with three postmeta
@@ -299,7 +305,7 @@ function car_cheapest_per_model(array $args): array
     usort($best, static fn($a, $b) => $a[2] <=> $b[2]);
     $ids = array_column($best, 0);
     set_transient($cache_key, $ids, HOUR_IN_SECONDS);
-    return array_values(array_filter(array_map('get_post', $ids)));
+    return $ids;
 }
 
 // ---------------------------------------------------------------------------
@@ -614,7 +620,7 @@ function car_tile(string $url, string $img_html, string $title, string $sub = ''
     );
 }
 
-/** Text-only tile (price ranges, "all makes"). $text_html is escaped by the caller (it may hold <br>). */
+/** Text-only tile ("all makes"). $text_html is escaped by the caller (it may hold <br>). */
 function car_text_tile(string $url, string $text_html, string $class = ''): string
 {
     return sprintf(
@@ -655,15 +661,51 @@ function car_listing_tile(WP_Post $car): string
     return car_tile(get_permalink($car), car_img(car_image_url($car->ID, 'medium'), $name, 'car-tile-pic'), $name, $sub, car_price_text($car->ID) ?: __('No price', 'hello-elementor-child'), 'car-tile-big');
 }
 
-/** One text tile per price range (car_price_ranges()); $current gets the is-current frame. */
+/**
+ * One budget card per price range (car_price_ranges()): the range in thousands as the big figure, the unit,
+ * a price-level bar (position among the ranges) and the number of models listed in it (same models as the
+ * range page). Empty ranges are faded; $current gets the is-current frame.
+ */
 function car_price_range_tiles(string $current = ''): array
 {
+    $ranges = car_price_ranges();
+    $steps = count($ranges);
     $tiles = [];
-    foreach (car_price_ranges() as $slug => [$label, $min, $max]) {
-        $text = $min && $max
-            ? esc_html(sar_text(car_thousands($min))) . '<br><span class="text-body-sm font-normal text-on-surface-variant">' . esc_html__('to', 'hello-elementor-child') . '</span><br>' . esc_html(sar_text(car_thousands($max)))
-            : esc_html(sar_text($label));
-        $tiles[] = car_text_tile(car_price_range_url($slug), $text, $slug === $current ? 'is-current' : '');
+    $i = 0;
+    foreach ($ranges as $slug => [$label, $min, $max]) {
+        $i++;
+        $k = static fn(int $amount): string => number_format_i18n($amount / 1000);
+        if ($min && $max) {
+            $prefix = '';
+            $figure = $k($min) . '–' . $k($max); // en dash: keeps "from" on the reading side in RTL
+        } else {
+            $prefix = $max ? __('Under', 'hello-elementor-child') : __('Over', 'hello-elementor-child');
+            $figure = $k($max ?: $min);
+        }
+        $models = count(car_cheapest_per_model_ids(['price_min' => $min, 'price_max' => $max]));
+        $bar = '';
+        for ($s = 1; $s <= $steps; $s++) {
+            $bar .= '<span class="h-1 flex-1 rounded-full ' . ($s <= $i ? 'bg-primary' : 'bg-surface-container-high') . '"></span>';
+        }
+        $class = trim(($slug === $current ? 'is-current' : '') . ($models ? '' : ' opacity-60'));
+        $tiles[] = sprintf(
+            '<a class="car-tile car-budget-tile group flex flex-col items-center justify-center gap-1 text-center %s %s" href="%s" aria-label="%s">'
+            . '<span class="min-h-5 text-body-sm text-on-surface-variant">%s</span>'
+            . '<span class="font-headline-sm text-headline-sm font-bold leading-none text-on-background transition-colors group-hover:text-primary">%s</span>'
+            . '<span class="text-body-sm text-on-surface-variant">%s</span>'
+            . '<span class="mt-2 flex w-full max-w-24 gap-0.5" aria-hidden="true">%s</span>'
+            . '<span class="mt-1 text-body-sm font-semibold %s">%s</span></a>',
+            car_tile_frame($class),
+            esc_attr($class),
+            esc_url(car_price_range_url($slug)),
+            esc_attr(sar_text($label)),
+            esc_html($prefix),
+            esc_html($figure),
+            esc_html__('thousand SAR', 'hello-elementor-child'),
+            $bar,
+            $models ? 'text-primary' : 'text-on-surface-variant',
+            esc_html($models ? n_models($models) : __('Coming soon', 'hello-elementor-child'))
+        );
     }
     return $tiles;
 }
