@@ -119,7 +119,7 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php if ($show_budget): ?>
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
-            $block_header(__('Cars for your budget', 'hello-elementor-child'));
+            $block_header(__('Shop by budget', 'hello-elementor-child'));
             car_grid(car_price_range_tiles(), 'cols-9'); // filters are grids, never sliders
             $block_gap = ' mt-space-xl';
             ?>
