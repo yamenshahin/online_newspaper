@@ -37,7 +37,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "نروي قصص السعودية<span> • لنلهم العالم<\/span>",
+                            "default_value": "نروي قصص السعودية<span> • لنلهم العالم</span>",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -1230,6 +1230,109 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_6b2f1a0c7ad01": {
+                    "key": "layout_6b2f1a0c7ad01",
+                    "name": "ad_slider_section",
+                    "label": "Ad Slider",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6b2f1a0c7ad02",
+                            "label": "Ads",
+                            "name": "ads",
+                            "aria-label": "",
+                            "type": "repeater",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "layout": "table",
+                            "pagination": 0,
+                            "min": 0,
+                            "max": 0,
+                            "collapsed": "",
+                            "button_label": "Add Ad",
+                            "rows_per_page": 20,
+                            "sub_fields": [
+                                {
+                                    "key": "field_6b2f1a0c7ad03",
+                                    "label": "Ad Image",
+                                    "name": "ad_image",
+                                    "aria-label": "",
+                                    "type": "image",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "return_format": "array",
+                                    "library": "all",
+                                    "min_width": "",
+                                    "min_height": "",
+                                    "min_size": "",
+                                    "max_width": "",
+                                    "max_height": "",
+                                    "max_size": "",
+                                    "mime_types": "",
+                                    "allow_in_bindings": 0,
+                                    "preview_size": "medium",
+                                    "parent_repeater": "field_6b2f1a0c7ad02"
+                                },
+                                {
+                                    "key": "field_6b2f1a0c7ad04",
+                                    "label": "Ad Link",
+                                    "name": "ad_link",
+                                    "aria-label": "",
+                                    "type": "url",
+                                    "instructions": "",
+                                    "required": 0,
+                                    "conditional_logic": 0,
+                                    "wrapper": {
+                                        "width": "",
+                                        "class": "",
+                                        "id": ""
+                                    },
+                                    "default_value": "",
+                                    "allow_in_bindings": 0,
+                                    "placeholder": "",
+                                    "parent_repeater": "field_6b2f1a0c7ad02"
+                                }
+                            ]
+                        },
+                        {
+                            "key": "field_6b2f1a0c7ad05",
+                            "label": "Rotation Interval (seconds)",
+                            "name": "ad_interval",
+                            "aria-label": "",
+                            "type": "number",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": 5,
+                            "min": 2,
+                            "max": 60,
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "step": 1,
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa8286083fc4": {
                     "key": "layout_6aa8286083fc4",
                     "name": "ad_code_section",
@@ -1238,7 +1341,7 @@
                     "sub_fields": [
                         {
                             "key": "field_6aa828e883fc6",
-                            "label": "Ad Code \/ Script",
+                            "label": "Ad Code / Script",
                             "name": "ad_code",
                             "aria-label": "",
                             "type": "textarea",
@@ -1295,5 +1398,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1794326312
+    "modified": 1794659995
 }
