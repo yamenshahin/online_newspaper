@@ -15,10 +15,12 @@ $back_label = $args['back_label'] ?? __('Back', 'hello-elementor-child');
 
 $acf_term_id = $term->taxonomy . '_' . $term->term_id;
 
-// Image
-$image_data = get_field('taxonomy_image', $acf_term_id)
-    ?: get_field('taxonomy_image', $term)
-    ?: get_field('image', $acf_term_id);
+// Image (program series: their logo)
+$image_data = 'program_series' === $term->taxonomy
+    ? get_field('logo', $term)
+    : (get_field('taxonomy_image', $acf_term_id)
+        ?: get_field('taxonomy_image', $term)
+        ?: get_field('image', $acf_term_id));
 
 $image_id = 0;
 $fallback_image_url = '';
