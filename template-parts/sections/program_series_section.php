@@ -181,7 +181,7 @@ $has_more = $total_terms > $show_limit;
                     $url = get_term_link($term);
                 }
 
-                $image = get_field('taxonomy_image', $term);
+                $image = get_field('logo', $term);
                 $is_active = isset($_GET[$query_var]) && $_GET[$query_var] === $term->slug;
                 $active_bg = $is_active
                     ? 'bg-white border-2 border-primary shadow-md'
@@ -199,18 +199,17 @@ $has_more = $total_terms > $show_limit;
                             <?php
                             echo wp_get_attachment_image(
                                 $image['ID'],
-                                'large',
+                                'medium_large',
                                 false,
                                 [
-                                    'class' => 'w-full h-full object-cover transition-transform duration-700 group-hover:scale-105',
+                                    'class' => 'w-full h-full object-contain p-space-md transition-transform duration-700 group-hover:scale-105',
+                                    'alt' => $term->name,
                                 ]
                             );
                             ?>
                         <?php else: ?>
                             <div class="w-full h-full flex items-center justify-center">
-                                <span class="text-4xl font-bold text-gray-300 uppercase">
-                                    <?php echo esc_html(mb_substr($term->name, 0, 1)); ?>
-                                </span>
+                                <span class="material-symbols-outlined text-[56px]! text-gray-300" aria-hidden="true">tv</span>
                             </div>
                         <?php endif; ?>
                     </div>

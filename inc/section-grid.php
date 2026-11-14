@@ -1,6 +1,6 @@
 <?php
 /**
- * Card grid of the posts / interviews / videos / podcasts sections (ACF sub field `grid_layout`).
+ * Card grid of the posts / interviews / videos / podcasts / program tabs sections (ACF sub field `grid_layout`).
  *
  * - featured_right (default): one large story + 2x2 small stories, large on the right (RTL start).
  * - featured_left: same, large story on the left.

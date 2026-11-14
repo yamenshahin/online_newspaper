@@ -16,7 +16,7 @@ $theme_inc = get_stylesheet_directory() . '/inc';
 require_once $theme_inc . '/department-context.php';
 require_once $theme_inc . '/shortcodes/department-footer.php';
 require_once $theme_inc . '/taxonomy-helpers.php';
-require_once $theme_inc . '/section-grid.php'; // posts/interviews/videos/podcasts sections: 1 + 4 featured grid
+require_once $theme_inc . '/section-grid.php'; // posts/interviews/videos/podcasts/program tabs sections: 1 + 4 featured grid
 require_once $theme_inc . '/cars/directory.php'; // car directory: nested URLs, price pages, body-type order
 require_once $theme_inc . '/cars/helpers.php'; // car directory: display helpers (tiles, strips, prices, counts, gallery)
 require_once $theme_inc . '/cars/fields.php'; // car directory: Car_Spec_Renderer (ACF group -> spec sections)
@@ -966,7 +966,8 @@ function add_share_image_fallback($image): void
 	$image_id = 0;
 	if (is_tax()) {
 		$term = get_queried_object();
-		foreach (['taxonomy_image', 'department_logo', 'image', 'logo'] as $field) {
+		// 'logo' first: program series keep an old taxonomy_image value from before that field was removed.
+		foreach (['logo', 'taxonomy_image', 'department_logo', 'image'] as $field) {
 			$value = get_field($field, $term, false);
 			if ($image_id = (int) (is_array($value) ? ($value['ID'] ?? 0) : $value)) {
 				break;
