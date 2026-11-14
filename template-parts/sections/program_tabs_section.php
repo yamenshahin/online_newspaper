@@ -139,16 +139,16 @@ $uid = wp_unique_id('program-tabs-');
     </div>
 
     <div class="relative mb-space-lg">
-        <?php if ($has_tabs): // Arrows show (desktop) only while the logo row overflows; RTL: previous sits on the right. ?>
+        <?php if ($has_tabs): // Arrows: mouse devices (touch swipes), only while the logo row overflows; RTL: previous on the right. ?>
             <button type="button" data-program-scroll="prev" hidden
-                class="absolute -start-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-white border border-outline-variant shadow-md text-on-background hover:text-primary cursor-pointer transition-opacity disabled:opacity-0 disabled:pointer-events-none"
+                class="absolute -start-4 top-1/2 -translate-y-1/2 z-10 hidden pointer-fine:flex items-center justify-center w-9 h-9 rounded-full bg-white border border-outline-variant shadow-md text-on-background hover:text-primary cursor-pointer transition-opacity disabled:opacity-0 disabled:pointer-events-none"
                 aria-label="<?php esc_attr_e('Previous', 'hello-elementor-child'); ?>">
                 <i class="fas fa-angle-right" aria-hidden="true"></i>
             </button>
         <?php endif; ?>
 
         <div role="tablist" aria-label="<?php echo esc_attr($section_title); ?>" data-program-strip
-            class="flex gap-space-md overflow-x-auto snap-x p-1 scroll-px-1 [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+            class="flex gap-space-md overflow-x-auto snap-x pointer-fine:snap-none p-1 scroll-px-1 select-none [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
             <?php foreach ($programs as $i => $program):
                 $term = $program['term'];
                 $logo = get_field('logo', $term);
@@ -183,7 +183,7 @@ $uid = wp_unique_id('program-tabs-');
 
         <?php if ($has_tabs): ?>
             <button type="button" data-program-scroll="next" hidden
-                class="absolute -end-4 top-1/2 -translate-y-1/2 z-10 hidden md:flex items-center justify-center w-9 h-9 rounded-full bg-white border border-outline-variant shadow-md text-on-background hover:text-primary cursor-pointer transition-opacity disabled:opacity-0 disabled:pointer-events-none"
+                class="absolute -end-4 top-1/2 -translate-y-1/2 z-10 hidden pointer-fine:flex items-center justify-center w-9 h-9 rounded-full bg-white border border-outline-variant shadow-md text-on-background hover:text-primary cursor-pointer transition-opacity disabled:opacity-0 disabled:pointer-events-none"
                 aria-label="<?php esc_attr_e('Next', 'hello-elementor-child'); ?>">
                 <i class="fas fa-angle-left" aria-hidden="true"></i>
             </button>
