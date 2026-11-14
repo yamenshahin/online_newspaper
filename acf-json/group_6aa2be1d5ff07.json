@@ -3,13 +3,13 @@
     "title": "Program Series Metadata",
     "fields": [
         {
-            "key": "field_6aa2be1d61733",
-            "label": "Image",
-            "name": "taxonomy_image",
+            "key": "field_6af86f692110b",
+            "label": "Logo",
+            "name": "logo",
             "aria-label": "",
             "type": "image",
-            "instructions": "Please ensure the uploaded image has a 9:16 aspect ratio and a maximum width of 1920px.",
-            "required": 1,
+            "instructions": "Shown wherever the program appears (program sections, program page). Use a tightly cropped logo on a white or transparent background. Without a logo a placeholder is shown.",
+            "required": 0,
             "conditional_logic": 0,
             "wrapper": {
                 "width": "",
@@ -21,12 +21,12 @@
             "min_width": "",
             "min_height": "",
             "min_size": "",
-            "max_width": 1920,
+            "max_width": "",
             "max_height": "",
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
-            "preview_size": "full"
+            "preview_size": "medium"
         },
         {
             "key": "field_6aa2be1d61b36",
@@ -220,5 +220,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1793718969
+    "modified": 1794669800
 }
