@@ -497,7 +497,7 @@ function initCarsAjaxFilters() {
     const chipsEl = document.getElementById('cars-chips');
     const resultsEl = document.getElementById('cars-results');
     const loadingEl = document.getElementById('cars-loading');
-    if (!form || !chipsEl || !resultsEl) return;
+    if (!form || !chipsEl) return;
 
     const baseUrl = (section.dataset.baseUrl || CarsFilter.baseUrl || '').replace(/\/?$/, '/');
     const isArchive = section.dataset.isArchive === '1';
@@ -522,6 +522,15 @@ function initCarsAjaxFilters() {
             modelSelect.appendChild(new Option(model[1], model[0], false, model[0] === selected));
         });
         modelSelect.disabled = !makeSlug;
+    }
+
+    // No results here (a department): the form is a search box that opens the archive on submit.
+    if (!resultsEl) {
+        form.addEventListener('change', function (e) {
+            if (e.target.name === 'f_make') fillModels(e.target.value, '');
+        });
+        section.dataset.carsJs = '1';
+        return;
     }
 
     // [name, value] pairs of the filled-in fields; list fields keep their [] suffix.
