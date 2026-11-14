@@ -1,7 +1,7 @@
 <?php
 /**
- * Cars filter: result count, tiles, and pagination (archive) or a "show more" link to the archive (elsewhere).
- * Re-rendered over AJAX; the AJAX handler posts is_car_archive because it has no page context.
+ * Cars filter: result count, tiles and pagination. Only the car archive shows results (other pages link to
+ * it from the directory home block); re-rendered over AJAX.
  */
 $state = $args['state'] ?? get_car_filter_state();
 $query = $args['query'] ?? null;
@@ -9,14 +9,6 @@ $archive_url = $args['archive_url'] ?? get_cars_archive_url();
 
 if (!$query instanceof WP_Query) {
     return;
-}
-
-if (array_key_exists('is_car_archive', $args)) {
-    $is_car_archive = (bool) $args['is_car_archive'];
-} elseif (isset($_POST['is_car_archive'])) {
-    $is_car_archive = sanitize_text_field(wp_unslash($_POST['is_car_archive'])) === '1';
-} else {
-    $is_car_archive = is_post_type_archive('car');
 }
 ?>
 
@@ -56,8 +48,7 @@ if (array_key_exists('is_car_archive', $args)) {
         <?php endwhile; ?>
     </div>
 
-    <?php if ($is_car_archive): ?>
-        <?php if ((int) $query->max_num_pages > 1): ?>
+    <?php if ((int) $query->max_num_pages > 1): ?>
             <nav class="flex justify-center mt-space-xl" aria-label="<?php esc_attr_e('Pages', 'hello-elementor-child'); ?>">
                 <div class="inline-flex items-center gap-2 flex-wrap justify-center [&_.page-numbers]:inline-flex [&_.page-numbers]:items-center [&_.page-numbers]:justify-center [&_.page-numbers]:min-w-[44px] [&_.page-numbers]:h-[44px] [&_.page-numbers]:px-2 [&_.page-numbers]:rounded-full [&_.page-numbers]:font-bold [&_.page-numbers]:shadow-sm [&_.current]:bg-primary [&_.current]:text-on-primary">
                     <?php
@@ -76,14 +67,6 @@ if (array_key_exists('is_car_archive', $args)) {
                     ?>
                 </div>
             </nav>
-        <?php endif; ?>
-    <?php else: ?>
-        <div class="flex justify-center mt-8">
-            <a href="<?php echo esc_url(get_cars_filter_url([], $state, $archive_url)); ?>"
-                class="inline-flex items-center justify-center px-6 py-3 rounded-full font-bold text-sm bg-primary text-white hover:opacity-90 shadow-sm transition-all">
-                <?php esc_html_e('Show more cars', 'hello-elementor-child'); ?>
-            </a>
-        </div>
     <?php endif; ?>
 
     <?php wp_reset_postdata(); ?>
