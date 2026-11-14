@@ -3519,3 +3519,23 @@ msgstr "مدة عرض كل إعلان (بالثواني)"
 #, php-format
 msgid "Show ad %d"
 msgstr "عرض الإعلان %d"
+
+#: inc/cars/helpers.php
+msgid "Under"
+msgstr "أقل من"
+
+#: inc/cars/helpers.php
+msgid "Over"
+msgstr "أكثر من"
+
+#: inc/cars/helpers.php
+msgid "thousand SAR"
+msgstr "ألف ر.س"
+
+#: inc/cars/helpers.php
+msgid "Coming soon"
+msgstr "قريباً"
+
+#: template-parts/sections/car_home_section.php
+msgid "Shop by budget"
+msgstr "تسوّق حسب ميزانيتك"
