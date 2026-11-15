@@ -426,6 +426,10 @@ msgid "Show Origins"
 msgstr "إظهار بلدان المنشأ"
 
 #: inc/acf-json-strings.php:71
+msgid "Car Brands by Origin Section"
+msgstr "العلامات حسب بلد المنشأ"
+
+#: inc/acf-json-strings.php:71
 msgid "Ad Banner"
 msgstr "بانر إعلاني"
 
@@ -3340,6 +3344,10 @@ msgstr "كل العلامات"
 #: template-parts/sections/car_home_section.php:155
 msgid "All brands by country of origin"
 msgstr "كل العلامات حسب بلد المنشأ"
+
+#: template-parts/sections/car_origins_section.php:25
+msgid "All car brands by country of origin"
+msgstr "كل علامات السيارات حسب بلد المنشأ"
 
 #: template-parts/sections/geographic_section.php:15
 msgid "Geographic Locations"

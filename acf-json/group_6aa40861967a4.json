@@ -1312,6 +1312,58 @@
                     "min": "",
                     "max": ""
                 },
+                "layout_6b37c0e1a9f20": {
+                    "key": "layout_6b37c0e1a9f20",
+                    "name": "car_origins_section",
+                    "label": "Car Brands by Origin Section",
+                    "display": "block",
+                    "sub_fields": [
+                        {
+                            "key": "field_6b37c0e1a9f21",
+                            "label": "Section Title",
+                            "name": "section_title",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        },
+                        {
+                            "key": "field_6b37c0e1a9f22",
+                            "label": "Subtitle",
+                            "name": "subtitle",
+                            "aria-label": "",
+                            "type": "text",
+                            "instructions": "",
+                            "required": 0,
+                            "conditional_logic": 0,
+                            "wrapper": {
+                                "width": "",
+                                "class": "",
+                                "id": ""
+                            },
+                            "default_value": "",
+                            "maxlength": "",
+                            "allow_in_bindings": 0,
+                            "placeholder": "",
+                            "prepend": "",
+                            "append": ""
+                        }
+                    ],
+                    "min": "",
+                    "max": ""
+                },
                 "layout_6aa824d08379e": {
                     "key": "layout_6aa824d08379e",
                     "name": "ad_banner_section",
@@ -1534,5 +1586,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1794737316
+    "modified": 1794740209
 }

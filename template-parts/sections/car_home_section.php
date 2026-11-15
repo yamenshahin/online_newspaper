@@ -57,20 +57,9 @@ if ($show_brands) {
     $top_makes = array_slice(car_sort_by_count($makes), 0, $brands_limit);
 }
 
-// Every origin that has makes, most cars first: [WP_Term $origin, WP_Term[] $makes].
-$origin_blocks = [];
-$origin_makes_total = 0;
-if ($show_origins) {
-    // same order as the staging home page (term count, desc): سيارات يابانية first
-    $origins = get_terms(['taxonomy' => 'car_origin', 'hide_empty' => false, 'orderby' => 'count', 'order' => 'DESC']);
-    foreach (is_wp_error($origins) ? [] : $origins as $origin) {
-        $makes = car_origin_makes($origin);
-        if ($makes) {
-            $origin_blocks[] = [$origin, $makes];
-            $origin_makes_total += count($makes);
-        }
-    }
-}
+// Every origin that has makes, most cars first: [WP_Term $origin, int $makes] (also a section of its own: car_origins_section).
+$origin_blocks = $show_origins ? car_origins_with_makes() : [];
+$origin_makes_total = array_sum(array_column($origin_blocks, 1));
 
 if (!$show_budget && !$show_body_types && !$top_makes && !$origin_blocks) {
     return;
@@ -164,19 +153,14 @@ $block_gap = ''; // mt-space-xl from the second visible block on
             <?php
             $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($origin_makes_total));
             // one flag per origin; its page lists the makes
-            car_grid(array_map(static fn(array $block): string => car_origin_tile($block[0], count($block[1])), $origin_blocks));
+            car_grid(array_map(static fn(array $block): string => car_origin_tile($block[0], $block[1]), $origin_blocks));
             ?>
         </div>
     <?php endif; ?>
 
-    <?php if (!is_post_type_archive('car')): // departments show no car list: this opens the directory ?>
-        <div class="mt-space-xl flex justify-center">
-            <a href="<?php echo esc_url(get_cars_archive_url()); ?>"
-                class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:opacity-90">
-                <?php esc_html_e('Show more cars', 'hello-elementor-child'); ?>
-            </a>
-        </div>
-    <?php endif; ?>
+    <?php if (!is_post_type_archive('car')) { // departments show no car list: this opens the directory
+        car_more_cars_button();
+    } ?>
 
     <?php car_section_close(); ?>
 </div>
