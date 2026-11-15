@@ -620,18 +620,6 @@ function car_tile(string $url, string $img_html, string $title, string $sub = ''
     );
 }
 
-/** Text-only tile ("all makes"). $text_html is escaped by the caller (it may hold <br>). */
-function car_text_tile(string $url, string $text_html, string $class = ''): string
-{
-    return sprintf(
-        '<a class="car-tile car-tile-text group flex items-center justify-center text-center font-semibold text-on-background hover:text-primary %s %s" href="%s"><span>%s</span></a>',
-        car_tile_frame($class),
-        esc_attr($class),
-        esc_url($url),
-        $text_html
-    );
-}
-
 /** Make / model / origin tile with the term logo (placeholder until the logos are uploaded). */
 function car_term_tile(WP_Term $term, string $class = '', string $label = ''): string
 {

@@ -3333,13 +3333,9 @@ msgstr "اختر سيارتك حسب الشكل"
 msgid "Choose your brand to follow its news and cars"
 msgstr "اختر علامتك لمتابعة أخبارها وسياراتها"
 
-#: template-parts/sections/car_home_section.php:145
-msgid "All of the"
-msgstr "كل"
-
-#: template-parts/sections/car_home_section.php:145
-msgid "brands"
-msgstr "العلامات"
+#: template-parts/sections/car_home_section.php:153
+msgid "All brands"
+msgstr "كل العلامات"
 
 #: template-parts/sections/car_home_section.php:155
 msgid "All brands by country of origin"
