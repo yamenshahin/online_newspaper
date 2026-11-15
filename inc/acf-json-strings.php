@@ -75,6 +75,7 @@ return [
     __('Ads', 'hello-elementor-child'),
     __('Add Ad', 'hello-elementor-child'),
     __('Rotation Interval (seconds)', 'hello-elementor-child'),
+    __('Seconds per program', 'hello-elementor-child'),
     __('Ad Code', 'hello-elementor-child'),
     __('Ad Code / Script', 'hello-elementor-child'),
     __('Add Section', 'hello-elementor-child'),
