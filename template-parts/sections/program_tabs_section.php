@@ -5,8 +5,9 @@
  *
  * A row of program logos: every program_series term with episodes in scope (department ± URL filters), the program
  * with the newest episode first. A click on a logo shows that program's latest episodes in the grid of the posts
- * section (`grid_layout`, inc/section-grid.php). All panels are rendered; assets/js/program-tabs.js switches them and
- * scrolls the logo row. A program without a logo (term field `logo`) gets a placeholder tile with its name.
+ * section (`grid_layout`, inc/section-grid.php). All panels are rendered; assets/js/program-tabs.js switches them,
+ * scrolls the logo row and rotates the programs every `rotation_interval` seconds (default 5) until the visitor picks one.
+ * A program without a logo (term field `logo`) gets a placeholder tile with its name.
  */
 
 $department = $args['department'] ?? null;
@@ -16,11 +17,14 @@ if (!empty($section)) {
     $section_title = $section['section_title'] ?? '';
     $subtitle = $section['subtitle'] ?? '';
     $posts_limit = $section['posts_limit'] ?? 4;
+    $rotation_interval = $section['rotation_interval'] ?? null;
 } else {
     $section_title = get_sub_field('section_title');
     $subtitle = get_sub_field('subtitle');
     $posts_limit = get_sub_field('posts_limit') ?: 4;
+    $rotation_interval = get_sub_field('rotation_interval');
 }
+$rotation_interval = max(2, (int) ($rotation_interval ?: 5)); // seconds; rows saved before the field get the default
 $grid_layout = get_section_grid_layout($section);
 $episodes_per_program = max(1, get_section_grid_post_count($grid_layout, $posts_limit));
 $section_title = $section_title ?: __('Our programs', 'hello-elementor-child');
@@ -109,7 +113,8 @@ if ($has_tabs) {
 $uid = wp_unique_id('program-tabs-');
 ?>
 
-<section id="<?php echo esc_attr($uid); ?>" class="w-full px-margin-mobile lg:px-margin py-space-xl" data-program-tabs>
+<section id="<?php echo esc_attr($uid); ?>" class="relative w-full px-margin-mobile lg:px-margin py-space-xl" data-program-tabs
+    data-rotate="<?php echo esc_attr($rotation_interval * 1000); ?>">
     <div class="flex flex-col md:flex-row md:items-end justify-between gap-space-md mb-space-lg">
         <div class="flex flex-col gap-space-xs text-start">
             <div class="flex items-center gap-space-xs">
@@ -177,6 +182,10 @@ $uid = wp_unique_id('program-tabs-');
                         viewBox="0 0 12 24" aria-hidden="true">
                         <path d="M12 0 0 12l12 12v-7l-5-5 5-5z" fill="currentColor" />
                     </svg>
+
+                    <?php // Time left before the next program (filled by program-tabs.js while the programs rotate). ?>
+                    <span data-program-progress aria-hidden="true"
+                        class="pointer-events-none absolute inset-x-0 bottom-0 h-1 bg-primary [transform:scaleX(0)] ltr:origin-left rtl:origin-right"></span>
                 </button>
             <?php endforeach; ?>
         </div>

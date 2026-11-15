@@ -3514,6 +3514,10 @@ msgstr "إضافة إعلان"
 msgid "Rotation Interval (seconds)"
 msgstr "مدة عرض كل إعلان (بالثواني)"
 
+#: inc/acf-json-strings.php:78
+msgid "Seconds per program"
+msgstr "مدة عرض كل برنامج (بالثواني)"
+
 #. translators: %d: ad number
 #: template-parts/sections/ad_slider_section.php:77
 #, php-format
