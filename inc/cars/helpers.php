@@ -133,6 +133,23 @@ function car_origin_makes(WP_Term $origin): array
     return is_wp_error($makes) ? [] : car_visible_terms(car_sort_by_count($makes));
 }
 
+/**
+ * Every origin that has makes, with its number of makes, most cars first (the staging home page's order:
+ * سيارات يابانية first). @return array<int, array{0: WP_Term, 1: int}>
+ */
+function car_origins_with_makes(): array
+{
+    $origins = get_terms(['taxonomy' => 'car_origin', 'hide_empty' => false, 'orderby' => 'count', 'order' => 'DESC']);
+    $list = [];
+    foreach (is_wp_error($origins) ? [] : $origins as $origin) {
+        $makes = count(car_origin_makes($origin));
+        if ($makes) {
+            $list[] = [$origin, $makes];
+        }
+    }
+    return $list;
+}
+
 /** Models of a make, most cars first. @return WP_Term[] */
 function car_make_models(WP_Term $make): array
 {
@@ -547,6 +564,14 @@ function car_section_header(string $title, string $eyebrow = '', string $count =
             . '<span>' . esc_html($more_label) . '</span><i class="fas fa-angle-left" aria-hidden="true"></i></a>';
     }
     echo '</div>';
+}
+
+/** "Show more cars" button closing a section outside the directory: opens the car directory. */
+function car_more_cars_button(): void
+{
+    echo '<div class="mt-space-xl flex justify-center"><a href="' . esc_url(get_cars_archive_url()) . '"'
+        . ' class="inline-flex items-center justify-center rounded-full bg-primary px-6 py-3 text-sm font-bold text-white shadow-sm transition-all hover:opacity-90">'
+        . esc_html__('Show more cars', 'hello-elementor-child') . '</a></div>';
 }
 
 /** Dashed empty state. */

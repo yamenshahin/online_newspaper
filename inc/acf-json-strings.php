@@ -68,6 +68,7 @@ return [
     __('Show Top Brands', 'hello-elementor-child'),
     __('Brands Limit', 'hello-elementor-child'),
     __('Show Origins', 'hello-elementor-child'),
+    __('Car Brands by Origin Section', 'hello-elementor-child'),
     __('Ad Banner', 'hello-elementor-child'),
     __('Ad Image', 'hello-elementor-child'),
     __('Ad Link', 'hello-elementor-child'),

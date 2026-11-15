@@ -69,9 +69,10 @@ The built-in `category` and `post_tag` are unregistered for every post type.
 
 The `department_sections` field ("Department Layout Engine") is attached to **the front page** and to **every department term**. Each row renders `template-parts/sections/{layout}.php`:
 
-`hero_lead_section` · `posts_section` · `programs_section` · `program_tabs_section` · `program_series_section` · `infographics_section` · `interviews_section` · `videos_section` · `podcasts_section` · `speakers_section` · `geographic_section` · `filter_section` · `cars_section` · `social_section` · `ad_banner_section` · `ad_slider_section` · `ad_code_section`
+`hero_lead_section` · `posts_section` · `programs_section` · `program_tabs_section` · `program_series_section` · `infographics_section` · `interviews_section` · `videos_section` · `podcasts_section` · `speakers_section` · `geographic_section` · `filter_section` · `cars_section` · `car_home_section` · `car_origins_section` · `social_section` · `ad_banner_section` · `ad_slider_section` · `ad_code_section`
 
 - `program_tabs_section`: a row of program logos (Program Series field `logo`, or a placeholder with the name); a click shows that program's latest episodes in the posts section's grid (`grid_layout`). The program with the newest episode comes first. The programs rotate every `rotation_interval` seconds (default 5), paused while the mouse or focus is in the section or the logo row is off screen, and stop once the visitor picks a program or moves the row.
+- `car_origins_section`: the car brands by country of origin (flag tiles) with a button to the car directory; the same grid closes `car_home_section`. On the front page and every department except cars, last; skipped on entity archives.
 - `social_section` is hidden in the editor when you edit a regular page.
 - Section titles and subtitles defined on the homepage are reused as labels across the site (`get_dynamic_cpt_labels()`, `get_dynamic_taxonomy_labels()`), so UI strings aren't hardcoded.
 

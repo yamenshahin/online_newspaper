@@ -383,6 +383,7 @@ function get_term_archive_skip_layouts(): array
         'hero_lead_section',
         'speakers_section',
         'car_home_section',
+        'car_origins_section',
     ];
 }
 
