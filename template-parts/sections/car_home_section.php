@@ -47,11 +47,14 @@ $show_origins = $is_on($show_origins);
 
 $archive_url = car_directory_url();
 
-// Most-listed makes (published cars, desc) for the brands strip.
+// Most-listed makes (published cars, desc) for the brands strip; $makes_total for its "all brands" tile.
 $top_makes = [];
+$makes_total = 0;
 if ($show_brands) {
     $makes = get_terms(['taxonomy' => 'car_make', 'parent' => 0, 'hide_empty' => true]);
-    $top_makes = is_wp_error($makes) ? [] : array_slice(car_sort_by_count($makes), 0, $brands_limit);
+    $makes = is_wp_error($makes) ? [] : car_visible_terms($makes);
+    $makes_total = count($makes);
+    $top_makes = array_slice(car_sort_by_count($makes), 0, $brands_limit);
 }
 
 // Every origin that has makes, most cars first: [WP_Term $origin, WP_Term[] $makes].
@@ -141,8 +144,15 @@ $block_gap = ''; // mt-space-xl from the second visible block on
             <?php
             $block_header(__('Choose your brand to follow its news and cars', 'hello-elementor-child'));
             $tiles = array_map($make_tile, $top_makes);
-            // "all brands" jumps to the origin flags below (every make is one click further)
-            $tiles[] = car_text_tile($origin_blocks ? '#car-home-origins' : $archive_url,esc_html__('All of the', 'hello-elementor-child') . '<br>' . esc_html__('brands', 'hello-elementor-child'));
+            // "all brands" (same frameless tile as the makes) jumps to the origin flags below (every make is one click further)
+            $tiles[] = car_tile(
+                $origin_blocks ? '#car-home-origins' : $archive_url,
+                '<span class="flex size-12 items-center justify-center rounded-full bg-surface-container text-xl text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary"><i class="fas fa-table-cells-large" aria-hidden="true"></i></span>',
+                __('All brands', 'hello-elementor-child'),
+                n_makes($origin_blocks ? $origin_makes_total : $makes_total), // the number its target shows
+                '',
+                'car-tile-logo'
+            );
             car_grid($tiles, 'logos');
             $block_gap = ' mt-space-xl';
             ?>

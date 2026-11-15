@@ -1012,11 +1012,6 @@ article iframe {
         max-width: 7rem;
     }
 
-    .car-directory .car-tile-text {
-        min-height: 7.5rem;
-        line-height: 1.9;
-    }
-
     .car-directory .car-tile-badge {
         position: absolute;
         top: 0.5rem;

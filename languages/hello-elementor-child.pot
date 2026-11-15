@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-14T14:45:08+00:00\n"
+"POT-Creation-Date: 2026-11-15T09:55:58+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: hello-elementor-child\n"
@@ -1834,7 +1834,7 @@ msgid "Make"
 msgstr ""
 
 #: inc/cars.php:21
-#: inc/cars/helpers.php:1005
+#: inc/cars/helpers.php:993
 #: taxonomy-car_make.php:32
 msgid "Model"
 msgstr ""
@@ -1872,8 +1872,8 @@ msgstr ""
 
 #. translators: %s: model-year title
 #: inc/cars.php:36
-#: inc/cars/helpers.php:859
-#: inc/cars/helpers.php:1006
+#: inc/cars/helpers.php:847
+#: inc/cars/helpers.php:994
 #: single-car_model_year.php:96
 #: taxonomy-car_make.php:84
 msgid "Price"
@@ -2115,115 +2115,115 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: inc/cars/helpers.php:676
+#: inc/cars/helpers.php:664
 msgid "No price"
 msgstr ""
 
-#: inc/cars/helpers.php:697
+#: inc/cars/helpers.php:685
 msgid "Under"
 msgstr ""
 
-#: inc/cars/helpers.php:697
+#: inc/cars/helpers.php:685
 msgid "Over"
 msgstr ""
 
-#: inc/cars/helpers.php:719
+#: inc/cars/helpers.php:707
 msgid "thousand SAR"
 msgstr ""
 
-#: inc/cars/helpers.php:722
+#: inc/cars/helpers.php:710
 msgid "Coming soon"
 msgstr ""
 
-#: inc/cars/helpers.php:758
+#: inc/cars/helpers.php:746
 #: single-car_model_year.php:27
 msgid "Sub-family"
 msgstr ""
 
-#: inc/cars/helpers.php:833
+#: inc/cars/helpers.php:821
 msgid "Hide"
 msgstr ""
 
-#: inc/cars/helpers.php:833
+#: inc/cars/helpers.php:821
 msgid "...Read more"
 msgstr ""
 
-#: inc/cars/helpers.php:859
+#: inc/cars/helpers.php:847
 msgid "Price starts from"
 msgstr ""
 
-#: inc/cars/helpers.php:862
+#: inc/cars/helpers.php:850
 msgid "VAT included"
 msgstr ""
 
-#: inc/cars/helpers.php:862
+#: inc/cars/helpers.php:850
 msgid "Excluding VAT"
 msgstr ""
 
-#: inc/cars/helpers.php:864
+#: inc/cars/helpers.php:852
 msgid "No published price"
 msgstr ""
 
-#: inc/cars/helpers.php:868
+#: inc/cars/helpers.php:856
 msgid "Warranty:"
 msgstr ""
 
-#: inc/cars/helpers.php:904
-#: inc/cars/helpers.php:914
+#: inc/cars/helpers.php:892
+#: inc/cars/helpers.php:902
 msgid "View full size"
 msgstr ""
 
 #. translators: 1: photo number, 2: number of photos
-#: inc/cars/helpers.php:927
+#: inc/cars/helpers.php:915
 #, php-format
 msgid "Photo %1$d of %2$d"
 msgstr ""
 
 #. translators: %s: number of photos ("12 photos")
-#: inc/cars/helpers.php:933
+#: inc/cars/helpers.php:921
 #, php-format
 msgid "%s in the gallery - click a photo to view it full size"
 msgstr ""
 
-#: inc/cars/helpers.php:962
+#: inc/cars/helpers.php:950
 msgid "Price list"
 msgstr ""
 
-#: inc/cars/helpers.php:1005
+#: inc/cars/helpers.php:993
 msgid "Lowest price"
 msgstr ""
 
-#: inc/cars/helpers.php:1005
+#: inc/cars/helpers.php:993
 msgid "Highest price"
 msgstr ""
 
 #. translators: %s: model-year title
-#: inc/cars/helpers.php:1006
+#: inc/cars/helpers.php:994
 #: single-car_model_year.php:96
 #: taxonomy-car_make.php:84
 msgid "Trim"
 msgstr ""
 
-#: inc/cars/helpers.php:1007
+#: inc/cars/helpers.php:995
 msgid "Latest price list"
 msgstr ""
 
 #. translators: %s: model name
-#: inc/cars/helpers.php:1097
+#: inc/cars/helpers.php:1085
 #, php-format
 msgid "Other trims of %s"
 msgstr ""
 
 #. translators: %s: model name
-#: inc/cars/helpers.php:1097
+#: inc/cars/helpers.php:1085
 msgid "the model"
 msgstr ""
 
-#: inc/cars/helpers.php:1098
+#: inc/cars/helpers.php:1086
 msgid "Rival cars"
 msgstr ""
 
-#: inc/cars/helpers.php:1105
+#: inc/cars/helpers.php:1093
 #: template-parts/related/related-content.php:16
 msgid "You may also like"
 msgstr ""
@@ -3336,35 +3336,31 @@ msgctxt "cars"
 msgid "Loading…"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:116
+#: template-parts/sections/car_home_section.php:119
 msgid "All cars"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:122
+#: template-parts/sections/car_home_section.php:125
 msgid "Shop by budget"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:132
+#: template-parts/sections/car_home_section.php:135
 msgid "Choose your car by shape"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:142
+#: template-parts/sections/car_home_section.php:145
 msgid "Choose your brand to follow its news and cars"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:145
-msgid "All of the"
+#: template-parts/sections/car_home_section.php:151
+msgid "All brands"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:145
-msgid "brands"
-msgstr ""
-
-#: template-parts/sections/car_home_section.php:155
+#: template-parts/sections/car_home_section.php:165
 msgid "All brands by country of origin"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:166
+#: template-parts/sections/car_home_section.php:176
 msgid "Show more cars"
 msgstr ""
 
