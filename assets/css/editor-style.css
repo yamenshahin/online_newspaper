@@ -1,0 +1,28 @@
+/*
+ * Classic Editor (Visual tab) only, loaded with add_editor_style() in functions.php.
+ * FAQ items (<details class="faq-item">, see `wp faq convert`) are collapsed on the site; a closed <details> would
+ * hide its answer in the editor too, so here they are shown open and outlined. Site styles: src/input.css.
+ */
+.faq-item {
+    display: block;
+    margin: 1em 0;
+    padding: .5em 1em;
+    border: 1px dashed #057338;
+    border-radius: 8px;
+}
+
+.faq-item::details-content {
+    content-visibility: visible;
+    display: block;
+}
+
+.faq-item > summary {
+    display: block;
+    margin-bottom: .5em;
+    font-weight: 700;
+    cursor: text;
+}
+
+.faq-answer {
+    display: block;
+}
