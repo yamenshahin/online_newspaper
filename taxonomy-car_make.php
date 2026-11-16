@@ -33,6 +33,7 @@ $title = $term ? car_term_title($term) : '';
     car_description($term->description);
 
     $links = []; // name in the stored price list => our page
+    $currencies = []; // model page: name in the stored price list => its trim's currency
     $latest_posts = []; // model page: the model-year posts of the newest year
     if ($is_model) {
         $tiles = car_model_year_tiles($term);
@@ -53,6 +54,7 @@ $title = $term ? car_term_title($term) : '';
                 $name = (string) get_field('trim_name', $car->ID);
                 if ($name !== '' && !isset($links[$name])) {
                     $links[$name] = get_permalink($car);
+                    $currencies[$name] = car_currency($car->ID);
                 }
             }
         }
@@ -69,7 +71,7 @@ $title = $term ? car_term_title($term) : '';
 
     // price list: the stored one, or (model page) the newest year's trims from our own data
     ob_start();
-    car_term_price_table($term, $links);
+    car_term_price_table($term, $links, $currencies);
     $table = ob_get_clean();
     if ($table === '' && $latest_posts) {
         $rows = [];

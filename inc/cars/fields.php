@@ -45,11 +45,14 @@ final class Car_Spec_Renderer
     private $object_id;
     private string $section_label = '';
     private int $thumb_index = 0;
+    /** Currency of the car's `price` fields (its price, its price-table rows): car_currency(). */
+    private string $currency;
 
     /** @param int|string $object_id post id or "term_{id}" */
     public function __construct($object_id)
     {
         $this->object_id = $object_id;
+        $this->currency = is_numeric($object_id) ? car_currency((int) $object_id) : 'SAR';
     }
 
     /**
@@ -315,6 +318,10 @@ final class Car_Spec_Renderer
             case 'number':
                 if (!is_numeric($v)) {
                     return '';
+                }
+                if ($f['name'] === 'price') {
+                    // in the car's own currency, not the riyal the ACF field appends
+                    return esc_html(format_price($v, $this->currency));
                 }
                 return '<span class="car-ltr">' . esc_html(format_number($v)) . '</span>'
                     . (!empty($f['append']) ? ' <span class="text-body-sm text-on-surface-variant">' . esc_html($f['append']) . '</span>' : '');

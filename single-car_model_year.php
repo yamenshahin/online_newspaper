@@ -31,24 +31,28 @@ while (have_posts()):
     $tiles = car_year_tiles($year_id);
     $pics = car_gallery_images($year_id);
 
-    // Price range of the year (price_min / price_max): the trims' currency, SAR when there are none.
+    // Price range of the year (price_min / price_max) in the currency of its priced trims (of its first trim
+    // when none has a price, SAR when it has no trims).
     $price_min = get_field('price_min', $year_id);
     $price_max = get_field('price_max', $year_id);
-    $in_usd = $trims && get_post_meta($trims[0]->ID, 'price_currency', true) === 'USD';
-    $format_price = static fn($n): string => $in_usd ? format_usd($n) : format_sar($n);
+    $priced = array_values(array_filter($trims, static fn(WP_Post $car): bool => (float) get_post_meta($car->ID, 'price', true) > 0)) ?: $trims;
+    $currency = $priced ? car_currency($priced[0]->ID) : 'SAR';
     $price_range = '';
     if (is_numeric($price_min) && $price_min > 0 && is_numeric($price_max) && $price_max > $price_min) {
-        $price_range = car_pill(format_number($price_min) . ' – ' . $format_price($price_max), '', 'primary', __('Prices from', 'hello-elementor-child'));
+        $price_range = car_pill(format_number($price_min) . ' – ' . format_price($price_max, $currency), '', 'primary', __('Prices from', 'hello-elementor-child'));
     } elseif (is_numeric($price_min) && $price_min > 0) {
-        $price_range = car_pill($format_price($price_min), '', 'primary', __('Starts from', 'hello-elementor-child'));
+        $price_range = car_pill(format_price($price_min, $currency), '', 'primary', __('Starts from', 'hello-elementor-child'));
     }
 
-    // Trim price table: the trims themselves (linked); the hub's own price_table when no trim has a price.
+    // Trim price table: the trims themselves (linked); the hub's own price_table when no trim has a price,
+    // each row in the currency of the trim it names.
     $price_rows = [];
     $trim_urls = [];
+    $trim_currencies = [];
     foreach ($trims as $car) {
         $trim_name = (string) get_field('trim_name', $car->ID) ?: get_the_title($car);
         $trim_urls[$trim_name] = get_permalink($car);
+        $trim_currencies[$trim_name] = car_currency($car->ID);
         $price_rows[] = [$trim_name, $trim_urls[$trim_name], car_price_cell($car->ID)];
     }
     if (!array_filter(array_map(static fn($r) => $r[2][0], $price_rows))) {
@@ -56,7 +60,7 @@ while (have_posts()):
         foreach ((array) get_field('price_table', $year_id) as $r) {
             $trim_name = is_array($r) ? trim((string) ($r['trim_name'] ?? '')) : '';
             if ($trim_name !== '' && is_numeric($r['price'] ?? null) && $r['price'] > 0) {
-                $price_rows[] = [$trim_name, $trim_urls[$trim_name] ?? '', $r['price'] + 0];
+                $price_rows[] = [$trim_name, $trim_urls[$trim_name] ?? '', [$r['price'] + 0, format_price($r['price'], $trim_currencies[$trim_name] ?? $currency)]];
             }
         }
     }
