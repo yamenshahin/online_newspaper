@@ -3120,6 +3120,10 @@ msgstr "العلامات التجارية"
 msgid "This origin has no brands yet."
 msgstr "لا توجد علامات تجارية لهذا المنشأ بعد."
 
+#: car-brands.php:31
+msgid "No brands yet."
+msgstr "لا توجد علامات تجارية بعد."
+
 #: taxonomy-car_origin.php:28
 msgid "This origin does not exist."
 msgstr "هذا المنشأ غير موجود."

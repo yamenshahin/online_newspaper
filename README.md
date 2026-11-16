@@ -108,6 +108,7 @@ Each taxonomy's term map (id, name, parent, link, normalized name) is cached in 
 - Taxonomy facets, numeric range filters (`price`, `power`, `torque`, `engine`, `seats`), exact-match text filters (`transmission`, `drive`), plus a text search.
 - Filters live in the URL as GET parameters. `assets/js/filters.js` updates the results over AJAX, without a full page reload.
 - The `cars` department term (slug `cars`) supplies the logo and accent color for all car screens.
+- Virtual pages (routed in `inc/cars/directory.php`, the main query stays the car archive): `/car-directory/prices/<range>/` (`price-range.php`) and `/car-directory/brands/` (`car-brands.php`: every brand grouped by origin, opened by the «كل العلامات» tile).
 
 ### Site search (`inc/site-search.php`)
 

@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-15T10:56:50+00:00\n"
+"POT-Creation-Date: 2026-11-16T04:17:17+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: hello-elementor-child\n"
@@ -67,8 +67,9 @@ msgstr ""
 #. translators: %d: page number
 #: archive-car.php:14
 #: archive-car.php:21
-#: inc/cars/directory.php:338
-#: inc/cars/helpers.php:493
+#: car-brands.php:28
+#: inc/cars/directory.php:348
+#: inc/cars/helpers.php:519
 #: template-parts/sections/cars_section.php:22
 #: template-parts/sections/car_home_section.php:40
 #: template-parts/sections/car_origins_section.php:24
@@ -77,6 +78,20 @@ msgstr ""
 
 #: archive-car.php:15
 msgid "Find your car by make, model, year, price and specifications"
+msgstr ""
+
+#: car-brands.php:9
+#: template-parts/sections/car_origins_section.php:25
+msgid "All car brands by country of origin"
+msgstr ""
+
+#: car-brands.php:27
+#: template-parts/sections/car_home_section.php:126
+msgid "All brands"
+msgstr ""
+
+#: car-brands.php:31
+msgid "No brands yet."
 msgstr ""
 
 #: front-page.php:43
@@ -109,7 +124,7 @@ msgstr ""
 
 #. translators: %s: model-year title
 #: functions.php:187
-#: single-car_model_year.php:104
+#: single-car_model_year.php:108
 msgid "Photo gallery"
 msgstr ""
 
@@ -1843,7 +1858,7 @@ msgid "Make"
 msgstr ""
 
 #: inc/cars.php:21
-#: inc/cars/helpers.php:1018
+#: inc/cars/helpers.php:1069
 #: taxonomy-car_make.php:32
 msgid "Model"
 msgstr ""
@@ -1853,7 +1868,7 @@ msgid "Year"
 msgstr ""
 
 #: inc/cars.php:23
-#: inc/cars/directory.php:33
+#: inc/cars/directory.php:34
 msgid "Origin"
 msgstr ""
 
@@ -1874,22 +1889,21 @@ msgid "Drivetrain"
 msgstr ""
 
 #: inc/cars.php:28
-#: inc/cars/directory.php:39
+#: inc/cars/directory.php:40
 #: single-car.php:72
 msgid "Features"
 msgstr ""
 
 #. translators: %s: model-year title
 #: inc/cars.php:36
-#: inc/cars/helpers.php:872
-#: inc/cars/helpers.php:1019
-#: single-car_model_year.php:96
-#: taxonomy-car_make.php:84
+#: inc/cars/helpers.php:915
+#: inc/cars/helpers.php:1070
+#: single-car_model_year.php:100
+#: taxonomy-car_make.php:86
 msgid "Price"
 msgstr ""
 
 #: inc/cars.php:36
-#: inc/cars.php:413
 msgid "SAR"
 msgstr ""
 
@@ -1922,7 +1936,7 @@ msgid "Seats"
 msgstr ""
 
 #. translators: %s: number of matching cars
-#: inc/cars.php:376
+#: inc/cars.php:380
 #, php-format
 msgid "%s matching car"
 msgid_plural "%s matching cars"
@@ -1930,133 +1944,133 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: 1: facet label, 2: minimum, 3: maximum
-#: inc/cars.php:396
+#: inc/cars.php:400
 #, php-format
 msgid "%1$s: from %2$s to %3$s"
 msgstr ""
 
 #. translators: 1: facet label, 2: minimum
-#: inc/cars.php:400
+#: inc/cars.php:404
 #, php-format
 msgid "%1$s: from %2$s"
 msgstr ""
 
 #. translators: 1: facet label, 2: maximum
-#: inc/cars.php:403
+#: inc/cars.php:407
 #, php-format
 msgid "%1$s: up to %2$s"
 msgstr ""
 
 #. translators: %s: price
-#: inc/cars.php:416
+#: inc/cars.php:419
 #, php-format
 msgid "Starting from %s"
 msgstr ""
 
-#: inc/cars.php:476
+#: inc/cars.php:479
 #: template-parts/profiles/filter-departments-nav.php:39
 msgid "All"
 msgstr ""
 
-#: inc/cars.php:477
+#: inc/cars.php:480
 msgid "Choose a make first"
 msgstr ""
 
-#: inc/cars/directory.php:32
+#: inc/cars/directory.php:33
 msgid "Brands and models"
 msgstr ""
 
-#: inc/cars/directory.php:34
+#: inc/cars/directory.php:35
 msgid "Model years"
 msgstr ""
 
-#: inc/cars/directory.php:35
+#: inc/cars/directory.php:36
 msgid "Body types"
 msgstr ""
 
-#: inc/cars/directory.php:36
+#: inc/cars/directory.php:37
 msgid "Fuel types"
 msgstr ""
 
-#: inc/cars/directory.php:37
+#: inc/cars/directory.php:38
 msgid "Transmission types"
 msgstr ""
 
-#: inc/cars/directory.php:38
+#: inc/cars/directory.php:39
 msgid "Drivetrains"
 msgstr ""
 
 #. translators: %s: amount in thousands ("50 ألف")
-#: inc/cars/directory.php:54
+#: inc/cars/directory.php:55
 #, php-format
 msgid "Under %s"
 msgstr ""
 
 #. translators: 1: lower amount, 2: upper amount ("50 ألف", "100 ألف")
-#: inc/cars/directory.php:57
+#: inc/cars/directory.php:58
 #, php-format
 msgid "%1$s to %2$s"
 msgstr ""
 
 #. translators: %s: amount in thousands ("400 ألف")
-#: inc/cars/directory.php:61
+#: inc/cars/directory.php:62
 #, php-format
 msgid "Over %s"
 msgstr ""
 
 #. translators: %s: number of thousands
-#: inc/cars/directory.php:69
+#: inc/cars/directory.php:70
 #, php-format
 msgid "%s thousand"
 msgstr ""
 
 #. translators: %d: page number
-#: inc/cars/directory.php:338
+#: inc/cars/directory.php:348
 #: price-range.php:21
 #, php-format
 msgid "Page %d"
 msgstr ""
 
-#: inc/cars/fields.php:84
+#: inc/cars/fields.php:87
 msgid "General"
 msgstr ""
 
-#: inc/cars/fields.php:135
+#: inc/cars/fields.php:138
 msgid "Specification sections"
 msgstr ""
 
-#: inc/cars/fields.php:313
+#: inc/cars/fields.php:316
 msgid "Yes"
 msgstr ""
 
-#: inc/cars/fields.php:314
+#: inc/cars/fields.php:317
 msgid "No"
 msgstr ""
 
-#: inc/cars/fields.php:328
-#: inc/cars/fields.php:352
+#: inc/cars/fields.php:335
+#: inc/cars/fields.php:359
 msgctxt "list separator"
 msgid ", "
 msgstr ""
 
-#: inc/cars/fields.php:397
+#: inc/cars/fields.php:404
 msgid "Review video"
 msgstr ""
 
 #. translators: %s: amount
-#: inc/cars/helpers.php:394
+#: inc/cars/helpers.php:391
 #, php-format
 msgid "%s SAR"
 msgstr ""
 
 #. translators: %s: amount
-#: inc/cars/helpers.php:401
+#: inc/cars/helpers.php:398
 #, php-format
 msgid "%s US dollars"
 msgstr ""
 
 #. translators: %s: number of cars
-#: inc/cars/helpers.php:420
+#: inc/cars/helpers.php:446
 #, php-format
 msgid "%s car"
 msgid_plural "%s cars"
@@ -2064,7 +2078,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of models
-#: inc/cars/helpers.php:426
+#: inc/cars/helpers.php:452
 #, php-format
 msgid "%s model"
 msgid_plural "%s models"
@@ -2072,7 +2086,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of brands
-#: inc/cars/helpers.php:432
+#: inc/cars/helpers.php:458
 #, php-format
 msgid "%s brand"
 msgid_plural "%s brands"
@@ -2080,7 +2094,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of trims
-#: inc/cars/helpers.php:438
+#: inc/cars/helpers.php:464
 #, php-format
 msgid "%s trim"
 msgid_plural "%s trims"
@@ -2088,7 +2102,7 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of model years
-#: inc/cars/helpers.php:444
+#: inc/cars/helpers.php:470
 #, php-format
 msgid "%s model year"
 msgid_plural "%s model years"
@@ -2096,24 +2110,24 @@ msgstr[0] ""
 msgstr[1] ""
 
 #. translators: %s: number of photos
-#: inc/cars/helpers.php:450
+#: inc/cars/helpers.php:476
 #, php-format
 msgid "%s photo"
 msgid_plural "%s photos"
 msgstr[0] ""
 msgstr[1] ""
 
-#: inc/cars/helpers.php:493
+#: inc/cars/helpers.php:519
 #: search.php:46
 #: template-parts/archive/cpt-loop.php:113
 msgid "Home"
 msgstr ""
 
-#: inc/cars/helpers.php:495
+#: inc/cars/helpers.php:521
 msgid "Breadcrumb"
 msgstr ""
 
-#: inc/cars/helpers.php:549
+#: inc/cars/helpers.php:575
 #: template-parts/sections/infographics_section.php:95
 #: template-parts/sections/interviews_section.php:97
 #: template-parts/sections/podcasts_section.php:99
@@ -2124,119 +2138,119 @@ msgstr ""
 msgid "More"
 msgstr ""
 
-#: inc/cars/helpers.php:574
+#: inc/cars/helpers.php:600
 msgid "Show more cars"
 msgstr ""
 
-#: inc/cars/helpers.php:689
+#: inc/cars/helpers.php:732
 msgid "No price"
 msgstr ""
 
-#: inc/cars/helpers.php:710
+#: inc/cars/helpers.php:753
 msgid "Under"
 msgstr ""
 
-#: inc/cars/helpers.php:710
+#: inc/cars/helpers.php:753
 msgid "Over"
 msgstr ""
 
-#: inc/cars/helpers.php:732
+#: inc/cars/helpers.php:775
 msgid "thousand SAR"
 msgstr ""
 
-#: inc/cars/helpers.php:735
+#: inc/cars/helpers.php:778
 msgid "Coming soon"
 msgstr ""
 
-#: inc/cars/helpers.php:771
+#: inc/cars/helpers.php:814
 #: single-car_model_year.php:27
 msgid "Sub-family"
 msgstr ""
 
-#: inc/cars/helpers.php:846
+#: inc/cars/helpers.php:889
 msgid "Hide"
 msgstr ""
 
-#: inc/cars/helpers.php:846
+#: inc/cars/helpers.php:889
 msgid "...Read more"
 msgstr ""
 
-#: inc/cars/helpers.php:872
+#: inc/cars/helpers.php:915
 msgid "Price starts from"
 msgstr ""
 
-#: inc/cars/helpers.php:875
+#: inc/cars/helpers.php:918
 msgid "VAT included"
 msgstr ""
 
-#: inc/cars/helpers.php:875
+#: inc/cars/helpers.php:918
 msgid "Excluding VAT"
 msgstr ""
 
-#: inc/cars/helpers.php:877
+#: inc/cars/helpers.php:920
 msgid "No published price"
 msgstr ""
 
-#: inc/cars/helpers.php:881
+#: inc/cars/helpers.php:924
 msgid "Warranty:"
 msgstr ""
 
-#: inc/cars/helpers.php:917
-#: inc/cars/helpers.php:927
+#: inc/cars/helpers.php:960
+#: inc/cars/helpers.php:970
 msgid "View full size"
 msgstr ""
 
 #. translators: 1: photo number, 2: number of photos
-#: inc/cars/helpers.php:940
+#: inc/cars/helpers.php:983
 #, php-format
 msgid "Photo %1$d of %2$d"
 msgstr ""
 
 #. translators: %s: number of photos ("12 photos")
-#: inc/cars/helpers.php:946
+#: inc/cars/helpers.php:989
 #, php-format
 msgid "%s in the gallery - click a photo to view it full size"
 msgstr ""
 
-#: inc/cars/helpers.php:975
+#: inc/cars/helpers.php:1018
 msgid "Price list"
 msgstr ""
 
-#: inc/cars/helpers.php:1018
+#: inc/cars/helpers.php:1069
 msgid "Lowest price"
 msgstr ""
 
-#: inc/cars/helpers.php:1018
+#: inc/cars/helpers.php:1069
 msgid "Highest price"
 msgstr ""
 
 #. translators: %s: model-year title
-#: inc/cars/helpers.php:1019
-#: single-car_model_year.php:96
-#: taxonomy-car_make.php:84
+#: inc/cars/helpers.php:1070
+#: single-car_model_year.php:100
+#: taxonomy-car_make.php:86
 msgid "Trim"
 msgstr ""
 
-#: inc/cars/helpers.php:1020
+#: inc/cars/helpers.php:1071
 msgid "Latest price list"
 msgstr ""
 
 #. translators: %s: model name
-#: inc/cars/helpers.php:1110
+#: inc/cars/helpers.php:1161
 #, php-format
 msgid "Other trims of %s"
 msgstr ""
 
 #. translators: %s: model name
-#: inc/cars/helpers.php:1110
+#: inc/cars/helpers.php:1161
 msgid "the model"
 msgstr ""
 
-#: inc/cars/helpers.php:1111
+#: inc/cars/helpers.php:1162
 msgid "Rival cars"
 msgstr ""
 
-#: inc/cars/helpers.php:1118
+#: inc/cars/helpers.php:1169
 #: template-parts/related/related-content.php:16
 msgid "You may also like"
 msgstr ""
@@ -2993,38 +3007,38 @@ msgstr ""
 msgid "Model year %s"
 msgstr ""
 
-#: single-car_model_year.php:41
+#: single-car_model_year.php:42
 msgid "Prices from"
 msgstr ""
 
-#: single-car_model_year.php:43
+#: single-car_model_year.php:44
 msgid "Starts from"
 msgstr ""
 
 #. translators: %s: model-year title
-#: single-car_model_year.php:85
+#: single-car_model_year.php:89
 #, php-format
 msgid "%s trims"
 msgstr ""
 
 #. translators: %s: model-year title
-#: single-car_model_year.php:85
+#: single-car_model_year.php:89
 msgid "Choose a trim"
 msgstr ""
 
-#: single-car_model_year.php:89
+#: single-car_model_year.php:93
 msgid "No trims are linked to this year."
 msgstr ""
 
 #. translators: %s: model-year title
-#: single-car_model_year.php:96
-#: taxonomy-car_make.php:84
+#: single-car_model_year.php:100
+#: taxonomy-car_make.php:86
 #, php-format
 msgid "%s prices"
 msgstr ""
 
 #. translators: %s: model-year title
-#: single-car_model_year.php:104
+#: single-car_model_year.php:108
 #, php-format
 msgid "%s photos"
 msgstr ""
@@ -3103,22 +3117,22 @@ msgid "Brand"
 msgstr ""
 
 #. translators: %s: brand or model name
-#: taxonomy-car_make.php:40
-#: taxonomy-car_make.php:62
+#: taxonomy-car_make.php:41
+#: taxonomy-car_make.php:64
 #, php-format
 msgid "Choose from the %s cars"
 msgstr ""
 
-#: taxonomy-car_make.php:41
+#: taxonomy-car_make.php:42
 msgid "This model has no model years yet."
 msgstr ""
 
 #. translators: %s: brand or model name
-#: taxonomy-car_make.php:62
+#: taxonomy-car_make.php:64
 msgid "Models"
 msgstr ""
 
-#: taxonomy-car_make.php:63
+#: taxonomy-car_make.php:65
 msgid "This brand has no models yet."
 msgstr ""
 
@@ -3349,32 +3363,24 @@ msgctxt "cars"
 msgid "Loading…"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:108
+#: template-parts/sections/car_home_section.php:94
 msgid "All cars"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:114
+#: template-parts/sections/car_home_section.php:100
 msgid "Shop by budget"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:124
+#: template-parts/sections/car_home_section.php:110
 msgid "Choose your car by shape"
 msgstr ""
 
-#: template-parts/sections/car_home_section.php:134
+#: template-parts/sections/car_home_section.php:120
 msgid "Choose your brand to follow its news and cars"
 msgstr ""
 
 #: template-parts/sections/car_home_section.php:140
-msgid "All brands"
-msgstr ""
-
-#: template-parts/sections/car_home_section.php:154
 msgid "All brands by country of origin"
-msgstr ""
-
-#: template-parts/sections/car_origins_section.php:25
-msgid "All car brands by country of origin"
 msgstr ""
 
 #: template-parts/sections/geographic_section.php:15
