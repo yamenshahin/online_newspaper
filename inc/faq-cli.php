@@ -102,7 +102,18 @@ final class Faq_Convert_CLI
             return;
         }
 
-        // Back up everything first, then write.
+        $done = self::write_with_backup($changes, $backup);
+        WP_CLI::success("Converted {$done} posts. Backup: {$backup}");
+    }
+
+    /**
+     * Back up the original content of every post in $changes (ID => [old, new]) to a JSON-lines file, then write the
+     * new content with direct SQL (post_modified kept, no save hooks). Returns the number written.
+     * Also used by `wp program-tweet embed`; `restore` reads the same format.
+     */
+    public static function write_with_backup(array $changes, string $backup): int
+    {
+        global $wpdb;
         $fh = fopen($backup, 'x');
         if (!$fh) {
             WP_CLI::error("Can't create {$backup}");
@@ -121,11 +132,11 @@ final class Faq_Convert_CLI
             clean_post_cache($id);
             $done++;
         }
-        WP_CLI::success("Converted {$done} posts. Backup: {$backup}");
+        return $done;
     }
 
     /**
-     * Put back the content saved by `wp faq convert --backup`.
+     * Put back the content saved by `wp faq convert --backup` (or `wp program-tweet embed --backup`).
      *
      * ## OPTIONS
      *
