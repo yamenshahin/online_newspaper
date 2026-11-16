@@ -47,19 +47,18 @@ $show_origins = $is_on($show_origins);
 
 $archive_url = car_directory_url();
 
-// Most-listed makes (published cars, desc) for the brands strip; $makes_total for its "all brands" tile.
+// Most-listed makes (published cars, desc) for the brands strip.
 $top_makes = [];
-$makes_total = 0;
 if ($show_brands) {
     $makes = get_terms(['taxonomy' => 'car_make', 'parent' => 0, 'hide_empty' => true]);
-    $makes = is_wp_error($makes) ? [] : car_visible_terms($makes);
-    $makes_total = count($makes);
-    $top_makes = array_slice(car_sort_by_count($makes), 0, $brands_limit);
+    $top_makes = is_wp_error($makes) ? [] : array_slice(car_sort_by_count(car_visible_terms($makes)), 0, $brands_limit);
 }
 
 // Every origin that has makes, most cars first: [WP_Term $origin, int $makes] (also a section of its own: car_origins_section).
-$origin_blocks = $show_origins ? car_origins_with_makes() : [];
-$origin_makes_total = array_sum(array_column($origin_blocks, 1));
+// Their total is the brand count of the "all brands" tile and of the all-brands page it opens (car-brands.php).
+$all_origins = $show_brands || $show_origins ? car_origins_with_makes() : [];
+$brands_total = array_sum(array_column($all_origins, 1));
+$origin_blocks = $show_origins ? $all_origins : [];
 
 if (!$show_budget && !$show_body_types && !$top_makes && !$origin_blocks) {
     return;
@@ -83,19 +82,6 @@ $block_header = static function (string $title, string $count = '', string $more
             . '<span>' . esc_html($more_label) . '</span><i class="fas fa-angle-left" aria-hidden="true"></i></a>';
     }
     echo '</div>';
-};
-
-/** Frameless logo tile of a make, its car count under the name (placeholder until the logos are uploaded). */
-$make_tile = static function (WP_Term $make): string {
-    $count = car_term_count($make);
-    return car_tile(
-        car_term_url($make),
-        car_img(car_term_image_url($make), $make->name, 'car-tile-pic'),
-        $make->name,
-        $count > 0 ? n_cars($count) : '',
-        '',
-        'car-tile-logo'
-    );
 };
 
 $block_gap = ''; // mt-space-xl from the second visible block on
@@ -132,13 +118,13 @@ $block_gap = ''; // mt-space-xl from the second visible block on
         <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
             $block_header(__('Choose your brand to follow its news and cars', 'hello-elementor-child'));
-            $tiles = array_map($make_tile, $top_makes);
-            // "all brands" (same frameless tile as the makes) jumps to the origin flags below (every make is one click further)
+            $tiles = array_map('car_make_tile', $top_makes);
+            // "all brands" (same frameless tile as the makes) opens the all-brands page: every make, grouped by origin
             $tiles[] = car_tile(
-                $origin_blocks ? '#car-home-origins' : $archive_url,
+                car_brands_url(),
                 '<span class="flex size-12 items-center justify-center rounded-full bg-surface-container text-xl text-primary transition-colors group-hover:bg-primary group-hover:text-on-primary"><i class="fas fa-table-cells-large" aria-hidden="true"></i></span>',
                 __('All brands', 'hello-elementor-child'),
-                n_makes($origin_blocks ? $origin_makes_total : $makes_total), // the number its target shows
+                n_makes($brands_total),
                 '',
                 'car-tile-logo'
             );
@@ -149,9 +135,9 @@ $block_gap = ''; // mt-space-xl from the second visible block on
     <?php endif; ?>
 
     <?php if ($origin_blocks): ?>
-        <div class="car-home-block scroll-mt-6<?php echo esc_attr($block_gap); ?>" id="car-home-origins">
+        <div class="car-home-block<?php echo esc_attr($block_gap); ?>">
             <?php
-            $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($origin_makes_total));
+            $block_header(__('All brands by country of origin', 'hello-elementor-child'), n_makes($brands_total));
             // one flag per origin; its page lists the makes
             car_grid(array_map(static fn(array $block): string => car_origin_tile($block[0], $block[1]), $origin_blocks));
             ?>

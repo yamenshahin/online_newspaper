@@ -10,6 +10,7 @@
  *   /car-directory/japanese-cars/toyota/camry/2026-camry/<trim>/ car (trim)
  *   /car-directory/car-types/sedan/                              body_type (rewrite slug, ACF JSON)
  *   /car-directory/prices/less-than-50k/                         price range (virtual, query var car_price)
+ *   /car-directory/brands/                                       all brands by origin (virtual, query var car_brands)
  *
  * Every car / model-year post and every car_origin / car_make term stores its path (without the base)
  * in the `_car_path` meta; `wp cars paths` rebuilds them after an import. The post types,
@@ -74,12 +75,19 @@ function car_price_range_url(string $slug): string
     return car_directory_url("prices/{$slug}");
 }
 
+/** The all-brands page (car-brands.php): every make, grouped by origin. */
+function car_brands_url(): string
+{
+    return car_directory_url('brands');
+}
+
 // ---------------------------------------------------------------------------
 // Resolve
 // ---------------------------------------------------------------------------
 
 add_filter('query_vars', function (array $vars): array {
     $vars[] = 'car_price';
+    $vars[] = 'car_brands';
     return $vars;
 });
 
@@ -101,6 +109,9 @@ function route_car_directory_request(array $qv): array
     }
     if (preg_match('#^prices/([a-z0-9-]+)$#', $path, $m) && isset(car_price_ranges()[$m[1]])) {
         return ['car_price' => $m[1], 'post_type' => 'car', 'paged' => max(1, $paged)];
+    }
+    if ($path === 'brands' && !$paged) { // one page, no /page/N/
+        return ['car_brands' => 1, 'post_type' => 'car'];
     }
     $hit = lookup_car_path($path);
     if (!$hit) {
@@ -152,15 +163,14 @@ function lookup_car_path(string $path): ?array
     return null;
 }
 
-// price-range pages render price-range.php when the theme has it
+// price-range pages render price-range.php, the all-brands page car-brands.php, when the theme has them
 add_filter('template_include', function (string $template): string {
-    if (get_query_var('car_price') && !is_admin()) {
-        $found = locate_template('price-range.php');
-        if ($found) {
-            return $found;
-        }
+    if (is_admin()) {
+        return $template;
     }
-    return $template;
+    $page = get_query_var('car_price') ? 'price-range.php' : (get_query_var('car_brands') ? 'car-brands.php' : '');
+    $found = $page !== '' ? locate_template($page) : '';
+    return $found ?: $template;
 }, 20);
 
 // ---------------------------------------------------------------------------
@@ -330,7 +340,7 @@ add_action('template_redirect', function (): void {
 /** Document title of the directory's front door (the car archive), without WordPress' "Archive" suffix. */
 function car_directory_archive_title(string $title): string
 {
-    if (!is_post_type_archive('car') || get_query_var('car_price')) {
+    if (!is_post_type_archive('car') || get_query_var('car_price') || get_query_var('car_brands')) {
         return $title;
     }
     $paged = max(1, (int) get_query_var('paged'));
