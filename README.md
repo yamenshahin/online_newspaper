@@ -61,6 +61,8 @@ ID-based permalinks are registered in `functions.php` (rewrite rules + `post_lin
 
 The built-in `category` and `post_tag` are unregistered for every post type.
 
+FAQs in post content are plain HTML: `<details class="faq-item"><summary>Question</summary><div class="faq-answer">Answer</div></details>`, collapsed on the site (styles in `src/input.css`) and shown open in the Classic Editor (`assets/css/editor-style.css`). Write new ones the same way in the Text tab. The old theme's `[jnews_faq]` / `[faq_item]` shortcodes were converted with `wp faq convert --backup=<file>` (`inc/faq-cli.php`; `--dry-run` to preview, `wp faq restore <file>` to undo).
+
 ---
 
 ## How Pages Are Built

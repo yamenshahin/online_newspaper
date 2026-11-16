@@ -23,6 +23,7 @@ require_once $theme_inc . '/cars/fields.php'; // car directory: Car_Spec_Rendere
 require_once get_stylesheet_directory() . '/inc/cars.php';
 if (defined('WP_CLI') && WP_CLI) {
 	require_once $theme_inc . '/cars/cli.php'; // wp cars purge | import-pack | apply-keep | paths
+	require_once $theme_inc . '/faq-cli.php';  // wp faq convert | restore: old FAQ shortcodes → <details class="faq-item">
 }
 require_once $theme_inc . '/site-search.php';
 require_once $theme_inc . '/related-content.php';
@@ -36,6 +37,8 @@ require_once $theme_inc . '/submissions/notifications.php'; // entity submission
 // Translations: languages/{locale}.mo (source strings are English, the Arabic site uses ar.mo).
 add_action('after_setup_theme', function () {
 	load_child_theme_textdomain('hello-elementor-child', get_stylesheet_directory() . '/languages');
+	// Classic Editor (Visual tab): FAQ items (<details class="faq-item">) shown open so their answers can be edited.
+	add_editor_style('assets/css/editor-style.css');
 });
 
 // ACF field groups, post types and taxonomies (acf-json) translate through the theme domain.
