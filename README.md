@@ -63,6 +63,8 @@ The built-in `category` and `post_tag` are unregistered for every post type.
 
 FAQs in post content are plain HTML: `<details class="faq-item"><summary>Question</summary><div class="faq-answer">Answer</div></details>`, collapsed on the site (styles in `src/input.css`) and shown open in the Classic Editor (`assets/css/editor-style.css`). Write new ones the same way in the Text tab. The old theme's `[jnews_faq]` / `[faq_item]` shortcodes were converted with `wp faq convert --backup=<file>` (`inc/faq-cli.php`; `--dry-run` to preview, `wp faq restore <file>` to undo).
 
+The old site's "video or tweet link" field (`_program_video` meta, not read by the theme) was moved into the content of programs and videos: `wp program-video embed --backup=<file> [--post_type=video]` (`inc/program-video-cli.php`) puts it at the top of the post content, a tweet as Twitter's embed code, a YouTube link as a bare URL that WordPress embeds (same `--dry-run` / `restore` as above).
+
 ---
 
 ## How Pages Are Built

@@ -24,6 +24,7 @@ require_once get_stylesheet_directory() . '/inc/cars.php';
 if (defined('WP_CLI') && WP_CLI) {
 	require_once $theme_inc . '/cars/cli.php'; // wp cars purge | import-pack | apply-keep | paths
 	require_once $theme_inc . '/faq-cli.php';  // wp faq convert | restore: old FAQ shortcodes → <details class="faq-item">
+	require_once $theme_inc . '/program-video-cli.php'; // wp program-video embed | restore: old video/tweet field → top of the content
 }
 require_once $theme_inc . '/site-search.php';
 require_once $theme_inc . '/related-content.php';
