@@ -288,10 +288,7 @@ function car_cheapest_per_model_ids(array $args): array
     $min_year = (int) wp_date('Y') - 1;
     $years = array_filter($map('model_year'), static fn($y) => $y >= $min_year);
     // SAR prices only (some imported trims are priced in USD), and no import glitches like "1"
-    $prices = array_filter($map('price'), static fn($p) => $p >= 1000);
-    foreach ($wpdb->get_col("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'price_currency' AND meta_value <> '' AND meta_value <> 'SAR'") as $foreign) {
-        unset($prices[(int) $foreign]);
-    }
+    $prices = array_diff_key(array_filter($map('price'), static fn($p) => $p >= 1000), array_flip(car_usd_ids()));
     $ids = array_keys($years);
     if (isset($args['price_min'])) {
         $lo = max(1, (int) $args['price_min']);
@@ -401,14 +398,43 @@ function format_usd($n): string
     return is_numeric($n) && $n > 0 ? sprintf(__('%s US dollars', 'hello-elementor-child'), format_number($n)) : '';
 }
 
-/** A car's price in its own currency (`price_currency`: SAR, or USD for some imported trims); '' when it has none. */
+/**
+ * Currency of a car's amounts (`price_currency`): 'USD' for some imported trims, otherwise 'SAR'. Its price,
+ * its own price table and the stored price lists that name it all use it; costs worked out by the source with
+ * Saudi tariffs (home charging) stay in riyals.
+ */
+function car_currency(int $post_id): string
+{
+    return get_post_meta($post_id, 'price_currency', true) === 'USD' ? 'USD' : 'SAR';
+}
+
+/** IDs of the cars priced in USD, cached per data version: left out wherever prices are compared in riyals. */
+function car_usd_ids(): array
+{
+    static $memo = null;
+    if ($memo !== null) {
+        return $memo;
+    }
+    $key = 'car_usd_ids_' . car_directory_data_version();
+    $ids = get_transient($key);
+    if (!is_array($ids)) {
+        global $wpdb;
+        $ids = array_map('intval', $wpdb->get_col("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = 'price_currency' AND meta_value = 'USD'"));
+        set_transient($key, $ids, DAY_IN_SECONDS);
+    }
+    return $memo = $ids;
+}
+
+/** An amount in a currency from car_currency() ('' when there is no amount). */
+function format_price($n, string $currency): string
+{
+    return $currency === 'USD' ? format_usd($n) : format_sar($n);
+}
+
+/** A car's price in its own currency; '' when it has none. */
 function car_price_text(int $post_id): string
 {
-    $price = get_field('price', $post_id);
-    if (!is_numeric($price) || $price <= 0) {
-        return '';
-    }
-    return get_post_meta($post_id, 'price_currency', true) === 'USD' ? format_usd($price) : format_sar($price);
+    return format_price(get_field('price', $post_id), car_currency($post_id));
 }
 
 /*
@@ -995,8 +1021,12 @@ function car_price_table(string $title, array $header, array $rows, string $eyeb
     echo '</tbody></table></div>';
 }
 
-/** Price table stored by the import on make / model terms (`_car_price_table`), names linked to our pages. */
-function car_term_price_table(WP_Term $term, array $link_by_name = []): void
+/**
+ * Price table stored by the import on make / model terms (`_car_price_table`), names linked to our pages.
+ * The stored numbers carry no currency: a row takes the one of the trim it names ($currency_by_name,
+ * name => car_currency()), SAR otherwise (make lists hold SAR prices only).
+ */
+function car_term_price_table(WP_Term $term, array $link_by_name = [], array $currency_by_name = []): void
 {
     $json = (string) get_term_meta($term->term_id, '_car_price_table', true);
     $data = $json ? json_decode($json, true) : null;
@@ -1004,14 +1034,18 @@ function car_term_price_table(WP_Term $term, array $link_by_name = []): void
         return;
     }
     $rows = [];
+    $has_price = false;
     foreach ($data['rows'] as $r) {
         if (!is_array($r) || trim((string) ($r['name'] ?? '')) === '') {
             continue;
         }
         $cells = array_key_exists('price_min', $r) ? [$r['price_min'] ?? null, $r['price_max'] ?? null] : [$r['price'] ?? null];
+        $has_price = $has_price || array_filter($cells, 'is_numeric');
+        $currency = $currency_by_name[$r['name']] ?? 'SAR';
+        $cells = array_map(static fn($v) => [is_numeric($v) ? $v + 0 : null, format_price($v, $currency)], $cells);
         $rows[] = array_merge([(string) $r['name'], (string) ($link_by_name[$r['name']] ?? '')], $cells);
     }
-    if (!$rows || !array_filter(array_map(static fn($r) => array_filter(array_slice($r, 2), 'is_numeric'), $rows))) {
+    if (!$has_price) {
         return;
     }
     $header = !empty($data['header']) && is_array($data['header']) ? array_map('strval', $data['header']) : (count($rows[0]) > 3

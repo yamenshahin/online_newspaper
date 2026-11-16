@@ -180,6 +180,10 @@ function query_cars_directory(array $args = []): WP_Query
     if ($meta_query) {
         $query_args['meta_query'] = $meta_query;
     }
+    if (isset($state['ranges']['price'])) {
+        // the price range is in riyals: leave out the trims priced in USD, as the budget pages do
+        $query_args['post__not_in'] = car_usd_ids();
+    }
 
     return new WP_Query($query_args);
 }
@@ -403,14 +407,13 @@ function car_filter_range_text(string $prefix, array $range): string
     return sprintf(__('%1$s: up to %2$s', 'hello-elementor-child'), $map['label'], $format($range['max']));
 }
 
-/** "ابتداءً من 159,448 ر.س" or "159,448 ر.س"; empty when the car has no price. */
+/** "ابتداءً من 159,448 ر.س" or "42,000 دولار أمريكي" (the car's own currency); empty when the car has no price. */
 function car_filter_price_text(int $post_id): string
 {
-    $price = (float) get_post_meta($post_id, 'price', true);
-    if ($price <= 0) {
+    $text = car_price_text($post_id);
+    if ($text === '') {
         return '';
     }
-    $text = number_format_i18n($price) . ' ' . __('SAR', 'hello-elementor-child');
     if (get_post_meta($post_id, 'price_is_starting_from', true)) {
         /* translators: %s: price */
         $text = sprintf(__('Starting from %s', 'hello-elementor-child'), $text);
