@@ -669,7 +669,12 @@ final class Car_Directory_CLI
         foreach ($wpdb->get_results($wpdb->prepare("SELECT post_id, meta_value FROM {$wpdb->postmeta} WHERE meta_key = %s", self::IMAGE_URL)) as $r) {
             $this->att_by_url[$r->meta_value] = (int) $r->post_id;
         }
-        foreach ($wpdb->get_results("SELECT m.post_id, m.meta_value FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id AND p.post_type = 'attachment' WHERE m.meta_key = '_wp_attached_file'") as $r) {
+        // by file path: only the directory's own images (a source URL, or attached to a car / model year). The site's other
+        // media (news uploads with generic names like 2025/04/1.jpg) must never be taken for a car image.
+        foreach ($wpdb->get_results($wpdb->prepare("SELECT m.post_id, m.meta_value FROM {$wpdb->postmeta} m JOIN {$wpdb->posts} p ON p.ID = m.post_id AND p.post_type = 'attachment'
+            LEFT JOIN {$wpdb->posts} par ON par.ID = p.post_parent
+            WHERE m.meta_key = '_wp_attached_file' AND (par.post_type IN ('car', 'car_model_year')
+               OR EXISTS (SELECT 1 FROM {$wpdb->postmeta} u WHERE u.post_id = p.ID AND u.meta_key = %s))", self::IMAGE_URL)) as $r) {
             $this->att_by_file[$r->meta_value] = (int) $r->post_id;
         }
         foreach ($wpdb->get_col($wpdb->prepare("SELECT post_id FROM {$wpdb->postmeta} WHERE meta_key = %s", self::KEEP_FLAG)) as $id) {
