@@ -4,7 +4,8 @@
  *
  * - featured_right (default): one large story + 2x2 small stories, large on the right (RTL start).
  * - featured_left: same, large story on the left.
- * - grid: plain 4-column grid of the section's own cards, `posts_limit` cards.
+ * - grid: plain grid of the section's own cards, `posts_limit` cards; 4 columns on desktop, or 2 / 3 when the
+ *   section has only 2 / 3 cards.
  *
  * The featured grid uses flat cards (template-parts/cards/card-grid-story.php). On desktop the large column is
  * 50% + 33px wide, all images 16:9, so both columns end at about the same height.
@@ -35,12 +36,20 @@ function get_section_grid_post_count(string $layout, $posts_limit): int
     return 'grid' === $layout ? absint($posts_limit) : SECTION_GRID_FEATURED_COUNT;
 }
 
-/** Classes of the grid container. */
-function get_section_grid_classes(string $layout): string
+/**
+ * Classes of the grid container.
+ *
+ * @param int $item_count Cards in the grid, 0 if unknown. A plain grid with 2 or 3 cards gets that many desktop
+ *                        columns, so the cards fill the row instead of leaving part of it empty.
+ */
+function get_section_grid_classes(string $layout, int $item_count = 0): string
 {
     if ('grid' === $layout) {
+        // Full class names: Tailwind only compiles the classes it finds in the source.
+        $desktop_columns = [2 => 'lg:grid-cols-2', 3 => 'lg:grid-cols-3'][$item_count] ?? 'lg:grid-cols-4';
+
         // Titles at the size of the small stories of the featured grid (16px / 22px, bold).
-        return 'grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter [&_h3]:text-base [&_h3]:leading-[22px] [&_h3]:font-bold';
+        return 'grid grid-cols-1 md:grid-cols-2 ' . $desktop_columns . ' gap-gutter [&_h3]:text-base [&_h3]:leading-[22px] [&_h3]:font-bold';
     }
 
     // RTL: the first child (large story) sits on the right; row-reverse moves it to the left.

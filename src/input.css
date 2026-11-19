@@ -676,7 +676,8 @@ footer .site-navigation ul.menu a {
     }
 }
 
-@media(min-width:992px) {
+/* Complement of the max-width:992px rule below, so exactly one of menu / toggle shows at every width. */
+@media (width > 992px) {
     .site-header.menu-dropdown-tablet:not(.menu-layout-dropdown) .site-navigation-toggle-holder {
         display: none !important
     }
@@ -685,6 +686,11 @@ footer .site-navigation ul.menu a {
 @media(max-width:992px) {
     .site-header.menu-dropdown-tablet:not(.menu-layout-dropdown) .site-navigation {
         display: none !important
+    }
+
+    /* Hello's header-footer.css hides the toggle from min-width:992px (!important); "body" outranks it at exactly 992px. */
+    body .site-header.menu-dropdown-tablet:not(.menu-layout-dropdown) .site-navigation-toggle-holder {
+        display: flex !important
     }
 }
 
