@@ -3573,3 +3573,237 @@ msgstr "الشعار"
 #: inc/acf-json-strings.php:59
 msgid "Shown wherever the program appears (program sections, program page). Use a tightly cropped logo on a white or transparent background. Without a logo a placeholder is shown."
 msgstr "يظهر أينما ظهر البرنامج (أقسام البرامج وصفحة البرنامج). استخدم شعارًا مقصوصًا بإحكام على خلفية بيضاء أو شفافة. بدون شعار يظهر شعار بديل."
+
+#: template-parts/sections/trending_section.php:30
+msgid "Most read"
+msgstr "الأكثر قراءة"
+
+#: template-parts/sections/trending_section.php:31
+msgid "Most watched"
+msgstr "الأكثر مشاهدة"
+
+#: template-parts/sections/editors_opinion_section.php:32
+msgid "Editors' picks"
+msgstr "اختيارات المحررين"
+
+#: template-parts/sections/editors_opinion_section.php:33
+msgid "Opinion"
+msgstr "مقالات رأي"
+
+#: template-parts/sections/evergreen_section.php:43
+msgid "Stories you shouldn't miss"
+msgstr "قصص لا تفوتك"
+
+#: template-parts/sections/evergreen_section.php:44
+msgid "From our archive: stories worth another look"
+msgstr "من أرشيفنا: قصص تستحق القراءة من جديد"
+
+#: template-parts/sections/car_highlights_section.php:29
+msgid "This week's highlights"
+msgstr "أبرز سيارات الأسبوع"
+
+#: template-parts/sections/car_highlights_section.php:32
+msgid "Recent models"
+msgstr "موديلات حديثة"
+
+#: inc/acf-json-strings.php:72
+msgid "Short Videos Section (YouTube Shorts)"
+msgstr "قسم الفيديوهات القصيرة (يوتيوب شورتس)"
+
+#: inc/acf-json-strings.php:73
+msgid "YouTube Channel ID"
+msgstr "معرّف قناة يوتيوب"
+
+#: inc/acf-json-strings.php:74
+msgid "The channel ID starts with UC. The section shows the channel's latest Shorts."
+msgstr "يبدأ معرّف القناة بالحرفين UC. يعرض القسم أحدث مقاطع «شورتس» في القناة."
+
+#: inc/acf-json-strings.php:75
+msgid "Videos Limit"
+msgstr "عدد المقاطع"
+
+#: inc/acf-json-strings.php:76
+msgid "Most Read + Most Watched Section"
+msgstr "قسم الأكثر قراءة والأكثر مشاهدة"
+
+#: inc/acf-json-strings.php:77
+msgid "Most Read Title"
+msgstr "عنوان «الأكثر قراءة»"
+
+#: inc/acf-json-strings.php:78
+msgid "Most Watched Title"
+msgstr "عنوان «الأكثر مشاهدة»"
+
+#: inc/acf-json-strings.php:79
+msgid "Period (days)"
+msgstr "الفترة (بالأيام)"
+
+#: inc/acf-json-strings.php:80
+msgid "Items published within this many days are ranked by views. The period widens by itself when it holds too few items."
+msgstr "تُرتَّب المواد المنشورة خلال هذا العدد من الأيام حسب المشاهدات، وتتّسع الفترة تلقائيًا إذا كانت موادها قليلة."
+
+#: inc/acf-json-strings.php:81
+msgid "Editors' Picks + Opinion Section"
+msgstr "قسم اختيارات المحررين ومقالات الرأي"
+
+#: inc/acf-json-strings.php:82
+msgid "Editors' Picks Title"
+msgstr "عنوان «اختيارات المحررين»"
+
+#: inc/acf-json-strings.php:83
+msgid "Opinion Title"
+msgstr "عنوان «مقالات رأي»"
+
+#: inc/acf-json-strings.php:84
+msgid "Picks Limit"
+msgstr "عدد الاختيارات"
+
+#: inc/acf-json-strings.php:85
+msgid "Opinion Limit"
+msgstr "عدد مقالات الرأي"
+
+#: inc/acf-json-strings.php:86
+msgid "From the Archive Section"
+msgstr "قسم «من الأرشيف»"
+
+#: inc/acf-json-strings.php:87
+msgid "Minimum Age (days)"
+msgstr "أقل عمر للمادة (بالأيام)"
+
+#: inc/acf-json-strings.php:88
+msgid "Only items older than this many days are shown."
+msgstr "تُعرض فقط المواد التي مضى على نشرها أكثر من هذا العدد من الأيام."
+
+#: inc/acf-json-strings.php:89
+msgid "Car Comparison Section"
+msgstr "قسم مقارنة السيارات"
+
+#: inc/acf-json-strings.php:90
+msgid "Cars of the Week Section"
+msgstr "قسم سيارات الأسبوع"
+
+#: inc/acf-json-strings.php:91
+msgid "Editorial Flags"
+msgstr "إشارات تحريرية"
+
+#: inc/acf-json-strings.php:92
+msgid "Editors' pick"
+msgstr "اختيار المحررين"
+
+#: inc/acf-json-strings.php:93
+msgid "Show in the editors' picks list"
+msgstr "تظهر في قائمة اختيارات المحررين"
+
+#: inc/acf-json-strings.php:94
+msgid "Opinion piece"
+msgstr "مقال رأي"
+
+#: inc/acf-json-strings.php:95
+msgid "Show in the opinion list, beside the editor's photo"
+msgstr "يظهر في قائمة مقالات الرأي بجانب صورة المحرر"
+
+#: inc/acf-json-strings.php:96
+msgid "From the archive"
+msgstr "من الأرشيف"
+
+#: inc/acf-json-strings.php:97
+msgid "Keep resurfacing this item in the archive row"
+msgstr "تُعرض هذه المادة مجددًا في صف الأرشيف"
+
+#: inc/acf-json-strings.php:98
+msgid "Editor Metadata"
+msgstr "بيانات المحرر"
+
+#: inc/acf-json-strings.php:99
+msgid "Photo"
+msgstr "الصورة"
+
+#: template-parts/sections/shorts_section.php:32
+msgid "Short videos"
+msgstr "فيديوهات قصيرة"
+
+#: template-parts/sections/shorts_section.php:68
+msgid "Shorts"
+msgstr "شورتس"
+
+#: template-parts/sections/shorts_section.php:70
+msgid "More on YouTube"
+msgstr "المزيد على يوتيوب"
+
+#: template-parts/sections/shorts_section.php:56
+msgid "Watch on YouTube"
+msgstr "شاهد على يوتيوب"
+
+#. translators: 1: position of the video that is playing, 2: number of videos
+#: template-parts/sections/shorts_section.php:58
+#, php-format
+msgid "%1$d of %2$d"
+msgstr "%1$d من %2$d"
+
+#: template-parts/sections/car_compare_section.php:33
+msgid "Compare cars"
+msgstr "قارن بين السيارات"
+
+#: template-parts/sections/car_compare_section.php:34
+msgid "Pick two to four cars and compare their specifications and prices side by side"
+msgstr "اختر من سيارتين إلى أربع وقارن المواصفات والأسعار وجهاً لوجه"
+
+#: template-parts/sections/car_compare_section.php:121
+msgid "Choose a make"
+msgstr "اختر الشركة"
+
+#: template-parts/sections/car_compare_section.php:54
+msgid "Choose a model"
+msgstr "اختر الموديل"
+
+#: template-parts/sections/car_compare_section.php:55
+msgid "Choose a year and trim"
+msgstr "اختر السنة والفئة"
+
+#: template-parts/sections/car_compare_section.php:59
+msgid "The comparison could not be loaded, try again."
+msgstr "تعذر تحميل المقارنة، حاول مرة أخرى."
+
+#: template-parts/sections/car_compare_section.php:60
+msgid "Pick at least two cars"
+msgstr "اختر سيارتين على الأقل"
+
+#: template-parts/sections/car_compare_section.php:84
+msgid "Comparing cars requires JavaScript to be enabled in the browser."
+msgstr "تتطلب مقارنة السيارات تفعيل JavaScript في المتصفح."
+
+#. translators: %s: slot number, 1 to 4
+#: template-parts/sections/car_compare_section.php:99
+#, php-format
+msgid "Car %s"
+msgstr "السيارة %s"
+
+#: template-parts/sections/car_compare_section.php:103
+msgid "Optional"
+msgstr "اختياري"
+
+#: template-parts/sections/car_compare_section.php:114
+msgid "Change"
+msgstr "تغيير"
+
+#: template-parts/sections/car_compare_section.php:74
+msgid "Compare"
+msgstr "قارن"
+
+#: inc/cars/compare.php:306
+msgid "Price and warranty"
+msgstr "السعر والضمان"
+
+#: inc/cars/compare.php:310
+msgid "Warranty"
+msgstr "الضمان"
+
+#: inc/cars/compare.php:356
+msgid "Car comparison table"
+msgstr "جدول مقارنة السيارات"
+
+#. translators: %s: car name
+#: inc/cars/compare.php:372
+#, php-format
+msgid "Remove %s from the comparison"
+msgstr "إزالة %s من المقارنة"

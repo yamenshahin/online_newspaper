@@ -384,6 +384,13 @@ function get_term_archive_skip_layouts(): array
         'speakers_section',
         'car_home_section',
         'car_origins_section',
+        'car_compare_section',
+        'car_highlights_section',
+        // Site-wide sections (inc/shared-sections.php): their content is not filtered to the term.
+        'shorts_section',
+        'trending_section',
+        'editors_opinion_section',
+        'evergreen_section',
     ];
 }
 
