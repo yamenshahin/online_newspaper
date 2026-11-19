@@ -9,7 +9,7 @@ msgstr ""
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"POT-Creation-Date: 2026-11-16T04:17:17+00:00\n"
+"POT-Creation-Date: 2026-11-19T14:31:39+00:00\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "X-Generator: WP-CLI 2.12.0\n"
 "X-Domain: hello-elementor-child\n"
@@ -104,12 +104,12 @@ msgstr ""
 msgid "No sections configured for the homepage."
 msgstr ""
 
-#: functions.php:105
+#: functions.php:109
 #: inc/submissions/registry.php:421
 msgid "Choose…"
 msgstr ""
 
-#: functions.php:150
+#: functions.php:154
 #: template-parts/sections/geographic_section.php:150
 #: template-parts/sections/geographic_section.php:249
 #: template-parts/sections/program_series_section.php:289
@@ -117,115 +117,115 @@ msgstr ""
 msgid "Show more"
 msgstr ""
 
-#: functions.php:151
+#: functions.php:155
 #: template-parts/sections/program_series_section.php:305
 msgid "Show less"
 msgstr ""
 
 #. translators: %s: model-year title
-#: functions.php:187
+#: functions.php:191
 #: single-car_model_year.php:108
 msgid "Photo gallery"
 msgstr ""
 
-#: functions.php:188
+#: functions.php:192
 msgid "Close"
 msgstr ""
 
-#: functions.php:189
+#: functions.php:193
 #: template-parts/sections/program_tabs_section.php:150
 msgid "Previous"
 msgstr ""
 
-#: functions.php:190
+#: functions.php:194
 #: template-parts/sections/program_tabs_section.php:196
 msgid "Next"
 msgstr ""
 
 #. translators: %d: photo number
-#: functions.php:192
+#: functions.php:196
 #, php-format
 msgid "Photo %d"
 msgstr ""
 
-#: functions.php:613
+#: functions.php:617
 #, php-format
 msgid "Published on %s"
 msgstr ""
 
-#: functions.php:627
+#: functions.php:631
 #, php-format
 msgid "Last updated %s"
 msgstr ""
 
-#: functions.php:712
+#: functions.php:716
 #: inc/submissions/registry.php:71
 #: template-parts/entities/entity-browse-section.php:88
 msgid "Saudi Government Entities"
 msgstr ""
 
-#: functions.php:713
+#: functions.php:717
 msgid "Sort content by government entity"
 msgstr ""
 
-#: functions.php:716
+#: functions.php:720
 #: inc/submissions/registry.php:72
 #: template-parts/entities/entity-browse-section.php:89
 msgid "Private Sector"
 msgstr ""
 
-#: functions.php:717
+#: functions.php:721
 msgid "Sort content by private sector"
 msgstr ""
 
-#: functions.php:720
+#: functions.php:724
 #: inc/acf-json-strings.php:385
 #: inc/submissions/registry.php:73
 #: template-parts/entities/entity-browse-section.php:90
 msgid "Events"
 msgstr ""
 
-#: functions.php:721
+#: functions.php:725
 msgid "Sort content by event"
 msgstr ""
 
-#: functions.php:724
+#: functions.php:728
 #: inc/acf-json-strings.php:404
 #: inc/submissions/registry.php:74
 #: template-parts/entities/entity-browse-section.php:91
 msgid "International Entities"
 msgstr ""
 
-#: functions.php:725
+#: functions.php:729
 msgid "Sort content by international entity"
 msgstr ""
 
-#: functions.php:870
+#: functions.php:874
 msgid "Post Views"
 msgstr ""
 
-#: functions.php:874
+#: functions.php:878
 msgid "Total unique session views by real users."
 msgstr ""
 
-#: functions.php:892
+#: functions.php:896
 msgid "Views"
 msgstr ""
 
-#: functions.php:1028
-#: functions.php:1044
-#: functions.php:1050
+#: functions.php:1032
+#: functions.php:1048
+#: functions.php:1054
 #: inc/acf-json-strings.php:19
 msgid "Detailed Description"
 msgstr ""
 
-#: functions.php:1127
-#: functions.php:1138
+#: functions.php:1131
+#: functions.php:1142
 #: inc/acf-json-strings.php:263
 msgid "Department"
 msgstr ""
 
-#: functions.php:1131
+#: functions.php:1135
 #: inc/acf-json-strings.php:280
 msgid "Program Series"
 msgstr ""
@@ -2257,6 +2257,12 @@ msgstr ""
 
 #: inc/shortcodes/department-footer.php:81
 msgid "Follow us"
+msgstr ""
+
+#. translators: 1: current year, 2: site name.
+#: inc/shortcodes/department-footer.php:110
+#, php-format
+msgid "© %1$s %2$s. All rights reserved."
 msgstr ""
 
 #. translators: %s: number of search results
