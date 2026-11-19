@@ -78,7 +78,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
                     <?php echo esc_html($section_title ?: __('Interviews and conversations', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('Long sessions', 'hello-elementor-child'); ?></span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold shrink-0 whitespace-nowrap"><?php esc_html_e('Long sessions', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
                 <?php echo esc_html($subtitle ?: __('In-depth conversations with leaders of technological transformation and Saudi decision makers', 'hello-elementor-child')); ?>
@@ -98,7 +98,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
         </a>
     </div>
 
-    <div class="<?php echo esc_attr(get_section_grid_classes($grid_layout)); ?>">
+    <div class="<?php echo esc_attr(get_section_grid_classes($grid_layout, $query->post_count)); ?>">
         <?php
         $card_index = 0;
         while ($query->have_posts()):

@@ -77,7 +77,7 @@ $more_icon_uri = get_stylesheet_directory_uri() . '/assets/images/more-icon.svg'
                     <?php echo esc_html($section_title ?: __('Latest program episodes', 'hello-elementor-child')); ?>
                 </h2>
                 <span
-                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold"><?php esc_html_e('New episodes', 'hello-elementor-child'); ?></span>
+                    class="px-space-sm py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps font-bold shrink-0 whitespace-nowrap"><?php esc_html_e('New episodes', 'hello-elementor-child'); ?></span>
             </div>
             <p class="font-body-sm text-body-sm text-on-surface-variant">
                 <?php echo esc_html($subtitle ?: __('The newest episodes from our programs and series', 'hello-elementor-child')); ?>
