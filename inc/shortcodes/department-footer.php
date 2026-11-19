@@ -99,10 +99,30 @@ function render_department_footer_social(): string
     return (string) ob_get_clean();
 }
 
+/**
+ * Copyright line under the footer columns ("© <year> <site name>. All rights reserved.") for an Elementor
+ * shortcode widget. The year is the current one in the site's timezone.
+ */
+function render_site_copyright(): string
+{
+    $text = sprintf(
+        /* translators: 1: current year, 2: site name. */
+        __('© %1$s %2$s. All rights reserved.', 'hello-elementor-child'),
+        wp_date('Y'),
+        get_bloginfo('name')
+    );
+
+    return '<p class="site-copyright m-0 border-t border-white/15 py-5 text-center text-sm text-balance text-white/80">' . esc_html($text) . '</p>';
+}
+
 add_shortcode('department_footer_branding', static function () {
     return render_department_footer_branding();
 });
 
 add_shortcode('department_footer_social', static function () {
     return render_department_footer_social();
+});
+
+add_shortcode('site_copyright', static function () {
+    return render_site_copyright();
 });

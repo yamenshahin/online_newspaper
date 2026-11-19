@@ -2224,6 +2224,12 @@ msgstr "قد يهمك أيضًا"
 msgid "Follow us"
 msgstr "تابعنا"
 
+#. translators: 1: current year, 2: site name.
+#: inc/shortcodes/department-footer.php:110
+#, php-format
+msgid "© %1$s %2$s. All rights reserved."
+msgstr "© %1$s %2$s. جميع الحقوق محفوظة."
+
 #. translators: %s: number of search results
 #: inc/site-search.php:119
 #, php-format
