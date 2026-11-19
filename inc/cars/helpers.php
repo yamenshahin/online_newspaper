@@ -62,6 +62,20 @@ function car_image_url(int $post_id, string $size = 'large'): string
     return $url ?: car_placeholder_url();
 }
 
+/**
+ * Photo of a car for a card: the featured image, else the first photo of its gallery (a car can have only a
+ * gallery); '' when it has neither, so car_img() prints the placeholder.
+ */
+function car_card_image_url(int $post_id, string $size = 'medium_large'): string
+{
+    $url = has_post_thumbnail($post_id) ? (string) get_the_post_thumbnail_url($post_id, $size) : '';
+    if ($url !== '') {
+        return $url;
+    }
+    $gallery = array_values(array_filter(array_map('intval', (array) get_field('gallery', $post_id, false))));
+    return $gallery ? (string) wp_get_attachment_image_url($gallery[0], $size) : '';
+}
+
 /** Logo of a make / origin / body-type term (ACF `logo` attachment), or the placeholder. */
 function car_term_image_url(WP_Term $term, string $size = 'medium'): string
 {
@@ -586,7 +600,8 @@ function car_section_header(string $title, string $eyebrow = '', string $count =
     }
     echo '</div></div>';
     if ($more_url !== '') {
-        echo '<a href="' . esc_url($more_url) . '" class="inline-flex items-center gap-1.5 self-start text-base font-medium text-primary transition-opacity hover:opacity-70 md:self-auto md:text-lg">'
+        // shrink-0 + nowrap: beside a long headline the link kept its own line instead of breaking in two
+        echo '<a href="' . esc_url($more_url) . '" class="inline-flex shrink-0 items-center gap-1.5 self-start whitespace-nowrap text-base font-medium text-primary transition-opacity hover:opacity-70 md:self-auto md:text-lg">'
             . '<span>' . esc_html($more_label) . '</span><i class="fas fa-angle-left" aria-hidden="true"></i></a>';
     }
     echo '</div>';

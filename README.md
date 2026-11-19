@@ -55,11 +55,13 @@ ID-based permalinks are registered in `functions.php` (rewrite rules + `post_lin
 | `international_entity` | All content types    | International bodies (same metadata as government). Flat for now: no groups. |
 | `speaker_influencer` | All content types      | Public figures.                                                         |
 | `event`              | All content types      | Events with organizer and location groups.                              |
-| `post_editor`        | All content types      | Editor attribution.                                                     |
+| `post_editor`        | All content types      | Editor attribution. The optional `photo` is the writer's portrait beside opinion pieces. |
 | `program_series`     | `program`              | Groups programs into series.                                            |
-| `car_maker`, `car_model`, `car_year`, `car_origin`, `car_body_type`, `car_fuel_type` | `car` | Car directory facets. |
+| `car_make` (make → model), `car_year`, `car_origin`, `body_type`, `fuel_type`, `transmission`, `drivetrain`, `car_feature` | `car` | Car directory facets. |
 
 The built-in `category` and `post_tag` are unregistered for every post type.
+
+**Editorial flags.** Posts, programs, interviews, infographics and videos have three switches in the «Editorial Flags» box of the edit screen (`acf-json/group_editorial_flags.json`): `editor_pick` (the editors' picks list), `is_opinion` (the opinion list) and `evergreen` (the archive row). They feed the site-wide sections below, so no list has to be kept by hand on the homepage and on every department.
 
 FAQs in post content are plain HTML: `<details class="faq-item"><summary>Question</summary><div class="faq-answer">Answer</div></details>`, collapsed on the site (styles in `src/input.css`) and shown open in the Classic Editor (`assets/css/editor-style.css`). Write new ones the same way in the Text tab. The old theme's `[jnews_faq]` / `[faq_item]` shortcodes were converted with `wp faq convert --backup=<file>` (`inc/faq-cli.php`; `--dry-run` to preview, `wp faq restore <file>` to undo).
 
@@ -73,8 +75,15 @@ The old site's "video or tweet link" field (`_program_video` meta, not read by t
 
 The `department_sections` field ("Department Layout Engine") is attached to **the front page** and to **every department term**. Each row renders `template-parts/sections/{layout}.php`:
 
-`hero_lead_section` · `posts_section` · `programs_section` · `program_tabs_section` · `program_series_section` · `infographics_section` · `interviews_section` · `videos_section` · `podcasts_section` · `speakers_section` · `geographic_section` · `filter_section` · `cars_section` · `car_home_section` · `car_origins_section` · `social_section` · `ad_banner_section` · `ad_slider_section` · `ad_code_section`
+`hero_lead_section` · `posts_section` · `programs_section` · `program_tabs_section` · `program_series_section` · `infographics_section` · `interviews_section` · `videos_section` · `podcasts_section` · `speakers_section` · `geographic_section` · `filter_section` · `shorts_section` · `trending_section` · `editors_opinion_section` · `evergreen_section` · `cars_section` · `car_home_section` · `car_origins_section` · `car_compare_section` · `car_highlights_section` · `social_section` · `ad_banner_section` · `ad_slider_section` · `ad_code_section`
 
+- **Site-wide sections** (`shorts_section`, `trending_section`, `editors_opinion_section`, `evergreen_section`; `inc/shared-sections.php`): the same content on the homepage and on every department. The page's department only sets the header icon, and the taxonomy filters are not applied, so these sections are hidden while a filter is active (`?geographic=…`) and skipped on entity archives. Their items are labelled with their own department.
+  - `shorts_section`: a swipeable strip of round thumbnails of the newest Shorts of the YouTube channel in `channel_id` (`inc/youtube-shorts.php`: the channel's public Shorts feed, no API key; the last good list is kept in the option `youtube_shorts_<channel id>` and refreshed every 30 minutes, with a 5-minute pause after a failed try). A click opens a vertical player on the page (`assets/js/shorts.js`): next / previous by buttons, arrow keys and swiping, the next video starts when one ends. The player shares the YouTube player object Google Analytics attaches to the iframe, and treats a Short starting over by itself as its end.
+  - `trending_section`: a dark band across the page with the most read articles numbered 1–6 beside the three most watched videos. Both rank the items published in the last `period_days` days by `post_views_count`; a period with too few viewed items widens (30, 90, 365 days, then all time). Cached for 15 minutes.
+  - `editors_opinion_section`: the newest items flagged «Editors' pick» in a bordered list, beside the newest posts flagged «Opinion piece» with the round photo of their writer (the post's first Editor term: its `photo`, or the first letter of the name). A list without items is left out.
+  - `evergreen_section`: a row of older stories: the items flagged «From the archive» first, then the most viewed items older than `min_age_days` days. The row changes once a day.
+- `car_highlights_section`: four cars of the recent model years, one per make, picked at random once a week (`inc/cars/highlights.php`). The pick is seeded with the week, so every page and every cached copy shows the same cars until the week turns (Sunday); cars with a photo and a price in riyals are preferred.
+- `car_compare_section`: the visitor picks two to four cars (make → model → trim) and gets their prices and specifications side by side (`inc/cars/compare.php`, `assets/js/car-compare.js`). The comparison lives in the URL (`?car_compare=ID,ID#car-compare`), so it can be shared; a shared link is rendered by the server. The picker lists are cached per data version (`car_compare_models_*`, `car_compare_cars_*` transients, one day).
 - `program_tabs_section`: a row of program logos (Program Series field `logo`, or a placeholder with the name); a click shows that program's latest episodes in the posts section's grid (`grid_layout`). The program with the newest episode comes first. The programs rotate every `rotation_interval` seconds (default 5), paused while the mouse or focus is in the section or the logo row is off screen, and stop once the visitor picks a program or moves the row.
 - `car_origins_section`: the car brands by country of origin (flag tiles) with a button to the car directory; the same grid closes `car_home_section`. On the front page and every department except cars, last; skipped on entity archives.
 - `social_section` is hidden in the editor when you edit a regular page.
@@ -179,6 +188,9 @@ Field groups `group_submission` and `group_submission_review` live in `acf-json/
 | `/wp-json/hello/v1/entity-nav`                   | GET    | `?taxonomy=&parent=` → entities under a group (id, name, link). |
 | `/wp-json/hello/v1/entity-search`                | GET    | `?q=&taxonomy=all` → `{items, truncated}`: matching entities across taxonomies, max 100 per taxonomy (min. 2 chars). |
 | `/wp-json/hello/v1/submission-parents`           | GET    | `?taxonomy=&parent=&term=` → one level of the submission parent picker: `{taxonomy, leaf_depth, parent_depth, depth, final, items, path}`. |
+| `/wp-json/hello/v1/car-compare/models`           | GET    | `?make=` → models of a make (id, name), for the comparison picker. |
+| `/wp-json/hello/v1/car-compare/cars`             | GET    | `?model=` → trims of a model, newest model year first (id, label, year). |
+| `/wp-json/hello/v1/car-compare/table`            | GET    | `?ids=1,2,3` → `{ids, cars, html, url}`: the side-by-side table of two to four cars. |
 | `/wp-json/newspapersite/v1/track-view/{id}`      | POST   | Page-cache-safe view counter (`post_views_count` meta). |
 | `admin-ajax.php?action=cars_filter`              | POST   | Car results + filter chips HTML (nonce-protected). |
 
@@ -197,11 +209,16 @@ hello-elementor-child/
 │   ├── webfonts/              # Font Awesome solid + brands (woff2)
 │   ├── images/                # Fallback images and icons
 │   ├── js/filters.js          # Header search, show-more, entity tabs/search, cars AJAX filters
+│   ├── js/shorts.js           # Short videos section: strip arrows + the vertical player
+│   ├── js/car-compare.js      # Car comparison section: pickers, table, shareable URL
 │   └── js/submissions.js      # Entity submissions: parent picker (front end + admin)
 ├── inc/
 │   ├── cars.php               # Cars directory: filter state, queries, facet counts, URLs
+│   ├── cars/                  # Car directory: URLs, display helpers, spec renderer, comparison, cars of the week, WP-CLI
 │   ├── department-context.php # Current department + field fallback + theme color
 │   ├── related-content.php    # Related rows under single items: picks, ranking, cache
+│   ├── shared-sections.php    # Site-wide sections: header, most read / watched, editors' picks, opinion, archive row
+│   ├── youtube-shorts.php     # Short videos section: the channel's Shorts feed
 │   ├── site-search.php        # Searchable post types, short-term skip, result count text
 │   ├── taxonomy-helpers.php   # Entity trees, caching, REST routes, term-archive skip list
 │   ├── shortcodes/

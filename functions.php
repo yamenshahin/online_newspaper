@@ -17,9 +17,13 @@ require_once $theme_inc . '/department-context.php';
 require_once $theme_inc . '/shortcodes/department-footer.php';
 require_once $theme_inc . '/taxonomy-helpers.php';
 require_once $theme_inc . '/section-grid.php'; // posts/interviews/videos/podcasts/program tabs sections: 1 + 4 featured grid
+require_once $theme_inc . '/shared-sections.php'; // site-wide sections: header, most read / watched, editors' picks, opinion, archive row
+require_once $theme_inc . '/youtube-shorts.php'; // short videos section: the channel's Shorts feed
 require_once $theme_inc . '/cars/directory.php'; // car directory: nested URLs, price pages, body-type order
 require_once $theme_inc . '/cars/helpers.php'; // car directory: display helpers (tiles, strips, prices, counts, gallery)
 require_once $theme_inc . '/cars/fields.php'; // car directory: Car_Spec_Renderer (ACF group -> spec sections)
+require_once $theme_inc . '/cars/compare.php'; // car comparison section: picker lists, REST routes, the side-by-side table
+require_once $theme_inc . '/cars/highlights.php'; // cars of the week section: the weekly pick and its cards
 require_once get_stylesheet_directory() . '/inc/cars.php';
 if (defined('WP_CLI') && WP_CLI) {
 	require_once $theme_inc . '/cars/cli.php'; // wp cars purge | import-pack | apply-keep | paths
@@ -274,6 +278,15 @@ add_filter('query_vars', function ($vars) {
 // Admin UI
 // ---------------------------------------------------------------------------
 add_action('admin_head', function () {
+	// ACF on/off switches (Editorial Flags, section toggles) in an RTL admin: the two labels follow the text
+	// direction but the slider is placed with left / right, so it covered the wrong label ("No" showed while on,
+	// and the white "Yes" sat on the light side). Lay the switch out left to right, and fix the label colours.
+	// Not on ACF's own screens (field group editor): their switches are small pills without labels.
+	echo '<style>body:not(.acf-admin-page) .acf-switch{direction:ltr}'
+		. 'body:not(.acf-admin-page) .acf-switch.-on{background-color:#135e96 !important;border-color:#0a4b78 !important}'
+		. 'body:not(.acf-admin-page) .acf-switch .acf-switch-on{color:#fff !important;text-shadow:none !important}'
+		. 'body:not(.acf-admin-page) .acf-switch .acf-switch-off{color:#1d2327 !important;text-shadow:none !important}</style>';
+
 	// The car directory taxonomies keep their (imported) description field.
 	$taxonomy = isset($_GET['taxonomy']) ? sanitize_key((string) $_GET['taxonomy']) : '';
 	if ($taxonomy !== '' && !array_key_exists($taxonomy, car_directory_taxonomies())) {

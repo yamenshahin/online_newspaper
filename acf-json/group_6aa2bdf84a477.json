@@ -21,8 +21,8 @@
             "min_width": "",
             "min_height": "",
             "min_size": "",
-            "max_width": 512,
-            "max_height": 512,
+            "max_width": 1920,
+            "max_height": 1920,
             "max_size": "",
             "mime_types": "",
             "allow_in_bindings": 0,
@@ -71,5 +71,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1793718969
+    "modified": 1795105580
 }
