@@ -115,7 +115,7 @@ if (!empty($_GET[$query_var])) {
                                 hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center
                                 focus:outline-none">
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm relative">
+                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden relative">
                                     <?php if (!empty($image) && is_array($image)): ?>
                                         <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
                                             'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
@@ -181,7 +181,7 @@ if (!empty($_GET[$query_var])) {
                             <a href="<?php echo esc_url($parent_url); ?>"
                                 class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out relative overflow-hidden text-center">
                                 <div
-                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm relative z-10">
+                                    class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden relative z-10">
                                     <?php if (!empty($parent_image) && is_array($parent_image)): ?>
                                         <?php echo wp_get_attachment_image($parent_image['ID'], 'thumbnail', false, [
                                             'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 opacity-80 group-hover:opacity-100',
@@ -214,7 +214,7 @@ if (!empty($_GET[$query_var])) {
                                 <a href="<?php echo esc_url($url); ?>"
                                     class="group flex-none w-28 md:w-32 flex flex-col items-center p-3 md:p-4 border border-surface-container-high rounded-2xl hover:border-surface-container-highest hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ease-out text-center">
                                     <div
-                                        class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden border border-surface-container-high group-hover:border-primary transition-colors duration-300 shadow-sm">
+                                        class="w-12 h-12 md:w-14 md:h-14 aspect-square mb-2 md:mb-3 rounded-xl md:rounded-2xl flex items-center justify-center overflow-hidden">
                                         <?php if (!empty($image) && is_array($image)): ?>
                                             <?php echo wp_get_attachment_image($image['ID'], 'thumbnail', false, [
                                                 'class' => 'w-full h-full object-cover group-hover:scale-110 transition-transform duration-500',
