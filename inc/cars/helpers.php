@@ -699,14 +699,20 @@ function car_make_tile(WP_Term $make): string
     return car_tile(car_term_url($make), car_img(car_term_image_url($make), $make->name, 'car-tile-pic'), $make->name, $count > 0 ? n_cars($count) : '', '', 'car-tile-logo');
 }
 
+/** Country code of an origin (by origin slug), '' for origins without a country: names the flag and picture files. */
+function car_origin_code(WP_Term $origin): string
+{
+    $codes = ['japanese-cars' => 'jp', 'chinese-cars' => 'cn', 'german-cars' => 'de', 'american-cars' => 'us', 'korean-cars' => 'kr', 'british-cars' => 'gb', 'french-cars' => 'fr', 'italian-cars' => 'it', 'european-cars' => 'eu'];
+    return $codes[$origin->slug] ?? '';
+}
+
 /**
  * Country flag of an origin (assets/images/flags/, by origin slug; a globe for origins without one):
- * 48px high on the origin tiles, 28px ($small) beside the origin headings of the all-brands page.
+ * 48px high by default, 28px ($small) beside the origin headings of the all-brands page.
  */
 function car_origin_flag(WP_Term $origin, bool $small = false): string
 {
-    $flags = ['japanese-cars' => 'jp', 'chinese-cars' => 'cn', 'german-cars' => 'de', 'american-cars' => 'us', 'korean-cars' => 'kr', 'british-cars' => 'gb', 'french-cars' => 'fr', 'italian-cars' => 'it', 'european-cars' => 'eu'];
-    $code = $flags[$origin->slug] ?? '';
+    $code = car_origin_code($origin);
     if ($code !== '') {
         return sprintf(
             '<img src="%s" alt="" width="72" height="48" loading="lazy" decoding="async" class="%s w-auto shrink-0 rounded-md object-cover shadow-sm ring-1 ring-black/10">',
@@ -717,11 +723,23 @@ function car_origin_flag(WP_Term $origin, bool $small = false): string
     return '<span class="flex shrink-0 items-center justify-center rounded-md bg-surface-container text-primary ' . ($small ? 'h-7 w-[2.625rem] text-base' : 'h-12 w-[4.5rem] text-2xl') . '"><i class="fas fa-globe" aria-hidden="true"></i></span>';
 }
 
-/** Origin tile: the country flag, the origin name and "N علامة · N سيارة". Links to the origin page, which lists its makes. */
+/**
+ * Picture of an origin: a car painted with the country's flag (assets/images/origins/, 560x315 on white;
+ * other.webp, a globe car, for origins without a country). mix-blend-multiply melts its white into the tile.
+ */
+function car_origin_picture(WP_Term $origin): string
+{
+    return sprintf(
+        '<img src="%s" alt="" width="560" height="315" loading="lazy" decoding="async" class="h-full w-full object-contain mix-blend-multiply transition-transform duration-300 group-hover:scale-105">',
+        esc_url(get_stylesheet_directory_uri() . '/assets/images/origins/' . (car_origin_code($origin) ?: 'other') . '.webp')
+    );
+}
+
+/** Origin tile: the flag-painted car, the origin name and "N علامة · N سيارة". Links to the origin page, which lists its makes. */
 function car_origin_tile(WP_Term $origin, int $makes): string
 {
     $sub = implode(' · ', array_filter([$makes ? n_makes($makes) : '', ($count = car_term_count($origin)) ? n_cars($count) : '']));
-    return car_tile(car_term_url($origin), car_origin_flag($origin), $origin->name, $sub);
+    return car_tile(car_term_url($origin), car_origin_picture($origin), $origin->name, $sub, '', 'car-tile-origin');
 }
 
 /** Body-type tile: the source icon (term logo) once attached, the placeholder silhouette until then. */

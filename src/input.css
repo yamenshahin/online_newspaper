@@ -1014,6 +1014,13 @@ article iframe {
         height: 3.5rem;
     }
 
+    /* origin tiles: the flag-painted car fills the tile's width */
+    .car-directory .car-tile-origin .car-tile-img {
+        height: auto;
+        aspect-ratio: 16 / 9;
+        margin-bottom: 0.25rem;
+    }
+
     .car-directory .car-tile-body .car-tile-pic {
         max-width: 7rem;
     }
