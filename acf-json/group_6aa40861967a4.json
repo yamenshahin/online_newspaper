@@ -37,7 +37,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "نروي قصص السعودية<span> • لنلهم العالم</span>",
+                            "default_value": "نروي قصص السعودية<span> • لنلهم العالم<\/span>",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -1017,7 +1017,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "الجهات الحكومية والقطاع الخاص والفعاليات",
+                            "default_value": "فرز المحتوى بحسب الجهة أو الفعاليّة",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -1038,7 +1038,7 @@
                                 "class": "",
                                 "id": ""
                             },
-                            "default_value": "فرز المحتوى بحسب الجهة أو الفعاليّة",
+                            "default_value": "دليل الجهات",
                             "maxlength": "",
                             "allow_in_bindings": 0,
                             "placeholder": "",
@@ -2000,7 +2000,7 @@
                     "sub_fields": [
                         {
                             "key": "field_6aa828e883fc6",
-                            "label": "Ad Code / Script",
+                            "label": "Ad Code \/ Script",
                             "name": "ad_code",
                             "aria-label": "",
                             "type": "textarea",
@@ -2057,5 +2057,5 @@
     "display_title": "",
     "allow_ai_access": false,
     "ai_description": "",
-    "modified": 1795101236
+    "modified": 1795332213
 }
