@@ -201,9 +201,16 @@ $render_sub_tabs = static function (array $groups, int $default_id, string $type
                         class="material-symbols-outlined absolute start-3 text-on-surface-variant/70 text-[18px] pointer-events-none select-none">search</span>
                     <input type="search"
                         class="entity-search-input w-full rounded-full border border-surface-container-highest bg-surface-container-lowest py-2 !ps-10 !pe-3 text-sm text-on-background placeholder:text-on-surface-variant/60 shadow-xs transition-all focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 [&::-webkit-search-cancel-button]:appearance-none"
-                        placeholder="<?php esc_attr_e('Search…', 'hello-elementor-child'); ?>" autocomplete="off" />
+                        placeholder="<?php esc_attr_e('Search for an entity or event', 'hello-elementor-child'); ?>" autocomplete="off" />
                 </div>
             </div>
+            <?php $submit_page_id = function_exists('get_submission_page_id') ? get_submission_page_id('submit') : 0; ?>
+            <?php if ($submit_page_id): ?>
+                <a href="<?php echo esc_url(get_permalink($submit_page_id)); ?>"
+                    class="entity-submit-link shrink-0 px-space-md py-space-xs rounded-full font-label-pill text-label-pill bg-primary text-on-primary transition-colors">
+                    <?php esc_html_e('Add your entity or event', 'hello-elementor-child'); ?>
+                </a>
+            <?php endif; ?>
         </div>
 
         <?php /* Filled by JS while searching; the type panels are hidden meanwhile. */ ?>

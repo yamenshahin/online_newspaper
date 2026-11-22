@@ -3290,8 +3290,12 @@ msgid "Too many results, type a more specific word to narrow the search"
 msgstr "النتائج كثيرة، اكتب كلمة أدق لتضييق البحث"
 
 #: template-parts/entities/entity-browse-section.php:204
-msgid "Search…"
-msgstr "ابحث…"
+msgid "Search for an entity or event"
+msgstr "ابحث عن جهة أو فعالية"
+
+#: template-parts/entities/entity-browse-section.php:210
+msgid "Add your entity or event"
+msgstr "أضف جهتك أو فعاليتك"
 
 #: template-parts/header-search.php:23
 msgid "Search the site"
